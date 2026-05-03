@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meringo — The Roon of Android</title>
+<meta name="description" content="The definitive bit-perfect music player for Android DAPs. Built for audiophiles who demand the full signal chain.">
+<meta property="og:title" content="Meringo — The Roon of Android">
+<meta property="og:description" content="Bit-perfect playback. Acoustic DNA. Deep Velvet UI. Built for the FiiO M21 and serious listeners.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1A0E2E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'%3E%3Crect width='80' height='80' rx='18' fill='%231A0E2E'/%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F4D080'/%3E%3Cstop offset='100%25' stop-color='%23C89040'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ddc27a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%23c9a55a' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='34' stroke='url(%23fr)' stroke-width='0.75'/%3E%3Ccircle cx='40' cy='40' r='26' stroke='%23E8B560' stroke-width='0.5' opacity='0.2'/%3E%3Cg fill='url(%23fg)'%3E%3Crect x='18' y='37' width='3' height='6' rx='1.5'/%3E%3Crect x='23' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='28' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='33' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='38' y='24' width='3' height='32' rx='1.5'/%3E%3Crect x='43' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='48' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='53' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='58' y='37' width='3' height='6' rx='1.5'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='2' fill='%23E8B560' opacity='0.55'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="colors_and_type.css">
+
+<style>
+/* Seal of Quality */
+.seal-of-quality {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  opacity: 0.55;
+  transition: opacity var(--duration-normal) var(--ease-velvet);
+  filter: drop-shadow(0 0 6px rgba(232,181,96,0.2));
+}
+.feature-card.featured:hover .seal-of-quality {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 12px rgba(232,181,96,0.4));
+}
+
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  background: var(--color-bg-base);
+  color: var(--color-text-0);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ── Noise grain overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.028;
+}
+
+/* ── Animations ── */
+@keyframes goldPulse {
+  0%,100% { box-shadow: 0 0 14px rgba(232,181,96,0.25), 0 0 4px rgba(232,181,96,0.4); }
+  50%     { box-shadow: 0 0 36px rgba(232,181,96,0.5),  0 0 10px rgba(232,181,96,0.65); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes waveFloat {
+  0%,100% { transform:translateY(0); }
+  50%     { transform:translateY(-6px); }
+}
+@keyframes barPulse {
+  0%,100% { opacity:0.5; transform:scaleY(0.7); }
+  50%     { opacity:1;   transform:scaleY(1); }
+}
+
+/* Ensure hero content is always visible even if animation is skipped */
+.fade-in {
+  animation: fadeUp 0.7s var(--ease-out) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in, .fade-in-1, .fade-in-2, .fade-in-3, .fade-in-4, .fade-in-5 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-logo-mark, .wf-bar, .btn-primary {
+    animation: none !important;
+  }
+}
+.fade-in-1 { animation-delay: 0.1s; }
+.fade-in-2 { animation-delay: 0.25s; }
+.fade-in-3 { animation-delay: 0.4s; }
+.fade-in-4 { animation-delay: 0.55s; }
+.fade-in-5 { animation-delay: 0.7s; }
+
+/* ── Layout shell ── */
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* ─────────────────────────────────
+   NAV
+───────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-dim);
+  background: var(--color-glass-scrim);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.nav-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+.nav-logo img {
+  height: 32px;
+  width: auto;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-1);
+  text-decoration: none;
+  letter-spacing: var(--tracking-wide);
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-velvet);
+}
+.nav-links a:hover { color: var(--color-text-0); }
+.nav-cta {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-bg-base) !important;
+  background: var(--color-gold);
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  letter-spacing: var(--tracking-wide);
+  white-space: nowrap;
+  transition: background var(--duration-fast) var(--ease-velvet), transform 0.1s ease;
+}
+.nav-cta:hover { background: var(--color-gold-bright) !important; transform: scale(0.98); }
+
+/* Mobile nav */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--color-text-1);
+  border-radius: 2px;
+  transition: all var(--duration-normal) var(--ease-velvet);
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: var(--color-glass-scrim);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--color-border-dim);
+  padding: var(--space-6);
+  flex-direction: column;
+  gap: var(--space-5);
+  z-index: 99;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-1);
+  text-decoration: none;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border-dim);
+}
+.mobile-menu a:last-child { border-bottom: none; }
+
+/* ─────────────────────────────────
+   HERO
+───────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px var(--space-6) 80px;
+  overflow: hidden;
+}
+
+/* Radial ambient glows */
+.hero-glow-a {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(107,60,160,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-glow-b {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(232,181,96,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Horizontal rule ornament */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.ornament-line {
+  flex: 1;
+  max-width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(232,181,96,0.35));
+}
+.ornament-line.right { background: linear-gradient(to left, transparent, rgba(232,181,96,0.35)); }
+.ornament-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--color-gold-dim);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+}
+.hero-logo-mark {
+  margin: var(--space-8) auto var(--space-6);
+  animation: waveFloat 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(232,181,96,0.3));
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 8vw, 100px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-text-0);
+  margin-bottom: var(--space-6);
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.hero-tagline {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-1);
+  letter-spacing: 0.01em;
+  max-width: 560px;
+  line-height: var(--leading-snug);
+  margin: 0 auto var(--space-10);
+}
+.hero-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-10);
+}
+.tech-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+}
+.badge-gold  { background: rgba(232,181,96,0.1); border-color: rgba(232,181,96,0.3); color: var(--color-gold); }
+.badge-teal  { background: rgba(61,139,139,0.1); border-color: rgba(61,139,139,0.3); color: var(--color-teal); }
+.badge-dim   { background: rgba(61,45,90,0.4);   border-color: var(--color-border-dim); color: var(--color-text-2); }
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-bg-base);
+  background: var(--color-gold);
+  padding: 14px 36px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  animation: goldPulse 3.5s ease-in-out infinite;
+  transition: background var(--duration-fast) var(--ease-velvet), transform 0.1s ease;
+}
+.btn-primary:hover { background: var(--color-gold-bright); transform: scale(0.98); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-1);
+  background: transparent;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--color-border-default);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-velvet), border-color var(--duration-fast) var(--ease-velvet);
+}
+.btn-secondary:hover { color: var(--color-text-0); border-color: var(--color-border-bright); }
+
+.hero-footer-note {
+  margin-top: var(--space-10);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-2);
+  letter-spacing: 0.04em;
+}
+
+/* ─────────────────────────────────
+   SECTION SHARED
+───────────────────────────────── */
+section {
+  padding: 96px var(--space-6);
+  position: relative;
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: var(--space-4);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-text-0);
+  margin-bottom: var(--space-4);
+}
+.section-title em { font-style: italic; color: var(--color-gold); }
+.section-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  font-weight: var(--weight-regular);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  max-width: 560px;
+}
+
+/* ─────────────────────────────────
+   DIVIDER
+───────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-border-dim) 20%, var(--color-border-dim) 80%, transparent);
+  margin: 0 var(--space-6);
+}
+
+/* ─────────────────────────────────
+   FEATURES
+───────────────────────────────── */
+#features {
+  background:
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(107,60,160,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 10% 80%, rgba(232,181,96,0.05) 0%, transparent 60%);
+}
+.features-header {
+  max-width: 600px;
+  margin-bottom: var(--space-16);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+.feature-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-6);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--duration-normal) var(--ease-velvet), box-shadow var(--duration-normal) var(--ease-velvet);
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+}
+.feature-card:hover {
+  border-color: var(--color-border-bright);
+  box-shadow: var(--shadow-card), 0 0 0 1px rgba(232,181,96,0.1), 0 8px 32px rgba(0,0,0,0.3);
+}
+.feature-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-5);
+}
+.feature-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: var(--space-2);
+}
+.feature-title {
+  font-family: var(--font-ui);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-0);
+  line-height: var(--leading-snug);
+  margin-bottom: var(--space-3);
+}
+.feature-desc {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+}
+.feature-card.featured {
+  border-color: rgba(232,181,96,0.25);
+  background: linear-gradient(135deg, var(--color-bg-surface) 0%, rgba(232,181,96,0.04) 100%);
+}
+.feature-card.featured:hover {
+  border-color: rgba(232,181,96,0.45);
+}
+
+/* ─────────────────────────────────
+   SPEC STRIP
+───────────────────────────────── */
+.spec-strip {
+  border-top: 1px solid var(--color-border-dim);
+  border-bottom: 1px solid var(--color-border-dim);
+  background: var(--color-bg-surface);
+  padding: var(--space-6) 0;
+  overflow: hidden;
+}
+.spec-row {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+}
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3) var(--space-4);
+  position: relative;
+}
+.spec-item + .spec-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 36px;
+  background: var(--color-border-dim);
+}
+.spec-key {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-2);
+}
+.spec-val {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-0);
+  white-space: nowrap;
+}
+.spec-val.gold { color: var(--color-gold); }
+.spec-val.teal { color: var(--color-teal); }
+
+/* ─────────────────────────────────
+   PHILOSOPHY BAND
+───────────────────────────────── */
+#philosophy {
+  text-align: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(72,32,110,0.18) 0%, transparent 70%),
+    var(--color-bg-base);
+}
+.philosophy-quote {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--color-text-0);
+  max-width: 760px;
+  margin: 0 auto var(--space-8);
+  letter-spacing: -0.01em;
+}
+.philosophy-quote span { color: var(--color-gold); }
+.philosophy-attr {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-2);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ─────────────────────────────────
+   PHONE MOCKUP TEASE
+───────────────────────────────── */
+#app-preview {
+  padding: 96px var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+.preview-copy { flex: 1; max-width: 480px; }
+.preview-device {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.device-glow {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse at center, rgba(107,60,160,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.device-shell {
+  width: 240px;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-default);
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px var(--color-border-dim),
+    0 48px 96px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(244,232,208,0.06);
+  position: relative;
+}
+.device-notch {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 8px;
+}
+.device-notch-pill {
+  width: 56px; height: 8px;
+  background: #0a0814;
+  border-radius: var(--radius-pill);
+}
+.device-screen {
+  background: linear-gradient(160deg, #1a0e2e 0%, #120920 100%);
+  padding: 16px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ds-now-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-2);
+  text-align: center;
+}
+.ds-artwork {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #3E2860 0%, #1a0e2e 100%);
+  border: 1px solid var(--color-border-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.ds-artwork-rings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(232,181,96,0.12);
+}
+.ds-track-info { text-align: center; }
+.ds-track-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-text-0);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+.ds-track-artist {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-text-2);
+}
+.ds-progress {
+  height: 2px;
+  background: var(--color-border-dim);
+  border-radius: 2px;
+  position: relative;
+  margin: 0 4px;
+}
+.ds-progress-fill {
+  position: absolute;
+  top: 0; left: 0;
+  width: 42%;
+  height: 100%;
+  background: linear-gradient(to right, var(--color-gold-dim), var(--color-gold));
+  border-radius: 2px;
+}
+.ds-progress-dot {
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 6px rgba(232,181,96,0.6);
+}
+.ds-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.ds-ctrl-btn {
+  width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-1);
+}
+.ds-ctrl-btn.play {
+  width: 44px; height: 44px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  color: var(--color-bg-base);
+  box-shadow: 0 0 14px rgba(232,181,96,0.4);
+}
+.ds-meta-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.ds-badge {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+.ds-badge.g { background: rgba(232,181,96,0.12); border: 1px solid rgba(232,181,96,0.25); color: var(--color-gold); }
+.ds-badge.t { background: rgba(61,139,139,0.1); border: 1px solid rgba(61,139,139,0.25); color: var(--color-teal); }
+
+/* Waveform bars in device */
+.waveform-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 24px;
+}
+.wf-bar {
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-gold);
+  transform-origin: bottom center;
+}
+.wf-bar:nth-child(1)  { height: 5px;  animation: barPulse 1.4s ease-in-out 0.0s infinite; }
+.wf-bar:nth-child(2)  { height: 9px;  animation: barPulse 1.4s ease-in-out 0.1s infinite; }
+.wf-bar:nth-child(3)  { height: 14px; animation: barPulse 1.4s ease-in-out 0.2s infinite; }
+.wf-bar:nth-child(4)  { height: 20px; animation: barPulse 1.4s ease-in-out 0.3s infinite; }
+.wf-bar:nth-child(5)  { height: 24px; animation: barPulse 1.4s ease-in-out 0.25s infinite; }
+.wf-bar:nth-child(6)  { height: 20px; animation: barPulse 1.4s ease-in-out 0.15s infinite; }
+.wf-bar:nth-child(7)  { height: 14px; animation: barPulse 1.4s ease-in-out 0.05s infinite; }
+.wf-bar:nth-child(8)  { height: 9px;  animation: barPulse 1.4s ease-in-out 0.2s infinite; }
+.wf-bar:nth-child(9)  { height: 5px;  animation: barPulse 1.4s ease-in-out 0.3s infinite; }
+
+/* ─────────────────────────────────
+   SUPPORT
+───────────────────────────────── */
+#support {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 80%, rgba(232,181,96,0.05) 0%, transparent 65%),
+    var(--color-bg-surface);
+  text-align: center;
+}
+.support-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12) var(--space-10);
+  box-shadow: var(--shadow-elevated);
+}
+.support-icon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-md);
+  background: rgba(232,181,96,0.08);
+  border: 1px solid rgba(232,181,96,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+}
+.support-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-text-0);
+  margin-bottom: var(--space-4);
+}
+.support-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-8);
+}
+.support-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-gold);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid rgba(232,181,96,0.3);
+  padding-bottom: 2px;
+  transition: color var(--duration-fast), border-color var(--duration-fast);
+}
+.support-link:hover { color: var(--color-gold-bright); border-color: rgba(232,181,96,0.6); }
+
+/* ─────────────────────────────────
+   PRIVACY POLICY
+───────────────────────────────── */
+#privacy {
+  background: var(--color-bg-base);
+}
+.privacy-layout {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+}
+.privacy-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+.privacy-block h3 {
+  font-family: var(--font-ui);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-0);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-dim);
+}
+.privacy-block p {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-4);
+}
+.privacy-block p:last-child { margin-bottom: 0; }
+.privacy-block ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.privacy-block ul li {
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  padding-left: var(--space-5);
+  position: relative;
+}
+.privacy-block ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 6px; height: 1px;
+  background: var(--color-gold-dim);
+}
+.privacy-effective {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-2);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-8);
+}
+
+/* ─────────────────────────────────
+   FOOTER
+───────────────────────────────── */
+footer {
+  border-top: 1px solid var(--color-border-dim);
+  padding: var(--space-12) var(--space-6);
+}
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+.footer-brand { display: flex; flex-direction: column; gap: var(--space-3); }
+.footer-brand-line {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-2);
+  letter-spacing: 0.04em;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.footer-links a {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+.footer-links a:hover { color: var(--color-text-0); }
+.footer-copy {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+  line-height: var(--leading-loose);
+}
+
+/* ─────────────────────────────────
+   RESPONSIVE
+───────────────────────────────── */
+@media (max-width: 900px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  #app-preview { flex-direction: column-reverse; text-align: center; }
+  .preview-copy { max-width: 100%; }
+  .privacy-layout { max-width: 100%; }
+  .spec-row { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  section { padding: 64px var(--space-4); }
+  .features-grid { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; gap: var(--space-8); }
+  .container { padding: 0 var(--space-4); }
+  .hero { padding: 100px var(--space-4) 64px; }
+  .hero-cta-group { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
+  .support-card { padding: var(--space-8); }
+  .spec-row { grid-template-columns: repeat(2, 1fr); }
+  .spec-item + .spec-item::before { display: none; }
+  .spec-item {
+    border-bottom: 1px solid var(--color-border-dim);
+    padding: var(--space-3) var(--space-2);
+  }
+  .spec-item:nth-child(odd) { border-right: 1px solid var(--color-border-dim); }
+  .spec-item:nth-last-child(-n+2) { border-bottom: none; }
+  #app-preview { padding: 64px var(--space-4); }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/logo.svg" alt="Meringo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#app-preview">The App</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+      <li><a href="#support" class="nav-cta">Get Meringo</a></li>
+    </ul>
+    <button class="nav-hamburger" id="menuBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features"    onclick="closeMobile()">Features</a>
+  <a href="#app-preview" onclick="closeMobile()">The App</a>
+  <a href="#support"     onclick="closeMobile()">Support</a>
+  <a href="#privacy"     onclick="closeMobile()">Privacy</a>
+  <a href="#support"     onclick="closeMobile()" style="color:var(--color-gold);font-weight:600;">Get Meringo</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-glow-a"></div>
+  <div class="hero-glow-b"></div>
+
+  <p class="hero-eyebrow fade-in fade-in-1">Hardware-first. Bit-perfect. Deep Velvet.</p>
+
+  <!-- Waveform logo mark -->
+  <div class="hero-logo-mark fade-in fade-in-2">
+    <svg width="96" height="96" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hero-gld" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F4D080"></stop>
+          <stop offset="100%" stop-color="#C89040"></stop>
+        </linearGradient>
+        <linearGradient id="hero-gldfade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E8B560" stop-opacity="0.8"></stop>
+          <stop offset="100%" stop-color="#9E7A3E" stop-opacity="0.25"></stop>
+        </linearGradient>
+      </defs>
+      <circle cx="40" cy="40" r="37" stroke="url(#hero-gldfade)" stroke-width="0.75"></circle>
+      <circle cx="40" cy="40" r="28" stroke="#E8B560" stroke-width="0.5" opacity="0.18"></circle>
+      <g fill="url(#hero-gld)">
+        <rect x="18" y="37" width="3" height="6"  rx="1.5"></rect>
+        <rect x="23" y="34" width="3" height="12" rx="1.5"></rect>
+        <rect x="28" y="30" width="3" height="20" rx="1.5"></rect>
+        <rect x="33" y="27" width="3" height="26" rx="1.5"></rect>
+        <rect x="38" y="24" width="3" height="32" rx="1.5"></rect>
+        <rect x="43" y="27" width="3" height="26" rx="1.5"></rect>
+        <rect x="48" y="30" width="3" height="20" rx="1.5"></rect>
+        <rect x="53" y="34" width="3" height="12" rx="1.5"></rect>
+        <rect x="58" y="37" width="3" height="6"  rx="1.5"></rect>
+      </g>
+      <circle cx="40" cy="40" r="2" fill="#E8B560" opacity="0.5"></circle>
+    </svg>
+  </div>
+
+  <h1 class="hero-title fade-in fade-in-3">
+    Your music.<br><em>Exactly as recorded.</em>
+  </h1>
+
+  <p class="hero-tagline fade-in fade-in-3">
+    The definitive bit-perfect music player for Android DAPs. Built for audiophiles who demand the full signal chain.
+  </p>
+
+  <div class="hero-badge-row fade-in fade-in-4">
+    <span class="tech-badge badge-gold">FLAC</span>
+    <span class="tech-badge badge-gold">DSD</span>
+    <span class="tech-badge badge-gold">24-BIT</span>
+    <span class="tech-badge badge-teal">192 KHZ</span>
+    <span class="tech-badge badge-teal">BIT-PERFECT</span>
+    <span class="tech-badge badge-dim">FiiO M21</span>
+    <span class="tech-badge badge-dim">SNAPDRAGON 680</span>
+  </div>
+
+  <div class="hero-cta-group fade-in fade-in-5">
+    <a href="#support" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Enter the Shrine
+    </a>
+    <a href="#features" class="btn-secondary">
+      Explore features
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <p class="hero-footer-note fade-in fade-in-5">Built with care in Erie County, NY</p>
+</section>
+
+<!-- ─── SPEC STRIP ─── -->
+<div class="spec-strip">
+  <div class="spec-row">
+    <div class="spec-item">
+      <span class="spec-key">Platform</span>
+      <span class="spec-val">Android DAP</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-key">Audio Engine</span>
+      <span class="spec-val gold">Bit-Perfect</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-key">Max Resolution</span>
+      <span class="spec-val teal">24-bit / 192 kHz</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-key">Fingerprinting</span>
+      <span class="spec-val">AcoustID</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-key">Metadata</span>
+      <span class="spec-val">MusicBrainz</span>
+    </div>
+    <div class="spec-item">
+      <span class="spec-key">Privacy</span>
+      <span class="spec-val gold">Local-First</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURES ─── -->
+<section id="features">
+  <div class="container">
+    <div class="features-header">
+      <p class="section-label">Hardware-First Engineering</p>
+      <h2 class="section-title">Built for the signal chain,<br><em>not the playlist.</em></h2>
+      <p class="section-body">Every architectural decision in Meringo starts at the DAC and works backwards. No compromises in the path between your files and your ears.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <!-- 1 -->
+      <div class="feature-card featured" style="position:relative;">
+        <!-- Seal of Quality -->
+        <div class="seal-of-quality">
+          <svg width="72" height="72" viewBox="0 0 320 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Monochromatic gold line-art — head + hat only, etched style -->
+            <g stroke="#E8B560" stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <!-- Hat brim -->
+              <ellipse cx="160" cy="106" rx="72" ry="13" stroke-width="3"/>
+              <!-- Hat crown -->
+              <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" stroke-width="2.5"/>
+              <!-- Hat band -->
+              <line x1="104" y1="100" x2="216" y2="100" stroke-width="5"/>
+              <!-- Peace on band -->
+              <circle cx="160" cy="95" r="7" stroke-width="2"/>
+              <line x1="160" y1="88" x2="160" y2="102" stroke-width="2"/>
+              <line x1="160" y1="95" x2="153.9" y2="98.5" stroke-width="2"/>
+              <line x1="160" y1="95" x2="166.1" y2="98.5" stroke-width="2"/>
+              <!-- Hat tip star -->
+              <polygon points="160,-4 162.3,-10.5 169.2,-10.5 163.7,-14.5 165.8,-21 160,-17 154.2,-21 156.3,-14.5 150.8,-10.5 157.7,-10.5" stroke-width="1.5" fill="rgba(232,181,96,0.15)"/>
+              <!-- Head outline -->
+              <ellipse cx="160" cy="168" rx="54" ry="52" stroke-width="2"/>
+              <!-- Ears -->
+              <ellipse cx="108" cy="168" rx="10" ry="13" stroke-width="1.5"/>
+              <ellipse cx="212" cy="168" rx="10" ry="13" stroke-width="1.5"/>
+              <!-- Hair mop -->
+              <path d="M108 148C107 136 110 120 116 108C122 96 132 88 142 84C150 80 156 80 160 80C164 80 170 80 178 84C188 88 198 96 204 108C210 120 213 136 212 148" stroke-width="2" fill="rgba(232,181,96,0.08)"/>
+              <!-- Glasses (sunglasses on — playing state) -->
+              <ellipse cx="136" cy="160" rx="18" ry="13" stroke-width="2" fill="rgba(20,10,32,0.85)"/>
+              <ellipse cx="184" cy="160" rx="18" ry="13" stroke-width="2" fill="rgba(20,10,32,0.85)"/>
+              <path d="M154 158C156 155 164 155 166 158" stroke-width="2"/>
+              <line x1="118" y1="158" x2="108" y2="163" stroke-width="1.5"/>
+              <line x1="202" y1="158" x2="212" y2="163" stroke-width="1.5"/>
+              <!-- Brows -->
+              <path d="M120 146 Q136 140 150 143" stroke-width="3.5"/>
+              <path d="M170 143 Q184 140 200 146" stroke-width="3.5"/>
+              <!-- Moustache -->
+              <path d="M144 197 C146 192 151 190 160 192 C169 190 174 192 176 197 C173 200 160 201 144 197Z" stroke-width="1.5" fill="rgba(232,181,96,0.1)"/>
+              <path d="M144 197 C142 201 143 205 145 205" stroke-width="1.5"/>
+              <path d="M176 197 C178 201 177 205 175 205" stroke-width="1.5"/>
+              <!-- Smile -->
+              <path d="M152 210 Q160 218 168 210" stroke-width="2.5"/>
+              <!-- Collar hint -->
+              <path d="M134 218C138 212 148 208 160 208C172 208 182 212 186 218" stroke-width="1.5" opacity="0.6"/>
+              <!-- Stars on crown -->
+              <polygon points="130,62 131.4,57.7 135.9,57.7 132.5,55.1 133.8,50.9 130,53.4 126.2,50.9 127.5,55.1 124.1,57.7 128.6,57.7" stroke-width="1" fill="rgba(232,181,96,0.2)"/>
+              <polygon points="190,56 191.4,51.7 195.9,51.7 192.5,49.1 193.8,44.9 190,47.4 186.2,44.9 187.5,49.1 184.1,51.7 188.6,51.7" stroke-width="1" fill="rgba(232,181,96,0.2)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+          </svg>
+        </div>
+        <span class="feature-label">Core Engine</span>
+        <h3 class="feature-title">Bit-Perfect Playback</h3>
+        <p class="feature-desc">Meringo bypasses Android's sample-rate converter entirely — every sample reaches your DAC exactly as the recording engineer intended. No resampling. No dithering. No compromise.</p>
+      </div>
+
+      <!-- 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <span class="feature-label">SQ Engine</span>
+        <h3 class="feature-title">Sound Quality First</h3>
+        <p class="feature-desc">The SQ engine is purpose-built for DAPs like the FiiO M21. Direct DAC passthrough, no middleware audio processing stack in the way of your high-res FLACs.</p>
+      </div>
+
+      <!-- 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D8B8B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/>
+          </svg>
+        </div>
+        <span class="feature-label">Acoustic DNA</span>
+        <h3 class="feature-title">Identity Resolver</h3>
+        <p class="feature-desc">AcoustID fingerprinting scans your library and matches it against MusicBrainz — surfacing producer credits, session musicians, liner notes, and high-res artwork from the Cover Art Archive.</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+        </div>
+        <span class="feature-label">Dual-Lens Library</span>
+        <h3 class="feature-title">The Vault &amp; The Cloud</h3>
+        <p class="feature-desc">Toggle between your Local Vault of FLAC files and your Jellyfin Cloud server without blending the two sources. Each lens maintains its own identity, metadata, and playback context.</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D8B8B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <span class="feature-label">Privacy</span>
+        <h3 class="feature-title">Encrypted &amp; Local-First</h3>
+        <p class="feature-desc">Your library, your Jellyfin credentials, your listening history — all encrypted on-device. No telemetry. No cloud sync. No data ever leaves your device without your explicit consent.</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+        </div>
+        <span class="feature-label">DAP-Optimized</span>
+        <h3 class="feature-title">Built for FiiO M21</h3>
+        <p class="feature-desc">Tuned for the Snapdragon 680 / 4GB RAM target. Low memory footprint, efficient background scanning via WorkManager, and an interface scaled for a DAP's 4–5 inch screen.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── PHILOSOPHY ─── -->
+<section id="philosophy">
+  <div class="container">
+    <div class="ornament" style="justify-content:center; max-width:200px; margin: 0 auto var(--space-10);">
+      <div class="ornament-line"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-line right"></div>
+    </div>
+    <blockquote class="philosophy-quote">
+      "I built Meringo because I wanted a more <span>refined, high-fidelity</span> way to experience a music library."
+    </blockquote>
+    <p class="philosophy-attr">Adam Siemaszko — Developer, Erie County, NY</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── APP PREVIEW ─── -->
+<section id="app-preview">
+  <div class="container" style="display:flex; align-items:center; gap:var(--space-16); flex-wrap:wrap;">
+
+    <div class="preview-copy">
+      <p class="section-label">Deep Velvet UI</p>
+      <h2 class="section-title">The UI is an <em>instrument,</em><br>not a media player.</h2>
+      <p class="section-body" style="margin-bottom:var(--space-8);">Every screen in Meringo is designed to disappear — letting the music and its metadata take the foreground. Dark, layered surfaces. Warm gold accents. Nothing that doesn't earn its place.</p>
+      <div style="display:flex; flex-wrap:wrap; gap:var(--space-3);">
+        <span class="tech-badge badge-gold">Cormorant Garamond</span>
+        <span class="tech-badge badge-dim">Outfit UI</span>
+        <span class="tech-badge badge-dim">JetBrains Mono</span>
+        <span class="tech-badge badge-teal">CSS Grain Texture</span>
+      </div>
+    </div>
+
+    <div class="preview-device">
+      <div class="device-glow"></div>
+      <div class="device-shell">
+        <div class="device-notch">
+          <div class="device-notch-pill"></div>
+        </div>
+        <div class="device-screen">
+          <p class="ds-now-label">Now Playing</p>
+
+          <!-- Artwork placeholder -->
+          <div class="ds-artwork">
+            <div class="ds-artwork-rings">
+              <div class="ds-ring" style="width:130px;height:130px;"></div>
+              <div class="ds-ring" style="width:90px;height:90px;opacity:0.6;"></div>
+              <div class="ds-ring" style="width:50px;height:50px;opacity:0.3;"></div>
+            </div>
+            <!-- Animated waveform -->
+            <div class="waveform-preview">
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+              <div class="wf-bar"></div>
+            </div>
+          </div>
+
+          <!-- Track info -->
+          <div class="ds-track-info">
+            <p class="ds-track-title">Reference Track</p>
+            <p class="ds-track-artist">The Vault · Local</p>
+          </div>
+
+          <!-- Progress -->
+          <div class="ds-progress">
+            <div class="ds-progress-fill"></div>
+            <div class="ds-progress-dot"></div>
+          </div>
+
+          <!-- Controls -->
+          <div class="ds-controls">
+            <div class="ds-ctrl-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+            </div>
+            <div class="ds-ctrl-btn play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            </div>
+            <div class="ds-ctrl-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+            </div>
+          </div>
+
+          <!-- Badges -->
+          <div class="ds-meta-row">
+            <span class="ds-badge g">FLAC</span>
+            <span class="ds-badge t">24-BIT</span>
+            <span class="ds-badge t">192 KHZ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── SUPPORT ─── -->
+<section id="support">
+  <p class="section-label" style="text-align:center; margin-bottom:var(--space-8);">Get in Touch</p>
+  <div class="support-card">
+    <div class="support-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+      </svg>
+    </div>
+    <h2 class="support-title">Support</h2>
+    <p class="support-body">Questions, bug reports, or feedback — reach Adam directly. As a solo developer, I read and reply to every message personally.</p>
+    <a href="mailto:support@meringo.app" class="support-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      support@meringo.app
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ─── PRIVACY POLICY ─── -->
+<section id="privacy">
+  <div class="container">
+    <p class="section-label">Legal</p>
+    <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
+    <p class="privacy-effective">EFFECTIVE DATE: January 1, 2025 &nbsp;·&nbsp; BUILT BY ADAM SIEMASZKO</p>
+
+    <div class="privacy-layout">
+      <div class="privacy-content">
+        <div class="privacy-block" id="priv-overview">
+          <h3>Overview</h3>
+          <p>Meringo is a local-first music player built by Adam Siemaszko. I do not operate servers that collect your personal data. I do not run analytics pipelines. I built Meringo because I wanted a more refined, high-fidelity way to experience a music library — not to harvest data.</p>
+          <p>This policy describes what minimal data interactions the application has, and exactly why they exist.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-collect">
+          <h3>What We Collect</h3>
+          <p>Meringo collects no personal data on my servers. On your device, the app stores:</p>
+          <ul>
+            <li>Your music library metadata (artist, album, track, file path) in a local Room/SQLite database</li>
+            <li>Your Jellyfin server credentials, encrypted on-device using Android Keystore</li>
+            <li>Your listening preferences and app settings via encrypted DataStore</li>
+            <li>Cached artwork and editorial metadata fetched from public APIs</li>
+          </ul>
+          <p>None of this data is transmitted to me or to any third party for advertising or tracking purposes.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-acoustid">
+          <h3>Acoustic DNA Fingerprinting</h3>
+          <p>The Identity Resolver uses AcoustID (libchromaprint) to generate an acoustic fingerprint of your audio files. This fingerprint is a compact mathematical representation of the audio signal — not an audio recording.</p>
+          <p>Fingerprints are submitted to the AcoustID public API solely to retrieve a MusicBrainz recording ID. No personal information, file names, or listening history is attached to these submissions. The AcoustID service is subject to its own privacy policy at acoustid.org.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-third">
+          <h3>Third-Party Services</h3>
+          <p>Meringo integrates with the following public, read-only APIs to provide editorial content:</p>
+          <ul>
+            <li><strong style="color:var(--color-text-0)">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information</li>
+            <li><strong style="color:var(--color-text-0)">Cover Art Archive</strong> — High-resolution album artwork</li>
+            <li><strong style="color:var(--color-text-0)">Fanart.tv</strong> — Additional artist imagery</li>
+            <li><strong style="color:var(--color-text-0)">Jellyfin SDK</strong> — Your personal Jellyfin server only; configured by you</li>
+          </ul>
+          <p>All external requests are for content retrieval only. Use of these services is subject to their respective terms and privacy policies.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-storage">
+          <h3>Local Storage &amp; Security</h3>
+          <p>All sensitive data — Jellyfin credentials, preferences — is encrypted using the Android Keystore system. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
+          <p>Meringo requests only the permissions required for operation: <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_MEDIA_AUDIO</span>, <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">INTERNET</span> (for metadata APIs and Jellyfin), and <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE</span> (for background playback).</p>
+        </div>
+
+        <div class="privacy-block" id="priv-rights">
+          <h3>Your Rights</h3>
+          <p>Because Meringo does not collect personal data on any server I control, there is no data for me to provide, correct, or delete on my end. All data the app holds is stored on your device and can be removed by uninstalling the application.</p>
+          <p>The application is provided as-is. As a solo developer, I work hard to keep Meringo stable and respectful of your privacy, but I cannot guarantee it will be free of defects.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-contact">
+          <h3>Contact</h3>
+          <p>Questions about this privacy policy or Meringo's data practices? Write to me directly:</p>
+          <a href="mailto:support@meringo.app" class="support-link" style="margin-top:var(--space-2); display:inline-flex;">support@meringo.app</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo.svg" alt="Meringo" style="height:28px; width:auto; opacity:0.7;">
+      <p class="footer-brand-line">The Roon of Android</p>
+      <p class="footer-copy">© 2025 Adam Siemaszko. Erie County, NY.<br>All rights reserved.</p>
+    </div>
+    <div style="display:flex; gap:var(--space-16); flex-wrap:wrap;">
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#app-preview">The App</a>
+        <a href="#philosophy">Philosophy</a>
+      </div>
+      <div class="footer-links">
+        <a href="#support">Support</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="mailto:support@meringo.app">support@meringo.app</a>
+      </div>
+    </div>
+
+    <!-- Mascot — sunglasses-on brand mark, click to toggle animation -->
+    <div class="footer-mascot playing" aria-label="Meringo mascot" role="button" tabindex="0">
+      <svg class="mascot-svg" width="110" height="151" viewBox="0 0 320 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="m-gSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F4E4C0"/><stop offset="100%" stop-color="#D4A870"/></linearGradient>
+          <linearGradient id="m-gHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3A2040"/><stop offset="100%" stop-color="#1E1028"/></linearGradient>
+          <linearGradient id="m-gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F4D080"/><stop offset="100%" stop-color="#9E7A3E"/></linearGradient>
+          <linearGradient id="m-gGoldH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4D080"/><stop offset="50%" stop-color="#E8B560"/><stop offset="100%" stop-color="#9E7A3E"/></linearGradient>
+          <linearGradient id="m-gGoldShine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF0A0"/><stop offset="40%" stop-color="#E8B560"/><stop offset="100%" stop-color="#7A5A20"/></linearGradient>
+          <linearGradient id="m-gRobe" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3E2860"/><stop offset="100%" stop-color="#1A0E2E"/></linearGradient>
+          <linearGradient id="m-gRobePanel" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4E3878"/><stop offset="100%" stop-color="#261840"/></linearGradient>
+          <linearGradient id="m-gTeal" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5DBDBD"/><stop offset="100%" stop-color="#2A7070"/></linearGradient>
+          <linearGradient id="m-gBoot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2A1830"/><stop offset="100%" stop-color="#0E0820"/></linearGradient>
+          <radialGradient id="m-gIris" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#8A6040"/><stop offset="50%" stop-color="#3A2010"/><stop offset="100%" stop-color="#180A04"/></radialGradient>
+          <radialGradient id="m-gFloor" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="#E8B560" stop-opacity="0.3"/><stop offset="100%" stop-color="#E8B560" stop-opacity="0"/></radialGradient>
+          <radialGradient id="m-gGlowGold" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#E8B560" stop-opacity="0.55"/><stop offset="100%" stop-color="#E8B560" stop-opacity="0"/></radialGradient>
+          <radialGradient id="m-gGlowVelvet" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9b7fd4" stop-opacity="0.35"/><stop offset="100%" stop-color="#9b7fd4" stop-opacity="0"/></radialGradient>
+        </defs>
+
+        <!-- Floor shadow -->
+        <ellipse cx="160" cy="425" rx="80" ry="14" fill="url(#m-gFloor)" opacity="0.55"/>
+        <!-- Ambient body glow -->
+        <ellipse cx="160" cy="260" rx="100" ry="120" fill="url(#m-gGlowVelvet)" opacity="0.18"/>
+
+        <!-- Float group (animated via CSS) -->
+        <g class="mascot-float">
+
+          <!-- BOOTS left -->
+          <g transform="translate(116,388)">
+            <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
+            <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
+            <rect x="6" y="0" width="11" height="8" rx="2" fill="#0E0820" stroke="#3D2D5A" stroke-width="0.4"/>
+            <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
+          </g>
+          <!-- BOOTS right -->
+          <g transform="translate(204,388) scale(-1,1)">
+            <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
+            <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
+            <rect x="6" y="0" width="11" height="8" rx="2" fill="#0E0820" stroke="#3D2D5A" stroke-width="0.4"/>
+            <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
+          </g>
+
+          <!-- ROBE -->
+          <path d="M108 248C103 272 93 320 88 390L232 390C227 320 217 272 212 248Z" fill="url(#m-gRobe)" stroke="#4E3878" stroke-width="0.8"/>
+          <path d="M148 252L160 248L172 252L170 390L150 390Z" fill="url(#m-gRobePanel)" opacity="0.65"/>
+          <!-- Frogging lines -->
+          <path d="M160 252L160 388" stroke="url(#m-gGold)" stroke-width="1.2" opacity="0.55"/>
+          <!-- Buttons -->
+          <circle cx="160" cy="268" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="268" r="1.2" fill="#1A0E2E"/>
+          <circle cx="160" cy="284" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="284" r="1.2" fill="#1A0E2E"/>
+          <circle cx="160" cy="300" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="300" r="1.2" fill="#1A0E2E"/>
+          <circle cx="160" cy="316" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="316" r="1.2" fill="#1A0E2E"/>
+          <!-- Hem -->
+          <path d="M88 390L232 390" stroke="url(#m-gGold)" stroke-width="2.2"/>
+          <!-- Epaulette lines -->
+          <path d="M108 255L88 258" stroke="#E8B560" stroke-width="1.1" opacity="0.6"/>
+          <path d="M108 263L88 266" stroke="#E8B560" stroke-width="1.0" opacity="0.52"/>
+          <path d="M212 255L232 258" stroke="#E8B560" stroke-width="1.1" opacity="0.6"/>
+          <path d="M212 263L232 266" stroke="#E8B560" stroke-width="1.0" opacity="0.52"/>
+
+          <!-- COLLAR -->
+          <path d="M130 246C130 236 140 230 160 230C180 230 190 236 190 246L186 254C180 248 171 246 160 246C149 246 140 248 134 254Z" fill="#F0E4CC"/>
+          <ellipse cx="160" cy="246" rx="8" ry="5" fill="url(#m-gGoldH)" stroke="#9E7A3E" stroke-width="0.5"/>
+          <circle cx="160" cy="246" r="2" fill="#1A0E2E"/>
+
+          <!-- LEFT ARM -->
+          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#3E2860" stroke-width="20" stroke-linecap="round" fill="none"/>
+          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#261840" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <ellipse cx="82" cy="346" rx="12" ry="9" fill="url(#m-gSkin)"/>
+          <!-- Rings left hand -->
+          <rect x="73" y="342" width="5" height="2.2" rx="1.1" fill="url(#m-gGold)"/>
+          <rect x="79" y="340" width="5" height="2.2" rx="1.1" fill="#9b7fd4"/>
+          <rect x="85" y="339" width="5" height="2.2" rx="1.1" fill="url(#m-gTeal)"/>
+
+          <!-- RIGHT ARM + WAND -->
+          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#3E2860" stroke-width="20" stroke-linecap="round" fill="none"/>
+          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#261840" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <ellipse cx="239" cy="340" rx="12" ry="9" fill="url(#m-gSkin)" transform="rotate(12,239,340)"/>
+          <!-- Wand (subtle wiggle via CSS) -->
+          <g class="mascot-wand" transform-origin="244 326">
+            <g transform="translate(244,326) rotate(-36)">
+              <path d="M-1.8 4L-1.4-70Q-0.8-82 0-86Q0.8-82 1.4-70L1.8 4Z" fill="#C4A882" stroke="#9E7A3E" stroke-width="0.4"/>
+              <ellipse cx="0" cy="-88" rx="5.5" ry="5.5" fill="url(#m-gGoldH)"/>
+              <circle cx="0" cy="-104" r="14" fill="url(#m-gGlowGold)" opacity="0.5"/>
+              <!-- Star tip -->
+              <polygon points="0,-97 2.3,-90.5 9.2,-90.5 3.7,-86.5 5.8,-80 0,-84 -5.8,-80 -3.7,-86.5 -9.2,-90.5 -2.3,-90.5" fill="url(#m-gGoldShine)"/>
+            </g>
+          </g>
+
+          <!-- NECK -->
+          <rect x="153" y="218" width="14" height="16" rx="5" fill="url(#m-gSkin)"/>
+
+          <!-- HEAD -->
+          <ellipse cx="160" cy="168" rx="54" ry="52" fill="url(#m-gSkin)"/>
+          <!-- Jaw shadow -->
+          <ellipse cx="160" cy="205" rx="40" ry="12" fill="#C09060" opacity="0.18"/>
+          <!-- Ears -->
+          <ellipse cx="108" cy="168" rx="10" ry="13" fill="url(#m-gSkin)" stroke="#B89060" stroke-width="0.4"/>
+          <ellipse cx="212" cy="168" rx="10" ry="13" fill="url(#m-gSkin)" stroke="#B89060" stroke-width="0.4"/>
+          <!-- Hair sides -->
+          <path d="M110 150C108 160 107 172 108 184" stroke="url(#m-gHair)" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M210 150C212 160 213 172 212 184" stroke="url(#m-gHair)" stroke-width="8" stroke-linecap="round" fill="none"/>
+
+          <!-- LEFT EYE -->
+          <ellipse cx="136" cy="160" rx="14" ry="11" fill="white" opacity="0.92"/>
+          <ellipse cx="136" cy="160" rx="9" ry="9" fill="url(#m-gIris)"/>
+          <ellipse cx="136" cy="160" rx="5" ry="5" fill="#1A0808"/>
+          <circle cx="139" cy="157.5" r="2" fill="white" opacity="0.9"/>
+          <!-- Upper lid / heavy droop -->
+          <path d="M122 158 Q136 147 150 158 Q146 163 136 162 Q126 163 122 158Z" fill="url(#m-gSkin)" opacity="0.88"/>
+          <path d="M122 159 Q136 149 150 159" stroke="#2A1020" stroke-width="2" fill="none"/>
+          <!-- Lower bag -->
+          <path d="M124 166 Q136 170 148 166" stroke="#B8986A" stroke-width="1.2" fill="none" opacity="0.45"/>
+
+          <!-- RIGHT EYE -->
+          <ellipse cx="184" cy="160" rx="14" ry="11" fill="white" opacity="0.92"/>
+          <ellipse cx="184" cy="160" rx="9" ry="9" fill="url(#m-gIris)"/>
+          <ellipse cx="184" cy="160" rx="5" ry="5" fill="#1A0808"/>
+          <circle cx="187" cy="157.5" r="2" fill="white" opacity="0.9"/>
+          <path d="M170 158 Q184 147 198 158 Q194 163 184 162 Q174 163 170 158Z" fill="url(#m-gSkin)" opacity="0.88"/>
+          <path d="M170 159 Q184 149 198 159" stroke="#2A1020" stroke-width="2" fill="none"/>
+          <path d="M172 166 Q184 170 196 166" stroke="#B8986A" stroke-width="1.2" fill="none" opacity="0.45"/>
+
+          <!-- BROWS -->
+          <path d="M120 146 Q136 140 150 143" stroke="#2A1010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <path d="M170 143 Q184 140 200 146" stroke="#2A1010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+          <!-- NOSE -->
+          <ellipse cx="155" cy="183" rx="6" ry="4" fill="#E8C888" opacity="0.85"/>
+          <ellipse cx="165" cy="183" rx="6" ry="4" fill="#E8C888" opacity="0.85"/>
+          <ellipse cx="154" cy="184" rx="3" ry="2.5" fill="#C8A060" opacity="0.3"/>
+          <ellipse cx="166" cy="184" rx="3" ry="2.5" fill="#C8A060" opacity="0.3"/>
+
+          <!-- MOUSTACHE -->
+          <path d="M144 197 C146 192 151 190 156 191 C158 191 159 192 160 192 C161 192 162 191 164 191 C169 190 174 192 176 197 C173 200 168 201 164 200 C162 200 161 199 160 199 C159 199 158 200 156 200 C152 201 147 200 144 197Z" fill="#3A1E38" opacity="0.92"/>
+          <path d="M144 197 C142 200 142 204 144 205 C146 206 147 204 147 201Z" fill="#3A1E38" opacity="0.92"/>
+          <path d="M176 197 C178 200 178 204 176 205 C174 206 173 204 173 201Z" fill="#3A1E38" opacity="0.92"/>
+
+          <!-- MOUTH — idle deadpan -->
+          <path class="m-idle-mouth" d="M153 212 Q160 211 167 212" stroke="#7A5030" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+          <!-- MOUTH — playing smile (hidden until .playing) -->
+          <g class="m-playing-smile" opacity="0">
+            <path d="M152 210 Q160 218 168 210" stroke="#7A4830" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+            <path d="M152 210 Q148 205 150 200" stroke="#C09878" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.5"/>
+            <path d="M168 210 Q172 205 170 200" stroke="#C09878" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.5"/>
+          </g>
+
+          <!-- GLASSES — playing only (hidden until .playing) -->
+          <g class="m-playing-glasses" opacity="0">
+            <ellipse cx="136" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+            <ellipse cx="130" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
+            <ellipse cx="184" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+            <ellipse cx="178" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
+            <path d="M154 158C156 155 164 155 166 158" stroke="url(#m-gGold)" stroke-width="1.5" fill="none"/>
+            <path d="M118 158C112 158 108 161 106 166" stroke="url(#m-gGold)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M202 158C208 158 212 161 214 166" stroke="url(#m-gGold)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <circle cx="118" cy="158" r="1.5" fill="url(#m-gGoldShine)"/>
+            <circle cx="202" cy="158" r="1.5" fill="url(#m-gGoldShine)"/>
+          </g>
+
+          <!-- MUSIC NOTES — playing only (hidden until .playing) -->
+          <g class="m-playing-notes" opacity="0">
+            <text x="252" y="148" font-size="20" fill="#E8B560" font-family="serif" opacity="0.85">♪</text>
+            <text x="48" y="134" font-size="16" fill="#9b7fd4" font-family="serif" opacity="0.75">♫</text>
+          </g>
+
+          <!-- HAIR mop top -->
+          <path d="M108 148C107 136 110 120 116 108C122 96 132 88 142 84C150 80 156 80 160 80C164 80 170 80 178 84C188 88 198 96 204 108C210 120 213 136 212 148" fill="url(#m-gHair)"/>
+          <path d="M108 148C106 140 104 132 105 122" fill="url(#m-gHair)"/>
+          <path d="M212 148C214 140 216 132 215 122" fill="url(#m-gHair)"/>
+
+          <!-- HAT brim -->
+          <ellipse cx="160" cy="106" rx="72" ry="13" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1.8"/>
+          <ellipse cx="160" cy="108" rx="65" ry="8" fill="none" stroke="url(#m-gTeal)" stroke-width="0.8" opacity="0.4"/>
+          <!-- Hat crown -->
+          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1"/>
+          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="url(#m-gRobe)" opacity="0.45"/>
+          <!-- Hat band -->
+          <path d="M104 100L216 100" stroke="url(#m-gGold)" stroke-width="4" stroke-linecap="round"/>
+          <!-- Peace on band -->
+          <circle cx="160" cy="95" r="7" stroke="#E8B560" stroke-width="1.4" fill="none" opacity="0.9"/>
+          <line x1="160" y1="88" x2="160" y2="102" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
+          <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
+          <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
+          <!-- Stars on crown -->
+          <polygon points="126,60 127.4,55.7 131.9,55.7 128.5,53.1 129.8,48.9 126,51.4 122.2,48.9 123.5,53.1 120.1,55.7 124.6,55.7" fill="url(#m-gGoldH)" opacity="0.4"/>
+          <polygon points="160,18 161.4,13.7 165.9,13.7 162.5,11.1 163.8,6.9 160,9.4 156.2,6.9 157.5,11.1 154.1,13.7 158.6,13.7" fill="url(#m-gGoldH)" opacity="0.38"/>
+          <polygon points="194,54 195.4,49.7 199.9,49.7 196.5,47.1 197.8,42.9 194,45.4 190.2,42.9 191.5,47.1 188.1,49.7 192.6,49.7" fill="url(#m-gGoldH)" opacity="0.36"/>
+          <!-- Hat tip moon/star -->
+          <circle cx="160" cy="-12" r="16" fill="url(#m-gGlowGold)" opacity="0.45"/>
+          <polygon points="160,-4 162.3,-10.5 169.2,-10.5 163.7,-14.5 165.8,-21 160,-17 154.2,-21 156.3,-14.5 150.8,-10.5 157.7,-10.5" fill="url(#m-gGoldShine)" opacity="0.95"/>
+
+        </g><!-- end float group -->
+      </svg>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+.footer-mascot {
+  display: flex;
+  align-items: flex-end;
+  opacity: 0.55;
+  transition: opacity 0.4s ease;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.footer-mascot:hover { opacity: 0.85; }
+.footer-mascot.playing { opacity: 1; }
+
+@keyframes mascotFloat {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-5px); }
+}
+@keyframes mascotBounce {
+  0%,100% { transform: translateY(0px); }
+  25%     { transform: translateY(-8px); }
+  75%     { transform: translateY(-3px); }
+}
+@keyframes noteFloat1 {
+  0%   { transform: translate(0,0);   opacity: 0; }
+  15%  { opacity: 0.85; }
+  100% { transform: translate(8px,-60px); opacity: 0; }
+}
+@keyframes noteFloat2 {
+  0%   { transform: translate(0,0);   opacity: 0; }
+  15%  { opacity: 0.75; }
+  100% { transform: translate(-6px,-50px); opacity: 0; }
+}
+.mascot-svg .mascot-float {
+  animation: mascotFloat 5s ease-in-out infinite;
+  transform-origin: 160px 425px;
+}
+.footer-mascot.playing .mascot-float {
+  animation: mascotBounce 0.9s ease-in-out infinite;
+}
+/* State transitions */
+.m-idle-mouth   { transition: opacity 0.3s ease; }
+.m-playing-smile, .m-playing-glasses, .m-playing-notes {
+  transition: opacity 0.35s ease;
+}
+.footer-mascot.playing .m-idle-mouth    { opacity: 0; }
+.footer-mascot.playing .m-playing-smile { opacity: 1; }
+.footer-mascot.playing .m-playing-glasses { opacity: 1; }
+.footer-mascot.playing .m-playing-notes  { opacity: 1; }
+/* Animate notes when playing */
+.footer-mascot.playing .m-playing-notes text:first-child {
+  animation: noteFloat1 2.2s ease-out infinite;
+  transform-origin: 262px 148px;
+}
+.footer-mascot.playing .m-playing-notes text:last-child {
+  animation: noteFloat2 2.8s ease-out 0.6s infinite;
+  transform-origin: 58px 134px;
+}
+@media (max-width: 640px) {
+  .footer-mascot { display: none; }
+}
+</style>
+<script>
+(function(){
+  const mascot = document.querySelector('.footer-mascot');
+  if (!mascot) return;
+  // Starts in playing state (sunglasses on) — click toggles to idle
+  function toggle() { mascot.classList.toggle('playing'); }
+  mascot.addEventListener('click', toggle);
+  mascot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggle(); });
+})();
+</script>
+
+<script>
+// Mobile nav toggle
+const menuBtn  = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let open = false;
+menuBtn.addEventListener('click', () => {
+  open = !open;
+  mobileMenu.classList.toggle('open', open);
+});
+function closeMobile() {
+  open = false;
+  mobileMenu.classList.remove('open');
+}
+
+
+
+// Intersection-based fade-in for feature cards
+// Use a CSS class approach — no inline opacity:0 that can get stuck
+const cardStyle = document.createElement('style');
+cardStyle.textContent = '.feature-card.card-hidden { opacity: 0; transform: translateY(16px); } .feature-card { transition: opacity 0.5s ease, transform 0.5s ease; }';
+document.head.appendChild(cardStyle);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.delay) || 0;
+      setTimeout(() => {
+        entry.target.classList.remove('card-hidden');
+      }, delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.feature-card').forEach((card, i) => {
+  card.dataset.delay = i * 80;
+  card.classList.add('card-hidden');
+  observer.observe(card);
+});
+</script>
+
+</body>
+</html>

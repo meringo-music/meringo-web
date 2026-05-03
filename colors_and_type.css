@@ -1,0 +1,272 @@
+/* ============================================================
+   MERINGO DESIGN SYSTEM — Colors & Typography
+   "Deep Velvet" aesthetic: dark indigo-blacks, warm gold, 
+   velvet-purple accents, warm off-white text.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ────────────────────────────────────────────────
+   PRIMITIVE COLOR TOKENS
+   Source: MeringoColors.kt (verified against codebase)
+   ──────────────────────────────────────────────── */
+:root {
+  /* ── Core backgrounds — from MeringoColors.kt ── */
+  --color-midnight-velvet:  #1A0E2E;  /* MidnightVelvet — primary bg; deep purple soul */
+  --color-velvet-surface:   #261840;  /* VelvetSurface — cards, sheets */
+  --color-velvet-elevated:  #32204F;  /* VelvetElevated — dialogs, bottom sheets */
+  --color-velvet-highest:   #3E2860;  /* surfaceContainerHighest */
+
+  /* Semantic aliases */
+  --color-void:         #1A0E2E;   /* = MidnightVelvet */
+  --color-bg-base:      #1A0E2E;
+  --color-bg-surface:   #261840;
+  --color-bg-elevated:  #32204F;
+  --color-bg-overlay:   #3E2860;
+
+  /* ── Borders ── */
+  --color-border-dim:     #3D2D5A;   /* outlineVariant */
+  --color-border-default: #7A6A52;   /* outline = ParchmentFaint */
+  --color-border-bright:  #9E7A3E;   /* CandlelightDim */
+  --color-border-gold:    rgba(232, 181, 96, 0.4);
+
+  /* ── Candlelight Gold — primary accent ── */
+  --color-gold:         #E8B560;   /* CandlelightGold */
+  --color-gold-dim:     #9E7A3E;   /* CandlelightDim */
+  --color-gold-bright:  #F4D080;   /* lightened hover */
+  --color-gold-subtle:  rgba(232, 181, 96, 0.12);
+  --color-gold-glow:    rgba(232, 181, 96, 0.35);
+
+  /* ── Rune Teal — secondary accent (hi-res indicators) ── */
+  --color-teal:         #3D8B8B;   /* RuneTeal */
+  --color-teal-dim:     #245454;   /* RuneTealDim */
+  --color-teal-subtle:  rgba(61, 139, 139, 0.15);
+  --color-teal-glow:    rgba(61, 139, 139, 0.3);
+
+  /* ── Parchment text scale ── */
+  --color-text-0:       #F4E8D0;   /* Parchment — primary */
+  --color-text-1:       #B8A88A;   /* ParchmentDim — secondary */
+  --color-text-2:       #7A6A52;   /* ParchmentFaint — muted */
+  --color-text-3:       #3D2D5A;   /* outlineVariant — disabled */
+
+  /* ── Glassmorphism ── */
+  --color-glass-scrim:    rgba(26, 14, 46, 0.80);  /* GlassScrim */
+  --color-glass-surface:  rgba(26, 14, 46, 0.60);  /* GlassSurface */
+
+  /* ── Semantic states ── */
+  --color-success:      #4CAF82;   /* SuccessGreen */
+  --color-success-dim:  rgba(76, 175, 130, 0.15);
+  --color-warning:      #FFB74D;   /* WarningAmber */
+  --color-error:        #C5453B;   /* EmberRed */
+  --color-error-dim:    rgba(197, 69, 59, 0.15);
+  --color-playing:      var(--color-gold);
+}
+
+/* ────────────────────────────────────────────────
+   SEMANTIC COLOR TOKENS
+   ──────────────────────────────────────────────── */
+:root {
+  /* Surfaces */
+  --bg:            var(--color-bg-base);
+  --bg-card:       var(--color-bg-surface);
+  --bg-elevated:   var(--color-bg-elevated);
+  --bg-overlay:    var(--color-bg-overlay);
+
+  /* Text */
+  --fg:            var(--color-text-0);
+  --fg-secondary:  var(--color-text-1);
+  --fg-muted:      var(--color-text-2);
+  --fg-disabled:   var(--color-text-3);
+
+  /* Accent */
+  --accent:        var(--color-gold);
+  --accent-hover:  var(--color-gold-bright);
+  --accent-subtle: var(--color-gold-subtle);
+
+  /* Borders */
+  --border:        var(--color-border-default);
+  --border-focus:  var(--color-border-gold);
+}
+
+/* ────────────────────────────────────────────────
+   TYPOGRAPHY TOKENS
+   ──────────────────────────────────────────────── */
+:root {
+  /* Font families */
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-ui:      'Outfit', 'system-ui', sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* Font sizes — 4px-based scale */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   17px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+  --text-3xl:  40px;
+  --text-4xl:  52px;
+  --text-5xl:  68px;
+  --text-hero: 88px;
+
+  /* Line heights */
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-normal: 1.5;
+  --leading-loose:  1.75;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.04em;
+  --tracking-wider:   0.1em;
+  --tracking-widest:  0.2em;
+
+  /* Font weights */
+  --weight-light:   300;
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-bold:    700;
+}
+
+/* ────────────────────────────────────────────────
+   SEMANTIC TYPE STYLES (as classes)
+   ──────────────────────────────────────────────── */
+
+/* Display — Cormorant Garamond; album titles, artist names */
+.type-hero {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-0);
+}
+.type-display-xl {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-0);
+}
+.type-display-lg {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-0);
+}
+.type-display-md {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-snug);
+  color: var(--color-text-0);
+}
+.type-display-sm {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  color: var(--color-text-0);
+}
+
+/* UI Text — Outfit */
+.type-title-lg { font-family: var(--font-ui); font-size: var(--text-xl); font-weight: var(--weight-semibold); line-height: var(--leading-snug); color: var(--color-text-0); }
+.type-title-md { font-family: var(--font-ui); font-size: var(--text-lg); font-weight: var(--weight-semibold); line-height: var(--leading-snug); color: var(--color-text-0); }
+.type-title-sm { font-family: var(--font-ui); font-size: var(--text-md); font-weight: var(--weight-medium); line-height: var(--leading-snug); color: var(--color-text-0); }
+
+.type-body-lg  { font-family: var(--font-ui); font-size: var(--text-md); font-weight: var(--weight-regular); line-height: var(--leading-normal); color: var(--color-text-1); }
+.type-body-md  { font-family: var(--font-ui); font-size: var(--text-base); font-weight: var(--weight-regular); line-height: var(--leading-normal); color: var(--color-text-1); }
+.type-body-sm  { font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-regular); line-height: var(--leading-normal); color: var(--color-text-1); }
+
+.type-label-lg { font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-medium); letter-spacing: var(--tracking-wide); color: var(--color-text-2); }
+.type-label-sm { font-family: var(--font-ui); font-size: var(--text-xs); font-weight: var(--weight-medium); letter-spacing: var(--tracking-wider); text-transform: uppercase; color: var(--color-text-2); }
+
+/* Mono — technical data */
+.type-mono-md { font-family: var(--font-mono); font-size: var(--text-sm); font-weight: var(--weight-regular); letter-spacing: 0.01em; color: var(--color-text-1); }
+.type-mono-sm { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: var(--weight-regular); letter-spacing: 0.01em; color: var(--color-text-2); }
+
+/* ────────────────────────────────────────────────
+   SPACING TOKENS
+   ──────────────────────────────────────────────── */
+:root {
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+}
+
+/* ────────────────────────────────────────────────
+   BORDER RADIUS TOKENS
+   ──────────────────────────────────────────────── */
+:root {
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   32px;
+  --radius-pill: 999px;
+}
+
+/* ────────────────────────────────────────────────
+   SHADOW / GLOW SYSTEM
+   ──────────────────────────────────────────────── */
+:root {
+  /* Elevation (border-based, not drop-shadow) */
+  --shadow-card:     inset 0 1px 0 rgba(255,255,255,0.04);
+  --shadow-elevated: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-modal:    0 8px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+
+  /* Gold glow — primary CTA, now-playing indicator */
+  --glow-gold-sm:  0 0 8px rgba(201,165,90,0.25);
+  --glow-gold-md:  0 0 20px rgba(201,165,90,0.3), 0 0 4px rgba(201,165,90,0.5);
+  --glow-gold-lg:  0 0 40px rgba(201,165,90,0.25), 0 0 80px rgba(201,165,90,0.1);
+
+  /* Velvet glow — secondary accent */
+  --glow-velvet-sm: 0 0 12px rgba(107,79,160,0.3);
+  --glow-velvet-md: 0 0 24px rgba(107,79,160,0.35), 0 0 6px rgba(155,127,212,0.2);
+
+  /* Focus ring */
+  --ring-focus: 0 0 0 2px var(--color-bg-base), 0 0 0 4px var(--color-gold);
+}
+
+/* ────────────────────────────────────────────────
+   ANIMATION TOKENS
+   ──────────────────────────────────────────────── */
+:root {
+  --ease-velvet: cubic-bezier(0.4, 0, 0.2, 1); /* smooth, deliberate */
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   350ms;
+  --duration-reveal: 500ms;
+}
+
+/* ────────────────────────────────────────────────
+   BASE RESET
+   ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { color-scheme: dark; }
+body {
+  background: var(--color-bg-base);
+  color: var(--color-text-0);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
