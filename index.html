@@ -713,8 +713,8 @@ section {
   pointer-events: none;
 }
 .device-shell {
-  width: 240px;
-  background: var(--color-bg-elevated);
+  width: 260px;
+  background: #0a0814;
   border: 1px solid var(--color-border-default);
   border-radius: 36px;
   overflow: hidden;
@@ -723,156 +723,17 @@ section {
     0 48px 96px rgba(0,0,0,0.7),
     inset 0 1px 0 rgba(244,232,208,0.06);
   position: relative;
+  padding: 6px;
 }
-.device-notch {
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 8px;
-}
-.device-notch-pill {
-  width: 56px; height: 8px;
-  background: #0a0814;
-  border-radius: var(--radius-pill);
-}
-.device-screen {
-  background: linear-gradient(160deg, #1a0e2e 0%, #120920 100%);
-  padding: 16px;
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.ds-now-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-2);
-  text-align: center;
-}
-.ds-artwork {
+.device-screen-img {
+  display: block;
   width: 100%;
-  aspect-ratio: 1;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #3E2860 0%, #1a0e2e 100%);
-  border: 1px solid var(--color-border-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+  height: auto;
+  border-radius: 30px;
+  aspect-ratio: 750 / 1334;
+  object-fit: cover;
+  object-position: top center;
 }
-.ds-artwork-rings {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.ds-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(232,181,96,0.12);
-}
-.ds-track-info { text-align: center; }
-.ds-track-title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--color-text-0);
-  line-height: 1.2;
-  margin-bottom: 3px;
-}
-.ds-track-artist {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--color-text-2);
-}
-.ds-progress {
-  height: 2px;
-  background: var(--color-border-dim);
-  border-radius: 2px;
-  position: relative;
-  margin: 0 4px;
-}
-.ds-progress-fill {
-  position: absolute;
-  top: 0; left: 0;
-  width: 42%;
-  height: 100%;
-  background: linear-gradient(to right, var(--color-gold-dim), var(--color-gold));
-  border-radius: 2px;
-}
-.ds-progress-dot {
-  position: absolute;
-  top: 50%;
-  left: 42%;
-  transform: translate(-50%, -50%);
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--color-gold);
-  box-shadow: 0 0 6px rgba(232,181,96,0.6);
-}
-.ds-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-.ds-ctrl-btn {
-  width: 28px; height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-1);
-}
-.ds-ctrl-btn.play {
-  width: 44px; height: 44px;
-  background: var(--color-gold);
-  border-radius: 50%;
-  color: var(--color-bg-base);
-  box-shadow: 0 0 14px rgba(232,181,96,0.4);
-}
-.ds-meta-row {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-.ds-badge {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 0.06em;
-  padding: 3px 7px;
-  border-radius: 4px;
-}
-.ds-badge.g { background: rgba(232,181,96,0.12); border: 1px solid rgba(232,181,96,0.25); color: var(--color-gold); }
-.ds-badge.t { background: rgba(61,139,139,0.1); border: 1px solid rgba(61,139,139,0.25); color: var(--color-teal); }
-
-/* Waveform bars in device */
-.waveform-preview {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  height: 24px;
-}
-.wf-bar {
-  width: 2px;
-  border-radius: 2px;
-  background: var(--color-gold);
-  transform-origin: bottom center;
-}
-.wf-bar:nth-child(1)  { height: 5px;  animation: barPulse 1.4s ease-in-out 0.0s infinite; }
-.wf-bar:nth-child(2)  { height: 9px;  animation: barPulse 1.4s ease-in-out 0.1s infinite; }
-.wf-bar:nth-child(3)  { height: 14px; animation: barPulse 1.4s ease-in-out 0.2s infinite; }
-.wf-bar:nth-child(4)  { height: 20px; animation: barPulse 1.4s ease-in-out 0.3s infinite; }
-.wf-bar:nth-child(5)  { height: 24px; animation: barPulse 1.4s ease-in-out 0.25s infinite; }
-.wf-bar:nth-child(6)  { height: 20px; animation: barPulse 1.4s ease-in-out 0.15s infinite; }
-.wf-bar:nth-child(7)  { height: 14px; animation: barPulse 1.4s ease-in-out 0.05s infinite; }
-.wf-bar:nth-child(8)  { height: 9px;  animation: barPulse 1.4s ease-in-out 0.2s infinite; }
-.wf-bar:nth-child(9)  { height: 5px;  animation: barPulse 1.4s ease-in-out 0.3s infinite; }
 
 /* ─────────────────────────────────
    SUPPORT
@@ -1413,65 +1274,7 @@ footer {
     <div class="preview-device">
       <div class="device-glow"></div>
       <div class="device-shell">
-        <div class="device-notch">
-          <div class="device-notch-pill"></div>
-        </div>
-        <div class="device-screen">
-          <p class="ds-now-label">Now Playing</p>
-
-          <!-- Artwork placeholder -->
-          <div class="ds-artwork">
-            <div class="ds-artwork-rings">
-              <div class="ds-ring" style="width:130px;height:130px;"></div>
-              <div class="ds-ring" style="width:90px;height:90px;opacity:0.6;"></div>
-              <div class="ds-ring" style="width:50px;height:50px;opacity:0.3;"></div>
-            </div>
-            <!-- Animated waveform -->
-            <div class="waveform-preview">
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-              <div class="wf-bar"></div>
-            </div>
-          </div>
-
-          <!-- Track info -->
-          <div class="ds-track-info">
-            <p class="ds-track-title">Reference Track</p>
-            <p class="ds-track-artist">The Vault · Local</p>
-          </div>
-
-          <!-- Progress -->
-          <div class="ds-progress">
-            <div class="ds-progress-fill"></div>
-            <div class="ds-progress-dot"></div>
-          </div>
-
-          <!-- Controls -->
-          <div class="ds-controls">
-            <div class="ds-ctrl-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
-            </div>
-            <div class="ds-ctrl-btn play">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-            </div>
-            <div class="ds-ctrl-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
-            </div>
-          </div>
-
-          <!-- Badges -->
-          <div class="ds-meta-row">
-            <span class="ds-badge g">FLAC</span>
-            <span class="ds-badge t">24-BIT</span>
-            <span class="ds-badge t">192 KHZ</span>
-          </div>
-        </div>
+        <img class="device-screen-img" src="assets/now_playing.png" alt="Meringo Now Playing screen — Hard to See by Men I Trust, 24-bit / 96 kHz" />
       </div>
     </div>
 
