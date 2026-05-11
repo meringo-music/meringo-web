@@ -1017,6 +1017,7 @@ footer {
     <span class="tech-badge badge-gold">24-BIT</span>
     <span class="tech-badge badge-teal">192 KHZ</span>
     <span class="tech-badge badge-teal">BIT-PERFECT</span>
+    <span class="tech-badge badge-gold">JELLYFIN · SUBSONIC</span>
     <span class="tech-badge badge-dim">FiiO M21</span>
     <span class="tech-badge badge-dim">SNAPDRAGON 680</span>
   </div>
@@ -1169,7 +1170,7 @@ footer {
         </div>
         <span class="feature-label">Dual-Lens Library</span>
         <h3 class="feature-title">The Vault &amp; The Cloud</h3>
-        <p class="feature-desc">Toggle between your Local Vault of FLAC files and your Jellyfin Cloud server without blending the two sources. Each lens maintains its own identity, metadata, and playback context.</p>
+        <p class="feature-desc">Toggle between your Local Vault of FLAC files and a Cloud lens that spans Jellyfin and the Subsonic/OpenSubsonic family (Navidrome, Airsonic, and friends) — without blending the sources. Each lens keeps its own identity, metadata, and playback context.</p>
       </div>
 
       <!-- 5 -->
@@ -1181,7 +1182,7 @@ footer {
         </div>
         <span class="feature-label">Privacy</span>
         <h3 class="feature-title">Encrypted &amp; Local-First</h3>
-        <p class="feature-desc">Your Jellyfin credentials and app preferences are encrypted on-device via Android Keystore. Your music library stays in a private local database, inaccessible to other apps. Opt-out crash reporting only — no advertising, no tracking, no cloud sync.</p>
+        <p class="feature-desc">Your Jellyfin and Subsonic server credentials and app preferences are encrypted on-device via Android Keystore. Your music library stays in a private local database, inaccessible to other apps. Opt-out crash reporting only — no advertising, no tracking, no cloud sync.</p>
       </div>
 
       <!-- 6 -->
@@ -1308,7 +1309,7 @@ footer {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 10, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 11, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
 
     <div class="privacy-layout">
       <div class="privacy-content">
@@ -1323,7 +1324,7 @@ footer {
           <p>Meringo collects no personal data on my servers. On your device, the app stores:</p>
           <ul>
             <li>Your music library metadata (artist, album, track, file path) in a local Room/SQLite database</li>
-            <li>Your Jellyfin server credentials, encrypted on-device using Android Keystore</li>
+            <li>Your Jellyfin and Subsonic / OpenSubsonic server credentials, encrypted on-device using Android Keystore</li>
             <li>Your listening preferences and app settings via encrypted DataStore</li>
             <li>Cached artwork and editorial metadata fetched from public APIs</li>
           </ul>
@@ -1347,7 +1348,7 @@ footer {
             <li>App version and build environment (debug / production)</li>
             <li>Recent navigation breadcrumbs (screen names only)</li>
           </ul>
-          <p>Crash reports do <strong style="color:var(--color-text-0)">not</strong> contain your music library, file paths, Jellyfin credentials, listening history, or any content from your device. Jellyfin API URLs are scrubbed of auth tokens before any report is transmitted.</p>
+          <p>Crash reports do <strong style="color:var(--color-text-0)">not</strong> contain your music library, file paths, server credentials, listening history, or any content from your device. Known authentication parameters in server URLs — Jellyfin <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">api_key</code>, OpenSubsonic <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">apiKey</code>, and the Subsonic legacy auth quartet (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">t</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">s</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">u</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">p</code>) — are redacted from any URL captured in a crash report before it is transmitted.</p>
           <p>Sentry's own privacy policy is available at <a href="https://sentry.io/privacy/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">sentry.io/privacy</a>.</p>
         </div>
 
@@ -1357,7 +1358,9 @@ footer {
           <ul>
             <li><strong style="color:var(--color-text-0)">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information</li>
             <li><strong style="color:var(--color-text-0)">Cover Art Archive</strong> — High-resolution album artwork</li>
-            <li><strong style="color:var(--color-text-0)">Jellyfin SDK</strong> — Your personal Jellyfin server only; configured by you</li>
+            <li><strong style="color:var(--color-text-0)">AcoustID</strong> — Acoustic fingerprint lookup (see Acoustic DNA section above)</li>
+            <li><strong style="color:var(--color-text-0)">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
+            <li><strong style="color:var(--color-text-0)">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
             <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-out; see above)</li>
           </ul>
           <p>Content retrieval requests carry no personal identifiers. Crash reports are governed by the terms described in the Crash Reporting section above. Use of all third-party services is subject to their respective privacy policies.</p>
@@ -1365,10 +1368,10 @@ footer {
 
         <div class="privacy-block" id="priv-storage">
           <h3>Local Storage &amp; Security</h3>
-          <p>All sensitive data — Jellyfin credentials, preferences — is encrypted using the Android Keystore system. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
+          <p>All sensitive data — Jellyfin and Subsonic server credentials, preferences — is encrypted using the Android Keystore system. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
           <p>Meringo declares only the permissions required for its operation:</p>
           <ul style="margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-2);">
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">INTERNET</span> — metadata APIs (MusicBrainz, AcoustID, Cover Art Archive) and Jellyfin server communication</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">INTERNET</span> — metadata APIs (MusicBrainz, AcoustID, Cover Art Archive) and communication with your Jellyfin or Subsonic server</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">ACCESS_NETWORK_STATE</span> — detect connectivity before making network requests</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_MEDIA_AUDIO</span> — read audio files on Android 13+ (replaces READ_EXTERNAL_STORAGE on older releases)</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span> — keep the playback service running while the screen is off</li>
@@ -1382,6 +1385,21 @@ footer {
           <h3>Your Rights</h3>
           <p>Because Meringo does not collect personal data on any server I control, there is no data for me to provide, correct, or delete on my end. All data the app holds is stored on your device and can be removed by uninstalling the application.</p>
           <p>The application is provided as-is. As a solo developer, I work hard to keep Meringo stable and respectful of your privacy, but I cannot guarantee it will be free of defects.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-trademarks">
+          <h3>Trademarks &amp; Attribution</h3>
+          <p>Meringo is an independent project and is <strong style="color:var(--color-text-0)">not affiliated with, endorsed by, or sponsored by</strong> any third-party service, project, or hardware manufacturer referenced on this page or in the application. All product names, logos, and brands are property of their respective owners and are used here for descriptive, interoperability, and identification purposes only (nominative fair use).</p>
+          <ul>
+            <li><strong style="color:var(--color-text-0)">Jellyfin</strong> is a trademark of the Jellyfin Project. Meringo connects to user-configured Jellyfin servers via the project's public HTTP API.</li>
+            <li><strong style="color:var(--color-text-0)">Subsonic</strong> is a trademark of Sindre Mehus. <strong style="color:var(--color-text-0)">OpenSubsonic</strong> is a community specification. <strong style="color:var(--color-text-0)">Navidrome</strong>, <strong style="color:var(--color-text-0)">Airsonic</strong>, and other compatible servers are independent projects of their respective maintainers.</li>
+            <li><strong style="color:var(--color-text-0)">FiiO</strong> and <strong style="color:var(--color-text-0)">M21</strong> are trademarks of Guangzhou FiiO Electronics Technology Co., Ltd.</li>
+            <li><strong style="color:var(--color-text-0)">Snapdragon</strong> is a trademark of Qualcomm Incorporated.</li>
+            <li><strong style="color:var(--color-text-0)">Android</strong> is a trademark of Google LLC.</li>
+            <li><strong style="color:var(--color-text-0)">MusicBrainz</strong>, the <strong style="color:var(--color-text-0)">Cover Art Archive</strong>, and <strong style="color:var(--color-text-0)">AcoustID</strong> are projects of the MetaBrainz Foundation and its contributors. Data and artwork retrieved from these services are used under their respective public terms; visit <a href="https://metabrainz.org/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">metabrainz.org</a> and <a href="https://acoustid.org/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">acoustid.org</a> for details.</li>
+            <li><strong style="color:var(--color-text-0)">Sentry</strong> is a trademark of Functional Software, Inc.</li>
+          </ul>
+          <p>Quoted reviews appearing elsewhere on this page are reproduced as public commentary under fair use, attributed to their original authors, and accompanied by editorial response. They are not endorsements.</p>
         </div>
 
         <div class="privacy-block" id="priv-contact">
