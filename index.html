@@ -1013,7 +1013,6 @@ footer {
 
   <div class="hero-badge-row fade-in fade-in-4">
     <span class="tech-badge badge-gold">FLAC</span>
-    <span class="tech-badge badge-gold">DSD</span>
     <span class="tech-badge badge-gold">24-BIT</span>
     <span class="tech-badge badge-teal">192 KHZ</span>
     <span class="tech-badge badge-teal">BIT-PERFECT</span>
@@ -1157,7 +1156,7 @@ footer {
         </div>
         <span class="feature-label">Acoustic DNA</span>
         <h3 class="feature-title">Identity Resolver</h3>
-        <p class="feature-desc">AcoustID fingerprinting scans your library and matches it against MusicBrainz — surfacing producer credits, session musicians, liner notes, and high-res artwork from the Cover Art Archive.</p>
+        <p class="feature-desc">AcoustID fingerprinting scans your library and matches it against MusicBrainz — surfacing release year, genre classifications, editorial biography, and high-res artwork from the Cover Art Archive.</p>
       </div>
 
       <!-- 4 -->
@@ -1181,7 +1180,7 @@ footer {
         </div>
         <span class="feature-label">Privacy</span>
         <h3 class="feature-title">Encrypted &amp; Local-First</h3>
-        <p class="feature-desc">Your library, your Jellyfin credentials, your listening history — all encrypted on-device. Opt-out crash reporting only — no advertising, no tracking, no cloud sync.</p>
+        <p class="feature-desc">Your Jellyfin credentials and app preferences are encrypted on-device via Android Keystore. Your music library stays in a private local database, inaccessible to other apps. Opt-out crash reporting only — no advertising, no tracking, no cloud sync.</p>
       </div>
 
       <!-- 6 -->
@@ -1308,13 +1307,13 @@ footer {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 10, 2026 &nbsp;·&nbsp; BUILT BY ADAM SIEMASZKO</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 10, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
 
     <div class="privacy-layout">
       <div class="privacy-content">
         <div class="privacy-block" id="priv-overview">
           <h3>Overview</h3>
-          <p>Meringo is a local-first music player built by Adam Siemaszko. I do not operate servers that collect your personal data. I do not run analytics pipelines. I built Meringo because I wanted a more refined, high-fidelity way to experience a music library — not to harvest data.</p>
+          <p>Meringo is a local-first music player published by Meringo Labs LLC. I do not operate servers that collect your personal data. I do not run analytics pipelines. I built Meringo because I wanted a more refined, high-fidelity way to experience a music library — not to harvest data.</p>
           <p>This policy describes what minimal data interactions the application has, and exactly why they exist.</p>
         </div>
 
@@ -1357,7 +1356,6 @@ footer {
           <ul>
             <li><strong style="color:var(--color-text-0)">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information</li>
             <li><strong style="color:var(--color-text-0)">Cover Art Archive</strong> — High-resolution album artwork</li>
-            <li><strong style="color:var(--color-text-0)">Fanart.tv</strong> — Additional artist imagery</li>
             <li><strong style="color:var(--color-text-0)">Jellyfin SDK</strong> — Your personal Jellyfin server only; configured by you</li>
             <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-out; see above)</li>
           </ul>
@@ -1367,7 +1365,16 @@ footer {
         <div class="privacy-block" id="priv-storage">
           <h3>Local Storage &amp; Security</h3>
           <p>All sensitive data — Jellyfin credentials, preferences — is encrypted using the Android Keystore system. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
-          <p>Meringo requests only the permissions required for operation: <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_MEDIA_AUDIO</span>, <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">INTERNET</span> (for metadata APIs and Jellyfin), and <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE</span> (for background playback).</p>
+          <p>Meringo declares only the permissions required for its operation:</p>
+          <ul style="margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-2);">
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">INTERNET</span> — metadata APIs (MusicBrainz, AcoustID, Cover Art Archive) and Jellyfin server communication</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">ACCESS_NETWORK_STATE</span> — detect connectivity before making network requests</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_MEDIA_AUDIO</span> — read audio files on Android 13+ (replaces READ_EXTERNAL_STORAGE on older releases)</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span> — keep the playback service running while the screen is off</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">MODIFY_AUDIO_SETTINGS</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">BLUETOOTH_CONNECT</span> — audio output routing and Bluetooth audio device management</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">WAKE_LOCK</span> — prevent the CPU from sleeping mid-track during background playback</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">VIBRATE</span> — haptic feedback on seek and UI interactions</li>
+          </ul>
         </div>
 
         <div class="privacy-block" id="priv-rights">
@@ -1392,7 +1399,7 @@ footer {
     <div class="footer-brand">
       <img src="assets/logo.svg" alt="Meringo" style="height:28px; width:auto; opacity:0.7;">
       <p class="footer-brand-line">Respecting the archive. Perfecting the play.</p>
-      <p class="footer-copy">© 2025 Adam Siemaszko. Erie County, NY.<br>All rights reserved.</p>
+      <p class="footer-copy">© 2026 Meringo Labs LLC. Erie County, NY.<br>All rights reserved.</p>
     </div>
     <div style="display:flex; gap:var(--space-16); flex-wrap:wrap;">
       <div class="footer-links">
