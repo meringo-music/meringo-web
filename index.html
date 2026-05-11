@@ -1181,7 +1181,7 @@ footer {
         </div>
         <span class="feature-label">Privacy</span>
         <h3 class="feature-title">Encrypted &amp; Local-First</h3>
-        <p class="feature-desc">Your library, your Jellyfin credentials, your listening history — all encrypted on-device. No telemetry. No cloud sync. No data ever leaves your device without your explicit consent.</p>
+        <p class="feature-desc">Your library, your Jellyfin credentials, your listening history — all encrypted on-device. Opt-out crash reporting only — no advertising, no tracking, no cloud sync.</p>
       </div>
 
       <!-- 6 -->
@@ -1308,7 +1308,7 @@ footer {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: January 1, 2025 &nbsp;·&nbsp; BUILT BY ADAM SIEMASZKO</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 10, 2026 &nbsp;·&nbsp; BUILT BY ADAM SIEMASZKO</p>
 
     <div class="privacy-layout">
       <div class="privacy-content">
@@ -1327,13 +1327,28 @@ footer {
             <li>Your listening preferences and app settings via encrypted DataStore</li>
             <li>Cached artwork and editorial metadata fetched from public APIs</li>
           </ul>
-          <p>None of this data is transmitted to me or to any third party for advertising or tracking purposes.</p>
+          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (the default), anonymised error reports may be sent to Sentry — see the <a href="#priv-crash" style="color:var(--color-gold-dim);">Crash Reporting</a> section below.</p>
         </div>
 
         <div class="privacy-block" id="priv-acoustid">
           <h3>Acoustic DNA Fingerprinting</h3>
           <p>The Identity Resolver uses AcoustID (libchromaprint) to generate an acoustic fingerprint of your audio files. This fingerprint is a compact mathematical representation of the audio signal — not an audio recording.</p>
           <p>Fingerprints are submitted to the AcoustID public API solely to retrieve a MusicBrainz recording ID. No personal information, file names, or listening history is attached to these submissions. The AcoustID service is subject to its own privacy policy at acoustid.org.</p>
+        </div>
+
+        <div class="privacy-block" id="priv-crash">
+          <h3>Crash Reporting</h3>
+          <p>Meringo uses <strong style="color:var(--color-text-0)">Sentry</strong> (sentry.io) for crash and error reporting. This helps me identify and fix stability problems without you having to file a bug report manually.</p>
+          <p>Crash reports are <strong style="color:var(--color-text-0)">enabled by default</strong> and can be turned off at any time under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings → Privacy → Crash reporting</span>. Disabling the toggle stops Sentry from running for the remainder of the session; it will not be started on the next launch either.</p>
+          <p>A crash report contains:</p>
+          <ul>
+            <li>The exception type, message, and stack trace</li>
+            <li>Device model and Android OS version</li>
+            <li>App version and build environment (debug / production)</li>
+            <li>Recent navigation breadcrumbs (screen names only)</li>
+          </ul>
+          <p>Crash reports do <strong style="color:var(--color-text-0)">not</strong> contain your music library, file paths, Jellyfin credentials, listening history, or any content from your device. Jellyfin API URLs are scrubbed of auth tokens before any report is transmitted.</p>
+          <p>Sentry's own privacy policy is available at <a href="https://sentry.io/privacy/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">sentry.io/privacy</a>.</p>
         </div>
 
         <div class="privacy-block" id="priv-third">
@@ -1344,8 +1359,9 @@ footer {
             <li><strong style="color:var(--color-text-0)">Cover Art Archive</strong> — High-resolution album artwork</li>
             <li><strong style="color:var(--color-text-0)">Fanart.tv</strong> — Additional artist imagery</li>
             <li><strong style="color:var(--color-text-0)">Jellyfin SDK</strong> — Your personal Jellyfin server only; configured by you</li>
+            <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-out; see above)</li>
           </ul>
-          <p>All external requests are for content retrieval only. Use of these services is subject to their respective terms and privacy policies.</p>
+          <p>Content retrieval requests carry no personal identifiers. Crash reports are governed by the terms described in the Crash Reporting section above. Use of all third-party services is subject to their respective privacy policies.</p>
         </div>
 
         <div class="privacy-block" id="priv-storage">
