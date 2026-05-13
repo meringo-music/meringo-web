@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Meringo OG Render</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400&family=Outfit:wght@500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: #1A0E2E;
+    color: #F4E8D0;
+    font-family: 'Outfit', system-ui, sans-serif;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Film grain */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 200px;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Velvet glow upper-left, gold glow lower-right */
+  .glow-velvet {
+    position: absolute;
+    top: -180px;
+    left: 60px;
+    width: 760px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(107,60,160,0.32) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .glow-gold {
+    position: absolute;
+    bottom: -120px;
+    right: -60px;
+    width: 720px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(232,181,96,0.20) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+  }
+
+  .text-block {
+    flex: 1.25;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .brand-mark {
+    width: 86px;
+    height: 86px;
+    margin-bottom: 28px;
+    filter: drop-shadow(0 0 20px rgba(232,181,96,0.30));
+  }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 156px;
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: #F4E8D0;
+    margin-bottom: 24px;
+  }
+
+  /* Ornament: gold dot between two tapered lines */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    max-width: 220px;
+  }
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(232,181,96,0.45), transparent);
+  }
+  .ornament-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #9E7A3E;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 34px;
+    font-weight: 300;
+    font-style: italic;
+    color: #B8A88A;
+    line-height: 1.3;
+    letter-spacing: 0.005em;
+    max-width: 620px;
+    margin-bottom: 36px;
+  }
+  .tagline em {
+    color: #E8B560;
+    font-style: italic;
+  }
+
+  .chips {
+    display: flex;
+    gap: 10px;
+  }
+  .chip {
+    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 7px 14px;
+    border-radius: 6px;
+    border: 1px solid;
+  }
+  .chip-gold {
+    background: rgba(232,181,96,0.10);
+    border-color: rgba(232,181,96,0.40);
+    color: #E8B560;
+  }
+  .chip-teal {
+    background: rgba(61,139,139,0.10);
+    border-color: rgba(61,139,139,0.40);
+    color: #3D8B8B;
+  }
+
+  /* Right column: device shell tilted slightly */
+  .device-block {
+    flex: 0.85;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .device-glow {
+    position: absolute;
+    inset: -60px;
+    background: radial-gradient(ellipse at center, rgba(107,60,160,0.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .device-shell {
+    width: 240px;
+    background: #0a0814;
+    border: 1px solid #7A6A52;
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px #3D2D5A,
+      0 32px 64px rgba(0,0,0,0.7),
+      inset 0 1px 0 rgba(244,232,208,0.06);
+    padding: 6px;
+    transform: rotate(5deg);
+    position: relative;
+  }
+  .device-screen {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+    aspect-ratio: 750/1334;
+    object-fit: cover;
+    object-position: top center;
+  }
+</style>
+</head>
+<body>
+  <div class="glow-velvet"></div>
+  <div class="glow-gold"></div>
+
+  <div class="container">
+    <div class="text-block">
+      <svg class="brand-mark" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="og-gld" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F4D080"/>
+            <stop offset="100%" stop-color="#C89040"/>
+          </linearGradient>
+          <linearGradient id="og-gldfade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8B560" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#9E7A3E" stop-opacity="0.25"/>
+          </linearGradient>
+        </defs>
+        <circle cx="40" cy="40" r="37" stroke="url(#og-gldfade)" stroke-width="0.75" fill="none"/>
+        <circle cx="40" cy="40" r="28" stroke="#E8B560" stroke-width="0.5" opacity="0.18" fill="none"/>
+        <g fill="url(#og-gld)">
+          <rect x="18" y="37" width="3" height="6"  rx="1.5"/>
+          <rect x="23" y="34" width="3" height="12" rx="1.5"/>
+          <rect x="28" y="30" width="3" height="20" rx="1.5"/>
+          <rect x="33" y="27" width="3" height="26" rx="1.5"/>
+          <rect x="38" y="24" width="3" height="32" rx="1.5"/>
+          <rect x="43" y="27" width="3" height="26" rx="1.5"/>
+          <rect x="48" y="30" width="3" height="20" rx="1.5"/>
+          <rect x="53" y="34" width="3" height="12" rx="1.5"/>
+          <rect x="58" y="37" width="3" height="6"  rx="1.5"/>
+        </g>
+        <circle cx="40" cy="40" r="2" fill="#E8B560" opacity="0.5"/>
+      </svg>
+
+      <h1 class="wordmark">Meringo</h1>
+
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-dot"></div>
+      </div>
+
+      <p class="tagline">Bit-perfect music for Android DAPs — built for the <em>full signal chain</em>.</p>
+
+      <div class="chips">
+        <span class="chip chip-gold">FLAC · ALAC</span>
+        <span class="chip chip-teal">24-BIT / 192 KHZ</span>
+        <span class="chip chip-teal">BIT-PERFECT</span>
+        <span class="chip chip-gold">JELLYFIN · SUBSONIC</span>
+      </div>
+    </div>
+
+    <div class="device-block">
+      <div class="device-glow"></div>
+      <div class="device-shell">
+        <img class="device-screen" src="../../assets/screens/now_playing.png">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
