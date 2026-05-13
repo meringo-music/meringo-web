@@ -8,6 +8,29 @@
 <meta property="og:title" content="Meringo — Respecting the archive. Perfecting the play.">
 <meta property="og:description" content="Bit-perfect playback. Acoustic DNA. Deep Velvet UI. Built for the FiiO M21 and serious listeners.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://meringo.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meringo — Respecting the archive. Perfecting the play.">
+<meta name="twitter:description" content="Bit-perfect playback. Acoustic DNA. Deep Velvet UI. Built for the FiiO M21 and serious listeners.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Meringo",
+  "applicationCategory": "MultimediaApplication",
+  "applicationSubCategory": "Music Player",
+  "operatingSystem": "Android",
+  "description": "Bit-perfect music player for Android DAPs with hardware-first audio engineering, AcoustID fingerprinting, a parametric EQ workbench, and a dual-lens library spanning local files and Jellyfin / Subsonic servers.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Meringo Labs LLC",
+    "url": "https://meringo.app/"
+  },
+  "url": "https://meringo.app/",
+  "softwareVersion": "1.11.0"
+}
+</script>
 <meta name="theme-color" content="#1A0E2E">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'%3E%3Crect width='80' height='80' rx='18' fill='%231A0E2E'/%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F4D080'/%3E%3Cstop offset='100%25' stop-color='%23C89040'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ddc27a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%23c9a55a' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='34' stroke='url(%23fr)' stroke-width='0.75'/%3E%3Ccircle cx='40' cy='40' r='26' stroke='%23E8B560' stroke-width='0.5' opacity='0.2'/%3E%3Cg fill='url(%23fg)'%3E%3Crect x='18' y='37' width='3' height='6' rx='1.5'/%3E%3Crect x='23' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='28' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='33' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='38' y='24' width='3' height='32' rx='1.5'/%3E%3Crect x='43' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='48' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='53' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='58' y='37' width='3' height='6' rx='1.5'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='2' fill='%23E8B560' opacity='0.55'/%3E%3C/svg%3E">
 <link rel="canonical" href="https://meringo.app/">
@@ -415,9 +438,31 @@ section {
    DIVIDER
 ───────────────────────────────── */
 .section-divider {
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-border-dim) 20%, var(--color-border-dim) 80%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 var(--space-6);
+}
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 140px;
+  height: 1px;
+}
+.section-divider::before {
+  background: linear-gradient(to right, transparent, rgba(232,181,96,0.25));
+}
+.section-divider::after {
+  background: linear-gradient(to left, transparent, rgba(232,181,96,0.25));
+}
+.section-divider-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-gold-dim);
+  margin: 0 var(--space-3);
+  flex-shrink: 0;
 }
 
 /* ─────────────────────────────────
@@ -443,7 +488,7 @@ section {
   border-radius: var(--radius-md);
   padding: var(--space-8) var(--space-6);
   box-shadow: var(--shadow-card);
-  transition: border-color var(--duration-normal) var(--ease-velvet), box-shadow var(--duration-normal) var(--ease-velvet);
+  transition: border-color var(--duration-normal) var(--ease-velvet), box-shadow var(--duration-normal) var(--ease-velvet), transform var(--duration-normal) var(--ease-velvet);
   position: relative;
   overflow: hidden;
 }
@@ -457,6 +502,7 @@ section {
 .feature-card:hover {
   border-color: var(--color-border-bright);
   box-shadow: var(--shadow-card), 0 0 0 1px rgba(232,181,96,0.1), 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-2px);
 }
 .feature-icon {
   width: 44px; height: 44px;
@@ -549,6 +595,22 @@ section {
   font-weight: 500;
   color: var(--color-text-0);
   white-space: nowrap;
+  position: relative;
+  display: inline-block;
+}
+.spec-val::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width var(--duration-normal) var(--ease-velvet), left var(--duration-normal) var(--ease-velvet);
+}
+.spec-item:hover .spec-val::after {
+  width: 100%;
+  left: 0;
 }
 .spec-val.gold { color: var(--color-gold); }
 .spec-val.teal { color: var(--color-teal); }
@@ -1076,17 +1138,14 @@ footer {
   </h1>
 
   <p class="hero-tagline fade-in fade-in-3">
-    The definitive bit-perfect music player for Android DAPs. Built for audiophiles who demand the full signal chain.
+    Built for Android DAPs and the audiophiles who care about the full signal chain.
   </p>
 
   <div class="hero-badge-row fade-in fade-in-4">
     <span class="tech-badge badge-gold">FLAC · ALAC</span>
-    <span class="tech-badge badge-gold">24-BIT</span>
-    <span class="tech-badge badge-teal">192 KHZ</span>
+    <span class="tech-badge badge-teal">24-BIT / 192 KHZ</span>
     <span class="tech-badge badge-teal">BIT-PERFECT</span>
     <span class="tech-badge badge-gold">JELLYFIN · SUBSONIC</span>
-    <span class="tech-badge badge-dim">FiiO M21</span>
-    <span class="tech-badge badge-dim">SNAPDRAGON 680</span>
   </div>
 
   <div class="hero-cta-group fade-in fade-in-5">
@@ -1100,7 +1159,6 @@ footer {
     </a>
   </div>
 
-  <p class="hero-footer-note fade-in fade-in-5">Built with care in Erie County, NY</p>
 </section>
 
 <!-- ─── SPEC STRIP ─── -->
@@ -1292,7 +1350,7 @@ footer {
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="section-divider"><span class="section-divider-dot"></span></div>
 
 <!-- ─── PHILOSOPHY ─── -->
 <section id="philosophy">
@@ -1345,7 +1403,7 @@ footer {
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="section-divider"><span class="section-divider-dot"></span></div>
 
 <!-- ─── APP PREVIEW ─── -->
 <section id="app-preview">
@@ -1381,7 +1439,7 @@ footer {
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="section-divider"><span class="section-divider-dot"></span></div>
 
 <!-- ─── SUPPORT ─── -->
 <section id="support">
@@ -1401,7 +1459,7 @@ footer {
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="section-divider"><span class="section-divider-dot"></span></div>
 
 <!-- ─── PRIVACY POLICY ─── -->
 <section id="privacy">
@@ -1523,7 +1581,7 @@ footer {
     <div class="footer-brand">
       <img src="assets/logo.svg" alt="Meringo" style="height:28px; width:auto; opacity:0.7;">
       <p class="footer-brand-line">Respecting the archive. Perfecting the play.</p>
-      <p class="footer-copy">© 2026 Meringo Labs LLC. Erie County, NY.<br>All rights reserved.</p>
+      <p class="footer-copy">© 2026 Meringo Labs LLC.<br>All rights reserved.</p>
     </div>
     <div style="display:flex; gap:var(--space-16); flex-wrap:wrap;">
       <div class="footer-links">
@@ -1847,6 +1905,17 @@ document.querySelectorAll('.feature-card').forEach((card, i) => {
   card.dataset.delay = i * 80;
   card.classList.add('card-hidden');
   observer.observe(card);
+});
+
+// Pause looping animations when their host is offscreen
+const animPauseObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+  });
+}, { threshold: 0 });
+
+document.querySelectorAll('.btn-primary, .hero-logo-mark, .footer-mascot').forEach(el => {
+  animPauseObserver.observe(el);
 });
 </script>
 
