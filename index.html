@@ -38,6 +38,79 @@
   "softwareVersion": "1.11.0"
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Meringo play DSD (.dsf / .dff) files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not in this build. The scanner sees .dsf and .dff files, but playback isn't wired up. DSD on Android always ends up as either DoP wrapping or PCM conversion at the OS layer — the kernel doesn't speak native DSD over USB Audio Class. If your DSD content has a PCM master, a 24/96 or 24/192 FLAC will sound effectively identical and weigh a quarter as much on disk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My WAV or AIFF files don't show album artwork. Now what?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo 1.11.0 added a sibling-image resolver that picks them up automatically."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Search returns no results — what's happening?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). 1.11.0 added a one-tap hint when search comes up empty on the current lens, pointing at the other one with your query preserved."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are playlists supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not yet. Playlists are on the roadmap. If you have playlists on a Jellyfin or Subsonic-compatible server, the playlist surface isn't visible inside Meringo yet, but every track in those playlists is."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I install Meringo? Is it on the Play Store?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Currently in Closed Testing on Google Play. The app isn't publicly listed yet — testers are added by email invitation. Email support@meringo.app with the Google account email you'd use on the device to be added to the test list."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is Meringo built for FiiO M21? Does it run on other devices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — Snapdragon 680, 4 GB RAM, ~360 dp screen width. Beta testers have reported it working well on the FiiO M33 and on generic Android phones."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Meringo ever resample my audio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The audio engine bypasses Android's sample-rate converter entirely. Every sample reaches your DAC at the file's native rate and depth, bit-for-bit. If a DAC can't accept the rate, the OS surfaces an error rather than silently downsampling."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where can I get the FFmpeg source code Meringo bundles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Meringo bundles a Meringo-built FFmpeg derivative (libavcodec, libavutil, libswresample) under the GNU LGPL v2.1 or later. Build configuration, version, license texts, and a written offer for the source are available in the app under Settings → Open Source Licenses, or by emailing support@meringo.app."
+      }
+    }
+  ]
+}
+</script>
 <meta name="theme-color" content="#1A0E2E">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'%3E%3Crect width='80' height='80' rx='18' fill='%231A0E2E'/%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F4D080'/%3E%3Cstop offset='100%25' stop-color='%23C89040'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ddc27a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%23c9a55a' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='34' stroke='url(%23fr)' stroke-width='0.75'/%3E%3Ccircle cx='40' cy='40' r='26' stroke='%23E8B560' stroke-width='0.5' opacity='0.2'/%3E%3Cg fill='url(%23fg)'%3E%3Crect x='18' y='37' width='3' height='6' rx='1.5'/%3E%3Crect x='23' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='28' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='33' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='38' y='24' width='3' height='32' rx='1.5'/%3E%3Crect x='43' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='48' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='53' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='58' y='37' width='3' height='6' rx='1.5'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='2' fill='%23E8B560' opacity='0.55'/%3E%3C/svg%3E">
 <link rel="canonical" href="https://meringo.app/">
@@ -901,6 +974,91 @@ section {
 .support-link:hover { color: var(--color-gold-bright); border-color: rgba(232,181,96,0.6); }
 
 /* ─────────────────────────────────
+   FAQ
+───────────────────────────────── */
+#faq {
+  background:
+    radial-gradient(ellipse 50% 40% at 50% 80%, rgba(232,181,96,0.04) 0%, transparent 60%);
+}
+.faq-layout {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.faq-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.faq-item {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-normal) var(--ease-velvet);
+  overflow: hidden;
+}
+.faq-item:hover { border-color: var(--color-border-bright); }
+.faq-item[open] { border-color: rgba(232,181,96,0.28); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-5) var(--space-6);
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  user-select: none;
+  line-height: var(--leading-snug);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::marker { content: ''; }
+.faq-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--color-gold-dim);
+  transition: transform var(--duration-normal) var(--ease-velvet), color var(--duration-normal) var(--ease-velvet);
+}
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+  color: var(--color-gold);
+}
+.faq-body {
+  padding: 0 var(--space-6) var(--space-6);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.faq-body strong { color: var(--color-text-0); font-weight: var(--weight-semibold); }
+.faq-body a {
+  color: var(--color-gold-dim);
+  text-decoration: underline;
+  text-decoration-color: rgba(232,181,96,0.35);
+  text-underline-offset: 3px;
+  transition: color var(--duration-fast), text-decoration-color var(--duration-fast);
+}
+.faq-body a:hover {
+  color: var(--color-gold);
+  text-decoration-color: rgba(232,181,96,0.7);
+}
+.faq-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-teal);
+}
+
+/* ─────────────────────────────────
    PRIVACY POLICY
 ───────────────────────────────── */
 #privacy {
@@ -1084,6 +1242,7 @@ footer {
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
       <li><a href="#app-preview">The App</a></li>
+      <li><a href="#faq">FAQ</a></li>
       <li><a href="#support">Support</a></li>
       <li><a href="#privacy">Privacy</a></li>
       <li><a href="#support" class="nav-cta">Get Meringo</a></li>
@@ -1098,6 +1257,7 @@ footer {
 <div class="mobile-menu" id="mobileMenu">
   <a href="#features"    onclick="closeMobile()">Features</a>
   <a href="#app-preview" onclick="closeMobile()">The App</a>
+  <a href="#faq"         onclick="closeMobile()">FAQ</a>
   <a href="#support"     onclick="closeMobile()">Support</a>
   <a href="#privacy"     onclick="closeMobile()">Privacy</a>
   <a href="#support"     onclick="closeMobile()" style="color:var(--color-gold);font-weight:600;">Get Meringo</a>
@@ -1448,6 +1608,113 @@ footer {
 
 <div class="section-divider"><span class="section-divider-dot"></span></div>
 
+<!-- ─── FAQ ─── -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-layout">
+      <div class="faq-header">
+        <p class="section-label">Asked &amp; Answered</p>
+        <h2 class="section-title">A few things <em>worth knowing.</em></h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary>
+            <span>Does Meringo play DSD (.dsf / .dff) files?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Not in this build. The scanner sees <code>.dsf</code> and <code>.dff</code> files, but playback isn't wired up.</p>
+            <p>DSD on Android always ends up as either DoP wrapping or PCM conversion at the OS layer — the kernel doesn't speak native DSD over USB Audio Class, so even a "DSD-capable" DAC ultimately receives PCM. If your DSD content has a PCM master, a 24/96 or 24/192 FLAC will sound effectively identical and weigh roughly a quarter as much on disk.</p>
+            <p>I'm not opposed to adding native DSD support, but it isn't a near-term priority — it would mostly trade storage for a path most ears can't actually distinguish.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>My WAV (or AIFF) files don't show album artwork. Now what?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Drop a <code>cover.jpg</code>, <code>folder.jpg</code>, <code>front.jpg</code>, or <code>album.jpg</code> next to your audio in the same folder. Case-insensitive; <code>.jpeg</code> and <code>.png</code> variants also work.</p>
+            <p>Meringo 1.11.0 added a sibling-image resolver that picks them up automatically. WAV and AIFF don't carry embedded artwork the way FLAC does, so the sidecar approach is the right answer for those file families.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Search returns no results — what's happening?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Search is scoped to the lens you're currently viewing — <strong>Vault</strong> (local files) or <strong>Cloud</strong> (Jellyfin / Subsonic). If you're on Cloud searching for a local album, you'll get nothing back.</p>
+            <p>1.11.0 added a one-tap hint when search comes up empty on the current lens, pointing at the other one with your query preserved. New installs with local folders but no server now default to Vault to avoid the confusion entirely.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Are playlists supported?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Not yet. Playlists are on the roadmap — I wanted to nail the library and playback fundamentals first.</p>
+            <p>If you have playlists on a Jellyfin or Subsonic-compatible server today, the playlist surface itself isn't yet visible inside Meringo. Every track in those playlists is, though, and you can queue them individually from the album or artist views.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>How do I install Meringo? Is it on the Play Store?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Currently in Closed Testing on Google Play. The app isn't publicly listed yet — testers are added by email invitation.</p>
+            <p>If you'd like to try it, send a note to <a href="mailto:support@meringo.app">support@meringo.app</a> with the Google account email you'd use on the device, and I'll add you to the test list.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Why is Meringo "built for FiiO M21"? Does it run on other devices?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Meringo runs on any Android device that meets the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — the audio engine, scan strategy, and UI density are all calibrated for its Snapdragon 680 / 4&nbsp;GB RAM target and ~360&nbsp;dp screen width.</p>
+            <p>Beta testers have reported it working well on the FiiO M33 (same Qualcomm audio silicon family) and on generic Android phones. Other DAPs should run it, but compatibility isn't a guarantee until I have hands on a unit.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Does Meringo ever resample my audio?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>No. The audio engine bypasses Android's sample-rate converter entirely. Every sample reaches your DAC at the file's native rate and depth, bit-for-bit.</p>
+            <p>If a DAC can't accept a file's native rate (e.g. a Bluetooth codec capped at 48&nbsp;kHz), the OS surfaces an error rather than silently downsampling. You see the truth, not a fabrication.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Where can I get the FFmpeg source code Meringo bundles?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="faq-body">
+            <p>Meringo bundles a Meringo-built FFmpeg derivative (<code>libavcodec</code>, <code>libavutil</code>, <code>libswresample</code>) under the GNU LGPL v2.1 or later. The exact build configuration, version, license texts, and a written offer for the source are all available in the app under <strong>Settings → Open Source Licenses</strong>.</p>
+            <p>If you'd rather not go through the app, email <a href="mailto:support@meringo.app">support@meringo.app</a> and I'll send you the source archive directly.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span class="section-divider-dot"></span></div>
+
 <!-- ─── SUPPORT ─── -->
 <section id="support">
   <p class="section-label" style="text-align:center; margin-bottom:var(--space-8);">Get in Touch</p>
@@ -1597,6 +1864,7 @@ footer {
         <a href="#philosophy">Philosophy</a>
       </div>
       <div class="footer-links">
+        <a href="#faq">FAQ</a>
         <a href="#support">Support</a>
         <a href="#privacy">Privacy Policy</a>
         <a href="mailto:support@meringo.app">support@meringo.app</a>
