@@ -434,7 +434,7 @@ section {
 }
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
 }
 .feature-card {
@@ -736,6 +736,42 @@ section {
   object-position: top center;
 }
 
+/* Triptych — three-device fan in #app-preview */
+.device-triptych {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.device-triptych .device-shell {
+  flex-shrink: 0;
+  transition: transform var(--duration-slow) var(--ease-velvet), opacity var(--duration-slow) var(--ease-velvet);
+}
+.device-triptych .device-shell.device-center {
+  width: 260px;
+  z-index: 3;
+  position: relative;
+}
+.device-triptych .device-shell.device-side {
+  width: 220px;
+  z-index: 1;
+  opacity: 0.92;
+}
+.device-triptych .device-shell.device-side-left {
+  transform: rotate(-6deg) translateX(36px) translateY(10px);
+  transform-origin: right center;
+}
+.device-triptych .device-shell.device-side-right {
+  transform: rotate(6deg) translateX(-36px) translateY(10px);
+  transform-origin: left center;
+}
+.device-triptych .device-shell.device-side:hover {
+  opacity: 1;
+  transform: rotate(0deg) translateX(0) translateY(0);
+  z-index: 4;
+}
+
 /* ─────────────────────────────────
    SUPPORT
 ───────────────────────────────── */
@@ -907,12 +943,24 @@ footer {
 /* ─────────────────────────────────
    RESPONSIVE
 ───────────────────────────────── */
+@media (max-width: 1100px) {
+  .features-grid { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 900px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   #app-preview { flex-direction: column-reverse; text-align: center; }
   .preview-copy { max-width: 100%; }
   .privacy-layout { max-width: 100%; }
   .spec-row { grid-template-columns: repeat(3, 1fr); }
+  .device-triptych { gap: var(--space-2); }
+  .device-triptych .device-shell { width: 150px; }
+  .device-triptych .device-shell.device-center { width: 180px; }
+  .device-triptych .device-shell.device-side-left {
+    transform: rotate(-4deg) translateX(22px) translateY(6px);
+  }
+  .device-triptych .device-shell.device-side-right {
+    transform: rotate(4deg) translateX(-22px) translateY(6px);
+  }
 }
 @media (max-width: 640px) {
   .nav-links { display: none; }
@@ -934,6 +982,25 @@ footer {
   .spec-item:nth-child(odd) { border-right: 1px solid var(--color-border-dim); }
   .spec-item:nth-last-child(-n+2) { border-bottom: none; }
   #app-preview { padding: 64px var(--space-4); }
+  .device-triptych {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: var(--space-2) var(--space-4);
+    gap: var(--space-3);
+    scrollbar-width: none;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .device-triptych::-webkit-scrollbar { display: none; }
+  .device-triptych .device-shell,
+  .device-triptych .device-shell.device-side-left,
+  .device-triptych .device-shell.device-side-right {
+    transform: none;
+    opacity: 1;
+    width: 200px;
+    scroll-snap-align: center;
+  }
+  .device-triptych .device-shell.device-center { width: 220px; }
 }
 </style>
 </head>
@@ -1137,7 +1204,19 @@ footer {
         <p class="feature-desc">Meringo bypasses Android's sample-rate converter entirely — every sample reaches your DAC exactly as the recording engineer intended. No resampling. No dithering. No compromise.</p>
       </div>
 
-      <!-- 2 -->
+      <!-- Lossless Decoders -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/>
+          </svg>
+        </div>
+        <span class="feature-label">Lossless Decoders</span>
+        <h3 class="feature-title">Our Decoder, Our Rules</h3>
+        <p class="feature-desc">Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC, sidestepping the buggy platform decoders some Snapdragon DAPs ship with. Same path. Every device. Every sample, bit-for-bit.</p>
+      </div>
+
+      <!-- SQ Engine -->
       <div class="feature-card">
         <div class="feature-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E8B560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1147,6 +1226,18 @@ footer {
         <span class="feature-label">SQ Engine</span>
         <h3 class="feature-title">Sound Quality First</h3>
         <p class="feature-desc">The SQ engine is purpose-built for DAPs like the FiiO M21. Direct DAC passthrough, no middleware audio processing stack in the way of your high-res FLAC and ALAC files.</p>
+      </div>
+
+      <!-- Workbench -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3D8B8B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+          </svg>
+        </div>
+        <span class="feature-label">SQ Workbench</span>
+        <h3 class="feature-title">Tune by Ear, by Numbers</h3>
+        <p class="feature-desc">A 10-band parametric workbench with Slot A/B preset slots, calibrated dB scale, and built-in Pink Noise / Sine Sweep test tones. Tune to your IEMs, your headphones, or your room — and save the curve.</p>
       </div>
 
       <!-- 3 -->
@@ -1274,8 +1365,16 @@ footer {
 
     <div class="preview-device">
       <div class="device-glow"></div>
-      <div class="device-shell">
-        <img class="device-screen-img" src="assets/now_playing.png" alt="Meringo Now Playing screen — Hard to See by Men I Trust, 24-bit / 96 kHz" />
+      <div class="device-triptych">
+        <div class="device-shell device-side device-side-left">
+          <img class="device-screen-img" src="assets/screens/library_albums.png" alt="Meringo Library screen — Vault lens, 331 albums in a 2-column grid with ULTRA and FLAC quality chips" />
+        </div>
+        <div class="device-shell device-center">
+          <img class="device-screen-img" src="assets/screens/now_playing.png" alt="Meringo Now Playing screen — Hard to See by Men I Trust, 24-bit / 96 kHz" />
+        </div>
+        <div class="device-shell device-side device-side-right">
+          <img class="device-screen-img" src="assets/screens/workbench.png" alt="Meringo Workbench screen — 10-band parametric EQ with calibrated dB scale and Pink Noise / Sine Sweep test tones" />
+        </div>
       </div>
     </div>
 
