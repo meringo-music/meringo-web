@@ -503,9 +503,6 @@ nav {
   z-index: 90;
   opacity: 0.92;
   transition: opacity 0.4s var(--ease-velvet);
-  /* TEMP DEBUG — remove once verified working */
-  outline: 3px solid magenta;
-  background: rgba(255, 0, 255, 0.25);
 }
 .hero-mascot.floating.docked-out {
   opacity: 0;
@@ -2727,16 +2724,23 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
 // Stays in the hero while the hero is on-screen; once the hero scrolls off
 // it becomes fixed to the right edge, with vertical position mapped to
 // page scroll progress. Fades out as the footer mascot comes into view.
+//
+// Note: .hero-stage has a fade-in animation that ends with transform:
+// translateY(0). A non-none transform on an ancestor creates a new
+// containing block, which would trap position: fixed. So when going
+// floating we teleport the mascot to <body> (no transformed ancestor)
+// and restore it to its original parent when un-floating.
 (() => {
   const mascot = document.querySelector('.hero-mascot');
   const hero   = document.querySelector('.hero');
   const footerMascot = document.querySelector('.footer-mascot');
-  console.log('[mascot-scroll] init', { mascot, hero, footerMascot });
-  if (!mascot || !hero) { console.warn('[mascot-scroll] missing required element'); return; }
+  if (!mascot || !hero) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  console.log('[mascot-scroll] prefers-reduced-motion?', reduceMotion);
   if (reduceMotion) return; // honor user preference — mascot stays put
+
+  const originalParent = mascot.parentNode;
+  const originalNext   = mascot.nextSibling;
 
   let pending = false;
   let isFloating = false;
@@ -2749,8 +2753,13 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
     const shouldFloat = heroBottom < MIN_TOP;
     if (shouldFloat !== isFloating) {
       isFloating = shouldFloat;
-      mascot.classList.toggle('floating', isFloating);
-      console.log('[mascot-scroll] float toggled:', isFloating, 'heroBottom:', heroBottom);
+      if (isFloating) {
+        document.body.appendChild(mascot);
+        mascot.classList.add('floating');
+      } else {
+        originalParent.insertBefore(mascot, originalNext);
+        mascot.classList.remove('floating');
+      }
     }
     if (!isFloating) return;
 
