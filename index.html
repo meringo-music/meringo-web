@@ -79,6 +79,31 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Custom scrollbar — velvet track, gold-dim thumb ── */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold-dim) var(--color-bg-base);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dim);
+  border: 2px solid var(--color-bg-base);
+  border-radius: 6px;
+  transition: background 0.2s var(--ease-velvet);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+::-webkit-scrollbar-corner {
+  background: var(--color-bg-base);
+}
+
 /* ── Noise grain overlay ── */
 body::before {
   content: '';
