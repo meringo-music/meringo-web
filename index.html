@@ -503,6 +503,9 @@ nav {
   z-index: 90;
   opacity: 0.92;
   transition: opacity 0.4s var(--ease-velvet);
+  /* TEMP DEBUG — remove once verified working */
+  outline: 3px solid magenta;
+  background: rgba(255, 0, 255, 0.25);
 }
 .hero-mascot.floating.docked-out {
   opacity: 0;
@@ -2728,9 +2731,11 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
   const mascot = document.querySelector('.hero-mascot');
   const hero   = document.querySelector('.hero');
   const footerMascot = document.querySelector('.footer-mascot');
-  if (!mascot || !hero) return;
+  console.log('[mascot-scroll] init', { mascot, hero, footerMascot });
+  if (!mascot || !hero) { console.warn('[mascot-scroll] missing required element'); return; }
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  console.log('[mascot-scroll] prefers-reduced-motion?', reduceMotion);
   if (reduceMotion) return; // honor user preference — mascot stays put
 
   let pending = false;
@@ -2745,6 +2750,7 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
     if (shouldFloat !== isFloating) {
       isFloating = shouldFloat;
       mascot.classList.toggle('floating', isFloating);
+      console.log('[mascot-scroll] float toggled:', isFloating, 'heroBottom:', heroBottom);
     }
     if (!isFloating) return;
 
