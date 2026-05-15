@@ -491,6 +491,23 @@ nav {
 }
 .hero-mascot svg { width: 100%; height: auto; display: block; }
 
+/* Floating mode — once the hero scrolls off, mascot detaches and
+   becomes a scroll-position indicator pinned to the right edge.
+   --mascot-top is updated by JS on scroll. */
+.hero-mascot.floating {
+  position: fixed;
+  top: var(--mascot-top, 80px);
+  right: 28px;
+  bottom: auto;
+  width: 90px;
+  z-index: 90;
+  opacity: 0.92;
+  transition: opacity 0.4s var(--ease-velvet);
+}
+.hero-mascot.floating.docked-out {
+  opacity: 0;
+}
+
 /* Floating spec card on hero device */
 .hero-spec-float {
   position: absolute;
@@ -1419,6 +1436,7 @@ footer {
   .hero-device { width: 280px; }
   .chapter-device { width: 280px; }
   .hero-mascot { width: 80px; right: 0; bottom: 0; }
+  .hero-mascot.floating { display: none; } /* iOS overlay scrollbar already shows position */
   .hero-spec-float { display: none; }
   .spec-row { grid-template-columns: repeat(2, 1fr); }
   .footer-mascot { display: none; }
@@ -2701,6 +2719,62 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
   el.classList.add('reveal-init');
   revealObserver.observe(el);
 });
+
+// Hero mascot as scroll-position indicator.
+// Stays in the hero while the hero is on-screen; once the hero scrolls off
+// it becomes fixed to the right edge, with vertical position mapped to
+// page scroll progress. Fades out as the footer mascot comes into view.
+(() => {
+  const mascot = document.querySelector('.hero-mascot');
+  const hero   = document.querySelector('.hero');
+  const footerMascot = document.querySelector('.footer-mascot');
+  if (!mascot || !hero) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return; // honor user preference — mascot stays put
+
+  let pending = false;
+  let isFloating = false;
+  const MIN_TOP = 80;
+  const BOTTOM_MARGIN = 200;
+
+  const update = () => {
+    pending = false;
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    const shouldFloat = heroBottom < MIN_TOP;
+    if (shouldFloat !== isFloating) {
+      isFloating = shouldFloat;
+      mascot.classList.toggle('floating', isFloating);
+    }
+    if (!isFloating) return;
+
+    const docScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const progress  = docScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / docScroll)) : 0;
+    const maxTop = window.innerHeight - BOTTOM_MARGIN;
+    const top = MIN_TOP + progress * Math.max(0, maxTop - MIN_TOP);
+    mascot.style.setProperty('--mascot-top', `${top}px`);
+  };
+
+  const onScroll = () => {
+    if (!pending) {
+      pending = true;
+      requestAnimationFrame(update);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
+
+  // Fade out when the footer mascot is approaching, so we never show two at once
+  if (footerMascot) {
+    const dockObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        mascot.classList.toggle('docked-out', entry.isIntersecting);
+      });
+    }, { rootMargin: '200px 0px 0px 0px' });
+    dockObserver.observe(footerMascot);
+  }
+})();
 </script>
 <style>
 .reveal-init { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
