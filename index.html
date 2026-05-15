@@ -516,16 +516,12 @@ nav {
 .mascot-head.playing svg use[href="#mascot-head-smile"] {
   opacity: 1;
 }
-/* Engineer & tinker pose: idle (no glasses), but with prop */
-.mascot-head svg use[href^="#mascot-prop-"] { opacity: 0.95; }
-
-/* Slow head float for chapter mascots */
+/* Slow head float for the hero narrator */
 @keyframes mascotHeadFloat {
   0%,100% { transform: translateY(0) rotate(-1deg); }
   50%     { transform: translateY(-4px) rotate(1deg); }
 }
-.chapter-mascot svg { animation: mascotHeadFloat 5s ease-in-out infinite; transform-origin: center; }
-.hero-mascot svg    { animation: mascotHeadFloat 6s ease-in-out infinite; transform-origin: center; }
+.hero-mascot svg { animation: mascotHeadFloat 6s ease-in-out infinite; transform-origin: center; }
 
 /* ─────────────────────────────────
    SPEC STRIP — gold rule, no card
@@ -754,20 +750,6 @@ nav {
   pointer-events: none;
   z-index: 0;
 }
-
-/* Mascot per chapter — small head-and-shoulders perched */
-.chapter-mascot {
-  position: absolute;
-  width: 90px;
-  z-index: 4;
-  pointer-events: none;
-  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.4));
-}
-.chapter-mascot svg { width: 100%; height: auto; display: block; }
-.chapter-mascot.pos-tr { top: 4%; right: -8%; }
-.chapter-mascot.pos-bl { bottom: 8%; left: -8%; transform: scaleX(-1); }
-.chapter-mascot.pos-br { bottom: 8%; right: -8%; }
-.chapter-mascot.pos-tl { top: 4%; left: -8%; transform: scaleX(-1); }
 
 /* ─────────────────────────────────
    ENGINE CHAPTER — signal-flow diagram
@@ -1395,7 +1377,6 @@ footer {
   .chapter-grid.reverse .chapter-copy { order: 1; }
   .chapter-grid.reverse .chapter-stage { order: 2; }
   .chapter-stage { min-height: 440px; }
-  .chapter-mascot { width: 70px; }
 
   .philosophy-inner { grid-template-columns: 1fr; }
   .philosophy-mascot { order: -1; margin-bottom: var(--space-6); }
@@ -1414,7 +1395,6 @@ footer {
   .chapter-device { width: 280px; }
   .hero-mascot { width: 80px; right: 0; bottom: 0; }
   .hero-spec-float { display: none; }
-  .chapter-mascot { width: 60px; }
   .spec-row { grid-template-columns: repeat(2, 1fr); }
   .footer-mascot { display: none; }
   .footer-inner { flex-direction: column; gap: var(--space-6); }
@@ -1516,30 +1496,6 @@ footer {
       <path d="M152 210 Q160 218 168 210" stroke="#7A4830" stroke-width="2.8" fill="none" stroke-linecap="round"/>
       <path d="M152 210 Q148 205 150 200" stroke="#C09878" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.5"/>
       <path d="M168 210 Q172 205 170 200" stroke="#C09878" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.5"/>
-    </symbol>
-
-    <!-- ─── Engineer prop: clipboard ─── -->
-    <symbol id="mascot-prop-clipboard" viewBox="0 0 320 280">
-      <g transform="translate(220, 215) rotate(-12)">
-        <rect x="-20" y="-30" width="40" height="55" rx="3" fill="#1A0E2E" stroke="url(#m-gGold)" stroke-width="1.2"/>
-        <rect x="-10" y="-36" width="20" height="9" rx="2" fill="url(#m-gGold)"/>
-        <line x1="-14" y1="-18" x2="14" y2="-18" stroke="#E8B560" stroke-width="0.8" opacity="0.6"/>
-        <line x1="-14" y1="-10" x2="10" y2="-10" stroke="#E8B560" stroke-width="0.8" opacity="0.6"/>
-        <line x1="-14" y1="-2"  x2="14" y2="-2"  stroke="#E8B560" stroke-width="0.8" opacity="0.6"/>
-        <line x1="-14" y1="6"   x2="8"  y2="6"   stroke="#E8B560" stroke-width="0.8" opacity="0.6"/>
-        <line x1="-14" y1="14"  x2="12" y2="14"  stroke="#E8B560" stroke-width="0.8" opacity="0.6"/>
-      </g>
-    </symbol>
-
-    <!-- ─── Tinker prop: tuning fork ─── -->
-    <symbol id="mascot-prop-fork" viewBox="0 0 320 280">
-      <g transform="translate(238, 220) rotate(8)">
-        <rect x="-1.5" y="-30" width="3" height="40" fill="url(#m-gGold)"/>
-        <rect x="-1.5" y="-30" width="3" height="22" fill="url(#m-gGold)" transform="translate(-7,0)"/>
-        <rect x="-1.5" y="-30" width="3" height="22" fill="url(#m-gGold)" transform="translate(7,0)"/>
-        <rect x="-10" y="-32" width="20" height="3" rx="1" fill="url(#m-gGoldShine)"/>
-        <circle cx="0" cy="-40" r="14" fill="url(#m-gGlowGold)" opacity="0.4"/>
-      </g>
     </symbol>
 
   </defs>
@@ -1731,14 +1687,6 @@ footer {
         <img src="assets/screens/library_albums.png"
              alt="Meringo Library — Vault lens, 331 albums in a 2-column grid with ULTRA and FLAC quality chips">
       </div>
-      <!-- Mascot — narrator role, perched top-right -->
-      <div class="chapter-mascot mascot-head always-playing pos-tr" aria-hidden="true">
-        <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <use href="#mascot-head-base"/>
-          <use href="#mascot-head-glasses"/>
-          <use href="#mascot-head-smile"/>
-        </svg>
-      </div>
     </div>
 
   </div>
@@ -1870,13 +1818,6 @@ footer {
 
         </svg>
       </div>
-      <!-- Mascot — engineer role, with clipboard -->
-      <div class="chapter-mascot mascot-head pos-bl" aria-hidden="true">
-        <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <use href="#mascot-head-base"/>
-          <use href="#mascot-prop-clipboard"/>
-        </svg>
-      </div>
     </div>
 
   </div>
@@ -1912,13 +1853,6 @@ footer {
       <div class="chapter-device">
         <img src="assets/screens/workbench.png"
              alt="Meringo Workbench — 10-band parametric EQ at flat response, Slot A active, with Pink Noise and Sine Sweep test tones">
-      </div>
-      <!-- Mascot — tinkerer role, with tuning fork -->
-      <div class="chapter-mascot mascot-head pos-tr" aria-hidden="true">
-        <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <use href="#mascot-head-base"/>
-          <use href="#mascot-prop-fork"/>
-        </svg>
       </div>
     </div>
 
@@ -1957,14 +1891,6 @@ footer {
         <img src="assets/screens/tuning_vault.png"
              alt="Meringo Tuning Vault — Pure Meringo baseline selected, My Signatures empty, Import a Profile card open">
       </div>
-      <!-- Mascot — recurring narrator, top-left this time -->
-      <div class="chapter-mascot mascot-head always-playing pos-tl" aria-hidden="true">
-        <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <use href="#mascot-head-base"/>
-          <use href="#mascot-head-glasses"/>
-          <use href="#mascot-head-smile"/>
-        </svg>
-      </div>
     </div>
 
   </div>
@@ -1999,12 +1925,6 @@ footer {
       <div class="chapter-device">
         <img src="assets/screens/mood_smart.png"
              alt="Meringo home — Mood and Smart Playlists generated from AcoustID fingerprinting and MusicBrainz metadata">
-      </div>
-      <!-- Mascot — last appearance before philosophy, top-right -->
-      <div class="chapter-mascot mascot-head pos-tr" aria-hidden="true">
-        <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <use href="#mascot-head-base"/>
-        </svg>
       </div>
     </div>
 
