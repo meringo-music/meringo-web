@@ -44,7 +44,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The engine processes audio in 64-bit float so every EQ adjustment stays bit-perfect end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo does not ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. We commit to the PCM and FLAC route where the precision you hear is the precision you can control."}},
+    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo does not ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. We commit to the PCM and FLAC route where the precision you hear is the precision you can control."}},
     {"@type":"Question","name":"My WAV or AIFF files don't show album artwork. Now what?","acceptedAnswer":{"@type":"Answer","text":"Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo 1.11.0 added a sibling-image resolver that picks them up automatically."}},
     {"@type":"Question","name":"Search returns no results — what's happening?","acceptedAnswer":{"@type":"Answer","text":"Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). 1.11.0 added a one-tap hint when search comes up empty on the current lens, pointing at the other one with your query preserved."}},
     {"@type":"Question","name":"Are playlists supported?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Playlists are on the roadmap. If you have playlists on a Jellyfin or Subsonic-compatible server, the playlist surface isn't visible inside Meringo yet, but every track in those playlists is."}},
@@ -1750,10 +1750,10 @@ footer {
       <p class="chapter-num">Ch. 02 — The Engine</p>
       <h2 class="chapter-title">Bit-perfect. <em>End to end.</em></h2>
       <p class="chapter-body">
-        By default, every sample reaches your DAC at the recording's native rate and depth. No silent format conversion. No middleware audio stack in the way. Bit-perfect on three axes — sample-rate parity, bit-depth parity, no PCM scaling — and the Now Playing route badge turns amber the moment any of the three breaks (HAL resample, DAC depth truncation, ReplayGain non-unity scalar). No fake green light.
+        By default, every sample reaches your DAC at the recording's native rate and depth. No silent format conversion. The system audio mixer operates as a single-client passthrough at unity gain — bits in, bits out — the same condition FiiO's stock player relies on. Bit-perfect on three axes: sample-rate parity, bit-depth parity, single-client passthrough. The Now Playing route badge flips its routing chip off when the path itself can't deliver (HAL resample, DAC depth truncation); per-frame modifiers (ReplayGain scaling, EQ DSP, concurrent system mixing) decorate the badge with explicit suffixes rather than lie. No fake green light.
       </p>
       <p class="chapter-body">
-        Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC — sidestepping the buggy platform decoders some Snapdragon DAPs ship with. The DSP path runs in <strong>64-bit float</strong>, so every EQ band, every gain change, every output stays mathematically lossless from file to hardware. The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). The route badge flips its <code style="font-family:var(--font-mono);font-size:0.9em">IIR-MP</code> tag to <code style="font-family:var(--font-mono);font-size:0.9em">FIR-LP</code> when linear phase is engaged.
+        Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC — sidestepping the buggy platform decoders some Snapdragon DAPs ship with. The EQ engine runs in <strong>64-bit double precision</strong> (IEEE 754 binary64) — biquad coefficients, accumulators, output trim, all <code style="font-family:var(--font-mono);font-size:0.9em">Double</code> — so low-frequency, high-Q bands don't accumulate rounding drift across thousands of samples the way single-precision math would. The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). The route badge flips its <code style="font-family:var(--font-mono);font-size:0.9em">IIR-MP</code> tag to <code style="font-family:var(--font-mono);font-size:0.9em">FIR-LP</code> when linear phase is engaged.
       </p>
       <p class="chapter-body">
         Prefer a single stable DAC clock across an entire session? <strong>Force Output Sample Rate</strong> opts in to Meringo's polyphase Kaiser-windowed sinc resampler — every track converted to a fixed 96, 176.4, 192, or 384&nbsp;kHz in 64-bit double precision before AudioTrack. The badge reads <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> when active, not <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> — because that's what's actually happening.
@@ -1762,7 +1762,7 @@ footer {
         Same path. Every device.<br>Every sample, <em>honestly accounted for.</em>
       </blockquote>
       <div class="chapter-specs">
-        <span class="chapter-spec-tag gold">64-bit float DSP</span>
+        <span class="chapter-spec-tag gold">64-bit double DSP</span>
         <span class="chapter-spec-tag teal">FFmpeg-derived</span>
         <span class="chapter-spec-tag teal">Linear-Phase FIR</span>
         <span class="chapter-spec-tag">Optional Internal SRC</span>
@@ -1774,7 +1774,7 @@ footer {
     <div class="chapter-stage">
       <div class="chapter-stage-glow"></div>
       <div class="signal-flow">
-        <svg viewBox="0 0 380 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meringo signal path: FLAC file → bundled decoder → 64-bit float DSP → AudioTrack → DAC → headphones">
+        <svg viewBox="0 0 380 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meringo signal path: FLAC file → bundled decoder → 64-bit double-precision DSP → AudioTrack → DAC → headphones">
           <defs>
             <linearGradient id="sf-gold" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#F4D080"/>
@@ -1827,7 +1827,7 @@ footer {
             <ellipse cx="190" cy="216" rx="180" ry="40" fill="url(#sf-glow)"/>
             <rect x="60" y="188" width="260" height="56" rx="8" fill="#261840" stroke="url(#sf-gold)" stroke-width="1.5"/>
             <text x="80" y="210" font-family="ui-monospace, monospace" font-size="9" fill="#E8B560" letter-spacing="2">STAGE 2 — DSP</text>
-            <text x="80" y="232" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">64-bit float</text>
+            <text x="80" y="232" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">64-bit double</text>
             <text x="295" y="232" font-family="ui-monospace, monospace" font-size="11" fill="#E8B560" text-anchor="end">parametric EQ</text>
             <!-- tiny waveform icon -->
             <g transform="translate(295,210)" stroke="#E8B560" stroke-width="0.8" stroke-linecap="round" opacity="0.6">
@@ -1888,7 +1888,7 @@ footer {
         A 10-band parametric workbench with a calibrated dB scale, <strong>Slot A</strong> and <strong>Slot B</strong> preset slots, and built-in <strong>Pink Noise</strong> and <strong>Sine Sweep</strong> test tones. Tune to your IEMs, your headphones, or your room — and save the curve.
       </p>
       <p class="chapter-body">
-        Undo, redo, reset, gain trim, file load, library browse. Nothing buried in a menu. Nothing assumed about what your ears want. Every adjustment runs through the same bit-perfect 64-bit float path as the rest of the engine.
+        Undo, redo, reset, gain trim, file load, library browse. Nothing buried in a menu. Nothing assumed about what your ears want. Every adjustment runs through the same 64-bit double-precision DSP path as the rest of the engine.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">10 bands</span>
@@ -2267,7 +2267,7 @@ footer {
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </summary>
         <div class="faq-body">
-          <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The engine processes audio in 64-bit float, so every EQ band, every gain change, every output adjustment stays bit-perfect end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
+          <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64), so every band, every gain change, every output adjustment stays mathematically clean end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
           <p>In practice, almost every commercial DSD release is a delivery container layered on top of a PCM master. Recording and mastering happens in PCM (often DXD at very high sample rates). A 24/96 or 24/192 FLAC of the same master sounds effectively identical and weighs roughly a quarter as much on disk.</p>
           <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and some Android DAPs support it end-to-end. But it requires both the player and the DAC to agree on the wrap/unwrap, and it doesn't bypass the precision constraint: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. Meringo doesn't ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. Rather than ship a DSD path that wraps or converts behind your back, Meringo commits to the PCM and FLAC route, where the precision you hear is the precision you can control.</p>
         </div>
