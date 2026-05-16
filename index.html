@@ -35,7 +35,7 @@
     "url": "https://meringo.app/"
   },
   "url": "https://meringo.app/",
-  "softwareVersion": "1.14.0"
+  "softwareVersion": "1.16.0"
 }
 </script>
 
@@ -44,13 +44,17 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The engine processes audio in 64-bit float so every EQ adjustment stays bit-perfect end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. On Android, even a 'DSD-capable' DAC over USB Audio Class receives PCM at the kernel boundary regardless, so Meringo commits to the PCM and FLAC route where the precision you hear is the precision you can control."}},
+    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The engine processes audio in 64-bit float so every EQ adjustment stays bit-perfect end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo does not ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. We commit to the PCM and FLAC route where the precision you hear is the precision you can control."}},
     {"@type":"Question","name":"My WAV or AIFF files don't show album artwork. Now what?","acceptedAnswer":{"@type":"Answer","text":"Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo 1.11.0 added a sibling-image resolver that picks them up automatically."}},
     {"@type":"Question","name":"Search returns no results — what's happening?","acceptedAnswer":{"@type":"Answer","text":"Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). 1.11.0 added a one-tap hint when search comes up empty on the current lens, pointing at the other one with your query preserved."}},
     {"@type":"Question","name":"Are playlists supported?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Playlists are on the roadmap. If you have playlists on a Jellyfin or Subsonic-compatible server, the playlist surface isn't visible inside Meringo yet, but every track in those playlists is."}},
     {"@type":"Question","name":"How do I install Meringo? Is it on the Play Store?","acceptedAnswer":{"@type":"Answer","text":"Currently in Closed Testing on Google Play. The app isn't publicly listed yet — testers are added by email invitation. Email support@meringo.app with the Google account email you'd use on the device to be added to the test list."}},
     {"@type":"Question","name":"Why is Meringo built for FiiO M21? Does it run on other devices?","acceptedAnswer":{"@type":"Answer","text":"Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — Snapdragon 680, 4 GB RAM, ~360 dp screen width. Beta testers have reported it working well on the FiiO M33 and on generic Android phones."}},
-    {"@type":"Question","name":"Does Meringo ever resample my audio?","acceptedAnswer":{"@type":"Answer","text":"No. Meringo doesn't run any internal sample-rate conversion. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit. If a route can't accept the rate, the OS surfaces an error rather than silently downsampling."}},
+    {"@type":"Question","name":"Does Meringo ever resample my audio?","acceptedAnswer":{"@type":"Answer","text":"By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — the bit-perfect path the engine is built around. Meringo 1.15 added an opt-in alternative: Settings → Force Output Sample Rate lets you pin AudioTrack to a single rate (96, 176.4, 192, or 384 kHz) and have Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: INTERNAL SRC replaces BIT-PERFECT because resampling is mathematical interpolation, not bit-identity. Leave it off and the bit-perfect path is unchanged."}},
+    {"@type":"Question","name":"Are lyrics supported? Where do they come from?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the ♪ LYRICS pill on the Now Playing format strip and a velvet sheet slides up over the screen. When the track's source returns synchronised lyrics, the active line highlights in Candlelight Gold and the sheet smooth-scrolls to keep it centred; plain-text lyrics render as a scrollable Cormorant block. Today Meringo reads from Jellyfin's /Audio/{id}/Lyrics endpoint — LRC sidecars, SYLT/USLT embedded frames, plain-text .txt sidecars all decode to the same sheet. Local files and Subsonic tracks land on the calm 'no lyrics on file' empty state; embedded USLT extraction and Subsonic getLyrics2 are road-map work. No third-party lyrics service is involved — Meringo asks the same server your audio comes from, with the same encrypted transport."}},
+    {"@type":"Question","name":"Does Meringo scrobble to ListenBrainz or Last.fm?","acceptedAnswer":{"@type":"Answer","text":"ListenBrainz is supported as an opt-in integration in Meringo 1.16 (Settings → ListenBrainz). Paste your user token from listenbrainz.org/profile/; the token validates against the server, stores in encrypted Keystore-backed storage, and never logs in plaintext. A listen counts when you have heard 240 seconds OR 50% of the track, whichever first — the literal ListenBrainz spec. Tracks shorter than 30 seconds never scrobble. Failed submissions persist to a local encrypted retry queue and drain via a 30-minute background worker when the network allows. A revoked token gracefully disconnects the integration instead of looping. Last.fm is not currently supported."}},
+    {"@type":"Question","name":"If I close the app, will I lose my place?","acceptedAnswer":{"@type":"Answer","text":"No. Force-stop Meringo, swipe it from recents, reboot the phone — open the app two days later and the queue is still there, with the same current track, the same position to the second, the same lens. Restoration never auto-plays: the app comes back to the same state but waits for your tap before sound resumes, so opening the app for an unrelated reason doesn't fire audio at the bus seat next to you."}},
+    {"@type":"Question","name":"Can I share or export what I'm seeing on the route badge?","acceptedAnswer":{"@type":"Answer","text":"Two share affordances landed in 1.16. Long-press the Now Playing format strip to open the Audio Path sheet, then tap the ⤴ in the header — the current readout (bit depth, sample rate, route, device, runtime modifiers) goes to your system share intent as a forum-ready plain-text card. Honest by construction: if the route is RESAMPLED / TRUNCATED / INTERNAL SRC, the share text says so verbatim. The Settings → Audio Diagnostics screen has the same ⤴ in its header for the longer support-ticket form (build info, device class, identity-resolution stats, recent-events ring buffer). Server URLs are deliberately omitted from the diagnostics export so a public-channel screenshot can't leak your home-server address."}},
     {"@type":"Question","name":"Where can I get the FFmpeg source code Meringo bundles?","acceptedAnswer":{"@type":"Answer","text":"Meringo bundles a Meringo-built FFmpeg derivative (libavcodec, libavutil, libswresample) under the GNU LGPL v2.1 or later. Build configuration, version, license texts, and a written offer for the source are available in the app under Settings → Open Source Licenses, or by emailing support@meringo.app."}}
   ]
 }
@@ -1713,14 +1717,15 @@ footer {
         Meringo gives you a dual-lens library: a <strong>Vault</strong> of local FLAC and ALAC files, and a <strong>Cloud</strong> lens that spans Jellyfin and the Subsonic / OpenSubsonic family — Navidrome, Airsonic, and friends.
       </p>
       <p class="chapter-body">
-        The sources don't blend. Each lens keeps its own identity, its own metadata, its own playback context. Toggle, search, and sort within whichever world you're in. Quality chips on every album — <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">ULTRA</span>, <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">FLAC</span>, <span style="color:var(--color-text-2);font-family:var(--font-mono);font-size:0.9em">MP3</span> — so you can see <em>at a glance</em> what's in the rack.
+        Each lens stands on its own — toggle, search, and sort within the world you're in. But when the same recording lives on more than one source, Meringo collapses the duplicate intelligently: <em>Vault wins over Jellyfin wins over Subsonic</em>, matched by MusicBrainz Recording ID, ISRC, a metadata tuple, or an acoustic-fingerprint twin link when the tags disagree. A <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">+ Vault</code> or <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">+ Cloud</code> chip on every Album page tells you which copies of a track live where. Quality chips on every album — <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">ULTRA</span>, <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">FLAC</span>, <span style="color:var(--color-text-2);font-family:var(--font-mono);font-size:0.9em">MP3</span> — round out the rack at a glance.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">Vault · Cloud</span>
         <span class="chapter-spec-tag">Jellyfin</span>
         <span class="chapter-spec-tag">Subsonic / OpenSubsonic</span>
-        <span class="chapter-spec-tag teal">Quality chips</span>
-        <span class="chapter-spec-tag">A–Z scroller</span>
+        <span class="chapter-spec-tag teal">Cross-source dedup</span>
+        <span class="chapter-spec-tag teal">Twin chips</span>
+        <span class="chapter-spec-tag">Quality chips</span>
       </div>
     </div>
 
@@ -1745,18 +1750,22 @@ footer {
       <p class="chapter-num">Ch. 02 — The Engine</p>
       <h2 class="chapter-title">Bit-perfect. <em>End to end.</em></h2>
       <p class="chapter-body">
-        Every sample reaches your DAC at the recording's native rate and depth. No software resampling. No silent format conversion. No middleware audio stack in the way.
+        By default, every sample reaches your DAC at the recording's native rate and depth. No silent format conversion. No middleware audio stack in the way. Bit-perfect on three axes — sample-rate parity, bit-depth parity, no PCM scaling — and the Now Playing route badge turns amber the moment any of the three breaks (HAL resample, DAC depth truncation, ReplayGain non-unity scalar). No fake green light.
       </p>
       <p class="chapter-body">
-        Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC — sidestepping the buggy platform decoders some Snapdragon DAPs ship with. The DSP path runs in <strong>64-bit float</strong> so every EQ band, every gain change, every output stays bit-perfect from file to hardware.
+        Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC — sidestepping the buggy platform decoders some Snapdragon DAPs ship with. The DSP path runs in <strong>64-bit float</strong>, so every EQ band, every gain change, every output stays mathematically lossless from file to hardware. The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). The route badge flips its <code style="font-family:var(--font-mono);font-size:0.9em">IIR-MP</code> tag to <code style="font-family:var(--font-mono);font-size:0.9em">FIR-LP</code> when linear phase is engaged.
+      </p>
+      <p class="chapter-body">
+        Prefer a single stable DAC clock across an entire session? <strong>Force Output Sample Rate</strong> opts in to Meringo's polyphase Kaiser-windowed sinc resampler — every track converted to a fixed 96, 176.4, 192, or 384&nbsp;kHz in 64-bit double precision before AudioTrack. The badge reads <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> when active, not <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> — because that's what's actually happening.
       </p>
       <blockquote class="chapter-pull">
-        Same path. Every device.<br>Every sample, <em>bit-for-bit.</em>
+        Same path. Every device.<br>Every sample, <em>honestly accounted for.</em>
       </blockquote>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">64-bit float DSP</span>
         <span class="chapter-spec-tag teal">FFmpeg-derived</span>
-        <span class="chapter-spec-tag">No resampling</span>
+        <span class="chapter-spec-tag teal">Linear-Phase FIR</span>
+        <span class="chapter-spec-tag">Optional Internal SRC</span>
         <span class="chapter-spec-tag">AudioTrack native</span>
         <span class="chapter-spec-tag teal">24 / 192</span>
       </div>
@@ -1949,17 +1958,21 @@ footer {
       <p class="chapter-num">Ch. 05 — Acoustic DNA</p>
       <h2 class="chapter-title">The library, <em>understood.</em></h2>
       <p class="chapter-body">
-        AcoustID fingerprinting scans your library and matches it against <strong>MusicBrainz</strong> — surfacing release year, genre classifications, editorial biography, and high-res artwork from the <strong>Cover Art Archive</strong>. Tag-poor files become tag-rich in the background.
+        AcoustID fingerprinting scans your library and matches it against <strong>MusicBrainz</strong> — surfacing release year, genre classifications, editorial biography, and high-res artwork from the <strong>Cover Art Archive</strong>. Tag-poor files become tag-rich in the background. Cross-source recordings collapse to a single library entry by Recording MBID — JAY-Z and Jay-Z and Shawn Carter all merge to one artist card once MusicBrainz resolves the canonical identity.
       </p>
       <p class="chapter-body">
-        The payoff is visible on the home screen: <strong>Mood</strong> and <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Lite Roast. Fruity. Hi-Res Vault. Deep Cuts. <em>Long plays.</em> Curation, without a curator.
+        The payoff lands on the home screen as <strong>Mood</strong> and <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Lite Roast. Fruity. Hi-Res Vault. Deep Cuts. <em>Long plays.</em> Curation, without a curator.
+      </p>
+      <p class="chapter-body">
+        And one layer deeper, the <strong>Atmospheres</strong> browse mode lets you walk the entire library by Coffee-Logic mood — Lite Roast (bright, acoustic clarity), Fruity (complex harmonics), Medium Roast (balanced indie/electronic), Dark &amp; Bold (heavy low-end), Slow Drip (ambient/long-form) — and cross-filter by tempo (Slow / Mid / Fast, measured directly from the audio by onset autocorrelation). Five tiles, each lens-scoped, each surfaced from the same fingerprint pass.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">AcoustID</span>
         <span class="chapter-spec-tag">MusicBrainz</span>
         <span class="chapter-spec-tag">Cover Art Archive</span>
-        <span class="chapter-spec-tag teal">Smart Playlists</span>
-        <span class="chapter-spec-tag teal">Mood</span>
+        <span class="chapter-spec-tag teal">Atmospheres</span>
+        <span class="chapter-spec-tag teal">Mood × Tempo</span>
+        <span class="chapter-spec-tag">Smart Playlists</span>
       </div>
     </div>
 
@@ -1968,6 +1981,47 @@ footer {
       <div class="chapter-device">
         <img src="assets/screens/mood_smart.png"
              alt="Meringo home — Mood and Smart Playlists generated from AcoustID fingerprinting and MusicBrainz metadata">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════════════
+     CHAPTER 6 — SONIC MATCH / SONIC RADIO
+═════════════════════════════════════════════════════════════ -->
+<section class="chapter" id="chapter-6">
+  <div class="chapter-grid reverse">
+
+    <div class="chapter-copy">
+      <p class="chapter-num">Ch. 06 — Sonic Match</p>
+      <h2 class="chapter-title">The song <em>hiding</em> in your shelves.</h2>
+      <p class="chapter-body">
+        Tap the <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#8779;</code> icon on Now Playing and Meringo searches the Chromaprint fingerprints it has been building in the background, ranking what's playing against the rest of your library by Hamming distance — and surfaces tracks that genuinely <em>sound like</em> the current one. Same harmonic shape, same rhythmic feel. Hold the icon to switch to <strong>Acoustic Texture</strong>: same energy and structural arc, regardless of key.
+      </p>
+      <p class="chapter-body">
+        Tap any match card and you've launched <strong>Sonic Radio</strong> — an auto-extending queue of texture-aligned tracks seeded from that match. Five tracks deep in standard mode, eight in Deep Dive. The B-side that lives next door to the long-form ambient piece you forgot you owned. The cover the algorithm spotted before you did.
+      </p>
+      <p class="chapter-body">
+        <strong>Deep Dive Mode</strong> is the critical-listening posture: pool widens (Sonic Match candidate set 20 &rarr; 50), similarity floor rises (only matches &geq; 0.45 survive), Radio tail grows. On the audio side it switches in a defensive buffer profile, detaches the OS Visualizer's PCM tap, and pauses background analysis workers so the M21's cores aren't competing with the engine. A two-layer commitment to listening with intent.
+      </p>
+      <blockquote class="chapter-pull">
+        Not a recommendation engine.<br>A <em>librarian</em> who's been listening.
+      </blockquote>
+      <div class="chapter-specs">
+        <span class="chapter-spec-tag gold">Sonic Match</span>
+        <span class="chapter-spec-tag teal">Acoustic Texture</span>
+        <span class="chapter-spec-tag teal">Sonic Radio</span>
+        <span class="chapter-spec-tag">Deep Dive Mode</span>
+        <span class="chapter-spec-tag">Chromaprint</span>
+      </div>
+    </div>
+
+    <div class="chapter-stage">
+      <div class="chapter-stage-glow"></div>
+      <div class="chapter-device">
+        <img src="assets/screens/now_playing.png"
+             alt="Meringo Now Playing — the ≋ Sonic Match icon lives in the top-right of the screen and seeds a Sonic Radio queue when tapped">
       </div>
     </div>
 
@@ -2215,7 +2269,7 @@ footer {
         <div class="faq-body">
           <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The engine processes audio in 64-bit float, so every EQ band, every gain change, every output adjustment stays bit-perfect end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
           <p>In practice, almost every commercial DSD release is a delivery container layered on top of a PCM master. Recording and mastering happens in PCM (often DXD at very high sample rates). A 24/96 or 24/192 FLAC of the same master sounds effectively identical and weighs roughly a quarter as much on disk.</p>
-          <p>On Android, even a "DSD-capable" DAC over USB Audio Class receives PCM at the kernel boundary — DSD doesn't survive the trip to the hardware regardless. Rather than ship a DSD path that wraps or converts behind your back, Meringo commits to the PCM and FLAC route, where the precision you hear is the precision you can control.</p>
+          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and some Android DAPs support it end-to-end. But it requires both the player and the DAC to agree on the wrap/unwrap, and it doesn't bypass the precision constraint: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. Meringo doesn't ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. Rather than ship a DSD path that wraps or converts behind your back, Meringo commits to the PCM and FLAC route, where the precision you hear is the precision you can control.</p>
         </div>
       </details>
 
@@ -2281,8 +2335,56 @@ footer {
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </summary>
         <div class="faq-body">
-          <p>No. Meringo doesn't run any internal sample-rate conversion. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit.</p>
-          <p>If a DAC can't accept a file's native rate (e.g. a Bluetooth codec capped at 48&nbsp;kHz), the OS surfaces an error rather than silently downsampling. You see the truth, not a fabrication.</p>
+          <p>By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — that's the bit-perfect path the engine is built around.</p>
+          <p>Meringo 1.15 added an opt-in alternative: <strong>Settings &rarr; Force Output Sample Rate</strong> lets you pin the AudioTrack to a single rate (96, 176.4, 192, or 384&nbsp;kHz) and have Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> replaces <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> because resampling is mathematical interpolation, not bit-identity.</p>
+          <p>Audiophiles who prefer a single stable DAC clock across an entire session over per-track HAL renegotiation choose it. Everyone else leaves it off and the bit-perfect path is unchanged. If a DAC can't accept a file's native rate at all (e.g. a Bluetooth codec capped at 48&nbsp;kHz), the OS surfaces an error rather than silently downsampling — same posture either way.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Are lyrics supported? Where do they come from?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Yes — new in Meringo 1.16. Tap the <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#9834; LYRICS</code> pill on the Now Playing format strip and a velvet sheet slides up over the screen. When the track's source returns synchronised lyrics, the active line highlights in Candlelight Gold and the sheet smooth-scrolls to keep it centred; plain-text lyrics render as a scrollable Cormorant block.</p>
+          <p>Today Meringo reads from Jellyfin's <code>/Audio/{id}/Lyrics</code> endpoint — LRC sidecars, SYLT/USLT embedded frames, plain-text <code>.txt</code> sidecars all decode to the same sheet. Local files and Subsonic tracks land on the calm <em>no lyrics on file</em> empty state today; embedded USLT extraction and Subsonic <code>getLyrics2</code> are road-map work.</p>
+          <p>No third-party lyrics service is involved — Meringo asks the same server your audio comes from, with the same encrypted transport. If you scroll the sheet manually, auto-follow pauses for four seconds before resuming so you can read ahead without the cursor yanking you back.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Does Meringo scrobble to ListenBrainz or Last.fm?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>ListenBrainz is supported as an opt-in integration in Meringo 1.16 (<strong>Settings &rarr; ListenBrainz</strong>). Paste your user token from <a href="https://listenbrainz.org/profile/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">listenbrainz.org/profile/</a>; the token validates against the server, stores in encrypted Keystore-backed storage, and never logs in plaintext.</p>
+          <p>A listen counts when you've heard <strong>240 seconds OR 50% of the track</strong>, whichever first — the literal ListenBrainz spec. Tracks shorter than 30 seconds never scrobble. Failed submissions persist to a local encrypted retry queue and drain via a 30-minute background worker when the network allows. A revoked token gracefully disconnects the integration instead of looping.</p>
+          <p>Last.fm is not currently supported. The scrobble path is built around the ListenBrainz submit-listens API; the data shapes are similar enough that Last.fm could be added later, but ListenBrainz's community-run, MusicBrainz-anchored posture fits the rest of Meringo's identity layer more naturally — that's where the first slot went.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>If I close the app, will I lose my place?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>No. Force-stop Meringo, swipe it from recents, reboot the phone. Open the app two days later and the queue is still there — track list, current index, exact position to the second. The lens is where you set it.</p>
+          <p>Restoration never auto-plays. The app comes back to the same state but waits for your tap before sound resumes — opening the app for an unrelated reason shouldn't fire audio at the bus seat next to you. The standard Android player UX, deliberately.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Can I share or export what I'm seeing on the route badge?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Two share affordances landed in 1.16, both reached via the <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#10548;</code> glyph.</p>
+          <p>Long-press the Now Playing format strip to open the <strong>Audio Path</strong> sheet, then tap the <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#10548;</code> in the header. The current readout — bit depth, sample rate, route, device, runtime modifiers — goes to your system share intent as a forum-ready plain-text card. Honest by construction: if the active route is RESAMPLED / TRUNCATED / INTERNAL SRC, the share text says so verbatim. No marketing rewrite at the share boundary.</p>
+          <p><strong>Settings &rarr; Audio Diagnostics</strong> has the same <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#10548;</code> in its header for the longer support-ticket form (build info, device class, identity-resolution stats, recent-events ring buffer). Server URLs are deliberately omitted from the diagnostics export so a public-channel screenshot can't leak your home-server address.</p>
         </div>
       </details>
 
@@ -2439,6 +2541,7 @@ footer {
             <li><strong style="color:var(--color-text-0)">Wikipedia</strong> (Wikimedia Foundation) — Artist biographies and hero images, fetched on demand for the Now Playing artist info sheet</li>
             <li><strong style="color:var(--color-text-0)">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
             <li><strong style="color:var(--color-text-0)">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
+            <li><strong style="color:var(--color-text-0)">ListenBrainz</strong> — Opt-in scrobble service (off by default). When you connect your token in <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; ListenBrainz</span>, track metadata (artist, title, album, duration, MusicBrainz Recording ID when available) and the listen's start timestamp are submitted to <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">api.listenbrainz.org</code>. No data is sent until you've affirmatively connected. Token is stored encrypted on-device using Android Keystore; pausing or disconnecting in Settings stops submission immediately. Failed submissions persist to a local retry queue and never leave the device until the network allows them.</li>
             <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-out; see above)</li>
           </ul>
           <p>Content retrieval requests carry no personal identifiers. Crash reports are governed by the terms described in the Crash Reporting section above. Use of all third-party services is subject to their respective privacy policies.</p>
@@ -2540,6 +2643,7 @@ footer {
       <a href="#chapter-3">The Workbench</a>
       <a href="#chapter-4">The Tuning Vault</a>
       <a href="#chapter-5">Acoustic DNA</a>
+      <a href="#chapter-6">Sonic Match</a>
     </div>
 
     <div class="footer-links">
