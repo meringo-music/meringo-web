@@ -1593,6 +1593,8 @@ footer {
   <a href="#chapter-3">The Workbench</a>
   <a href="#chapter-4">The Tuning Vault</a>
   <a href="#chapter-5">Acoustic DNA</a>
+  <a href="#chapter-6">Sonic Match</a>
+  <a href="#chapter-7">Atmospheres</a>
   <a href="#faq">FAQ</a>
   <a href="#get-app">Get Meringo</a>
   <a href="#privacy">Privacy</a>
@@ -1890,11 +1892,15 @@ footer {
       <p class="chapter-body">
         Undo, redo, reset, gain trim, file load, library browse. Nothing buried in a menu. Nothing assumed about what your ears want. Every adjustment runs through the same 64-bit double-precision DSP path as the rest of the engine.
       </p>
+      <p class="chapter-body">
+        Below the graph: <strong>Pink Noise</strong> and <strong>Sine Sweep</strong> test signals routed through the active EQ bands. Adjust a slider, hear the test tone reshape in real time — the same headphone-calibration workflow Pro Tools and iZotope expose in studio plugins, one tap deep. <strong>Phase Mode</strong> toggles between minimum-phase (zero latency) and 1025-tap linear-phase FIR (constant group delay across frequency) without rebuilding your tuning.
+      </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">10 bands</span>
         <span class="chapter-spec-tag">Slot A / Slot B</span>
         <span class="chapter-spec-tag teal">Pink Noise</span>
         <span class="chapter-spec-tag teal">Sine Sweep</span>
+        <span class="chapter-spec-tag">Min / Linear Phase</span>
         <span class="chapter-spec-tag">Calibrated dB</span>
         <span class="chapter-spec-tag">Undo / Redo</span>
       </div>
@@ -1902,9 +1908,15 @@ footer {
 
     <div class="chapter-stage">
       <div class="chapter-stage-glow"></div>
-      <div class="chapter-device">
-        <img src="assets/screens/workbench.png"
-             alt="Meringo Workbench — 10-band parametric EQ at flat response, Slot A active, with Pink Noise and Sine Sweep test tones">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:24px; z-index:2;">
+        <div class="chapter-device">
+          <img src="assets/screens/workbench.png"
+               alt="Meringo Workbench — 10-band parametric EQ with an active curve (gentle bass shape, 4 kHz cut, gentle top-end roll-off), Slot A engaged, engine on">
+        </div>
+        <div class="chapter-device" style="width:240px;">
+          <img src="assets/screens/workbench_soundtools.png"
+               alt="Meringo Workbench scrolled to the Sound Tool selector — Pink Noise is the active tool, routed through the EQ bands. Helper line reads &lsquo;Pink noise through active EQ bands. Tune until perceived response is flat.&rsquo; Phase Mode toggle below shows Min Phase selected">
+        </div>
       </div>
     </div>
 
@@ -1961,17 +1973,12 @@ footer {
         AcoustID fingerprinting scans your library and matches it against <strong>MusicBrainz</strong> — surfacing release year, genre classifications, editorial biography, and high-res artwork from the <strong>Cover Art Archive</strong>. Tag-poor files become tag-rich in the background. Cross-source recordings collapse to a single library entry by Recording MBID — JAY-Z and Jay-Z and Shawn Carter all merge to one artist card once MusicBrainz resolves the canonical identity.
       </p>
       <p class="chapter-body">
-        The payoff lands on the home screen as <strong>Mood</strong> and <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Lite Roast. Fruity. Hi-Res Vault. Deep Cuts. <em>Long plays.</em> Curation, without a curator.
-      </p>
-      <p class="chapter-body">
-        And one layer deeper, the <strong>Atmospheres</strong> browse mode lets you walk the entire library by Coffee-Logic mood — Lite Roast (bright, acoustic clarity), Fruity (complex harmonics), Medium Roast (balanced indie/electronic), Dark &amp; Bold (heavy low-end), Slow Drip (ambient/long-form) — and cross-filter by tempo (Slow / Mid / Fast, measured directly from the audio by onset autocorrelation). Five tiles, each lens-scoped, each surfaced from the same fingerprint pass.
+        The payoff lands on the home screen as <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Hi-Res Vault. Deep Cuts. <em>Long plays.</em> Studio Vault. Curation, without a curator — and a <a href="#chapter-7" style="color:var(--color-gold-dim);">mood-driven library navigation</a> primitive that reads from the same fingerprint pass.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">AcoustID</span>
         <span class="chapter-spec-tag">MusicBrainz</span>
         <span class="chapter-spec-tag">Cover Art Archive</span>
-        <span class="chapter-spec-tag teal">Atmospheres</span>
-        <span class="chapter-spec-tag teal">Mood × Tempo</span>
         <span class="chapter-spec-tag">Smart Playlists</span>
       </div>
     </div>
@@ -2028,6 +2035,48 @@ footer {
   </div>
 </section>
 
+
+
+<!-- ═════════════════════════════════════════════════════════════
+     CHAPTER 7 — ATMOSPHERES (Coffee-Logic mood navigation)
+═════════════════════════════════════════════════════════════ -->
+<section class="chapter" id="chapter-7">
+  <div class="chapter-grid">
+
+    <div class="chapter-copy">
+      <p class="chapter-num">Ch. 07 — Atmospheres</p>
+      <h2 class="chapter-title">Browse by <em>sound,</em> not by genre tag.</h2>
+      <p class="chapter-body">
+        <strong>Coffee-Logic</strong> classifies every track in your library by its actual audio character, not by metadata. Five mood classes — <strong>Lite Roast</strong> (bright, acoustic clarity), <strong>Fruity</strong> (complex harmonics — jazz, soul, bossa), <strong>Medium Roast</strong> (balanced indie/electronic), <strong>Dark &amp; Bold</strong> (heavy low-end, aggressive transients), <strong>Slow Drip</strong> (atmospheric, long-form) — derived deterministically from each track's Chromaprint fingerprint, technical metadata, and MusicBrainz genre tags.
+      </p>
+      <p class="chapter-body">
+        Stack mood &times; <strong>tempo</strong> (Slow 60-100 BPM, Mid 100-140, Fast 140-200, computed by onset autocorrelation on the same PCM extraction) and the library narrows to a coherent listening session. <em>Dark &amp; Bold</em> &times; Slow for a 2am session. <em>Lite Roast</em> &times; Mid for a morning walk. Each tile lens-scoped, each surfaced from the same fingerprint pass that powers Sonic Match.
+      </p>
+      <p class="chapter-body">
+        Same file always produces the same tag. No recommendation lottery, no telemetry, no third-party classifier in the loop. The library knows what it sounds like because Meringo listened to it once, on your phone.
+      </p>
+      <blockquote class="chapter-pull">
+        Mood navigation that reads the <em>audio,</em><br>not the tags.
+      </blockquote>
+      <div class="chapter-specs">
+        <span class="chapter-spec-tag gold">5 mood classes</span>
+        <span class="chapter-spec-tag teal">Tempo cross-filter</span>
+        <span class="chapter-spec-tag">Chromaprint</span>
+        <span class="chapter-spec-tag">Deterministic</span>
+        <span class="chapter-spec-tag">Local-only</span>
+      </div>
+    </div>
+
+    <div class="chapter-stage">
+      <div class="chapter-stage-glow"></div>
+      <div class="chapter-device">
+        <img src="assets/screens/atmospheres.png"
+             alt="Meringo Library — Vault lens, Atmospheres view-type selected. The mood tiles show live counts derived locally from each track&rsquo;s audio fingerprint: Lite Roast (1316 tracks, 172 albums), Fruity (637 tracks, 214 albums), Dark &amp; Bold (rock / metal / hip-hop / funk) partially visible below">
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
 <!-- ═════════════════════════════════════════════════════════════
@@ -2645,6 +2694,7 @@ footer {
       <a href="#chapter-4">The Tuning Vault</a>
       <a href="#chapter-5">Acoustic DNA</a>
       <a href="#chapter-6">Sonic Match</a>
+      <a href="#chapter-7">Atmospheres</a>
     </div>
 
     <div class="footer-links">
