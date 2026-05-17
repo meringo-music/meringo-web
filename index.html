@@ -900,6 +900,91 @@ nav {
 }
 
 /* ─────────────────────────────────
+   SHOWCASE — feature-in-the-wild interlude between chapters
+   Used for the server-connect pair (auth_jellyfin + auth_subsonic).
+   Centered header above, devices side-by-side below — distinct from
+   the chapter grid pattern so it reads as a punctuation beat.
+───────────────────────────────── */
+.showcase {
+  position: relative;
+  padding: 80px var(--space-8);
+  border-top: 1px solid var(--color-border-dim);
+  border-bottom: 1px solid var(--color-border-dim);
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(61,139,139,0.04) 0%, transparent 70%);
+}
+.showcase-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.showcase-header {
+  max-width: 720px;
+  margin: 0 auto var(--space-10);
+  text-align: center;
+}
+.showcase-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: var(--space-3);
+}
+.showcase-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-text-0);
+  margin-bottom: var(--space-5);
+}
+.showcase-title em { font-style: italic; color: var(--color-gold); }
+.showcase-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-4);
+  text-align: left;
+}
+.showcase-body strong { color: var(--color-text-0); }
+.showcase-body em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-gold-dim);
+}
+.showcase-stage-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-10);
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.showcase-device-frame { display: flex; flex-direction: column; align-items: center; }
+.showcase-device {
+  width: 240px;
+  max-width: 100%;
+  filter:
+    drop-shadow(0 14px 32px rgba(0,0,0,0.45))
+    drop-shadow(0 36px 72px rgba(107,60,160,0.18));
+}
+.showcase-device img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.showcase-caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  text-align: center;
+  margin-top: var(--space-3);
+}
+
+/* ─────────────────────────────────
    ENGINE CHAPTER — signal-flow diagram
 ───────────────────────────────── */
 .signal-flow {
@@ -1581,6 +1666,10 @@ footer {
   .receipt-stage { order: -1; }
   .receipt-device { width: 220px; }
 
+  .showcase { padding: 60px var(--space-5); }
+  .showcase-stage-row { gap: var(--space-6); }
+  .showcase-device { width: 200px; }
+
   .philosophy-inner { grid-template-columns: 1fr; }
   .philosophy-mascot { order: -1; margin-bottom: var(--space-6); }
   .philosophy-mascot svg { width: 200px; }
@@ -1906,6 +1995,40 @@ footer {
 </section>
 
 <!-- ═════════════════════════════════════════════════════════════
+     SHOWCASE — Bring your own server (auth_jellyfin + auth_subsonic)
+═════════════════════════════════════════════════════════════ -->
+<section class="showcase" id="showcase-servers">
+  <div class="showcase-inner">
+    <div class="showcase-header">
+      <p class="showcase-label">Bring your own server</p>
+      <h3 class="showcase-title">Jellyfin. <em>Or any server that speaks Subsonic.</em></h3>
+      <p class="showcase-body">
+        Two paths into the same shared library. Jellyfin gets first-class treatment. The Subsonic family &mdash; <strong>Navidrome, Airsonic, Funkwhale, Gonic, Ampache</strong>, and every other server that implements the OpenSubsonic API &mdash; gets the same fidelity-first connection posture: bit-perfect direct play, no transcoding, <em>password never stored beyond the hash derived from it</em>. URL, username, password, Connect. Set it once.
+      </p>
+      <p class="showcase-body">
+        Connect both at the same time if you have both. The library collapses twin recordings to a single entry across all three sources (Vault + Jellyfin + Subsonic) using the MusicBrainz &rarr; ISRC &rarr; metadata tuple &rarr; Chromaprint match chain. Same dedup rules everywhere.
+      </p>
+    </div>
+    <div class="showcase-stage-row">
+      <div class="showcase-device-frame">
+        <div class="showcase-device">
+          <img src="assets/screens/auth_jellyfin.png"
+               alt="Meringo Jellyfin connect screen &mdash; mascot at the top, &lsquo;Connect to your Jellyfin server&rsquo; subtitle, Server URL / Username / Password fields, large Connect CTA">
+        </div>
+        <p class="showcase-caption">Jellyfin</p>
+      </div>
+      <div class="showcase-device-frame">
+        <div class="showcase-device">
+          <img src="assets/screens/auth_subsonic.png"
+               alt="Meringo Subsonic-compatible server connect screen &mdash; &lsquo;Connect to any Subsonic-compatible server: Navidrome, Airsonic, Funkwhale, Gonic, Ampache, and any other server that implements the OpenSubsonic API.&rsquo; URL / Username / Password fields with the disclaimer &lsquo;Your password is never stored &mdash; only a hash derived from it&rsquo; below">
+        </div>
+        <p class="showcase-caption">Subsonic family</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════════════
      CHAPTER 2 — THE ENGINE  (signal-flow diagram)
 ═════════════════════════════════════════════════════════════ -->
 <section class="chapter" id="chapter-2">
@@ -2139,8 +2262,8 @@ footer {
     <div class="chapter-stage">
       <div class="chapter-stage-glow"></div>
       <div class="chapter-device">
-        <img src="assets/screens/tuning_vault.png"
-             alt="Meringo Tuning Vault — Pure Meringo baseline selected, My Signatures empty, Import a Profile card open">
+        <img src="assets/screens/tuning_vault_factory.png"
+             alt="Meringo Tuning Vault — Baseline section at top showing None (Pure Meringo): &lsquo;Flat response · All bands zeroed · No signature applied.&rsquo; Factory Profiles section below: V-Shape Boost, Mid-Forward Vocal, Warm Analog (partial), each with its own Apply CTA">
       </div>
     </div>
 
