@@ -483,6 +483,28 @@ nav {
 .hero-device::before,
 .hero-device::after { display: none; }
 
+/* Secondary device — Home screen pokes out from behind primary, rotated and faded
+   so the eye reads it as "another view available," not as competing content.
+   Hidden on tablets/mobile where the hero collapses to a single column. */
+.hero-device-secondary {
+  position: absolute;
+  top: 6%;
+  left: 4%;
+  width: 210px;
+  z-index: 1;
+  opacity: 0.78;
+  transform: rotate(-6deg);
+  filter:
+    drop-shadow(0 18px 44px rgba(0,0,0,0.5))
+    drop-shadow(0 36px 80px rgba(107,60,160,0.18));
+  pointer-events: none;
+}
+.hero-device-secondary img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* Mascot — narrator perched at hero */
 .hero-mascot {
   position: absolute;
@@ -795,6 +817,86 @@ nav {
   background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(232,181,96,0.12) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* ─────────────────────────────────
+   RECEIPT — diagnostics excerpt between Ch. 02 and Ch. 03
+   Smaller scale than a chapter; reads as a "show your work" sidebar.
+───────────────────────────────── */
+.receipt {
+  position: relative;
+  padding: 70px var(--space-8);
+  border-top: 1px solid var(--color-border-dim);
+  border-bottom: 1px solid var(--color-border-dim);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(232,181,96,0.04) 0%, transparent 70%);
+}
+.receipt-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+.receipt-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.receipt-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--color-gold-dim);
+}
+.receipt-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-0);
+  margin-bottom: var(--space-5);
+}
+.receipt-title em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.receipt-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+  margin-bottom: var(--space-4);
+  max-width: 540px;
+}
+.receipt-body code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-teal);
+}
+.receipt-stage {
+  display: flex;
+  justify-content: center;
+}
+.receipt-device {
+  width: 260px;
+  max-width: 100%;
+  filter:
+    drop-shadow(0 14px 32px rgba(0,0,0,0.45))
+    drop-shadow(0 36px 72px rgba(107,60,160,0.18));
+}
+.receipt-device img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ─────────────────────────────────
@@ -1282,6 +1384,55 @@ nav {
 }
 .privacy-block li { margin-bottom: var(--space-2); }
 .privacy-block a { color: var(--color-gold-dim); }
+
+/* Privacy hero — visual lead-in showing the first-run opt-in UI alongside
+   the textual summary that follows. Pairs editorial claim with actual UI. */
+.privacy-hero {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: var(--space-10);
+  align-items: center;
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-6) 0;
+}
+.privacy-hero-copy { max-width: 540px; }
+.privacy-hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold-dim);
+  margin-bottom: var(--space-3);
+}
+.privacy-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--color-text-0);
+  margin-bottom: var(--space-4);
+}
+.privacy-hero-title em { font-style: italic; color: var(--color-gold); }
+.privacy-hero-body {
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  color: var(--color-text-1);
+  line-height: var(--leading-loose);
+}
+.privacy-hero-device {
+  width: 220px;
+  max-width: 100%;
+  margin: 0 auto;
+  filter:
+    drop-shadow(0 14px 32px rgba(0,0,0,0.45))
+    drop-shadow(0 36px 72px rgba(107,60,160,0.18));
+}
+.privacy-hero-device img { width: 100%; height: auto; display: block; }
+@media (max-width: 768px) {
+  .privacy-hero { grid-template-columns: 1fr; gap: var(--space-6); }
+  .privacy-hero-device { width: 180px; }
+}
+
 .support-link {
   display: inline-flex;
   align-items: center;
@@ -1415,6 +1566,7 @@ footer {
   .hero-stage-glow { inset: -10%; }
   .hero-mascot { width: 100px; right: -4%; bottom: 4%; }
   .hero-spec-float { left: -4%; bottom: 14%; }
+  .hero-device-secondary { display: none; }
 
   .spec-row { grid-template-columns: repeat(3, 1fr); gap: var(--space-3) 0; }
 
@@ -1423,6 +1575,11 @@ footer {
   .chapter-grid.reverse .chapter-copy { order: 1; }
   .chapter-grid.reverse .chapter-stage { order: 2; }
   .chapter-stage { min-height: 440px; }
+
+  .receipt { padding: 50px var(--space-5); }
+  .receipt-inner { grid-template-columns: 1fr; gap: var(--space-8); }
+  .receipt-stage { order: -1; }
+  .receipt-device { width: 220px; }
 
   .philosophy-inner { grid-template-columns: 1fr; }
   .philosophy-mascot { order: -1; margin-bottom: var(--space-6); }
@@ -1651,6 +1808,12 @@ footer {
     <div class="hero-stage fade-in fade-in-3">
       <div class="hero-stage-glow"></div>
 
+      <!-- Secondary device — Home screen as background context.
+           Decorative; the primary device below carries the labelled image. -->
+      <div class="hero-device-secondary" aria-hidden="true">
+        <img src="assets/screens/home.png" alt="">
+      </div>
+
       <!-- Floating spec card -->
       <div class="hero-spec-float">
         <div class="hero-spec-float-key">Now Playing</div>
@@ -1874,6 +2037,30 @@ footer {
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════════════
+     RECEIPT — diagnostics excerpt (Ch. 02 → Ch. 03 connector)
+═════════════════════════════════════════════════════════════ -->
+<section class="receipt" id="receipt">
+  <div class="receipt-inner">
+    <div class="receipt-copy">
+      <p class="receipt-label">Receipt</p>
+      <h3 class="receipt-title">What the device <em>actually</em> reports.</h3>
+      <p class="receipt-body">
+        Open <code>Settings &rarr; Audio Diagnostics</code> on any Meringo build and the screen reads back exactly what the engine sees: device tier (LEAN / BALANCED / FLAGSHIP), RAM ceiling, CPU core count, USB-DAC presence, manufacturer, model, Android level, ABI. The buffer profile, the visualizer policy, the thermal-aware worker batch limits — every one of those numbers is derived from these values at cold start.
+      </p>
+      <p class="receipt-body">
+        The screenshot is a real readout from a FiiO M21. Quote it in a support ticket and the values are reproducible cold start to cold start — same hardware, same readout, no telemetry round-trip required to produce them. Being honest about the bits begins with being honest about the silicon they're running on.
+      </p>
+    </div>
+    <div class="receipt-stage">
+      <div class="receipt-device">
+        <img src="assets/screens/diagnostics.png"
+             alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No. Build: Manufacturer Qualcomm, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2533,6 +2720,20 @@ footer {
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
     <p class="privacy-effective">EFFECTIVE DATE: May 11, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
+
+    <div class="privacy-hero">
+      <div class="privacy-hero-copy">
+        <p class="privacy-hero-eyebrow">First run · opt-in by gesture</p>
+        <h3 class="privacy-hero-title">You pick the <em>folder.</em></h3>
+        <p class="privacy-hero-body">
+          On first launch, Meringo doesn't enumerate your storage looking for music. It asks. The screen to the right is the actual UI you see — pick a folder, an SD card, wherever your library lives, and the indexer only touches what you point it at. Skip the picker and the app stays empty until you change your mind. Privacy starts at the file-system boundary; the policy below describes the rest of the surface.
+        </p>
+      </div>
+      <div class="privacy-hero-device">
+        <img src="assets/screens/onboarding.png"
+             alt="Meringo first-run folder picker — &lsquo;Let&rsquo;s find your music&rsquo; / &lsquo;One folder away from listening&rsquo; with Choose a folder and Skip for now buttons">
+      </div>
+    </div>
 
     <p class="privacy-summary">
       I do not run servers that collect your personal data. I do not run analytics pipelines. <em>Server credentials are encrypted on-device using Android Keystore; your music library and preferences live in private app storage; crash reporting through Sentry is opt-out and redacts known auth parameters before transmission.</em>
