@@ -2842,24 +2842,24 @@ footer {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 11, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 17, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
 
     <div class="privacy-hero">
       <div class="privacy-hero-copy">
         <p class="privacy-hero-eyebrow">First run · disclosed before you tap</p>
         <h3 class="privacy-hero-title">Our Commitment, on screen <em>one.</em></h3>
         <p class="privacy-hero-body">
-          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>The Acoustic DNA Scan</em> (AcoustID fingerprinting, opt-in). <em>External Services</em> (MusicBrainz + Cover Art Archive for editorial metadata). <em>Software As-Is</em> (a solo developer's honest disclaimer). The four headings on the screen to the right correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
+          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>The Acoustic DNA Scan</em> (AcoustID fingerprinting, opt-in). <em>External Services</em> (MusicBrainz + Cover Art Archive for editorial metadata). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings on the screen to the right correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
         </p>
       </div>
       <div class="privacy-hero-device">
         <img src="assets/screens/onboarding.png"
-             alt="Meringo first-run terms screen — &lsquo;Our Commitment&rsquo; with four numbered sections: 1. Your Data Stays Yours, 2. The Acoustic DNA Scan, 3. External Services (MusicBrainz + Cover Art Archive), 4. Software As-Is. Shown to every user before any Connect or Play CTA loads">
+             alt="Meringo first-run terms screen — &lsquo;Our Commitment&rsquo; with five numbered sections: 1. Your Data Stays Yours, 2. The Acoustic DNA Scan, 3. External Services (MusicBrainz + Cover Art Archive), 4. Crash Reporting (Sentry, opt-in toggle, off by default), 5. Software As-Is. Shown to every user before any Connect or Play CTA loads">
       </div>
     </div>
 
     <p class="privacy-summary">
-      I do not run servers that collect your personal data. I do not run analytics pipelines. <em>Server credentials are encrypted on-device using Android Keystore; your music library and preferences live in private app storage; crash reporting through Sentry is opt-out and redacts known auth parameters before transmission.</em>
+      I do not run servers that collect your personal data. I do not run analytics pipelines. <em>Server credentials are encrypted on-device using Android Keystore; your music library and preferences live in private app storage; crash reporting through Sentry is opt-in (off by default, with the consent toggle on the first-run screen) and redacts known auth parameters before transmission.</em>
     </p>
 
     <details class="privacy-details">
@@ -2893,7 +2893,8 @@ footer {
         <div class="privacy-block" id="priv-crash">
           <h3>Crash Reporting</h3>
           <p>Meringo uses <strong style="color:var(--color-text-0)">Sentry</strong> (sentry.io) for crash and error reporting. This helps me identify and fix stability problems without you having to file a bug report manually.</p>
-          <p>Crash reports are <strong style="color:var(--color-text-0)">enabled by default</strong> and can be turned off at any time under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings → Privacy → Crash reporting</span>. Disabling the toggle stops Sentry from running for the remainder of the session; it will not be started on the next launch either.</p>
+          <p>Crash reports are <strong style="color:var(--color-text-0)">opt-in</strong>. New installs see a consent toggle on the first-run screen (off by default); until the user makes a choice and taps a Connect button, Sentry is held in a no-op state and zero crash data leaves the device. The same toggle is available afterwards under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings → Privacy → Crash reporting</span>. Disabling it at any time stops Sentry from running for the remainder of the session; it will not be started on the next launch either.</p>
+          <p>Existing installs from before this consent flow (where the user had already completed onboarding under the previous default-on behavior) are treated as having implicitly consented and keep their existing crash-reporting preference. The toggle remains available to flip off whenever they like.</p>
           <p>A crash report contains:</p>
           <ul>
             <li>The exception type, message, and stack trace</li>
@@ -2916,7 +2917,7 @@ footer {
             <li><strong style="color:var(--color-text-0)">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
             <li><strong style="color:var(--color-text-0)">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
             <li><strong style="color:var(--color-text-0)">ListenBrainz</strong> — Opt-in scrobble service (off by default). When you connect your token in <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; ListenBrainz</span>, track metadata (artist, title, album, duration, MusicBrainz Recording ID when available) and the listen's start timestamp are submitted to <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">api.listenbrainz.org</code>. No data is sent until you've affirmatively connected. Token is stored encrypted on-device using Android Keystore; pausing or disconnecting in Settings stops submission immediately. Failed submissions persist to a local retry queue and never leave the device until the network allows them.</li>
-            <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-out; see above)</li>
+            <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-in; see above)</li>
           </ul>
           <p>Content retrieval requests carry no personal identifiers. Crash reports are governed by the terms described in the Crash Reporting section above. Use of all third-party services is subject to their respective privacy policies.</p>
         </div>
