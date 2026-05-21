@@ -2046,6 +2046,9 @@ footer {
       <p class="chapter-body">
         Prefer a single stable DAC clock across an entire session? <strong>Force Output Sample Rate</strong> opts in to Meringo's polyphase Kaiser-windowed sinc resampler — every track converted to a fixed 96, 176.4, 192, or 384&nbsp;kHz in 64-bit double precision before AudioTrack. The badge reads <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> when active, not <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> — because that's what's actually happening.
       </p>
+      <p class="chapter-body">
+        Plugging in a USB DAC takes Meringo off the AudioTrack road entirely. The app parses the DAC's USB Audio Class descriptors, claims the audio-streaming interface, and ships PCM frames through isochronous transfers directly to the silicon — no AudioFlinger between the bits and the chip. The bit-perfect chip stays gold-teal when the iso pipe is live and the DAC's negotiated rate matches the source file. Verified to date on <strong>Fosi DS2</strong> (UAC2 high-speed async, up to 384&nbsp;kHz / 32-bit), <strong>Jcally JM6 Pro</strong> (UAC1 high-speed sync, 96&nbsp;kHz), and <strong>Qudelix 5K</strong> (UAC1 full-speed sync, 96&nbsp;kHz / 24-bit). The Apple USB-C → 3.5mm Headphone Jack Adapter is a known awkward fit and falls back to OS routing automatically on phones — the Field Guide explains why on dedicated DAPs the path is different.
+      </p>
       <blockquote class="chapter-pull">
         Same path. Every device.<br>Every sample, <em>honestly accounted for.</em>
       </blockquote>
@@ -2055,6 +2058,7 @@ footer {
         <span class="chapter-spec-tag teal">Linear-Phase FIR</span>
         <span class="chapter-spec-tag">Optional Internal SRC</span>
         <span class="chapter-spec-tag">AudioTrack native</span>
+        <span class="chapter-spec-tag gold">USB iso-pipe driver</span>
         <span class="chapter-spec-tag teal">24 / 192</span>
       </div>
     </div>
@@ -2248,6 +2252,9 @@ footer {
       <p class="chapter-body">
         Import 10-band AutoEQ parametric strings or your own CSV / JSON profile files directly. The <em>None (Pure Meringo)</em> baseline is always one tap away — flat response, all bands zeroed, no signature applied. The honest reference.
       </p>
+      <p class="chapter-body">
+        <strong>Your Rack</strong> is the organising layer that sits on top of the Vault. List the headphones you actually tune for (brand, model, over- or in-ear); tag each new signature with the pair it was built for; recall every signature for a single headphone in one tap. The per-headphone screen carries an <strong>A/B Compare</strong> picker — pick two signatures, drop straight into the Workbench with both already cued up into Slots A and B. If you add a headphone whose name matches an AutoEQ-indexed profile, Your Rack will suggest the matching Community Profile inline — three taps from <em>new headphone in my collection</em> to <em>calibrated tuning loaded.</em>
+      </p>
       <blockquote class="chapter-pull">
         Flat response. All bands zeroed.<br><em>No signature applied.</em>
       </blockquote>
@@ -2256,6 +2263,8 @@ footer {
         <span class="chapter-spec-tag">AutoEQ import</span>
         <span class="chapter-spec-tag">CSV / JSON</span>
         <span class="chapter-spec-tag teal">My Signatures</span>
+        <span class="chapter-spec-tag gold">Your Rack</span>
+        <span class="chapter-spec-tag teal">A/B Compare</span>
       </div>
     </div>
 
