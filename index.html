@@ -2890,7 +2890,7 @@ footer {
             <li>Your listening preferences and non-sensitive app settings in the app's private DataStore (no credentials are kept here)</li>
             <li>Cached artwork and editorial metadata fetched from public APIs</li>
           </ul>
-          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (the default), anonymised error reports may be sent to Sentry — see the <a href="#priv-crash" style="color:var(--color-gold-dim);">Crash Reporting</a> section below.</p>
+          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (off by default; opt in on the first-run screen), anonymised error reports may be sent to Sentry — see the <a href="#priv-crash" style="color:var(--color-gold-dim);">Crash Reporting</a> section below.</p>
         </div>
 
         <div class="privacy-block" id="priv-acoustid">
@@ -2941,6 +2941,7 @@ footer {
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_MEDIA_AUDIO</span> — read audio files on Android 13+</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_EXTERNAL_STORAGE</span> — read audio files on Android 12 and older (superseded by READ_MEDIA_AUDIO on newer releases; declared with <code style="font-family:var(--font-mono);font-size:0.9em">maxSdkVersion=32</code>)</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span> — keep the playback service running while the screen is off</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">POST_NOTIFICATIONS</span> — non-foreground-service notifications such as the USB DAC lockout alert (the playback notification itself is exempt under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span>). Prompted for at install on Android 13+; the app remains fully usable if declined</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">MODIFY_AUDIO_SETTINGS</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">BLUETOOTH_CONNECT</span> — audio output routing and Bluetooth audio device management</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">WAKE_LOCK</span> — prevent the CPU from sleeping mid-track during background playback</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">VIBRATE</span> — haptic feedback on seek and UI interactions</li>
