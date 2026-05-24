@@ -35,7 +35,12 @@
     "url": "https://meringo.app/"
   },
   "url": "https://meringo.app/",
-  "softwareVersion": "1.23.3"
+  "softwareVersion": "1.24.0",
+  "offers": {
+    "@type": "Offer",
+    "price": "9.99",
+    "priceCurrency": "USD"
+  }
 }
 </script>
 
@@ -48,7 +53,7 @@
     {"@type":"Question","name":"My WAV or AIFF files don't show album artwork. Now what?","acceptedAnswer":{"@type":"Answer","text":"Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo's sibling-image resolver picks them up automatically."}},
     {"@type":"Question","name":"Search returns no results — what's happening?","acceptedAnswer":{"@type":"Answer","text":"Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). When search comes up empty on the current lens, Meringo offers a one-tap hint pointing at the other one with your query preserved."}},
     {"@type":"Question","name":"Are playlists supported?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Playlists are on the roadmap. If you have playlists on a Jellyfin or Subsonic-compatible server, the playlist surface isn't visible inside Meringo yet, but every track in those playlists is."}},
-    {"@type":"Question","name":"How do I install Meringo? Is it on the Play Store?","acceptedAnswer":{"@type":"Answer","text":"Currently in Closed Testing on Google Play. The app isn't publicly listed yet — testers are added by email invitation. Email support@meringo.app with the Google account email you'd use on the device to be added to the test list."}},
+    {"@type":"Question","name":"How do I install Meringo? Is it on the Play Store?","acceptedAnswer":{"@type":"Answer","text":"Yes — Meringo is available on the Google Play Store. New users get a 7-day free trial of the full app, then a one-time $9.99 purchase to unlock permanently. No subscription, no ads, no premium tier locked behind a second purchase."}},
     {"@type":"Question","name":"Why is Meringo built for FiiO M21? Does it run on other devices?","acceptedAnswer":{"@type":"Answer","text":"Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — Snapdragon 680, 4 GB RAM, ~360 dp screen width. Beta testers have reported it working well on the FiiO M33 and on generic Android phones."}},
     {"@type":"Question","name":"Does Meringo ever resample my audio?","acceptedAnswer":{"@type":"Answer","text":"By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — the bit-perfect path the engine is built around. Settings → Force Output Sample Rate is the opt-in alternative — it pins AudioTrack to a single rate (96, 176.4, 192, or 384 kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: INTERNAL SRC replaces BIT-PERFECT because resampling is mathematical interpolation, not bit-identity. Leave it off and the bit-perfect path is unchanged."}},
     {"@type":"Question","name":"Are lyrics supported? Where do they come from?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the ♪ LYRICS pill on the Now Playing format strip and a velvet sheet slides up over the screen. When the track's source returns synchronised lyrics, the active line highlights in Candlelight Gold and the sheet smooth-scrolls to keep it centred; plain-text lyrics render as a scrollable Cormorant block. Today Meringo reads from Jellyfin's /Audio/{id}/Lyrics endpoint — LRC sidecars, SYLT/USLT embedded frames, plain-text .txt sidecars all decode to the same sheet. Local files and Subsonic tracks land on the calm 'no lyrics on file' empty state; embedded USLT extraction and Subsonic getLyrics2 are road-map work. No third-party lyrics service is involved — Meringo asks the same server your audio comes from, with the same encrypted transport."}},
@@ -2681,8 +2686,14 @@ footer {
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </summary>
         <div class="faq-body">
-          <p>Currently in Closed Testing on Google Play. The app isn't publicly listed yet — testers are added by email invitation.</p>
-          <p>If you'd like to try it, send a note to <a href="mailto:support@meringo.app">support@meringo.app</a> with the Google account email you'd use on the device, and I'll add you to the test list.</p>
+          <div class="cta-state-beta">
+            <p>Currently in Closed Testing on Google Play. The app isn't publicly listed yet — testers are added by email invitation.</p>
+            <p>If you'd like to try it, send a note to <a href="mailto:support@meringo.app">support@meringo.app</a> with the Google account email you'd use on the device, and I'll add you to the test list.</p>
+          </div>
+          <div class="cta-state-live">
+            <p>Yes — Meringo is on the Google Play Store. New users get a 7-day free trial of the full app, then a one-time $9.99 unlock for permanent lifetime access. No subscription, no ads, no premium tier locked behind a second purchase.</p>
+            <p>If you switch phones or reinstall later, your purchase restores automatically — Google tracks the entitlement against the Google account you bought with. <strong>Settings &rarr; Subscription &rarr; Restore Purchase</strong> if it doesn't trigger on its own.</p>
+          </div>
           <p>If you'd rather just follow along — or chat about audio gear, bug reports, feature ideas — the <a href="https://discord.gg/BZthNJpGC" target="_blank" rel="noopener">Meringo Discord</a> is where the regulars hang out.</p>
         </div>
       </details>
@@ -2811,6 +2822,10 @@ footer {
       <div class="cta-state-live">
         <p class="section-label">Available now · Google Play</p>
         <h2 class="get-app-title">Your music. <em>Exactly as recorded.</em></h2>
+        <div class="get-app-pricing" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);padding:var(--space-4) var(--space-5);border:1px solid rgba(232,181,96,0.35);border-radius:var(--radius-md);background:rgba(232,181,96,0.08);">
+          <span style="font-family:var(--font-display);font-size:clamp(28px,3.2vw,38px);font-weight:300;color:var(--color-gold);letter-spacing:-0.01em;">$9.99 once</span>
+          <span style="font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.05em;color:var(--color-text-2);">7-day free trial · No subscription · Lifetime updates</span>
+        </div>
         <p class="get-app-body">
           Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). Tuned for the FiiO M21 target.
         </p>
@@ -3047,9 +3062,16 @@ footer {
           <p>Meringo integrates with third-party services as enumerated in the <a href="#priv-third" style="color:var(--color-gold-dim);">Privacy Policy</a>: MusicBrainz, Cover Art Archive, AcoustID, ListenBrainz, Wikipedia, Sentry, and any user-configured media server. Your use of those services is subject to the terms and privacy policies of each provider. I am not responsible for the availability, accuracy, or conduct of any third-party service.</p>
         </div>
 
-        <div class="privacy-block" id="tos-beta">
+        <div class="privacy-block cta-state-beta" id="tos-beta">
           <h3>6. Beta Software Notice</h3>
           <p>Meringo is currently in closed testing on the Google Play Store. The app may contain bugs, change behavior, or be modified at any time without notice. Beta users acknowledge that they are using pre-release software and accept the increased risk of defects.</p>
+        </div>
+
+        <div class="privacy-block cta-state-live" id="tos-purchase">
+          <h3>6. Purchase, Trial, and License Grant</h3>
+          <p>Meringo is distributed via the Google Play Store. New users receive a seven (7) day trial of the full application beginning at first launch. After the trial expires, continued use requires a one-time in-app purchase ("Meringo Lifetime") for $9.99 USD, or local-equivalent pricing set by Google Play. The Lifetime purchase grants you a perpetual, non-exclusive, non-transferable, revocable license to use Meringo on devices signed into the Google account that completed the purchase, subject to these Terms.</p>
+          <p>Refunds, chargebacks, and revocation of purchase are handled by Google Play in accordance with Google's policies. If Google revokes your purchase for any reason &mdash; including refund, chargeback, or fraud determination &mdash; your license terminates automatically and the app returns to a locked state on next launch.</p>
+          <p>Restoration of a prior purchase is supported via <strong>Settings &rarr; Subscription &rarr; Restore Purchase</strong>, or automatically on first launch of a fresh install signed into the original Google account.</p>
         </div>
 
         <div class="privacy-block" id="tos-ip">
@@ -3068,7 +3090,7 @@ footer {
           <h3>9. Limitation of Liability</h3>
           <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL MERINGO LABS LLC OR ITS OWNERS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, REVENUE, PROFITS, OR GOODWILL, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE APP OR THE WEBSITE, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY.</p>
           <p>IF THE FOREGOING LIMITATION IS HELD UNENFORCEABLE, MERINGO LABS LLC'S TOTAL CUMULATIVE LIABILITY ARISING OUT OF OR RELATED TO THESE TERMS WILL NOT EXCEED THE GREATER OF (A) THE AMOUNTS YOU HAVE PAID TO MERINGO LABS LLC IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR (B) ONE HUNDRED U.S. DOLLARS ($100).</p>
-          <p>You acknowledge that Meringo is currently distributed free of charge during closed testing and that these limitations are essential to my willingness to make the app available.</p>
+          <p>You acknowledge that Meringo is offered at a one-time low purchase price relative to comparable professional audio software, and that these limitations are essential to my willingness to make the app available as a solo-developer product.</p>
         </div>
 
         <div class="privacy-block" id="tos-indemnify">
