@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meringo — Respecting the archive. Perfecting the play.</title>
-<meta name="description" content="The definitive bit-perfect music player for Android DAPs. Built for audiophiles who demand the full signal chain.">
+<meta name="description" content="A bit-perfect Android music player for FiiO M21 and audiophile DAPs. Jellyfin + Subsonic, parametric EQ workbench, AcoustID fingerprinting. 7-day free trial, $9.99 lifetime — no subscription.">
 <meta property="og:title" content="Meringo — Respecting the archive. Perfecting the play.">
-<meta property="og:description" content="Bit-perfect playback. Acoustic DNA. Deep Velvet UI. Built for the FiiO M21 and serious listeners.">
+<meta property="og:description" content="A bit-perfect Android music player for FiiO M21 and audiophile DAPs. Jellyfin + Subsonic, parametric EQ, AcoustID fingerprinting. 7-day free trial, $9.99 lifetime — no subscription.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://meringo.app/">
 <meta property="og:image" content="https://meringo.app/assets/og.png">
@@ -16,7 +16,7 @@
 <meta property="og:image:alt" content="Meringo — Bit-perfect music for Android DAPs, built for the full signal chain">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Meringo — Respecting the archive. Perfecting the play.">
-<meta name="twitter:description" content="Bit-perfect playback. Acoustic DNA. Deep Velvet UI. Built for the FiiO M21 and serious listeners.">
+<meta name="twitter:description" content="A bit-perfect Android music player for FiiO M21 and audiophile DAPs. Jellyfin + Subsonic, parametric EQ, AcoustID fingerprinting. 7-day free trial, $9.99 lifetime — no subscription.">
 <meta name="twitter:image" content="https://meringo.app/assets/og.png">
 <meta name="twitter:image:alt" content="Meringo — Bit-perfect music for Android DAPs, built for the full signal chain">
 
@@ -35,11 +35,19 @@
     "url": "https://meringo.app/"
   },
   "url": "https://meringo.app/",
-  "softwareVersion": "1.24.0",
+  "softwareVersion": "1.24.1",
+  "datePublished": "2026-05-26",
+  "author": {
+    "@type": "Person",
+    "name": "Adam Siemaszko"
+  },
   "offers": {
     "@type": "Offer",
     "price": "9.99",
-    "priceCurrency": "USD"
+    "priceCurrency": "USD",
+    "url": "https://play.google.com/store/apps/details?id=app.meringo",
+    "availability": "https://schema.org/InStock",
+    "category": "OneTimePurchase"
   }
 }
 </script>
@@ -49,12 +57,12 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo does not ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. We commit to the PCM and FLAC route where the precision you hear is the precision you can control. Practical detail: Meringo's scanner does index .dsf and .dff files when they exist in your library and labels them lossless on the format strip, but playback on Snapdragon 680-class devices (the M21) surfaces a [FormatUnsupported] error rather than play. An external USB DAC that decodes DSD natively opens the path."}},
+    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo does not ship a DoP path; the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless. We commit to the PCM and FLAC route where the precision you hear is the precision you can control. Practical detail: Meringo's scanner does index .dsf and .dff files when they exist in your library and labels them lossless on the format strip, but playback on Snapdragon 680-class devices (the M21) surfaces a [FormatUnsupported] error rather than play. An external USB DAC that decodes DSD natively opens the path."}},
     {"@type":"Question","name":"My WAV or AIFF files don't show album artwork. Now what?","acceptedAnswer":{"@type":"Answer","text":"Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo's sibling-image resolver picks them up automatically."}},
     {"@type":"Question","name":"Search returns no results — what's happening?","acceptedAnswer":{"@type":"Answer","text":"Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). When search comes up empty on the current lens, Meringo offers a one-tap hint pointing at the other one with your query preserved."}},
     {"@type":"Question","name":"Are playlists supported?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Playlists are on the roadmap. If you have playlists on a Jellyfin or Subsonic-compatible server, the playlist surface isn't visible inside Meringo yet, but every track in those playlists is."}},
-    {"@type":"Question","name":"How do I install Meringo? Is it on the Play Store?","acceptedAnswer":{"@type":"Answer","text":"Yes — Meringo is available on the Google Play Store. New users get a 7-day free trial of the full app, then a one-time $9.99 purchase to unlock permanently. No subscription, no ads, no premium tier locked behind a second purchase."}},
-    {"@type":"Question","name":"Why is Meringo built for FiiO M21? Does it run on other devices?","acceptedAnswer":{"@type":"Answer","text":"Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — Snapdragon 680, 4 GB RAM, ~360 dp screen width. Beta testers have reported it working well on the FiiO M33 and on generic Android phones."}},
+    {"@type":"Question","name":"How do I install Meringo? Is it on the Play Store?","acceptedAnswer":{"@type":"Answer","text":"Yes — Meringo is on the Google Play Store. New users get a 7-day free trial of the full app, then a one-time $9.99 unlock for permanent lifetime access. No subscription, no ads, no premium tier locked behind a second purchase. If you switch phones or reinstall later, your purchase restores automatically — Google tracks the entitlement against the Google account you bought with."}},
+    {"@type":"Question","name":"Why is Meringo built for FiiO M21? Does it run on other devices?","acceptedAnswer":{"@type":"Answer","text":"Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — Snapdragon 680, 4 GB RAM, ~360 dp screen width. Beta testers have reported it working well on the Jade Audio JM21 (FiiO's sister-brand entry-level DAP), the FiiO M33, and on modern Android phones from 2022 and newer."}},
     {"@type":"Question","name":"Does Meringo ever resample my audio?","acceptedAnswer":{"@type":"Answer","text":"By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — the bit-perfect path the engine is built around. Settings → Force Output Sample Rate is the opt-in alternative — it pins AudioTrack to a single rate (96, 176.4, 192, or 384 kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: INTERNAL SRC replaces BIT-PERFECT because resampling is mathematical interpolation, not bit-identity. Leave it off and the bit-perfect path is unchanged."}},
     {"@type":"Question","name":"Are lyrics supported? Where do they come from?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the ♪ LYRICS pill on the Now Playing format strip and a velvet sheet slides up over the screen. When the track's source returns synchronised lyrics, the active line highlights in Candlelight Gold and the sheet smooth-scrolls to keep it centred; plain-text lyrics render as a scrollable Cormorant block. Today Meringo reads from Jellyfin's /Audio/{id}/Lyrics endpoint — LRC sidecars, SYLT/USLT embedded frames, plain-text .txt sidecars all decode to the same sheet. Local files and Subsonic tracks land on the calm 'no lyrics on file' empty state; embedded USLT extraction and Subsonic getLyrics2 are road-map work. No third-party lyrics service is involved — Meringo asks the same server your audio comes from, with the same encrypted transport."}},
     {"@type":"Question","name":"Does Meringo scrobble to ListenBrainz or Last.fm?","acceptedAnswer":{"@type":"Answer","text":"ListenBrainz is supported as an opt-in integration (Settings → ListenBrainz). Paste your user token from listenbrainz.org/profile/; the token validates against the server, stores in encrypted Keystore-backed storage, and never logs in plaintext. A listen counts when you have heard 240 seconds OR 50% of the track, whichever first — the literal ListenBrainz spec. Tracks shorter than 30 seconds never scrobble. Failed submissions persist to a local encrypted retry queue and drain via a 30-minute background worker when the network allows. A revoked token gracefully disconnects the integration instead of looping. Last.fm is not currently supported."}},
@@ -1865,7 +1873,7 @@ footer {
         Your music.<br><em>Exactly as recorded.</em>
       </h1>
       <p class="hero-tagline fade-in fade-in-3">
-        A bit-perfect music player for Android DAPs, built for the audiophiles who care about the full signal chain. <em>Plays files from your local Vault and your Jellyfin or Subsonic server — no integration with Spotify, Tidal, Apple Music, or Qobuz, by design.</em>
+        A bit-perfect music player for Android DAPs, built for audiophiles who care about the full signal chain. <em>Plays your local files and your Jellyfin or Subsonic server, with parametric EQ, AcoustID fingerprinting, and a one-time $9.99 lifetime price — no subscription.</em>
       </p>
 
       <div class="hero-cta-group fade-in fade-in-4">
@@ -1905,7 +1913,7 @@ footer {
       <!-- Secondary device — Home screen as background context.
            Decorative; the primary device below carries the labelled image. -->
       <div class="hero-device-secondary" aria-hidden="true">
-        <img src="assets/screens/home.png" alt="">
+        <img src="assets/screens/home.png" alt="" width="750" height="1334" decoding="async">
       </div>
 
       <!-- Floating spec card -->
@@ -1917,6 +1925,7 @@ footer {
 
       <div class="hero-device" aria-label="Meringo Now Playing screen">
         <img src="assets/screens/now_playing.png"
+             width="750" height="1334" decoding="async" fetchpriority="high"
              alt="Meringo Now Playing — 'Hard to See' by Men I Trust, 24-bit / 96 kHz from the Vault. ULTRA dynamic-range chip + EQ engaged on the album-art card, ♪ LYRICS pill below the route line, full transport controls below the scrub bar">
       </div>
 
@@ -1992,6 +2001,7 @@ footer {
       <div class="chapter-stage-glow"></div>
       <div class="chapter-device">
         <img src="assets/screens/library_albums.png"
+             loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo Library — Vault lens, 331 albums in a 2-column grid with ULTRA and FLAC quality chips">
       </div>
     </div>
@@ -2018,6 +2028,7 @@ footer {
       <div class="showcase-device-frame">
         <div class="showcase-device">
           <img src="assets/screens/auth_jellyfin.png"
+               loading="lazy" decoding="async" width="750" height="1334"
                alt="Meringo Jellyfin connect screen &mdash; mascot at the top, &lsquo;Connect to your Jellyfin server&rsquo; subtitle, Server URL / Username / Password fields, large Connect CTA">
         </div>
         <p class="showcase-caption">Jellyfin</p>
@@ -2025,6 +2036,7 @@ footer {
       <div class="showcase-device-frame">
         <div class="showcase-device">
           <img src="assets/screens/auth_subsonic.png"
+               loading="lazy" decoding="async" width="750" height="1334"
                alt="Meringo Subsonic-compatible server connect screen &mdash; &lsquo;Connect to any Subsonic-compatible server: Navidrome, Airsonic, Funkwhale, Gonic, Ampache, and any other server that implements the OpenSubsonic API.&rsquo; URL / Username / Password fields with the disclaimer &lsquo;Your password is never stored &mdash; only a hash derived from it&rsquo; below">
         </div>
         <p class="showcase-caption">Subsonic family</p>
@@ -2190,6 +2202,7 @@ footer {
     <div class="receipt-stage">
       <div class="receipt-device">
         <img src="assets/screens/diagnostics.png"
+             loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No. Build: Manufacturer Qualcomm, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a">
       </div>
     </div>
@@ -2230,10 +2243,12 @@ footer {
       <div style="display:flex; flex-direction:column; align-items:center; gap:24px; z-index:2;">
         <div class="chapter-device">
           <img src="assets/screens/workbench.png"
+               loading="lazy" decoding="async" width="750" height="1334"
                alt="Meringo Workbench — 10-band parametric EQ with an active curve (gentle bass shape, 4 kHz cut, gentle top-end roll-off), Slot A engaged, engine on">
         </div>
         <div class="chapter-device" style="width:240px;">
           <img src="assets/screens/workbench_soundtools.png"
+               loading="lazy" decoding="async" width="750" height="1334"
                alt="Meringo Workbench scrolled to the Sound Tool selector — Pink Noise is the active tool, routed through the EQ bands. Helper line reads &lsquo;Pink noise through active EQ bands. Tune until perceived response is flat.&rsquo; Phase Mode toggle below shows Min Phase selected">
         </div>
       </div>
@@ -2277,6 +2292,7 @@ footer {
       <div class="chapter-stage-glow"></div>
       <div class="chapter-device">
         <img src="assets/screens/tuning_vault_factory.png"
+             loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo Tuning Vault — Baseline section at top showing None (Pure Meringo): &lsquo;Flat response · All bands zeroed · No signature applied.&rsquo; Factory Profiles section below: V-Shape Boost, Mid-Forward Vocal, Warm Analog (partial), each with its own Apply CTA">
       </div>
     </div>
@@ -2311,6 +2327,7 @@ footer {
       <div class="chapter-stage-glow"></div>
       <div class="chapter-device">
         <img src="assets/screens/mood_smart.png"
+             loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo home — Mood and Smart Playlists generated from AcoustID fingerprinting and MusicBrainz metadata">
       </div>
     </div>
@@ -2352,6 +2369,7 @@ footer {
       <div class="chapter-stage-glow"></div>
       <div class="chapter-device">
         <img src="assets/screens/now_playing.png"
+             loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo Now Playing — the ≋ Sonic Match icon lives in the top-right of the screen and seeds a Sonic Radio queue when tapped">
       </div>
     </div>
@@ -2395,7 +2413,8 @@ footer {
       <div class="chapter-stage-glow"></div>
       <div class="chapter-device">
         <img src="assets/screens/atmospheres.png"
-             alt="Meringo Library — Vault lens, Atmospheres view-type selected. The mood tiles show live counts derived locally from each track&rsquo;s audio fingerprint: Lite Roast (1316 tracks, 172 albums), Fruity (637 tracks, 214 albums), Dark &amp; Bold (rock / metal / hip-hop / funk) partially visible below">
+             loading="lazy" decoding="async" width="750" height="1334"
+             alt="Meringo Library — Vault lens, Atmospheres view-type selected. The mood tiles show counts derived locally from each track&rsquo;s audio fingerprint, shown here for a sample library: Lite Roast (1316 tracks, 172 albums), Fruity (637 tracks, 214 albums), Dark &amp; Bold (rock / metal / hip-hop / funk) partially visible below">
       </div>
     </div>
 
@@ -2642,7 +2661,7 @@ footer {
         <div class="faq-body">
           <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64), so every band, every gain change, every output adjustment stays mathematically clean end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
           <p>In practice, almost every commercial DSD release is a delivery container layered on top of a PCM master. Recording and mastering happens in PCM (often DXD at very high sample rates). A 24/96 or 24/192 FLAC of the same master sounds effectively identical and weighs roughly a quarter as much on disk.</p>
-          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and some Android DAPs support it end-to-end. But it requires both the player and the DAC to agree on the wrap/unwrap, and it doesn't bypass the precision constraint: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. Meringo doesn't ship a DoP path; the FiiO M21 we tune against routes its onboard ES9219MQ DACs from PCM regardless. Rather than ship a DSD path that wraps or converts behind your back, Meringo commits to the PCM and FLAC route, where the precision you hear is the precision you can control.</p>
+          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and some Android DAPs support it end-to-end. But it requires both the player and the DAC to agree on the wrap/unwrap, and it doesn't bypass the precision constraint: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. Meringo doesn't ship a DoP path; the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless. Rather than ship a DSD path that wraps or converts behind your back, Meringo commits to the PCM and FLAC route, where the precision you hear is the precision you can control.</p>
           <p>For practical purposes: if you have <code>.dsf</code> or <code>.dff</code> files in your library, Meringo's scanner indexes them and labels them lossless on the format strip — you'll see them sitting next to your FLACs. Tap a DSD track on the M21 (or another Snapdragon 680-class device) and the route surfaces a <code>[FormatUnsupported]</code> error rather than play. Plug in an external USB DAC that decodes DSD natively — a Chord Mojo 2, iFi Hip-Dac, or similar — and the path opens up; Meringo hands the stream to the DAC and lets its onboard decoder do the work.</p>
         </div>
       </details>
@@ -2705,7 +2724,7 @@ footer {
         </summary>
         <div class="faq-body">
           <p>Meringo runs on any Android device that meets the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — the audio engine, scan strategy, and UI density are all calibrated for its Snapdragon 680 / 4&nbsp;GB RAM target and ~360&nbsp;dp screen width.</p>
-          <p>Beta testers have reported it working well on the FiiO M33 (same Qualcomm audio silicon family) and on generic Android phones. Other DAPs should run it, but compatibility isn't a guarantee until I have hands on a unit.</p>
+          <p>Beta testers have reported it working well on the Jade Audio JM21 (FiiO's sister-brand entry-level DAP — similar Snapdragon audio substrate), the FiiO M33 (same Qualcomm audio silicon family), and on modern Android phones from 2022 and newer. Other DAPs should run it, but compatibility isn't a guarantee until I have hands on a unit.</p>
         </div>
       </details>
 
@@ -2866,7 +2885,7 @@ footer {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 17, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
 
     <div class="privacy-hero">
       <div class="privacy-hero-copy">
@@ -2878,6 +2897,7 @@ footer {
       </div>
       <div class="privacy-hero-device">
         <img src="assets/screens/onboarding.png"
+             loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo first-run terms screen — &lsquo;Our Commitment&rsquo; with five numbered sections: 1. Your Data Stays Yours, 2. The Acoustic DNA Scan, 3. External Services (MusicBrainz + Cover Art Archive), 4. Crash Reporting (Sentry, opt-in toggle, off by default), 5. Software As-Is. Shown to every user before any Connect or Play CTA loads">
       </div>
     </div>
@@ -3015,7 +3035,7 @@ footer {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Terms of Service</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 17, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
 
     <p class="privacy-summary">
       Meringo is software I built. It is licensed to you for personal use, comes with no warranty, and you agree to a few common-sense restrictions about how you use it. <em>The full text is below.</em>
