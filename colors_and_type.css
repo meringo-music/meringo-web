@@ -130,8 +130,8 @@
   --color-success:      #4CAF82;   /* SuccessGreen */
   --color-success-dim:  rgba(76, 175, 130, 0.15);
   --color-warning:      #FFB74D;   /* WarningAmber */
-  --color-error:        #C5453B;   /* EmberRed */
-  --color-error-dim:    rgba(197, 69, 59, 0.15);
+  --color-error:        #CD5D54;   /* EmberRed — AA-tuned (was C5453B) to clear 4.5:1 on surface */
+  --color-error-dim:    rgba(205, 93, 84, 0.15);
   --color-playing:      var(--color-gold);
 }
 
