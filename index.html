@@ -914,6 +914,49 @@ nav {
 }
 
 /* ─────────────────────────────────
+   PROOF CARD — the verifiable bit-perfect receipt (#verify).
+   A monospace artifact that mirrors the app's Share export. Lines are kept
+   short so the card never needs horizontal scroll at a 390px phone width.
+───────────────────────────────── */
+.receipt + .receipt { border-top: none; }   /* collapse the doubled rule between stacked receipts */
+.proof-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.proof-card {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--color-text-1);
+  background: rgba(10,6,20,0.55);
+  border: 1px solid var(--color-border-dim);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin: 0;
+  width: 100%;
+  max-width: 380px;
+  overflow-x: auto;
+  white-space: pre;
+  box-shadow:
+    0 14px 32px rgba(0,0,0,0.40),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.proof-card .pf-rule { color: var(--color-gold-dim); }
+.proof-card .pf-key  { color: var(--color-text-2); }
+.proof-card .pf-hash { color: var(--color-teal); }
+.proof-card .pf-ok   { color: var(--color-gold); font-weight: 600; }
+.proof-caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-2);
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+/* ─────────────────────────────────
    SHOWCASE — feature-in-the-wild interlude between chapters
    Used for the server-connect pair (auth_jellyfin + auth_subsonic).
    Centered header above, devices side-by-side below — distinct from
@@ -2205,6 +2248,43 @@ footer {
         <img src="assets/screens/diagnostics.png"
              loading="lazy" decoding="async" width="750" height="1334"
              alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No. Build: Manufacturer Qualcomm, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════════════
+     VERIFY — verifiable bit-perfect proof (companion to #receipt)
+═════════════════════════════════════════════════════════════ -->
+<section class="receipt" id="verify">
+  <div class="receipt-inner">
+    <div class="receipt-copy">
+      <p class="receipt-label">Verify it yourself</p>
+      <h3 class="receipt-title">Don't trust the green light. <em>Prove it.</em></h3>
+      <p class="receipt-body">
+        Plenty of players claim bit-perfect output. Meringo is the only one that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio Diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte the isochronous pipe ships to your DAC and computes a SHA-256 over the whole stream.
+      </p>
+      <p class="receipt-body">
+        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
+      </p>
+    </div>
+    <div class="receipt-stage">
+      <div class="proof-wrap">
+        <pre class="proof-card" aria-label="Example Meringo bit-perfect verification receipt: the capture SHA-256 and the re-decoded source SHA-256 match, verdict bit-identical"><span class="pf-rule">═════════════════════════</span>
+ MERINGO · BIT-PERFECT
+ 1.25.1 · Fosi DS2 · 24/96
+<span class="pf-rule">═════════════════════════</span>
+
+<span class="pf-key">[Capture]</span>
+  iso pipe → DAC endpoint
+  <span class="pf-hash">3f9a1c4d…b7e2d4</span>
+
+<span class="pf-key">[Source decode]</span>
+  same file, re-decoded
+  <span class="pf-hash">3f9a1c4d…b7e2d4</span>
+
+<span class="pf-ok">  BIT-IDENTICAL ✓</span></pre>
+        <p class="proof-caption">Example receipt — reproduce your own in ~3 min</p>
       </div>
     </div>
   </div>
