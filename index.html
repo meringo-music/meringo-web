@@ -2283,24 +2283,27 @@ footer {
       <p class="receipt-body">
         Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
       </p>
+      <p class="receipt-body">
+        Not a mockup: verified <strong>bit-identical</strong> across three DACs &mdash; <strong>Fosi DS2</strong> (16/44.1), <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt.
+      </p>
     </div>
     <div class="receipt-stage">
       <div class="proof-wrap">
-        <pre class="proof-card" aria-label="Example Meringo bit-perfect verification receipt: the capture SHA-256 and the re-decoded source SHA-256 match, verdict bit-identical"><span class="pf-rule">═════════════════════════</span>
+        <pre class="proof-card" aria-label="A real Meringo bit-perfect verification receipt: the capture SHA-256 and the re-decoded source SHA-256 match, verdict bit-identical"><span class="pf-rule">═════════════════════════</span>
  MERINGO · BIT-PERFECT
- 1.25.1 · Fosi DS2 · 24/96
+ 1.28.5 · Qudelix 5K · 24/96
 <span class="pf-rule">═════════════════════════</span>
 
 <span class="pf-key">[Capture]</span>
   iso pipe → DAC endpoint
-  <span class="pf-hash">3f9a1c4d…b7e2d4</span>
+  <span class="pf-hash">cb459147…295adf</span>
 
 <span class="pf-key">[Source decode]</span>
   same file, re-decoded
-  <span class="pf-hash">3f9a1c4d…b7e2d4</span>
+  <span class="pf-hash">cb459147…295adf</span>
 
 <span class="pf-ok">  BIT-IDENTICAL ✓</span></pre>
-        <p class="proof-caption">Example receipt — reproduce your own in ~3 min</p>
+        <p class="proof-caption">Real capture · Qudelix 5K · 24/96 · 1.28.5 — reproduce your own in ~3 min</p>
       </div>
     </div>
   </div>
