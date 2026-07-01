@@ -39,7 +39,7 @@
     ]
   },
   "url": "https://meringo.app/",
-  "softwareVersion": "1.24.1",
+  "softwareVersion": "1.29.1",
   "datePublished": "2026-05-26",
   "author": {
     "@type": "Person",
@@ -2761,8 +2761,19 @@ footer {
         <div class="faq-body">
           <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64), so every band, every gain change, every output adjustment stays mathematically clean end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
           <p>In practice, almost every commercial DSD release is a delivery container layered on top of a PCM master. Recording and mastering happens in PCM (often DXD at very high sample rates). A 24/96 or 24/192 FLAC of the same master sounds effectively identical and weighs roughly a quarter as much on disk.</p>
-          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and some Android DAPs support it end-to-end. But it requires both the player and the DAC to agree on the wrap/unwrap, and it doesn't bypass the precision constraint: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. Meringo doesn't ship a DoP path; the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless. Rather than ship a DSD path that wraps or converts behind your back, Meringo commits to the PCM and FLAC route, where the precision you hear is the precision you can control.</p>
+          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and it's exactly how Meringo hands DSD to an external DAC that can decode it natively (DSD64 via DoP today, with a curated catalog of known DACs — Chord, iFi, AudioQuest and more). It doesn't bypass the precision constraint, though: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. What Meringo won't do is force DSD onto hardware that can't take it — the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so on-device DSD would mean a silent conversion behind your back. So the on-device path stays PCM-and-FLAC, and the DoP carriage opens only when a capable DAC is attached.</p>
           <p>For practical purposes: if you have <code>.dsf</code> or <code>.dff</code> files in your library, Meringo's scanner indexes them and labels them lossless on the format strip — you'll see them sitting next to your FLACs. Tap a DSD track on the M21 (or another Snapdragon 680-class device) and the route surfaces a <code>[FormatUnsupported]</code> error rather than play. Plug in an external USB DAC that decodes DSD natively — a Chord Mojo 2, iFi Hip-Dac, or similar — and the path opens up; Meringo hands the stream to the DAC and lets its onboard decoder do the work.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Does Meringo do ReplayGain / loudness leveling?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <div class="faq-body">
+          <p>Yes. Meringo reads the ReplayGain tags embedded in your files (track and album) and applies the per-track adjustment so albums level out against each other — no re-encoding, nothing written back to disk. When a track's gain tag is non-zero and the adjustment is actually doing work, the route badge reads <strong>&ldquo;Scaled &minus;X&nbsp;dB&rdquo;</strong> so you know the bits leaving Meringo aren't bit-identical to the file even though the routing is. A 0&nbsp;dB tag (or no tag) lights the chip green like normal. You can switch it off in Settings — some people do, and that's also fine.</p>
+          <p>Because normalisation mostly pulls loud modern masters <em>down</em>, a whole library can end up quieter than you'd like. So there's a <strong>ReplayGain pre-amp</strong> (Settings &rarr; ReplayGain, 0 to +12&nbsp;dB): a fixed boost on top of the per-track adjustment that keeps the album-to-album leveling without living at half volume. It rides only on tracks that carry a gain tag — untagged tracks still play at unity, untouched. Push it far enough and a hot master can clip; the badge shows the net scaling, and your ears will tell you.</p>
         </div>
       </details>
 
@@ -2808,7 +2819,7 @@ footer {
           <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </summary>
         <div class="faq-body">
-          <p><strong>Three flavours, all in 1.24.2:</strong></p>
+          <p><strong>Three flavours:</strong></p>
           <p><strong>Smart Playlists</strong> — rule-based, curated by Meringo. Studio Vault (Hi-Res only), Deep Cuts (long-tail plays), Coffee-Logic moods (Lite Roast through Slow Drip). You can author your own from <strong>Home &rarr; My Playlists</strong> with rule editors for mood, tempo, era, codec, and more.</p>
           <p><strong>Imported M3U playlists</strong> — if your Vault folders already contain <code>.m3u</code> or <code>.m3u8</code> files exported from MusicBee, Plex, foobar2000, or any other tool, the scanner reads them on import and surfaces each under <strong>Home &rarr; Imported Playlists</strong>. No import button, no extra step. Both plain M3U and extended (#EXTM3U + #EXTINF) formats are supported. Tracks that can't be found in your Vault stay visible as greyed-out missing rows so you can see exactly which file is gone &mdash; re-save the playlist or rescan to re-resolve.</p>
           <p><strong>Saved queues</strong> &mdash; once you've shaped a queue you like, the &#10010; in the Queue top bar saves the current order as a smart playlist you can return to.</p>
