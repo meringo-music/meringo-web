@@ -66,7 +66,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo does not ship a DoP path; the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless. We commit to the PCM and FLAC route where the precision you hear is the precision you can control. Practical detail: Meringo's scanner does index .dsf and .dff files when they exist in your library and labels them lossless on the format strip, but playback on Snapdragon 680-class devices (the M21) surfaces a [FormatUnsupported] error rather than play. An external USB DAC that decodes DSD natively opens the path."}},
+    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo ships DSD64 over DoP to external USB DACs that decode it natively (curated catalog — Chord, iFi, AudioQuest and more); the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so the on-device path stays PCM. We commit to the PCM and FLAC route where the precision you hear is the precision you can control. Practical detail: Meringo's scanner does index .dsf and .dff files when they exist in your library and labels them lossless on the format strip, but playback on Snapdragon 680-class devices (the M21) surfaces a [FormatUnsupported] error rather than play. An external USB DAC that decodes DSD natively opens the path."}},
     {"@type":"Question","name":"My WAV files don't show album artwork. Now what?","acceptedAnswer":{"@type":"Answer","text":"Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo's sibling-image resolver picks them up automatically."}},
     {"@type":"Question","name":"What do the gold dot and colored bar on my album covers mean?","acceptedAnswer":{"@type":"Answer","text":"Two separate signals from the same Identity Resolver, both shown on the Vault and Cloud album grids. The gold dot in the bottom-left corner means Meringo has matched the album to a MusicBrainz Release ID (an MBID) — the canonical 'we know which album this is' stamp that anchors the album to a globally stable identifier surviving renames, re-rips, and cross-source duplicates. The colored bar with a percentage below the album title is the confidence in that identification, and it shifts color with that confidence: teal at 90% and above (every signal — album title, artist, track count, runtime, fingerprint — lined up cleanly with MusicBrainz), dimmed gold below that threshold (the resolver landed a tentative match but isn't fully certain, usually for releases with messy metadata or unusual edition variants). Acoustic DNA (the Chromaprint fingerprint) is one of the paths the resolver uses to land an MBID — not what the dot itself represents. The full match chain is MBID → ISRC → metadata tuple → Chromaprint, in that order. Tentative low-confidence matches re-attempt every 90 days; unresolved albums every 30."}},
     {"@type":"Question","name":"Search returns no results — what's happening?","acceptedAnswer":{"@type":"Answer","text":"Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). When search comes up empty on the current lens, Meringo offers a one-tap hint pointing at the other one with your query preserved."}},
@@ -1710,6 +1710,9 @@ footer {
 /* ─────────────────────────────────
    RESPONSIVE
 ───────────────────────────────── */
+/* Anchor targets land below the fixed nav instead of tucking under it. */
+[id] { scroll-margin-top: 90px; }
+
 @media (max-width: 980px) {
   .hero { min-height: auto; padding: 100px var(--space-5) 60px; }
   .hero-grid { grid-template-columns: 1fr; gap: var(--space-10); }
@@ -2281,7 +2284,7 @@ footer {
         Plenty of players claim bit-perfect output. Meringo is the only one that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte the isochronous pipe ships to your DAC and computes a SHA-256 over the whole stream.
       </p>
       <p class="receipt-body">
-        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
+        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
       </p>
       <p class="receipt-body">
         Not a mockup: verified <strong>bit-identical</strong> across three DACs &mdash; <strong>Fosi DS2</strong> (16/44.1), <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt.
@@ -3541,6 +3544,14 @@ if (menuBtn) {
   menuBtn.addEventListener('click', () => {
     mobOpen = !mobOpen;
     mobileMenu.classList.toggle('open', mobOpen);
+  });
+  // Tapping a destination closes the menu — otherwise the page scrolls
+  // behind a still-open overlay.
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobOpen = false;
+      mobileMenu.classList.remove('open');
+    });
   });
 }
 
