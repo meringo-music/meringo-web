@@ -39,7 +39,6 @@
     ]
   },
   "url": "https://meringo.app/",
-  "softwareVersion": "1.29.1",
   "datePublished": "2026-05-26",
   "author": {
     "@type": "Person",
@@ -334,22 +333,36 @@ nav {
 /* Hero ambient glows */
 .hero-glow-a {
   position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 700px; height: 500px;
+  bottom: -22%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 960px; height: 540px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(107,60,160,0.22) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(232,181,96,0.13) 0%, transparent 68%);
   pointer-events: none;
 }
-.hero-glow-b {
-  position: absolute;
-  bottom: -10%;
-  right: 15%;
-  width: 600px; height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(232,181,96,0.10) 0%, transparent 65%);
-  pointer-events: none;
+.hero-glow-b { display: none; }   /* single directional candlelight wash from beneath — the twin corner blobs read as AI-default glow */
+
+/* Hero proof chip — surfaces the receipt above the fold, links to #verify */
+.hero-proof-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: 8px 16px;
+  border: 1px solid rgba(232,181,96,0.40);
+  border-radius: var(--radius-pill);
+  background: rgba(232,181,96,0.06);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+  color: var(--color-text-1);
+  transition: border-color var(--duration-fast) var(--ease-velvet), background var(--duration-fast) var(--ease-velvet);
 }
+.hero-proof-chip:hover { border-color: var(--color-gold); background: rgba(232,181,96,0.12); }
+.hero-proof-chip .hpc-ok { color: var(--color-gold); font-weight: 600; }
+.hero-proof-chip .hpc-link { color: var(--color-text-2); }
 
 /* Hero left */
 .hero-eyebrow {
@@ -416,7 +429,7 @@ nav {
   letter-spacing: 0.02em;
   border: none;
   cursor: pointer;
-  animation: goldPulse 3.5s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(232,181,96,0.28), 0 0 6px rgba(232,181,96,0.40);
   transition: background var(--duration-fast) var(--ease-velvet), transform 0.1s ease;
 }
 .btn-primary:hover { background: var(--color-gold-bright); transform: scale(0.98); }
@@ -843,7 +856,7 @@ nav {
 }
 
 /* ─────────────────────────────────
-   RECEIPT — diagnostics excerpt between Ch. 02 and Ch. 03
+   RECEIPT — diagnostics + verify proof (relocated to sit under the hero)
    Smaller scale than a chapter; reads as a "show your work" sidebar.
 ───────────────────────────────── */
 .receipt {
@@ -928,6 +941,7 @@ nav {
    short so the card never needs horizontal scroll at a 390px phone width.
 ───────────────────────────────── */
 .receipt + .receipt { border-top: none; }   /* collapse the doubled rule between stacked receipts */
+.spec-strip + .receipt { border-top: none; }   /* receipt now follows the spec strip (relocated proof block) */
 .proof-wrap {
   display: flex;
   flex-direction: column;
@@ -1899,6 +1913,7 @@ footer {
     <ul class="nav-links">
       <li><a href="#chapter-1">The Library</a></li>
       <li><a href="#chapter-2">The Engine</a></li>
+      <li><a href="#verify">Verify</a></li>
       <li><a href="#chapter-3">Workbench</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#get-app" class="nav-cta">Get Meringo</a></li>
@@ -1912,6 +1927,7 @@ footer {
 <div class="mobile-menu" id="mobileMenu">
   <a href="#chapter-1">The Library</a>
   <a href="#chapter-2">The Engine</a>
+  <a href="#verify">Verify it yourself</a>
   <a href="#chapter-3">The Workbench</a>
   <a href="#chapter-4">The Tuning Vault</a>
   <a href="#chapter-5">Acoustic DNA</a>
@@ -1931,12 +1947,12 @@ footer {
 
     <!-- LEFT: COPY -->
     <div class="hero-copy">
-      <p class="hero-eyebrow fade-in fade-in-1">Hardware-first · Bit-perfect · Deep Velvet</p>
+      <p class="hero-eyebrow fade-in fade-in-1">Bit-perfect · Provable · Hardware-first</p>
       <h1 class="hero-title fade-in fade-in-2">
-        Your music.<br><em>Exactly as recorded.</em>
+        Your music, exactly as recorded —<br><em>and a receipt to prove it.</em>
       </h1>
       <p class="hero-tagline fade-in fade-in-3">
-        A bit-perfect music player for Android DAPs, built for audiophiles who care about the full signal chain. <em>Plays your local files and your Jellyfin or Subsonic server, with parametric EQ, AcoustID fingerprinting, and a one-time $9.99 lifetime price — no subscription.</em>
+        The only Android player that captures its own output and hands you a cryptographic receipt — <em>proof the bits reached your DAC untouched.</em>
       </p>
 
       <div class="hero-cta-group fade-in fade-in-4">
@@ -1967,6 +1983,11 @@ footer {
         <span class="tech-badge badge-teal">BIT-PERFECT</span>
         <span class="tech-badge badge-gold">JELLYFIN · SUBSONIC</span>
       </div>
+
+      <a href="#verify" class="hero-proof-chip fade-in fade-in-5" aria-label="See the bit-perfect verification receipt">
+        <span class="hpc-ok">BIT-IDENTICAL ✓</span>
+        <span class="hpc-link">verify it yourself →</span>
+      </a>
     </div>
 
     <!-- RIGHT: DEVICE STAGE -->
@@ -2034,6 +2055,71 @@ footer {
     </div>
   </div>
 </div>
+
+<!-- ═════════════════════════════════════════════════════════════
+     RECEIPT — diagnostics excerpt (proof, directly under the fold)
+═════════════════════════════════════════════════════════════ -->
+<section class="receipt" id="receipt">
+  <div class="receipt-inner">
+    <div class="receipt-copy">
+      <p class="receipt-label">Receipt</p>
+      <h3 class="receipt-title">What the device <em>actually</em> reports.</h3>
+      <p class="receipt-body">
+        Open <code>Settings &rarr; Audio Diagnostics</code> on any Meringo build and the screen reads back exactly what the engine sees: device tier (LEAN / BALANCED / FLAGSHIP), RAM ceiling, CPU core count, USB-DAC presence, manufacturer, model, Android level, ABI. The buffer profile, the visualizer policy, the thermal-aware worker batch limits — every one of those numbers is derived from these values at cold start.
+      </p>
+      <p class="receipt-body">
+        The screenshot is a real readout from a FiiO M21. Quote it in a support ticket and the values are reproducible cold start to cold start — same hardware, same readout, no telemetry round-trip required to produce them. Being honest about the bits begins with being honest about the silicon they're running on.
+      </p>
+    </div>
+    <div class="receipt-stage">
+      <div class="receipt-device">
+        <picture><source srcset="assets/screens/diagnostics.webp" type="image/webp"><img src="assets/screens/diagnostics.png"
+             loading="lazy" decoding="async" width="750" height="1334"
+             alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No. Build: Manufacturer Qualcomm, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a"></picture>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════════════
+     VERIFY — verifiable bit-perfect proof (companion to #receipt)
+═════════════════════════════════════════════════════════════ -->
+<section class="receipt" id="verify">
+  <div class="receipt-inner">
+    <div class="receipt-copy">
+      <p class="receipt-label">Verify it yourself</p>
+      <h3 class="receipt-title">Don't trust the green light. <em>Prove it.</em></h3>
+      <p class="receipt-body">
+        Plenty of players claim bit-perfect output. Meringo is the only one that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte the isochronous pipe ships to your DAC and computes a SHA-256 over the whole stream.
+      </p>
+      <p class="receipt-body">
+        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
+      </p>
+      <p class="receipt-body">
+        Not a mockup: verified <strong>bit-identical</strong> across three DACs &mdash; <strong>Fosi DS2</strong> (16/44.1), <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt.
+      </p>
+    </div>
+    <div class="receipt-stage">
+      <div class="proof-wrap">
+        <pre class="proof-card" aria-label="A real Meringo bit-perfect verification receipt: the capture SHA-256 and the re-decoded source SHA-256 match, verdict bit-identical"><span class="pf-rule">═════════════════════════</span>
+ MERINGO · BIT-PERFECT
+ 1.28.5 · Qudelix 5K · 24/96
+<span class="pf-rule">═════════════════════════</span>
+
+<span class="pf-key">[Capture]</span>
+  iso pipe → DAC endpoint
+  <span class="pf-hash">cb459147…295adf</span>
+
+<span class="pf-key">[Source decode]</span>
+  same file, re-decoded
+  <span class="pf-hash">cb459147…295adf</span>
+
+<span class="pf-ok">  BIT-IDENTICAL ✓</span></pre>
+        <p class="proof-caption">Real capture · Qudelix 5K · 24/96 · 1.28.5 — reproduce your own in ~3 min</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═════════════════════════════════════════════════════════════
      CHAPTER 1 — THE LIBRARY
@@ -2118,16 +2204,28 @@ footer {
       <p class="chapter-num">Ch. 02 — The Engine</p>
       <h2 class="chapter-title">Bit-perfect. <em>End to end.</em></h2>
       <p class="chapter-body">
-        By default, every sample reaches your DAC at the recording's native rate and depth. No silent format conversion. The system audio mixer operates as a single-client passthrough at unity gain — bits in, bits out — the same condition FiiO's stock player relies on. Bit-perfect on three axes: sample-rate parity, bit-depth parity, single-client passthrough. The Now Playing route badge flips its routing chip off when the path itself can't deliver (HAL resample, DAC depth truncation); per-frame modifiers (ReplayGain scaling, EQ DSP, concurrent system mixing) decorate the badge with explicit suffixes rather than lie. No fake green light.
+        By default, every sample reaches your DAC at the recording's native rate and depth. No silent format conversion. The system audio mixer operates as a single-client passthrough at unity gain — bits in, bits out — the same condition FiiO's stock player relies on. Bit-perfect on three axes: sample-rate parity, bit-depth parity, single-client passthrough.
       </p>
       <p class="chapter-body">
-        Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC — sidestepping the buggy platform decoders some Snapdragon DAPs ship with. The EQ engine runs in <strong>64-bit double precision</strong> (IEEE 754 binary64) — biquad coefficients, accumulators, output trim, all <code style="font-family:var(--font-mono);font-size:0.9em">Double</code> — so low-frequency, high-Q bands don't accumulate rounding drift across thousands of samples the way single-precision math would. The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). The route badge flips its <code style="font-family:var(--font-mono);font-size:0.9em">IIR-MP</code> tag to <code style="font-family:var(--font-mono);font-size:0.9em">FIR-LP</code> when linear phase is engaged.
+        The Now Playing route badge flips its routing chip off when the path itself can't deliver (HAL resample, DAC depth truncation); per-frame modifiers (ReplayGain scaling, EQ DSP, concurrent system mixing) decorate the badge with explicit suffixes rather than lie. No fake green light.
+      </p>
+      <p class="chapter-body">
+        Meringo bundles its own FFmpeg-derived decoder for FLAC and ALAC — sidestepping the buggy platform decoders some Snapdragon DAPs ship with.
+      </p>
+      <p class="chapter-body">
+        The EQ engine runs in <strong>64-bit double precision</strong> (IEEE 754 binary64) — biquad coefficients, accumulators, output trim, all <code style="font-family:var(--font-mono);font-size:0.9em">Double</code> — so low-frequency, high-Q bands don't accumulate rounding drift across thousands of samples the way single-precision math would.
+      </p>
+      <p class="chapter-body">
+        The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). The route badge flips its <code style="font-family:var(--font-mono);font-size:0.9em">IIR-MP</code> tag to <code style="font-family:var(--font-mono);font-size:0.9em">FIR-LP</code> when linear phase is engaged.
       </p>
       <p class="chapter-body">
         Prefer a single stable DAC clock across an entire session? <strong>Force Output Sample Rate</strong> opts in to Meringo's polyphase Kaiser-windowed sinc resampler — every track converted to a fixed 96, 176.4, 192, or 384&nbsp;kHz in 64-bit double precision before AudioTrack. The badge reads <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> when active, not <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> — because that's what's actually happening.
       </p>
       <p class="chapter-body">
-        Plugging in a USB DAC takes Meringo off the AudioTrack road entirely. The app parses the DAC's USB Audio Class descriptors, claims the audio-streaming interface, and ships PCM frames through isochronous transfers directly to the silicon — no AudioFlinger between the bits and the chip. The bit-perfect chip stays gold-teal when the iso pipe is live and the DAC's negotiated rate matches the source file. Verified to date on <strong>Fosi DS2</strong> (UAC2 high-speed async, up to 384&nbsp;kHz / 32-bit), <strong>Jcally JM6 Pro</strong> (UAC1 high-speed sync, 96&nbsp;kHz), and <strong>Qudelix 5K</strong> (UAC1 full-speed sync, 96&nbsp;kHz / 24-bit). The Apple USB-C → 3.5mm Headphone Jack Adapter is a known awkward fit and falls back to OS routing automatically on phones — the Field Guide explains why on dedicated DAPs the path is different.
+        Plugging in a USB DAC takes Meringo off the AudioTrack road entirely. The app parses the DAC's USB Audio Class descriptors, claims the audio-streaming interface, and ships PCM frames through isochronous transfers directly to the silicon — no AudioFlinger between the bits and the chip.
+      </p>
+      <p class="chapter-body">
+        The bit-perfect chip stays gold-teal when the iso pipe is live and the DAC's negotiated rate matches the source file. Verified to date on <strong>Fosi DS2</strong> (UAC2 high-speed async, up to 384&nbsp;kHz / 32-bit), <strong>Jcally JM6 Pro</strong> (UAC1 high-speed sync, 96&nbsp;kHz), and <strong>Qudelix 5K</strong> (UAC1 full-speed sync, 96&nbsp;kHz / 24-bit). The Apple USB-C → 3.5mm Headphone Jack Adapter is a known awkward fit and falls back to OS routing automatically on phones — the Field Guide explains why on dedicated DAPs the path is different.
       </p>
       <blockquote class="chapter-pull">
         Same path. Every device.<br>Every sample, <em>honestly accounted for.</em>
@@ -2244,71 +2342,6 @@ footer {
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ═════════════════════════════════════════════════════════════
-     RECEIPT — diagnostics excerpt (Ch. 02 → Ch. 03 connector)
-═════════════════════════════════════════════════════════════ -->
-<section class="receipt" id="receipt">
-  <div class="receipt-inner">
-    <div class="receipt-copy">
-      <p class="receipt-label">Receipt</p>
-      <h3 class="receipt-title">What the device <em>actually</em> reports.</h3>
-      <p class="receipt-body">
-        Open <code>Settings &rarr; Audio Diagnostics</code> on any Meringo build and the screen reads back exactly what the engine sees: device tier (LEAN / BALANCED / FLAGSHIP), RAM ceiling, CPU core count, USB-DAC presence, manufacturer, model, Android level, ABI. The buffer profile, the visualizer policy, the thermal-aware worker batch limits — every one of those numbers is derived from these values at cold start.
-      </p>
-      <p class="receipt-body">
-        The screenshot is a real readout from a FiiO M21. Quote it in a support ticket and the values are reproducible cold start to cold start — same hardware, same readout, no telemetry round-trip required to produce them. Being honest about the bits begins with being honest about the silicon they're running on.
-      </p>
-    </div>
-    <div class="receipt-stage">
-      <div class="receipt-device">
-        <picture><source srcset="assets/screens/diagnostics.webp" type="image/webp"><img src="assets/screens/diagnostics.png"
-             loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No. Build: Manufacturer Qualcomm, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a"></picture>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═════════════════════════════════════════════════════════════
-     VERIFY — verifiable bit-perfect proof (companion to #receipt)
-═════════════════════════════════════════════════════════════ -->
-<section class="receipt" id="verify">
-  <div class="receipt-inner">
-    <div class="receipt-copy">
-      <p class="receipt-label">Verify it yourself</p>
-      <h3 class="receipt-title">Don't trust the green light. <em>Prove it.</em></h3>
-      <p class="receipt-body">
-        Plenty of players claim bit-perfect output. Meringo is the only one that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte the isochronous pipe ships to your DAC and computes a SHA-256 over the whole stream.
-      </p>
-      <p class="receipt-body">
-        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
-      </p>
-      <p class="receipt-body">
-        Not a mockup: verified <strong>bit-identical</strong> across three DACs &mdash; <strong>Fosi DS2</strong> (16/44.1), <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt.
-      </p>
-    </div>
-    <div class="receipt-stage">
-      <div class="proof-wrap">
-        <pre class="proof-card" aria-label="A real Meringo bit-perfect verification receipt: the capture SHA-256 and the re-decoded source SHA-256 match, verdict bit-identical"><span class="pf-rule">═════════════════════════</span>
- MERINGO · BIT-PERFECT
- 1.28.5 · Qudelix 5K · 24/96
-<span class="pf-rule">═════════════════════════</span>
-
-<span class="pf-key">[Capture]</span>
-  iso pipe → DAC endpoint
-  <span class="pf-hash">cb459147…295adf</span>
-
-<span class="pf-key">[Source decode]</span>
-  same file, re-decoded
-  <span class="pf-hash">cb459147…295adf</span>
-
-<span class="pf-ok">  BIT-IDENTICAL ✓</span></pre>
-        <p class="proof-caption">Real capture · Qudelix 5K · 24/96 · 1.28.5 — reproduce your own in ~3 min</p>
-      </div>
-    </div>
   </div>
 </section>
 
