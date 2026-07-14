@@ -1,30 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" fill="none">
   <defs>
     <linearGradient id="gld" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ddc27a"></stop>
-      <stop offset="100%" stop-color="#b8903e"></stop>
-    </linearGradient>
-    <linearGradient id="gldfade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ddc27a" stop-opacity="0.9"></stop>
-      <stop offset="100%" stop-color="#c9a55a" stop-opacity="0.3"></stop>
+      <stop offset="0%" stop-color="#F4D080"></stop>
+      <stop offset="100%" stop-color="#C89040"></stop>
     </linearGradient>
   </defs>
-  
-  <circle cx="40" cy="40" r="36" stroke="url(#gldfade)" stroke-width="0.75" fill="none"></circle>
-  <circle cx="40" cy="40" r="27" stroke="#c9a55a" stroke-width="0.5" fill="none" opacity="0.2"></circle>
-  
+  <!-- struck maker's-seal ring -->
+  <circle cx="40" cy="40" r="34" stroke="url(#gld)" stroke-width="2.4"></circle>
+  <circle cx="40" cy="40" r="30.5" stroke="#E8B560" stroke-width="0.7" opacity="0.45"></circle>
+  <!-- symmetric spectrum + candle peak -->
   <g fill="url(#gld)">
-    <rect x="18" y="37" width="2.5" height="6" rx="1.25"></rect>
-    <rect x="23" y="34.5" width="2.5" height="11" rx="1.25"></rect>
-    <rect x="28" y="31.5" width="2.5" height="17" rx="1.25"></rect>
-    <rect x="33" y="29" width="2.5" height="22" rx="1.25"></rect>
-    <rect x="38" y="27" width="2.5" height="26" rx="1.25"></rect>
-    <rect x="43" y="29" width="2.5" height="22" rx="1.25"></rect>
-    <rect x="48" y="31.5" width="2.5" height="17" rx="1.25"></rect>
-    <rect x="53" y="34.5" width="2.5" height="11" rx="1.25"></rect>
-    <rect x="58" y="37" width="2.5" height="6" rx="1.25"></rect>
+    <rect x="26.4" y="40.9" width="3.2" height="11.9" rx="1.6"></rect>
+    <rect x="32.4" y="33.4" width="3.2" height="19.4" rx="1.6"></rect>
+    <rect x="38.4" y="28.4" width="3.2" height="24.4" rx="1.6"></rect>
+    <rect x="44.4" y="33.4" width="3.2" height="19.4" rx="1.6"></rect>
+    <rect x="50.4" y="40.9" width="3.2" height="11.9" rx="1.6"></rect>
+    <path d="M40,24.6 C41.7,25.9 41.7,27.3 40,28.6 C38.3,27.3 38.3,25.9 40,24.6 Z"></path>
   </g>
-  <circle cx="40" cy="40" r="1.75" fill="#c9a55a" opacity="0.55"></circle>
-  
-  <text x="90" y="52" font-family="&#39;Cormorant Garamond&#39;, Georgia, serif" font-size="38" font-weight="400" letter-spacing="2" fill="#c9a55a">Meringo</text>
+  <text x="90" y="53" font-family="'Cormorant Garamond', Georgia, serif" font-size="40" font-weight="600" letter-spacing="2" fill="#C9A55A">Meringo</text>
 </svg>
