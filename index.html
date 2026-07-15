@@ -3056,7 +3056,7 @@ footer {
         <p class="privacy-hero-eyebrow">First run · disclosed before you tap</p>
         <h3 class="privacy-hero-title">Our Commitment, on screen <em>one.</em></h3>
         <p class="privacy-hero-body">
-          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>The Acoustic DNA Scan</em> (AcoustID fingerprinting, opt-in). <em>External Services</em> (MusicBrainz + Cover Art Archive for editorial metadata). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings on the screen to the right correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
+          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>The Acoustic DNA Scan</em> (AcoustID fingerprinting, off by default). <em>External Services</em> (every server the app can reach, named, with what has to be true before it does). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings on the screen to the right correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
         </p>
       </div>
       <div class="privacy-hero-device">
@@ -3125,6 +3125,7 @@ footer {
             <li><strong style="color:var(--color-text-0)">Wikipedia</strong> (Wikimedia Foundation) — Artist biographies and hero images, fetched on demand for the Now Playing artist info sheet</li>
             <li><strong style="color:var(--color-text-0)">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
             <li><strong style="color:var(--color-text-0)">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
+            <li><strong style="color:var(--color-text-0)">LRCLIB</strong> — Opt-in community lyrics database (off by default). When you switch on <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Online lyrics</span> and a track has no embedded or server lyrics, its <em>title</em>, <em>artist</em> and <em>album</em> are sent to <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">lrclib.net</code> to find matching words. Nothing else — no audio, no file path, no play counts. No request is made until you switch it on.</li>
             <li><strong style="color:var(--color-text-0)">ListenBrainz</strong> — Opt-in scrobble service (off by default). When you connect your token in <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; ListenBrainz</span>, track metadata (artist, title, album, duration, MusicBrainz Recording ID when available) and the listen's start timestamp are submitted to <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">api.listenbrainz.org</code>. No data is sent until you've affirmatively connected. Token is stored encrypted on-device using Android Keystore; pausing or disconnecting in Settings stops submission immediately. Failed submissions persist to a local retry queue and never leave the device until the network allows them.</li>
             <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-in; see above)</li>
           </ul>
@@ -3246,7 +3247,7 @@ footer {
 
         <div class="privacy-block" id="tos-third-party">
           <h3>5. Third-Party Services</h3>
-          <p>Meringo integrates with third-party services as enumerated in the <a href="#priv-third" style="color:var(--color-gold-dim);">Privacy Policy</a>: MusicBrainz, Cover Art Archive, AcoustID, ListenBrainz, Wikipedia, Sentry, and any user-configured media server. Your use of those services is subject to the terms and privacy policies of each provider. I am not responsible for the availability, accuracy, or conduct of any third-party service.</p>
+          <p>Meringo integrates with third-party services as enumerated in the <a href="#priv-third" style="color:var(--color-gold-dim);">Privacy Policy</a>: MusicBrainz, Cover Art Archive, AcoustID, LRCLIB, ListenBrainz, Wikipedia, Sentry, and any user-configured media server. Your use of those services is subject to the terms and privacy policies of each provider. I am not responsible for the availability, accuracy, or conduct of any third-party service.</p>
         </div>
 
         <div class="privacy-block cta-state-beta" id="tos-beta">
