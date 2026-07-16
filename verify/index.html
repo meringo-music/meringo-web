@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify a Meringo receipt — the full method</title>
+<meta name="description" content="The exact byte layout behind Meringo's bit-perfect receipts, and how to recompute the hashes yourself with ffmpeg and a public-domain script — no Meringo code involved.">
+<meta property="og:title" content="Verify a Meringo receipt — the full method">
+<meta property="og:description" content="The exact byte layout behind Meringo's bit-perfect receipts, and how to recompute the hashes yourself with ffmpeg — no Meringo code involved.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://meringo.app/verify/">
+<meta property="og:image" content="https://meringo.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1A0E2E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'%3E%3Crect width='80' height='80' rx='18' fill='%231A0E2E'/%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F4D080'/%3E%3Cstop offset='100%25' stop-color='%23C89040'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ddc27a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%23c9a55a' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='34' stroke='url(%23fr)' stroke-width='0.75'/%3E%3Ccircle cx='40' cy='40' r='26' stroke='%23E8B560' stroke-width='0.5' opacity='0.2'/%3E%3Cg fill='url(%23fg)'%3E%3Crect x='18' y='37' width='3' height='6' rx='1.5'/%3E%3Crect x='23' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='28' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='33' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='38' y='24' width='3' height='32' rx='1.5'/%3E%3Crect x='43' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='48' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='53' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='58' y='37' width='3' height='6' rx='1.5'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='2' fill='%23E8B560' opacity='0.55'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://meringo.app/verify/">
+<link rel="preload" href="../assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../colors_and_type.css">
+
+<style>
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  background: var(--color-bg-base);
+  color: var(--color-text-0);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px var(--space-6);
+  background: var(--color-glass-scrim);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-dim);
+}
+.nav a { text-decoration: none; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-0);
+  letter-spacing: var(--tracking-wide);
+}
+.nav-logo em { color: var(--color-gold); font-style: normal; }
+.nav-back {
+  font-size: var(--text-sm);
+  color: var(--color-text-1);
+  transition: color var(--duration-fast) var(--ease-velvet);
+}
+.nav-back:hover { color: var(--color-gold); }
+
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6) var(--space-24);
+}
+.page-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 var(--space-3);
+}
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 6vw, var(--text-4xl));
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 var(--space-6);
+}
+h1 em, h2 em { color: var(--color-gold); font-style: italic; }
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  margin: var(--space-20) 0 var(--space-4);
+}
+p, li {
+  color: var(--color-text-1);
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+}
+p strong, li strong { color: var(--color-text-0); font-weight: var(--weight-medium); }
+a { color: var(--color-gold); }
+a:hover { color: var(--color-gold-bright); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-gold);
+  background: var(--color-gold-subtle);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+}
+pre {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-4) var(--space-5);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--color-text-0);
+}
+pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+pre .cm { color: var(--color-text-2); }
+pre .ok { color: var(--color-success); }
+ol.spec { padding-left: var(--space-5); }
+ol.spec li { margin-bottom: var(--space-3); }
+
+dl.fields {
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-2) var(--space-5);
+  margin: var(--space-6) 0;
+}
+dl.fields > div {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-dim);
+}
+dl.fields > div:last-child { border-bottom: none; }
+dl.fields dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-gold);
+  margin: 0;
+}
+dl.fields dd {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-1);
+  line-height: var(--leading-normal);
+}
+@media (max-width: 560px) {
+  dl.fields > div { grid-template-columns: 1fr; gap: var(--space-1); }
+}
+
+.download {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-bg-base);
+  background: var(--color-gold);
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  margin: var(--space-2) 0 var(--space-4);
+  transition: background var(--duration-fast) var(--ease-velvet);
+}
+.download:hover { background: var(--color-gold-bright); color: var(--color-bg-base); }
+
+.honesty {
+  border-left: 2px solid var(--color-gold);
+  padding-left: var(--space-5);
+  margin: var(--space-6) 0;
+}
+.footer {
+  border-top: 1px solid var(--color-border-dim);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+}
+.footer a { color: var(--color-text-1); text-decoration: none; margin: 0 var(--space-3); }
+.footer a:hover { color: var(--color-gold); }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav-logo" href="/">Meringo<em>.</em></a>
+  <a class="nav-back" href="/#verify">&larr; back to meringo.app</a>
+</nav>
+
+<main class="page">
+  <p class="page-label">Verify it yourself</p>
+  <h1>Don't trust us either. <em>Check the math.</em></h1>
+
+  <p>
+    A Meringo receipt makes a physical claim: every PCM byte that left the USB isochronous pipe
+    for your DAC is identical to the file's own decoded audio. The receipt carries two SHA-256
+    hashes &mdash; one over what shipped, one over what the file decodes to. A claim like that is
+    only worth something if you can check it with software we don't control. This page defines the
+    byte stream precisely enough that you can recompute the hash on your own machine, from your own
+    copy of the file, with tools that share no code with Meringo.
+  </p>
+
+  <h2>What a shared receipt carries</h2>
+  <p>
+    Long-press any entry in <code>Settings &rarr; Audio diagnostics &rarr; Receipts</code> and share it.
+    The plain-text export includes these fields:
+  </p>
+  <dl class="fields">
+    <div><dt>Format</dt><dd>Codec &middot; sample rate &middot; bit depth. The bit depth is the width of the
+      USB slot the DAC opened for the session &mdash; usually the file's own depth, but see the
+      16&rarr;24 rule below.</dd></div>
+    <div><dt>Capture bytes</dt><dd>How many bytes actually shipped to the DAC and were hashed.</dd></div>
+    <div><dt>Source bytes</dt><dd>How many bytes of the re-decoded file were hashed against them.
+      Equal to Capture bytes on a full capture.</dd></div>
+    <div><dt>Capture SHA-256</dt><dd>Hash over every byte the iso pipe shipped, in shipping order.</dd></div>
+    <div><dt>Source SHA-256</dt><dd>Hash over the same file re-decoded on-device and laid out in the
+      identical byte format. On a <strong>BIT-IDENTICAL &#10003;</strong> receipt the two hashes are the
+      same value &mdash; and that value is what you can recompute here.</dd></div>
+  </dl>
+
+  <h2>The byte stream, exactly</h2>
+  <ol class="spec">
+    <li><strong>Decode the file to raw PCM.</strong> No resampling, no gain, no dither &mdash; the
+      bit-perfect path does none of these, by definition.</li>
+    <li><strong>Lay the samples out little-endian at the receipt's bit depth,</strong> channels
+      interleaved (left, right, left, right&hellip;). At the file's native width this is simply the
+      decoder's output, untouched.</li>
+    <li><strong>One documented exception:</strong> a 16-bit file played into a 24-bit slot (some DACs
+      only open 3-byte slots at certain rates). Each 16-bit sample becomes three bytes &mdash;
+      <code>0x00</code>, low byte, high byte &mdash; the sample value shifted left 8 bits over a zeroed
+      pad. The receipt's Format line reads 24-bit in that case.</li>
+    <li><strong>SHA-256 over the first <em>Capture bytes</em> of that stream.</strong> A capture that
+      covered the whole track hashes the whole stream.</li>
+  </ol>
+
+  <h2>Recompute it with ffmpeg</h2>
+  <p>
+    Any recent <a href="https://ffmpeg.org/" rel="noopener">ffmpeg</a> build reproduces the layout
+    directly. Receipt says 16-bit:
+  </p>
+  <pre><code>ffmpeg -i track.flac -f s16le - | sha256sum</code></pre>
+  <p>
+    Receipt says 24-bit &mdash; one command covers both a native 24-bit file and a 16-bit file in a
+    24-bit slot, because ffmpeg's own 16&rarr;24 conversion is the same zero-padded shift:
+  </p>
+  <pre><code>ffmpeg -i track.flac -f s24le - | sha256sum</code></pre>
+  <p>
+    A 32-bit slot is <code>-f s32le</code>. On Windows, write the raw stream to a file and hash it
+    with PowerShell:
+  </p>
+  <pre><code>ffmpeg -i track.flac -f s16le pcm.raw
+Get-FileHash pcm.raw -Algorithm SHA256</code></pre>
+  <p>
+    (PowerShell prints the digest in uppercase; the receipt is lowercase &mdash; compare
+    case-insensitively.) Don't want to trust ffmpeg either? Xiph's own reference decoder produces
+    the identical stream for a FLAC at its native width &mdash; a wholly separate decoder lineage:
+  </p>
+  <pre><code>flac -d -c --force-raw-format --endian=little --sign=signed track.flac | sha256sum</code></pre>
+  <p>
+    For a <strong>PARTIAL &#9684;</strong> receipt, hash only the prefix the capture covered
+    (the receipt's <em>Source bytes</em> count):
+  </p>
+  <pre><code>ffmpeg -i track.flac -f s16le - | head -c &lt;source bytes&gt; | sha256sum</code></pre>
+  <p>
+    The digest must equal the receipt's hashes, character for character. This works for anything
+    lossless that ffmpeg can decode &mdash; FLAC, ALAC, WAV, AIFF.
+  </p>
+
+  <h2>Or run the checker script</h2>
+  <p>
+    <a href="meringo-verify.py">meringo-verify.py</a> is a single file &mdash; Python&nbsp;3 plus your
+    own ffmpeg install, nothing else. It picks the right layout from the receipt's bit depth, refuses
+    the combinations that aren't bit-perfect routes, handles partial receipts, and prints
+    <code>MATCH</code> or <code>NO MATCH</code> against the receipt's hash. It deliberately shares
+    zero code with Meringo, and it's public domain (CC0) &mdash; short on purpose, so you can read it
+    before you run it.
+  </p>
+  <a class="download" href="meringo-verify.py" download>&darr; meringo-verify.py</a>
+  <pre><code>$ python meringo-verify.py track.flac --bit-depth 24 --expect 759dd46d&hellip;
+  file         : track.flac
+  layout       : 24-bit little-endian, channels interleaved
+                 (16-bit source, zero-padded low byte)
+  bytes hashed : 1,481,754 (of 1,481,754 decoded)
+  SHA-256      : 759dd46d1a0d954bff9a04595cf8a29e&hellip;
+  receipt says : 759dd46d1a0d954bff9a04595cf8a29e&hellip;
+  <span class="ok">VERDICT      : MATCH</span> -- the receipt's hash is reproducible
+                 outside Meringo, from your copy of the file</code></pre>
+
+  <h2>Cross-check the file itself</h2>
+  <p>
+    Every FLAC carries an MD5 of its own decoded audio, written by whatever encoder created it &mdash;
+    long before any receipt existed. Compare the file's embedded signature against an independent
+    decode at the file's native width:
+  </p>
+  <pre><code><span class="cm"># the signature the encoder wrote into the file</span>
+metaflac --show-md5sum track.flac
+<span class="cm"># an independent decode, hashed the same way (16-bit file shown)</span>
+ffmpeg -i track.flac -f s16le - | md5sum</code></pre>
+  <p>
+    If those agree, the PCM you just hashed is certified by the file's own encoder &mdash; a third
+    implementation that has never heard of Meringo. The in-app verify pass holds itself to the same
+    standard: on FLAC it recomputes this embedded signature while it decodes, and only a decode
+    certified that way is allowed to condemn a capture as <strong>NOT BIT-IDENTICAL &#10007;</strong>.
+  </p>
+
+  <h2>What this proves &mdash; and what it can't</h2>
+  <div class="honesty">
+    <p>
+      Recomputing the hash proves the receipt's <strong>reference is honest math</strong>: the number
+      Meringo compared against really is the SHA-256 of your file's PCM, reproducible with independent
+      software. A receipt whose hash you can't reproduce from your own copy of the file is a broken
+      receipt &mdash; and you just caught it.
+    </p>
+    <p>
+      The <strong>capture half is a witness statement</strong>. It hashes bytes as they leave for the
+      DAC &mdash; a physical event only the code doing the shipping can observe. No software-only
+      scheme, ours or anyone's, can hand that observation to a third party after the fact. On a
+      matching receipt, what you've verified is that the claimed shipment equals your file, byte for
+      byte; what remains a matter of trust is that those bytes are what actually crossed the wire.
+      We'd rather name that line precisely than pretend it isn't there.
+    </p>
+    <p>
+      Hardware can close the remaining gap: some DACs verify bit-transparency in silicon &mdash;
+      RME's ADI-2 series, for example, ships a built-in bit test. Play the vendor's test file through
+      Meringo and the DAC's own panel renders the verdict, with no Meringo code anywhere in the loop.
+    </p>
+  </div>
+  <p>
+    If you find a receipt this method can't reproduce, that's a bug in the proof and we want it:
+    <a href="mailto:support@meringo.app">support@meringo.app</a>.
+  </p>
+</main>
+
+<footer class="footer">
+  <a href="/">meringo.app</a>
+  <a href="/#verify">the receipt</a>
+  <a href="/#privacy">privacy</a>
+  <a href="mailto:support@meringo.app">support</a>
+</footer>
+
+</body>
+</html>
