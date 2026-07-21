@@ -2093,7 +2093,7 @@ footer {
         Plenty of players claim bit-perfect output. Meringo is the only one that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte the isochronous pipe ships to your DAC and computes a SHA-256 over the whole stream.
       </p>
       <p class="receipt-body">
-        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the DAC's USB endpoint. Share the receipt; anyone can check it. No other player hands you the proof.
+        Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit on the way to the DAC's USB endpoint. Both hashes run on your own device, and you can re-hash the receipt with tools we don't control (below) &mdash; proof you can check, not a checkmark you take on faith. No other player hands you that.
       </p>
       <p class="receipt-body">
         Not a mockup: verified <strong>bit-identical</strong> across three DACs &mdash; <strong>Fosi DS2</strong> (16/44.1), <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt.
