@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meringo — Respecting the archive. Perfecting the play.</title>
-<meta name="description" content="A bit-perfect Android music player for FiiO M21 and audiophile DAPs. Jellyfin + Subsonic, parametric EQ workbench, AcoustID fingerprinting. 7-day free trial, $9.99 lifetime — no subscription.">
+<meta name="description" content="Android resamples your music to 48 kHz by default. Meringo drives your USB DAC or dongle directly — every track at its native rate, with a SHA-256 receipt you can check yourself. 7-day free trial, $9.99 lifetime — no subscription.">
 <meta property="og:title" content="Meringo — Respecting the archive. Perfecting the play.">
-<meta property="og:description" content="A bit-perfect Android music player for FiiO M21 and audiophile DAPs. Jellyfin + Subsonic, parametric EQ, AcoustID fingerprinting. 7-day free trial, $9.99 lifetime — no subscription.">
+<meta property="og:description" content="Android resamples your music to 48 kHz by default — and gives you no way to turn it off. Meringo takes your USB DAC or dongle off that path: every track at its native rate, bit-perfect, with a SHA-256 receipt you can check yourself. Any Android 13+ phone or DAP. 7-day free trial, $9.99 lifetime — no subscription.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://meringo.app/">
 <meta property="og:image" content="https://meringo.app/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:alt" content="Meringo — Bit-perfect music for Android DAPs, built for the full signal chain">
+<meta property="og:image:alt" content="Meringo — bit-perfect music for Android phones and DAPs, with a receipt you can check">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Meringo — Respecting the archive. Perfecting the play.">
-<meta name="twitter:description" content="A bit-perfect Android music player for FiiO M21 and audiophile DAPs. Jellyfin + Subsonic, parametric EQ, AcoustID fingerprinting. 7-day free trial, $9.99 lifetime — no subscription.">
+<meta name="twitter:description" content="Android resamples your music to 48 kHz by default — and gives you no way to turn it off. Meringo takes your USB DAC or dongle off that path: every track at its native rate, bit-perfect, with a SHA-256 receipt you can check yourself. Any Android 13+ phone or DAP. 7-day free trial, $9.99 lifetime — no subscription.">
 <meta name="twitter:image" content="https://meringo.app/assets/og.png">
-<meta name="twitter:image:alt" content="Meringo — Bit-perfect music for Android DAPs, built for the full signal chain">
+<meta name="twitter:image:alt" content="Meringo — bit-perfect music for Android phones and DAPs, with a receipt you can check">
 
 <script type="application/ld+json">
 {
@@ -28,7 +28,7 @@
   "applicationCategory": "MultimediaApplication",
   "applicationSubCategory": "Music Player",
   "operatingSystem": "Android",
-  "description": "Bit-perfect music player for Android DAPs with hardware-first audio engineering, AcoustID fingerprinting, a parametric EQ workbench, and a dual-lens library spanning local files and Jellyfin / Subsonic servers.",
+  "description": "Bit-perfect music player for Android phones and DAPs. Drives a USB DAC or dongle directly — off Android's resampling path — and hands you a SHA-256 receipt for what it shipped. Hardware-first audio engineering, AcoustID fingerprinting, a parametric EQ workbench, and a dual-lens library spanning local files and Jellyfin / Subsonic servers.",
   "publisher": {
     "@type": "Organization",
     "name": "Meringo Labs LLC",
@@ -1117,7 +1117,10 @@ nav {
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 320px 1fr;
+  /* Single centred column: the flanking review cards were removed, so the
+     mascot must not be stranded in a leading 1fr track. */
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
   gap: var(--space-10);
   align-items: center;
 }
@@ -1949,10 +1952,10 @@ footer {
     <div class="hero-copy">
       <p class="hero-eyebrow fade-in fade-in-1">Bit-perfect · Provable · Hardware-first</p>
       <h1 class="hero-title fade-in fade-in-2">
-        Your music, exactly as recorded —<br><em>and a receipt to prove it.</em>
+        By default, Android resamples your music to 48 kHz.<br><em>Meringo takes your DAC off that path — and hands you the receipt.</em>
       </h1>
       <p class="hero-tagline fade-in fade-in-3">
-        The only Android player that captures its own output and hands you a cryptographic receipt — <em>proof the bits reached your DAC untouched.</em>
+        Plug in a USB DAC or dongle and Meringo drives it directly — no Android mixer, no silent resample, every track at its native rate. Then it hashes what it shipped, <em>so you can check the math yourself.</em>
       </p>
 
       <div class="hero-cta-group fade-in fade-in-4">
@@ -2573,25 +2576,10 @@ footer {
         <div class="philosophy-ornament-dot"></div>
         <div class="philosophy-ornament-line right"></div>
       </div>
-      <p class="philosophy-eyebrow">Critical Acclaim</p>
+      <p class="philosophy-eyebrow">No investors · No committee</p>
       <h2 class="philosophy-title">Built <em>anyway.</em></h2>
-      <p class="philosophy-kicker">A small selection of reviews from the <em>discerning gentlemen</em> of r/DigitalAudioPlayer, lightly annotated.</p>
+      <p class="philosophy-kicker">One person, one device, and one stubborn idea: that a music player should be able to <em>prove</em> what it did.</p>
     </div>
-
-    <!-- LEFT REVIEW -->
-    <figure class="review-card">
-      <div class="review-stars">
-        <span>★<span class="review-stars-fade">★★★★</span></span>
-        <span class="review-stars-meta">1 / 5 — verified hater</span>
-      </div>
-      <blockquote class="review-quote">&ldquo;Ai sloppar.&rdquo;</blockquote>
-      <figcaption class="review-attr">
-        <span class="dot">●</span> u/boa-juse &nbsp;·&nbsp; r/DigitalAudioPlayer
-      </figcaption>
-      <p class="review-rebuttal">
-        <span class="review-rebuttal-label">Ed.</span>We assume this is Italian for &ldquo;sloppy.&rdquo; Adam was, in fact, born in Buffalo. The slop is <em>artisanal.</em>
-      </p>
-    </figure>
 
     <!-- CENTER: MASCOT STAR -->
     <div class="philosophy-mascot playing" aria-label="Meringo mascot — click to toggle playing state" role="button" tabindex="0">
@@ -2758,21 +2746,6 @@ footer {
       </svg>
     </div>
 
-    <!-- RIGHT REVIEW -->
-    <figure class="review-card">
-      <div class="review-stars">
-        <span>★<span class="review-stars-fade">★★★★</span></span>
-        <span class="review-stars-meta">1 / 5 — pattern recognition expert</span>
-      </div>
-      <blockquote class="review-quote">&ldquo;Its<span class="sic">[sic]</span> funny how every ai generated interface looks the same.&rdquo;</blockquote>
-      <figcaption class="review-attr">
-        <span class="dot">●</span> u/Lenn_4rt &nbsp;·&nbsp; r/DigitalAudioPlayer
-      </figcaption>
-      <p class="review-rebuttal">
-        <span class="review-rebuttal-label">Ed.</span>Bold claim from a man whose username is the lead character of <em>Star Trek: Voyager</em> with a 4 dropped in.
-      </p>
-    </figure>
-
     <p class="philosophy-attr">Built anyway, by Adam Siemaszko — Erie County, NY</p>
 
   </div>
@@ -2880,7 +2853,7 @@ footer {
             <p>Yes — Meringo is on the Google Play Store. New users get a 7-day free trial of the full app, then a one-time $9.99 unlock for permanent lifetime access. No subscription, no ads, no premium tier locked behind a second purchase.</p>
             <p>If you switch phones or reinstall later, your purchase restores automatically — Google tracks the entitlement against the Google account you bought with. <strong>Settings &rarr; Subscription &rarr; Restore Purchase</strong> if it doesn't trigger on its own.</p>
           </div>
-          <p>If you'd rather just follow along — or chat about audio gear, bug reports, feature ideas — the <a href="https://discord.gg/BZthNJpGC" target="_blank" rel="noopener">Meringo Discord</a> is where the regulars hang out.</p>
+          <p>If you'd rather just follow along — or chat about audio gear, bug reports, feature ideas — email Adam directly at <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
         </div>
       </details>
 
@@ -2989,18 +2962,13 @@ footer {
           <a href="mailto:support@meringo.app?subject=Meringo%20beta%20access" class="btn-primary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             Request beta access
-          </a>
-          <a href="https://discord.gg/BZthNJpGC" class="btn-secondary" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33a.07.07 0 0 0-.03.03C2 9.25 1.27 13.06 1.62 16.82a.08.08 0 0 0 .03.05c1.82 1.34 3.58 2.15 5.31 2.68.03.01.06 0 .07-.02.41-.56.78-1.15 1.09-1.77.02-.04 0-.08-.03-.09-.58-.22-1.13-.49-1.66-.79-.04-.02-.04-.08 0-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05 0 .07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.53.31-1.08.57-1.66.79-.04.01-.05.06-.03.09.32.61.69 1.2 1.09 1.77.03.01.06.02.09.01 1.74-.53 3.5-1.34 5.32-2.68.02-.01.03-.03.03-.05.42-4.35-.7-8.13-2.99-11.46-.01-.01-.02-.02-.04-.03Z"/></svg>
-            Join the Discord
-          </a>
-          <a href="#faq" class="btn-secondary">
+          </a>          <a href="#faq" class="btn-secondary">
             Read the FAQ
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
         <p class="get-app-fine">
-          Reach Adam directly at <a href="mailto:support@meringo.app">support@meringo.app</a> &nbsp;·&nbsp; or in the <a href="https://discord.gg/BZthNJpGC" target="_blank" rel="noopener">Discord</a>
+          Reach Adam directly at <a href="mailto:support@meringo.app">support@meringo.app</a>
         </p>
       </div>
 
@@ -3028,14 +2996,9 @@ footer {
           <a href="#faq" class="btn-secondary">
             Read the FAQ
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="https://discord.gg/BZthNJpGC" class="btn-secondary" target="_blank" rel="noopener">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09-.01-.02-.04-.03-.07-.03-1.5.26-2.93.71-4.27 1.33a.07.07 0 0 0-.03.03C2 9.25 1.27 13.06 1.62 16.82a.08.08 0 0 0 .03.05c1.82 1.34 3.58 2.15 5.31 2.68.03.01.06 0 .07-.02.41-.56.78-1.15 1.09-1.77.02-.04 0-.08-.03-.09-.58-.22-1.13-.49-1.66-.79-.04-.02-.04-.08 0-.11.11-.08.22-.17.33-.25.02-.02.05-.02.07-.01 3.44 1.57 7.15 1.57 10.55 0 .02-.01.05 0 .07.01.11.09.22.17.33.26.04.03.04.09-.01.11-.53.31-1.08.57-1.66.79-.04.01-.05.06-.03.09.32.61.69 1.2 1.09 1.77.03.01.06.02.09.01 1.74-.53 3.5-1.34 5.32-2.68.02-.01.03-.03.03-.05.42-4.35-.7-8.13-2.99-11.46-.01-.01-.02-.02-.04-.03Z"/></svg>
-            Join the Discord
-          </a>
-        </div>
+          </a>        </div>
         <p class="get-app-fine">
-          Support: <a href="mailto:support@meringo.app">support@meringo.app</a> &nbsp;·&nbsp; community: <a href="https://discord.gg/BZthNJpGC" target="_blank" rel="noopener">Discord</a>
+          Support: <a href="mailto:support@meringo.app">support@meringo.app</a>
         </p>
       </div>
 
@@ -3440,7 +3403,6 @@ footer {
     <div class="footer-links">
       <a href="#faq">FAQ</a>
       <a href="#get-app">Get Meringo</a>
-      <a href="https://discord.gg/BZthNJpGC" target="_blank" rel="noopener">Discord</a>
       <a href="#privacy">Privacy Policy</a>
       <a href="#terms">Terms of Service</a>
       <a href="#imprint">Legal Notice</a>
