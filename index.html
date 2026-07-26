@@ -65,14 +65,14 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo ships DSD64 over DoP to external USB DACs that decode it natively (curated catalog — Chord, iFi, AudioQuest and more); the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so the on-device path stays PCM. We commit to the PCM and FLAC route where the precision you hear is the precision you can control. Practical detail: Meringo's scanner does index .dsf and .dff files when they exist in your library and labels them lossless on the format strip, but playback on Snapdragon 680-class devices (the M21) surfaces a [FormatUnsupported] error rather than play. An external USB DAC that decodes DSD natively opens the path."}},
+    {"@type":"Question","name":"Does Meringo play DSD (.dsf / .dff) files?","acceptedAnswer":{"@type":"Answer","text":"Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64) so every adjustment stays mathematically clean end-to-end, a precision DSD cannot offer natively. Almost every commercial DSD release is a delivery container layered on top of a PCM master, and a 24/96 or 24/192 FLAC of the same master sounds effectively identical at a quarter of the disk weight. DSD over PCM (DoP) is a real protocol some Android DAPs support, but the moment you apply DSP to an unwrapped DSD stream you are back to PCM math anyway. Meringo ships DSD64, DSD128 and DSD256 over DoP to external USB DACs that decode it natively (curated catalog — Chord, iFi, AudioQuest and more); the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so the on-device path stays PCM. We commit to the PCM and FLAC route where the precision you hear is the precision you can control. Practical detail: Meringo's scanner does index .dsf and .dff files when they exist in your library and labels them lossless on the format strip, but playback on Snapdragon 680-class devices (the M21) surfaces a [FormatUnsupported] error rather than play. An external USB DAC that decodes DSD natively opens the path."}},
     {"@type":"Question","name":"My WAV files don't show album artwork. Now what?","acceptedAnswer":{"@type":"Answer","text":"Drop a cover.jpg, folder.jpg, front.jpg, or album.jpg next to your audio in the same folder. Case-insensitive; .jpeg and .png variants also work. Meringo's sibling-image resolver picks them up automatically."}},
     {"@type":"Question","name":"What do the gold dot and colored bar on my album covers mean?","acceptedAnswer":{"@type":"Answer","text":"Two separate signals from the same Identity Resolver, both shown on the Vault and Cloud album grids. The gold dot in the bottom-left corner means Meringo has matched the album to a MusicBrainz Release ID (an MBID) — the canonical 'we know which album this is' stamp that anchors the album to a globally stable identifier surviving renames, re-rips, and cross-source duplicates. The colored bar with a percentage below the album title is the confidence in that identification, and it shifts color with that confidence: teal at 90% and above (every signal — album title, artist, track count, runtime, fingerprint — lined up cleanly with MusicBrainz), dimmed gold below that threshold (the resolver landed a tentative match but isn't fully certain, usually for releases with messy metadata or unusual edition variants). Acoustic DNA (the Chromaprint fingerprint) is one of the paths the resolver uses to land an MBID — not what the dot itself represents. The full match chain is MBID → ISRC → metadata tuple → Chromaprint, in that order. Tentative low-confidence matches re-attempt every 90 days; unresolved albums every 30."}},
     {"@type":"Question","name":"Search returns no results — what's happening?","acceptedAnswer":{"@type":"Answer","text":"Search is scoped to the lens you're currently viewing — Vault (local files) or Cloud (Jellyfin / Subsonic). When search comes up empty on the current lens, Meringo offers a one-tap hint pointing at the other one with your query preserved."}},
     {"@type":"Question","name":"Are playlists supported?","acceptedAnswer":{"@type":"Answer","text":"Yes, three flavours. Smart Playlists are rule-based and curated by Meringo (Studio Vault for Hi-Res, Deep Cuts for long-tail plays, Coffee-Logic moods from Lite Roast to Slow Drip). You can author your own from Home > My Playlists. Imported M3U playlists: if your Vault folders contain .m3u or .m3u8 files exported from MusicBee, Plex, foobar2000, etc., the scanner reads them automatically and surfaces each under Home > Imported Playlists — no import button needed. Both plain M3U and extended (#EXTM3U + #EXTINF) formats are supported; tracks that can't be found in your Vault stay visible as greyed-out missing rows. Saved queues: the + glyph in the Queue top bar captures the current queue order as a smart playlist. Jellyfin / Subsonic server-side playlists are on the next-up list; today you can queue any track from those servers individually."}},
     {"@type":"Question","name":"How do I install Meringo? Is it on the Play Store?","acceptedAnswer":{"@type":"Answer","text":"Yes — Meringo is on the Google Play Store. New users get a 7-day free trial of the full app, then a one-time $9.99 unlock for permanent lifetime access. No subscription, no ads, no premium tier locked behind a second purchase. If you switch phones or reinstall later, your purchase restores automatically — Google tracks the entitlement against the Google account you bought with."}},
     {"@type":"Question","name":"Why is Meringo built for FiiO M21? Does it run on other devices?","acceptedAnswer":{"@type":"Answer","text":"Meringo runs on any Android device meeting the minimum requirements (Android 13, API 33). The M21 is what every release is verified and tuned against — Snapdragon 680, 4 GB RAM, ~360 dp screen width. Beta testers have reported it working well on the Jade Audio JM21 (FiiO's sister-brand entry-level DAP), the FiiO M33, and on modern Android phones from 2022 and newer."}},
-    {"@type":"Question","name":"Does Meringo ever resample my audio?","acceptedAnswer":{"@type":"Answer","text":"By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — the bit-perfect path the engine is built around. Settings → Force Output Sample Rate is the opt-in alternative — it pins AudioTrack to a single rate (96, 176.4, 192, or 384 kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: INTERNAL SRC replaces BIT-PERFECT because resampling is mathematical interpolation, not bit-identity. Leave it off and the bit-perfect path is unchanged."}},
+    {"@type":"Question","name":"Does Meringo ever resample my audio?","acceptedAnswer":{"@type":"Answer","text":"By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — the bit-perfect path the engine is built around. Settings → Force Output Sample Rate is the opt-in alternative — it pins AudioTrack to a single rate (88.2, 96, 176.4, 192, 352.8, or 384 kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: INTERNAL SRC replaces BIT-PERFECT because resampling is mathematical interpolation, not bit-identity. Leave it off and the bit-perfect path is unchanged."}},
     {"@type":"Question","name":"Are lyrics supported? Where do they come from?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tap the ♪ LYRICS pill on the Now Playing format strip and a velvet sheet slides up over the screen. When the track's source returns synchronised lyrics, the active line highlights in Candlelight Gold and the sheet smooth-scrolls to keep it centred; plain-text lyrics render as a scrollable Cormorant block. Today Meringo reads from Jellyfin's /Audio/{id}/Lyrics endpoint — LRC sidecars, SYLT/USLT embedded frames, plain-text .txt sidecars all decode to the same sheet. Local files and Subsonic tracks land on the calm 'no lyrics on file' empty state; embedded USLT extraction and Subsonic getLyrics2 are road-map work. By default no third-party lyrics service is involved — Meringo asks only the same server your audio comes from. The one opt-in exception is Online lyrics (off by default): switch it on and, when a track has no embedded or server lyrics, its title, artist and album — nothing else, no audio or file path — are sent to lrclib.net, a community lyrics database, to find matching words."}},
     {"@type":"Question","name":"Does Meringo scrobble to ListenBrainz or Last.fm?","acceptedAnswer":{"@type":"Answer","text":"ListenBrainz is supported as an opt-in integration (Settings → ListenBrainz). Paste your user token from listenbrainz.org/profile/; the token validates against the server, stores in encrypted Keystore-backed storage, and never logs in plaintext. A listen counts when you have heard 240 seconds OR 50% of the track, whichever first — the literal ListenBrainz spec. Tracks shorter than 30 seconds never scrobble. Failed submissions persist to a local encrypted retry queue and drain via a 30-minute background worker when the network allows. A revoked token gracefully disconnects the integration instead of looping. Last.fm is not currently supported."}},
     {"@type":"Question","name":"If I close the app, will I lose my place?","acceptedAnswer":{"@type":"Answer","text":"No. Force-stop Meringo, swipe it from recents, reboot the phone — open the app two days later and the queue is still there, with the same current track, the same position to the second, the same lens. Restoration never auto-plays: the app comes back to the same state but waits for your tap before sound resumes, so opening the app for an unrelated reason doesn't fire audio at the bus seat next to you."}},
@@ -81,11 +81,11 @@
   ]
 }
 </script>
-<meta name="theme-color" content="#1A0E2E">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'%3E%3Crect width='80' height='80' rx='18' fill='%231A0E2E'/%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F4D080'/%3E%3Cstop offset='100%25' stop-color='%23C89040'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ddc27a' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%23c9a55a' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='34' stroke='url(%23fr)' stroke-width='0.75'/%3E%3Ccircle cx='40' cy='40' r='26' stroke='%23E8B560' stroke-width='0.5' opacity='0.2'/%3E%3Cg fill='url(%23fg)'%3E%3Crect x='18' y='37' width='3' height='6' rx='1.5'/%3E%3Crect x='23' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='28' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='33' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='38' y='24' width='3' height='32' rx='1.5'/%3E%3Crect x='43' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='48' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='53' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='58' y='37' width='3' height='6' rx='1.5'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='2' fill='%23E8B560' opacity='0.55'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#07040E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80' fill='none'%3E%3Crect width='80' height='80' rx='18' fill='%2307040E'/%3E%3Cdefs%3E%3ClinearGradient id='fg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F6C273'/%3E%3Cstop offset='100%25' stop-color='%23C77E2A'/%3E%3C/linearGradient%3E%3ClinearGradient id='fr' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23dfb571' stop-opacity='0.9'/%3E%3Cstop offset='100%25' stop-color='%23c99a55' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='40' cy='40' r='34' stroke='url(%23fr)' stroke-width='0.75'/%3E%3Ccircle cx='40' cy='40' r='26' stroke='%23EDA040' stroke-width='0.5' opacity='0.2'/%3E%3Cg fill='url(%23fg)'%3E%3Crect x='18' y='37' width='3' height='6' rx='1.5'/%3E%3Crect x='23' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='28' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='33' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='38' y='24' width='3' height='32' rx='1.5'/%3E%3Crect x='43' y='27' width='3' height='26' rx='1.5'/%3E%3Crect x='48' y='30' width='3' height='20' rx='1.5'/%3E%3Crect x='53' y='34' width='3' height='12' rx='1.5'/%3E%3Crect x='58' y='37' width='3' height='6' rx='1.5'/%3E%3C/g%3E%3Ccircle cx='40' cy='40' r='2' fill='%23EDA040' opacity='0.55'/%3E%3C/svg%3E">
 <link rel="canonical" href="https://meringo.app/">
 <link rel="preload" href="assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="colors_and_type.css">
 
 <style>
@@ -151,8 +151,8 @@ body[data-cta-state="live"] .cta-state-beta { display: none !important; }
 
 /* ── Animations ── */
 @keyframes goldPulse {
-  0%,100% { box-shadow: 0 0 14px rgba(232,181,96,0.25), 0 0 4px rgba(232,181,96,0.4); }
-  50%     { box-shadow: 0 0 36px rgba(232,181,96,0.5),  0 0 10px rgba(232,181,96,0.65); }
+  0%,100% { box-shadow: 0 0 14px rgba(237,160,64,0.25), 0 0 4px rgba(237,160,64,0.4); }
+  50%     { box-shadow: 0 0 36px rgba(237,160,64,0.5),  0 0 10px rgba(237,160,64,0.65); }
 }
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(20px); }
@@ -338,7 +338,7 @@ nav {
   transform: translateX(-50%);
   width: 960px; height: 540px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(232,181,96,0.13) 0%, transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(237,160,64,0.13) 0%, transparent 68%);
   pointer-events: none;
 }
 .hero-glow-b { display: none; }   /* single directional candlelight wash from beneath — the twin corner blobs read as AI-default glow */
@@ -350,9 +350,9 @@ nav {
   gap: var(--space-3);
   margin-top: var(--space-6);
   padding: 8px 16px;
-  border: 1px solid rgba(232,181,96,0.40);
+  border: 1px solid rgba(237,160,64,0.40);
   border-radius: var(--radius-pill);
-  background: rgba(232,181,96,0.06);
+  background: rgba(237,160,64,0.06);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-wide);
@@ -360,7 +360,7 @@ nav {
   color: var(--color-text-1);
   transition: border-color var(--duration-fast) var(--ease-velvet), background var(--duration-fast) var(--ease-velvet);
 }
-.hero-proof-chip:hover { border-color: var(--color-gold); background: rgba(232,181,96,0.12); }
+.hero-proof-chip:hover { border-color: var(--color-gold); background: rgba(237,160,64,0.12); }
 .hero-proof-chip .hpc-ok { color: var(--color-gold); font-weight: 600; }
 .hero-proof-chip .hpc-link { color: var(--color-text-2); }
 
@@ -429,7 +429,7 @@ nav {
   letter-spacing: 0.02em;
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 20px rgba(232,181,96,0.28), 0 0 6px rgba(232,181,96,0.40);
+  box-shadow: 0 0 20px rgba(237,160,64,0.28), 0 0 6px rgba(237,160,64,0.40);
   transition: background var(--duration-fast) var(--ease-velvet), transform 0.1s ease;
 }
 .btn-primary:hover { background: var(--color-gold-bright); transform: scale(0.98); }
@@ -468,7 +468,7 @@ nav {
   border-radius: var(--radius-sm);
   border: 1px solid;
 }
-.badge-gold  { background: rgba(232,181,96,0.1); border-color: rgba(232,181,96,0.3); color: var(--color-gold); }
+.badge-gold  { background: rgba(237,160,64,0.1); border-color: rgba(237,160,64,0.3); color: var(--color-gold); }
 .badge-teal  { background: rgba(61,139,139,0.1); border-color: rgba(61,139,139,0.3); color: var(--color-teal); }
 .badge-dim   { background: rgba(61,45,90,0.4);   border-color: var(--color-border-dim); color: var(--color-text-2); }
 
@@ -483,7 +483,7 @@ nav {
 .hero-stage-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(232,181,96,0.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(237,160,64,0.18) 0%, transparent 70%);
   animation: deviceGlow 6s ease-in-out infinite;
   pointer-events: none;
 }
@@ -575,9 +575,9 @@ nav {
   position: absolute;
   left: -12%;
   bottom: 22%;
-  background: rgba(20, 10, 32, 0.85);
+  background: rgba(7, 4, 14, 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(232,181,96,0.25);
+  border: 1px solid rgba(237,160,64,0.25);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
   z-index: 3;
@@ -631,11 +631,11 @@ nav {
    SPEC STRIP — gold rule, no card
 ───────────────────────────────── */
 .spec-strip {
-  border-top: 1px solid rgba(232,181,96,0.2);
-  border-bottom: 1px solid rgba(232,181,96,0.2);
+  border-top: 1px solid rgba(237,160,64,0.2);
+  border-bottom: 1px solid rgba(237,160,64,0.2);
   position: relative;
   padding: var(--space-6) 0;
-  background: linear-gradient(to bottom, rgba(20,10,32,0), rgba(20,10,32,0.3), rgba(20,10,32,0));
+  background: linear-gradient(to bottom, rgba(7,4,14,0), rgba(7,4,14,0.3), rgba(7,4,14,0));
 }
 .spec-strip::before,
 .spec-strip::after {
@@ -731,7 +731,7 @@ nav {
   width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--color-gold);
-  box-shadow: 0 0 12px rgba(232,181,96,0.6);
+  box-shadow: 0 0 12px rgba(237,160,64,0.6);
 }
 
 .chapter-num {
@@ -803,7 +803,7 @@ nav {
   border: 1px solid var(--color-border-dim);
   background: rgba(61,45,90,0.2);
 }
-.chapter-spec-tag.gold { color: var(--color-gold); border-color: rgba(232,181,96,0.3); background: rgba(232,181,96,0.08); }
+.chapter-spec-tag.gold { color: var(--color-gold); border-color: rgba(237,160,64,0.3); background: rgba(237,160,64,0.08); }
 .chapter-spec-tag.teal { color: var(--color-teal); border-color: rgba(61,139,139,0.3); background: rgba(61,139,139,0.08); }
 
 /* Chapter pull-quote */
@@ -850,7 +850,7 @@ nav {
 .chapter-stage-glow {
   position: absolute;
   inset: -10%;
-  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(232,181,96,0.12) 0%, transparent 70%);
+  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(237,160,64,0.12) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -865,7 +865,7 @@ nav {
   border-top: 1px solid var(--color-border-dim);
   border-bottom: 1px solid var(--color-border-dim);
   background:
-    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(232,181,96,0.04) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(237,160,64,0.04) 0%, transparent 70%);
 }
 .receipt-inner {
   max-width: 1080px;
@@ -953,7 +953,7 @@ nav {
   font-size: 11.5px;
   line-height: 1.6;
   color: var(--color-text-1);
-  background: rgba(10,6,20,0.55);
+  background: rgba(4,2,8,0.55);
   border: 1px solid var(--color-border-dim);
   border-radius: 12px;
   padding: 20px 22px;
@@ -1074,7 +1074,7 @@ nav {
   padding: var(--space-8);
   border-radius: var(--radius-lg);
   background:
-    linear-gradient(135deg, rgba(20,10,32,0.6), rgba(61,45,90,0.2));
+    linear-gradient(135deg, rgba(7,4,14,0.6), rgba(61,45,90,0.2));
   border: 1px solid var(--color-border-dim);
   box-shadow: 0 24px 60px rgba(0,0,0,0.4);
 }
@@ -1191,7 +1191,7 @@ nav {
   content: '';
   position: absolute;
   inset: -20%;
-  background: radial-gradient(circle, rgba(232,181,96,0.15) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(237,160,64,0.15) 0%, transparent 60%);
   pointer-events: none;
 }
 .philosophy-mascot svg {
@@ -1204,14 +1204,14 @@ nav {
 
 /* Review cards — letterboxed */
 .review-card {
-  background: rgba(20, 10, 32, 0.6);
+  background: rgba(7, 4, 14, 0.6);
   border: 1px solid var(--color-border-dim);
   border-radius: var(--radius-md);
   padding: var(--space-6);
   position: relative;
   transition: border-color var(--duration-normal) var(--ease-velvet);
 }
-.review-card:hover { border-color: rgba(232,181,96,0.3); }
+.review-card:hover { border-color: rgba(237,160,64,0.3); }
 .review-stars {
   display: flex;
   align-items: center;
@@ -1331,12 +1331,12 @@ nav {
 .faq-item {
   border: 1px solid var(--color-border-dim);
   border-radius: var(--radius-md);
-  background: rgba(20, 10, 32, 0.4);
+  background: rgba(7, 4, 14, 0.4);
   overflow: hidden;
   transition: border-color var(--duration-normal) var(--ease-velvet);
 }
 .faq-item:hover { border-color: var(--color-border-default); }
-.faq-item[open] { border-color: rgba(232,181,96,0.25); background: rgba(232,181,96,0.03); }
+.faq-item[open] { border-color: rgba(237,160,64,0.25); background: rgba(237,160,64,0.03); }
 .faq-item summary {
   list-style: none;
   cursor: pointer;
@@ -1395,10 +1395,10 @@ nav {
   padding: var(--space-12) var(--space-8);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232,181,96,0.12) 0%, transparent 70%),
-    linear-gradient(135deg, rgba(20,10,32,0.8), rgba(61,45,90,0.3));
-  border: 1px solid rgba(232,181,96,0.2);
-  box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,181,96,0.05);
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(237,160,64,0.12) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(7,4,14,0.8), rgba(61,45,90,0.3));
+  border: 1px solid rgba(237,160,64,0.2);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(237,160,64,0.05);
 }
 .get-app-title {
   font-family: var(--font-display);
@@ -1489,7 +1489,7 @@ nav {
   margin-bottom: var(--space-6);
   padding: var(--space-5) var(--space-6);
   border-left: 2px solid var(--color-gold);
-  background: rgba(232,181,96,0.03);
+  background: rgba(237,160,64,0.03);
 }
 .privacy-summary em { color: var(--color-gold); font-style: italic; }
 .privacy-details {
@@ -1618,7 +1618,7 @@ nav {
 footer {
   border-top: 1px solid var(--color-border-dim);
   padding: var(--space-12) var(--space-6) var(--space-8);
-  background: rgba(20,10,32,0.4);
+  background: rgba(7,4,14,0.4);
 }
 .footer-inner {
   max-width: 1180px;
@@ -1795,16 +1795,16 @@ footer {
   <defs>
     <linearGradient id="m-gSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F4E4C0"/><stop offset="100%" stop-color="#D4A870"/></linearGradient>
     <linearGradient id="m-gHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3A2040"/><stop offset="100%" stop-color="#1E1028"/></linearGradient>
-    <linearGradient id="m-gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F4D080"/><stop offset="100%" stop-color="#9E7A3E"/></linearGradient>
-    <linearGradient id="m-gGoldH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4D080"/><stop offset="50%" stop-color="#E8B560"/><stop offset="100%" stop-color="#9E7A3E"/></linearGradient>
-    <linearGradient id="m-gGoldShine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFF0A0"/><stop offset="40%" stop-color="#E8B560"/><stop offset="100%" stop-color="#7A5A20"/></linearGradient>
-    <linearGradient id="m-gRobe" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3E2860"/><stop offset="100%" stop-color="#1A0E2E"/></linearGradient>
-    <linearGradient id="m-gRobePanel" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4E3878"/><stop offset="100%" stop-color="#261840"/></linearGradient>
-    <linearGradient id="m-gTeal" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5DBDBD"/><stop offset="100%" stop-color="#2A7070"/></linearGradient>
-    <linearGradient id="m-gBoot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2A1830"/><stop offset="100%" stop-color="#0E0820"/></linearGradient>
+    <linearGradient id="m-gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F6C273"/><stop offset="100%" stop-color="#9E7A3E"/></linearGradient>
+    <linearGradient id="m-gGoldH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F6C273"/><stop offset="50%" stop-color="#EDA040"/><stop offset="100%" stop-color="#9E7A3E"/></linearGradient>
+    <linearGradient id="m-gGoldShine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFDF9A"/><stop offset="40%" stop-color="#EDA040"/><stop offset="100%" stop-color="#7A5A20"/></linearGradient>
+    <linearGradient id="m-gRobe" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#392458"/><stop offset="100%" stop-color="#07040E"/></linearGradient>
+    <linearGradient id="m-gRobePanel" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4E3878"/><stop offset="100%" stop-color="#1A1128"/></linearGradient>
+    <linearGradient id="m-gTeal" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5FB6B6"/><stop offset="100%" stop-color="#245454"/></linearGradient>
+    <linearGradient id="m-gBoot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2A1830"/><stop offset="100%" stop-color="#050308"/></linearGradient>
     <radialGradient id="m-gIris" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#8A6040"/><stop offset="50%" stop-color="#3A2010"/><stop offset="100%" stop-color="#180A04"/></radialGradient>
-    <radialGradient id="m-gFloor" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="#E8B560" stop-opacity="0.3"/><stop offset="100%" stop-color="#E8B560" stop-opacity="0"/></radialGradient>
-    <radialGradient id="m-gGlowGold" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#E8B560" stop-opacity="0.55"/><stop offset="100%" stop-color="#E8B560" stop-opacity="0"/></radialGradient>
+    <radialGradient id="m-gFloor" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="#EDA040" stop-opacity="0.3"/><stop offset="100%" stop-color="#EDA040" stop-opacity="0"/></radialGradient>
+    <radialGradient id="m-gGlowGold" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#EDA040" stop-opacity="0.55"/><stop offset="100%" stop-color="#EDA040" stop-opacity="0"/></radialGradient>
     <radialGradient id="m-gGlowVelvet" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9b7fd4" stop-opacity="0.35"/><stop offset="100%" stop-color="#9b7fd4" stop-opacity="0"/></radialGradient>
 
     <!-- ─── Reusable mascot head (head + hat + collar, no arms/robe) ─── -->
@@ -1812,7 +1812,7 @@ footer {
       <!-- Collar -->
       <path d="M130 246C130 236 140 230 160 230C180 230 190 236 190 246L186 254C180 248 171 246 160 246C149 246 140 248 134 254Z" fill="#F0E4CC"/>
       <ellipse cx="160" cy="246" rx="8" ry="5" fill="url(#m-gGoldH)" stroke="#9E7A3E" stroke-width="0.5"/>
-      <circle cx="160" cy="246" r="2" fill="#1A0E2E"/>
+      <circle cx="160" cy="246" r="2" fill="#07040E"/>
       <!-- Neck -->
       <rect x="153" y="218" width="14" height="16" rx="5" fill="url(#m-gSkin)"/>
       <!-- Head -->
@@ -1850,15 +1850,15 @@ footer {
       <!-- Hair mop -->
       <path d="M108 148C107 136 110 120 116 108C122 96 132 88 142 84C150 80 156 80 160 80C164 80 170 80 178 84C188 88 198 96 204 108C210 120 213 136 212 148" fill="url(#m-gHair)"/>
       <!-- Hat brim + crown + band -->
-      <ellipse cx="160" cy="106" rx="72" ry="13" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1.8"/>
-      <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1" transform="translate(0,20)"/>
+      <ellipse cx="160" cy="106" rx="72" ry="13" fill="#050308" stroke="url(#m-gGold)" stroke-width="1.8"/>
+      <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#050308" stroke="url(#m-gGold)" stroke-width="1" transform="translate(0,20)"/>
       <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="url(#m-gRobe)" opacity="0.45" transform="translate(0,20)"/>
       <path d="M104 100L216 100" stroke="url(#m-gGold)" stroke-width="4" stroke-linecap="round"/>
       <!-- Peace symbol on hat band -->
-      <circle cx="160" cy="95" r="7" stroke="#E8B560" stroke-width="1.4" fill="none" opacity="0.9"/>
-      <line x1="160" y1="88" x2="160" y2="102" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
-      <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
-      <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
+      <circle cx="160" cy="95" r="7" stroke="#EDA040" stroke-width="1.4" fill="none" opacity="0.9"/>
+      <line x1="160" y1="88" x2="160" y2="102" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
+      <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
+      <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
       <!-- Stars on crown -->
       <polygon points="126,80 127.4,75.7 131.9,75.7 128.5,73.1 129.8,68.9 126,71.4 122.2,68.9 123.5,73.1 120.1,75.7 124.6,75.7" fill="url(#m-gGoldH)" opacity="0.4"/>
       <polygon points="194,74 195.4,69.7 199.9,69.7 196.5,67.1 197.8,62.9 194,65.4 190.2,62.9 191.5,67.1 188.1,69.7 192.6,69.7" fill="url(#m-gGoldH)" opacity="0.4"/>
@@ -1867,9 +1867,9 @@ footer {
     <!-- ─── Sunglasses overlay (playing state) ─── -->
     <symbol id="mascot-head-glasses" viewBox="0 0 320 280">
       <g>
-        <ellipse cx="136" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+        <ellipse cx="136" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
         <ellipse cx="130" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
-        <ellipse cx="184" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+        <ellipse cx="184" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
         <ellipse cx="178" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
         <path d="M154 158C156 155 164 155 166 158" stroke="url(#m-gGold)" stroke-width="1.5" fill="none"/>
         <path d="M118 158C112 158 108 161 106 166" stroke="url(#m-gGold)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
@@ -1894,11 +1894,11 @@ footer {
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <linearGradient id="nav-gld" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#F4D080"/>
-            <stop offset="100%" stop-color="#C89040"/>
+            <stop offset="0%" stop-color="#F6C273"/>
+            <stop offset="100%" stop-color="#C77E2A"/>
           </linearGradient>
         </defs>
-        <circle cx="40" cy="40" r="37" stroke="#E8B560" stroke-width="0.75" opacity="0.5"/>
+        <circle cx="40" cy="40" r="37" stroke="#EDA040" stroke-width="0.75" opacity="0.5"/>
         <g fill="url(#nav-gld)">
           <rect x="18" y="37" width="3" height="6"  rx="1.5"/>
           <rect x="23" y="34" width="3" height="12" rx="1.5"/>
@@ -2099,7 +2099,7 @@ footer {
         Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit on the way to the DAC's USB endpoint. Both hashes run on your own device, and you can re-hash the receipt with tools we don't control (below) &mdash; proof you can check, not a checkmark you take on faith. No other player hands you that.
       </p>
       <p class="receipt-body">
-        Not a mockup: verified <strong>bit-identical</strong> across three DACs &mdash; <strong>Fosi DS2</strong> (16/44.1), <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt.
+        Not a mockup: verified <strong>bit-identical</strong> across three DACs and four receipts &mdash; <strong>Fosi DS2</strong> at both 16/44.1 and <strong>24/96</strong>, <strong>Qudelix 5K</strong> (24/96), and the <strong>Jcally JM6 Pro</strong> (16/96) &mdash; each with its own shareable receipt. The DS2's 24/96 run captured 53.55&nbsp;MB of PCM off the wire; it hashes to the same SHA-256 as the same file re-decoded on-device, byte for byte.
       </p>
       <p class="receipt-body">
         And "anyone can check it" is literal: the exact byte layout, ffmpeg one-liners, and a public-domain checker script that shares no code with Meringo are published at <a href="verify/" style="color:var(--color-gold)">meringo.app/verify</a> &mdash; recompute a receipt's hash from your own copy of the file, with tools we don't control.
@@ -2225,13 +2225,13 @@ footer {
         The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). The route badge flips its <code style="font-family:var(--font-mono);font-size:0.9em">IIR-MP</code> tag to <code style="font-family:var(--font-mono);font-size:0.9em">FIR-LP</code> when linear phase is engaged.
       </p>
       <p class="chapter-body">
-        Prefer a single stable DAC clock across an entire session? <strong>Force Output Sample Rate</strong> opts in to Meringo's polyphase Kaiser-windowed sinc resampler — every track converted to a fixed 96, 176.4, 192, or 384&nbsp;kHz in 64-bit double precision before AudioTrack. The badge reads <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> when active, not <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> — because that's what's actually happening.
+        Prefer a single stable DAC clock across an entire session? <strong>Force Output Sample Rate</strong> opts in to Meringo's polyphase Kaiser-windowed sinc resampler — every track converted to a fixed 88.2, 96, 176.4, 192, 352.8, or 384&nbsp;kHz in 64-bit double precision before AudioTrack. The badge reads <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> when active, not <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> — because that's what's actually happening.
       </p>
       <p class="chapter-body">
         Plugging in a USB DAC takes Meringo off the AudioTrack road entirely. The app parses the DAC's USB Audio Class descriptors, claims the audio-streaming interface, and ships PCM frames through isochronous transfers straight to the DAC's USB endpoint — no AudioFlinger between the bits and the DAC.
       </p>
       <p class="chapter-body">
-        The bit-perfect chip stays teal when the iso pipe is live and the DAC's negotiated rate matches the source file. Verified to date on <strong>Fosi DS2</strong> (UAC2 high-speed async — its descriptor advertises up to 384&nbsp;kHz / 32-bit; Meringo engages up to 24-bit by design, and the published DS2 receipt is 16/44.1), <strong>Jcally JM6 Pro</strong> (UAC1 high-speed sync, 96&nbsp;kHz), and <strong>Qudelix 5K</strong> (UAC1 full-speed sync, 96&nbsp;kHz / 24-bit). What the hardware's spec sheet supports and what Meringo has verified are different claims, and we only print the second as proof. The Apple USB-C → 3.5mm Headphone Jack Adapter is a known awkward fit and falls back to OS routing automatically on phones — the Field Guide explains why on dedicated DAPs the path is different.
+        The bit-perfect chip stays teal when the iso pipe is live and the DAC's negotiated rate matches the source file. Verified to date on <strong>Fosi DS2</strong> (UAC2 high-speed async — its descriptor advertises up to 384&nbsp;kHz / 32-bit; Meringo engages up to 24-bit by design, and the published DS2 receipts are 16/44.1 and 24/96), <strong>Jcally JM6 Pro</strong> (UAC1 high-speed sync, 96&nbsp;kHz), and <strong>Qudelix 5K</strong> (UAC1 full-speed sync, 96&nbsp;kHz / 24-bit). What the hardware's spec sheet supports and what Meringo has verified are different claims, and we only print the second as proof. The Apple USB-C → 3.5mm Headphone Jack Adapter is a known awkward fit and falls back to OS routing automatically on phones — the Field Guide explains why on dedicated DAPs the path is different.
       </p>
       <blockquote class="chapter-pull">
         Same path. Every device.<br>Every sample, <em>honestly accounted for.</em>
@@ -2253,32 +2253,32 @@ footer {
         <svg viewBox="0 0 380 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meringo signal path: FLAC file → bundled decoder → 64-bit double-precision DSP → AudioTrack → DAC → headphones">
           <defs>
             <linearGradient id="sf-gold" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#F4D080"/>
+              <stop offset="0%" stop-color="#F6C273"/>
               <stop offset="100%" stop-color="#9E7A3E"/>
             </linearGradient>
             <linearGradient id="sf-teal" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#5DBDBD"/>
-              <stop offset="100%" stop-color="#2A7070"/>
+              <stop offset="0%" stop-color="#5FB6B6"/>
+              <stop offset="100%" stop-color="#245454"/>
             </linearGradient>
             <radialGradient id="sf-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#E8B560" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="#E8B560" stop-opacity="0"/>
+              <stop offset="0%" stop-color="#EDA040" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#EDA040" stop-opacity="0"/>
             </radialGradient>
           </defs>
 
           <!-- STAGE 1: FILE -->
           <g>
-            <rect x="60" y="20" width="260" height="56" rx="8" fill="#1A0E2E" stroke="url(#sf-gold)" stroke-width="1"/>
-            <text x="80" y="42" font-family="ui-monospace, monospace" font-size="9" fill="#9E7A3E" letter-spacing="2">SOURCE</text>
+            <rect x="60" y="20" width="260" height="56" rx="8" fill="#07040E" stroke="url(#sf-gold)" stroke-width="1"/>
+            <text x="80" y="42" font-family="Share Tech Mono, ui-monospace, monospace" font-size="9" fill="#9E7A3E" letter-spacing="2">SOURCE</text>
             <text x="80" y="64" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">FLAC · ALAC</text>
-            <text x="220" y="64" font-family="ui-monospace, monospace" font-size="11" fill="#5DBDBD" text-anchor="end" transform="translate(80,0)">24-bit / 192 kHz</text>
+            <text x="220" y="64" font-family="Share Tech Mono, ui-monospace, monospace" font-size="11" fill="#5FB6B6" text-anchor="end" transform="translate(80,0)">24-bit / 192 kHz</text>
             <!-- file icon -->
             <g transform="translate(295,48)">
-              <path d="M-8-12L4-12L10-6L10 12L-8 12Z" fill="none" stroke="#E8B560" stroke-width="1"/>
-              <path d="M4-12L4-6L10-6" fill="none" stroke="#E8B560" stroke-width="1"/>
-              <line x1="-4" y1="-2" x2="6" y2="-2" stroke="#E8B560" stroke-width="0.8" opacity="0.5"/>
-              <line x1="-4" y1="2"  x2="6" y2="2"  stroke="#E8B560" stroke-width="0.8" opacity="0.5"/>
-              <line x1="-4" y1="6"  x2="3" y2="6"  stroke="#E8B560" stroke-width="0.8" opacity="0.5"/>
+              <path d="M-8-12L4-12L10-6L10 12L-8 12Z" fill="none" stroke="#EDA040" stroke-width="1"/>
+              <path d="M4-12L4-6L10-6" fill="none" stroke="#EDA040" stroke-width="1"/>
+              <line x1="-4" y1="-2" x2="6" y2="-2" stroke="#EDA040" stroke-width="0.8" opacity="0.5"/>
+              <line x1="-4" y1="2"  x2="6" y2="2"  stroke="#EDA040" stroke-width="0.8" opacity="0.5"/>
+              <line x1="-4" y1="6"  x2="3" y2="6"  stroke="#EDA040" stroke-width="0.8" opacity="0.5"/>
             </g>
           </g>
 
@@ -2288,10 +2288,10 @@ footer {
 
           <!-- STAGE 2: DECODER -->
           <g>
-            <rect x="60" y="104" width="260" height="56" rx="8" fill="#1A0E2E" stroke="url(#sf-gold)" stroke-width="1"/>
-            <text x="80" y="126" font-family="ui-monospace, monospace" font-size="9" fill="#9E7A3E" letter-spacing="2">STAGE 1 — DECODE</text>
+            <rect x="60" y="104" width="260" height="56" rx="8" fill="#07040E" stroke="url(#sf-gold)" stroke-width="1"/>
+            <text x="80" y="126" font-family="Share Tech Mono, ui-monospace, monospace" font-size="9" fill="#9E7A3E" letter-spacing="2">STAGE 1 — DECODE</text>
             <text x="80" y="148" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">Meringo FFmpeg</text>
-            <text x="295" y="148" font-family="ui-monospace, monospace" font-size="11" fill="#5DBDBD" text-anchor="end">LGPL 2.1+</text>
+            <text x="295" y="148" font-family="Share Tech Mono, ui-monospace, monospace" font-size="11" fill="#5FB6B6" text-anchor="end">LGPL 2.1+</text>
           </g>
 
           <!-- Connector 2 -->
@@ -2301,12 +2301,12 @@ footer {
           <!-- STAGE 3: DSP (highlighted) -->
           <g>
             <ellipse cx="190" cy="216" rx="180" ry="40" fill="url(#sf-glow)"/>
-            <rect x="60" y="188" width="260" height="56" rx="8" fill="#261840" stroke="url(#sf-gold)" stroke-width="1.5"/>
-            <text x="80" y="210" font-family="ui-monospace, monospace" font-size="9" fill="#E8B560" letter-spacing="2">STAGE 2 — DSP</text>
+            <rect x="60" y="188" width="260" height="56" rx="8" fill="#1A1128" stroke="url(#sf-gold)" stroke-width="1.5"/>
+            <text x="80" y="210" font-family="Share Tech Mono, ui-monospace, monospace" font-size="9" fill="#EDA040" letter-spacing="2">STAGE 2 — DSP</text>
             <text x="80" y="232" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">64-bit double</text>
-            <text x="295" y="232" font-family="ui-monospace, monospace" font-size="11" fill="#E8B560" text-anchor="end">parametric EQ</text>
+            <text x="295" y="232" font-family="Share Tech Mono, ui-monospace, monospace" font-size="11" fill="#EDA040" text-anchor="end">parametric EQ</text>
             <!-- tiny waveform icon -->
-            <g transform="translate(295,210)" stroke="#E8B560" stroke-width="0.8" stroke-linecap="round" opacity="0.6">
+            <g transform="translate(295,210)" stroke="#EDA040" stroke-width="0.8" stroke-linecap="round" opacity="0.6">
               <line x1="-22" y1="0" x2="-22" y2="0"/>
               <line x1="-18" y1="-3" x2="-18" y2="3"/>
               <line x1="-14" y1="-5" x2="-14" y2="5"/>
@@ -2320,10 +2320,10 @@ footer {
 
           <!-- STAGE 4: AudioTrack -->
           <g>
-            <rect x="60" y="272" width="260" height="56" rx="8" fill="#1A0E2E" stroke="url(#sf-gold)" stroke-width="1"/>
-            <text x="80" y="294" font-family="ui-monospace, monospace" font-size="9" fill="#9E7A3E" letter-spacing="2">STAGE 3 — OUTPUT</text>
+            <rect x="60" y="272" width="260" height="56" rx="8" fill="#07040E" stroke="url(#sf-gold)" stroke-width="1"/>
+            <text x="80" y="294" font-family="Share Tech Mono, ui-monospace, monospace" font-size="9" fill="#9E7A3E" letter-spacing="2">STAGE 3 — OUTPUT</text>
             <text x="80" y="316" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">AudioTrack</text>
-            <text x="295" y="316" font-family="ui-monospace, monospace" font-size="11" fill="#5DBDBD" text-anchor="end">native rate</text>
+            <text x="295" y="316" font-family="Share Tech Mono, ui-monospace, monospace" font-size="11" fill="#5FB6B6" text-anchor="end">native rate</text>
           </g>
 
           <!-- Connector 4 -->
@@ -2332,15 +2332,15 @@ footer {
 
           <!-- STAGE 5: DAC + headphones -->
           <g>
-            <rect x="60" y="356" width="260" height="80" rx="8" fill="#1A0E2E" stroke="url(#sf-teal)" stroke-width="1"/>
-            <text x="80" y="378" font-family="ui-monospace, monospace" font-size="9" fill="#2A7070" letter-spacing="2">DESTINATION</text>
+            <rect x="60" y="356" width="260" height="80" rx="8" fill="#07040E" stroke="url(#sf-teal)" stroke-width="1"/>
+            <text x="80" y="378" font-family="Share Tech Mono, ui-monospace, monospace" font-size="9" fill="#245454" letter-spacing="2">DESTINATION</text>
             <text x="80" y="400" font-family="Cormorant Garamond, serif" font-size="20" fill="#F0E4CC">DAC</text>
-            <text x="80" y="420" font-family="ui-monospace, monospace" font-size="10" fill="#5DBDBD">Snapdragon · USB-C · Bluetooth</text>
+            <text x="80" y="420" font-family="Share Tech Mono, ui-monospace, monospace" font-size="10" fill="#5FB6B6">Snapdragon · USB-C · Bluetooth</text>
             <!-- headphones icon -->
-            <g transform="translate(295,396)" stroke="#5DBDBD" stroke-width="1.2" fill="none">
+            <g transform="translate(295,396)" stroke="#5FB6B6" stroke-width="1.2" fill="none">
               <path d="M-10-4 Q-10-12 0-12 Q10-12 10-4"/>
-              <rect x="-12" y="-4" width="6" height="10" rx="2" fill="#1A0E2E"/>
-              <rect x="6" y="-4" width="6" height="10" rx="2" fill="#1A0E2E"/>
+              <rect x="-12" y="-4" width="6" height="10" rx="2" fill="#07040E"/>
+              <rect x="6" y="-4" width="6" height="10" rx="2" fill="#07040E"/>
             </g>
           </g>
 
@@ -2455,7 +2455,7 @@ footer {
         AcoustID fingerprinting scans your library and matches it against <strong>MusicBrainz</strong> — surfacing release year, genre classifications, editorial biography, and high-res artwork from the <strong>Cover Art Archive</strong>. Tag-poor files become tag-rich in the background. Cross-source recordings collapse to a single library entry by Recording MBID — JAY-Z and Jay-Z and Shawn Carter all merge to one artist card once MusicBrainz resolves the canonical identity.
       </p>
       <p class="chapter-body">
-        The payoff lands on the home screen as <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Hi-Res Vault. Deep Cuts. <em>Long plays.</em> Studio Vault. Curation, without a curator — and a <a href="#chapter-7" style="color:var(--color-gold-dim);">mood-driven library navigation</a> primitive that reads from the same fingerprint pass.
+        The payoff lands on the home screen as <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Hi-Res Vault. Deep Cuts. <em>Long plays.</em> Studio Vault. Curation, without a curator — and a <a href="#chapter-7" style="color:var(--color-gold-dim);">mood-driven library navigation</a> primitive that reads from the separate on-device analysis pass described below.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">AcoustID</span>
@@ -2487,23 +2487,29 @@ footer {
       <p class="chapter-num">Ch. 06 — Sonic Match</p>
       <h2 class="chapter-title">The song <em>hiding</em> in your shelves.</h2>
       <p class="chapter-body">
-        Tap the <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#8779;</code> icon on Now Playing and Meringo searches the Chromaprint fingerprints it has been building in the background, ranking what's playing against the rest of your library by Hamming distance — and surfaces tracks that genuinely <em>sound like</em> the current one. Same harmonic shape, same rhythmic feel. Hold the icon to switch to <strong>Acoustic Texture</strong>: same energy and structural arc, regardless of key.
+        Tap the <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">&#8779;</code> icon on Now Playing and Meringo ranks the rest of your library against what's playing — not by tags, and not by fingerprint bits, but by <strong>measured acoustic distance</strong>. Every analysed track carries a feature vector, and four weighted subspaces decide how close two of them are: <em>timbre</em> (spectral centroid, rolloff, flatness, band balance), <em>rhythm</em> (octave-folded tempo, attack density, pulse clarity), <em>harmony</em> (chroma cosine, circle-of-fifths key relation, harmonic richness) and <em>dynamics</em> (crest factor, loudness range).
+      </p>
+      <p class="chapter-body">
+        Every axis is z-scored against your library at the moment you ask, so <em>bright</em> means bright <em>for your shelves</em> — not against some absolute the engine carries around. The number you get back is a <strong>percentile</strong>, not a similarity score: <em>closer than 94% of the candidates</em> is a claim a number can actually back. And every match carries its receipts — up to three concrete, pairwise-true reasons (<em>&ldquo;same key (Am)&rdquo;</em>, <em>&ldquo;74 ↔ 76 BPM&rdquo;</em>, <em>&ldquo;both high-dynamics&rdquo;</em>), each emitted only when <em>both</em> tracks genuinely carry the signal. Nothing is inferred.
+      </p>
+      <p class="chapter-body">
+        Hold the icon rather than tapping it and you drop straight into the stricter Deep Dive pool below, whether or not you've ever opened Settings.
       </p>
       <p class="chapter-body">
         Tap any match card and you've launched <strong>Sonic Radio</strong> — an auto-extending queue of texture-aligned tracks seeded from that match. Five tracks deep in standard mode, eight in Deep Dive. The B-side that lives next door to the long-form ambient piece you forgot you owned. The cover the algorithm spotted before you did.
       </p>
       <p class="chapter-body">
-        <strong>Deep Dive Mode</strong> is the critical-listening posture: pool widens (Sonic Match candidate set 20 &rarr; 50), similarity floor rises (only matches &geq; 0.45 survive), Radio tail grows. On the audio side it switches in a defensive buffer profile, detaches the OS Visualizer's PCM tap, and pauses background analysis workers so the M21's cores aren't competing with the engine. A two-layer commitment to listening with intent.
+        <strong>Deep Dive Mode</strong> is the critical-listening posture: the ranked pool widens (20 &rarr; 50 candidates), the Radio tail grows (5 &rarr; 8), and every surviving match must carry at least one of those plain-English reasons — <em>a match the engine can't explain isn't a Deep Dive match.</em> On the audio side it switches in a defensive buffer profile, detaches the OS Visualizer's PCM tap, and pauses background analysis workers so the M21's cores aren't competing with the engine. A two-layer commitment to listening with intent.
       </p>
       <blockquote class="chapter-pull">
         Not a recommendation engine.<br>A <em>librarian</em> who's been listening.
       </blockquote>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">Sonic Match</span>
-        <span class="chapter-spec-tag teal">Acoustic Texture</span>
+        <span class="chapter-spec-tag teal">Feature-space scoring</span>
         <span class="chapter-spec-tag teal">Sonic Radio</span>
         <span class="chapter-spec-tag">Deep Dive Mode</span>
-        <span class="chapter-spec-tag">Chromaprint</span>
+        <span class="chapter-spec-tag">Explained matches</span>
       </div>
     </div>
 
@@ -2531,10 +2537,10 @@ footer {
       <p class="chapter-num">Ch. 07 — Atmospheres</p>
       <h2 class="chapter-title">Browse by <em>sound,</em> not by genre tag.</h2>
       <p class="chapter-body">
-        <strong>Coffee-Logic</strong> classifies every track in your library by its actual audio character, not by metadata. Five mood classes — <strong>Lite Roast</strong> (bright, acoustic clarity), <strong>Fruity</strong> (complex harmonics — jazz, soul, bossa), <strong>Medium Roast</strong> (balanced indie/electronic), <strong>Dark &amp; Bold</strong> (heavy low-end, aggressive transients), <strong>Slow Drip</strong> (atmospheric, long-form) — derived deterministically from each track's Chromaprint fingerprint, technical metadata, and MusicBrainz genre tags.
+        <strong>Coffee-Logic</strong> classifies every track in your library by its actual audio character, not by metadata. Five mood classes — <strong>Lite Roast</strong> (bright, acoustic clarity), <strong>Fruity</strong> (complex harmonics — jazz, soul, bossa), <strong>Medium Roast</strong> (balanced indie/electronic), <strong>Dark &amp; Bold</strong> (heavy low-end, aggressive transients), <strong>Slow Drip</strong> (atmospheric, long-form) — derived deterministically from measured acoustic features: brightness, band energy, attack density, pulse clarity, dynamics, and a chromagram, with MusicBrainz genre tags as a gentle prior. File format plays no part, and a verdict has to win by a clear margin or the track simply stays unclassified.
       </p>
       <p class="chapter-body">
-        Stack mood &times; <strong>tempo</strong> (Slow 60-100 BPM, Mid 100-140, Fast 140-200, computed by onset autocorrelation on the same PCM extraction) and the library narrows to a coherent listening session. <em>Dark &amp; Bold</em> &times; Slow for a 2am session. <em>Lite Roast</em> &times; Mid for a morning walk. Each tile lens-scoped, each surfaced from the same fingerprint pass that powers Sonic Match.
+        Stack mood &times; <strong>tempo</strong> (Slow 60-100 BPM, Mid 100-140, Fast 140-200, computed by onset autocorrelation on the same PCM extraction) and the library narrows to a coherent listening session. <em>Dark &amp; Bold</em> &times; Slow for a 2am session. <em>Lite Roast</em> &times; Mid for a morning walk. Each tile lens-scoped, each surfaced from the same on-device analysis pass that powers Sonic Match. Drones and sustained-tone tracks have no detectable BPM and stay unbucketed rather than being guessed at.
       </p>
       <p class="chapter-body">
         Same file always produces the same tag. No recommendation lottery, no telemetry, no third-party classifier in the loop. The library knows what it sounds like because Meringo listened to it once, on your phone.
@@ -2545,7 +2551,7 @@ footer {
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">5 mood classes</span>
         <span class="chapter-spec-tag teal">Tempo cross-filter</span>
-        <span class="chapter-spec-tag">Chromaprint</span>
+        <span class="chapter-spec-tag">Chromagram</span>
         <span class="chapter-spec-tag">Deterministic</span>
         <span class="chapter-spec-tag">Local-only</span>
       </div>
@@ -2594,13 +2600,13 @@ footer {
           <g transform="translate(116,388)">
             <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
             <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <rect x="6" y="0" width="11" height="8" rx="2" fill="#0E0820" stroke="#3D2D5A" stroke-width="0.4"/>
+            <rect x="6" y="0" width="11" height="8" rx="2" fill="#050308" stroke="#3D2D5A" stroke-width="0.4"/>
             <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
           </g>
           <g transform="translate(204,388) scale(-1,1)">
             <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
             <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <rect x="6" y="0" width="11" height="8" rx="2" fill="#0E0820" stroke="#3D2D5A" stroke-width="0.4"/>
+            <rect x="6" y="0" width="11" height="8" rx="2" fill="#050308" stroke="#3D2D5A" stroke-width="0.4"/>
             <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
           </g>
 
@@ -2608,31 +2614,31 @@ footer {
           <path d="M108 248C103 272 93 320 88 390L232 390C227 320 217 272 212 248Z" fill="url(#m-gRobe)" stroke="#4E3878" stroke-width="0.8"/>
           <path d="M148 252L160 248L172 252L170 390L150 390Z" fill="url(#m-gRobePanel)" opacity="0.65"/>
           <path d="M160 252L160 388" stroke="url(#m-gGold)" stroke-width="1.2" opacity="0.55"/>
-          <circle cx="160" cy="268" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="268" r="1.2" fill="#1A0E2E"/>
-          <circle cx="160" cy="284" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="284" r="1.2" fill="#1A0E2E"/>
-          <circle cx="160" cy="300" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="300" r="1.2" fill="#1A0E2E"/>
-          <circle cx="160" cy="316" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="316" r="1.2" fill="#1A0E2E"/>
+          <circle cx="160" cy="268" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="268" r="1.2" fill="#07040E"/>
+          <circle cx="160" cy="284" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="284" r="1.2" fill="#07040E"/>
+          <circle cx="160" cy="300" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="300" r="1.2" fill="#07040E"/>
+          <circle cx="160" cy="316" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="316" r="1.2" fill="#07040E"/>
           <path d="M88 390L232 390" stroke="url(#m-gGold)" stroke-width="2.2"/>
-          <path d="M108 255L88 258" stroke="#E8B560" stroke-width="1.1" opacity="0.6"/>
-          <path d="M108 263L88 266" stroke="#E8B560" stroke-width="1.0" opacity="0.52"/>
-          <path d="M212 255L232 258" stroke="#E8B560" stroke-width="1.1" opacity="0.6"/>
-          <path d="M212 263L232 266" stroke="#E8B560" stroke-width="1.0" opacity="0.52"/>
+          <path d="M108 255L88 258" stroke="#EDA040" stroke-width="1.1" opacity="0.6"/>
+          <path d="M108 263L88 266" stroke="#EDA040" stroke-width="1.0" opacity="0.52"/>
+          <path d="M212 255L232 258" stroke="#EDA040" stroke-width="1.1" opacity="0.6"/>
+          <path d="M212 263L232 266" stroke="#EDA040" stroke-width="1.0" opacity="0.52"/>
 
           <!-- COLLAR -->
           <path d="M130 246C130 236 140 230 160 230C180 230 190 236 190 246L186 254C180 248 171 246 160 246C149 246 140 248 134 254Z" fill="#F0E4CC"/>
           <ellipse cx="160" cy="246" rx="8" ry="5" fill="url(#m-gGoldH)" stroke="#9E7A3E" stroke-width="0.5"/>
-          <circle cx="160" cy="246" r="2" fill="#1A0E2E"/>
+          <circle cx="160" cy="246" r="2" fill="#07040E"/>
 
           <!-- ARMS -->
-          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#3E2860" stroke-width="20" stroke-linecap="round" fill="none"/>
-          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#261840" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#392458" stroke-width="20" stroke-linecap="round" fill="none"/>
+          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#1A1128" stroke-width="16" stroke-linecap="round" fill="none"/>
           <ellipse cx="82" cy="346" rx="12" ry="9" fill="url(#m-gSkin)"/>
           <rect x="73" y="342" width="5" height="2.2" rx="1.1" fill="url(#m-gGold)"/>
           <rect x="79" y="340" width="5" height="2.2" rx="1.1" fill="#9b7fd4"/>
           <rect x="85" y="339" width="5" height="2.2" rx="1.1" fill="url(#m-gTeal)"/>
 
-          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#3E2860" stroke-width="20" stroke-linecap="round" fill="none"/>
-          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#261840" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#392458" stroke-width="20" stroke-linecap="round" fill="none"/>
+          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#1A1128" stroke-width="16" stroke-linecap="round" fill="none"/>
           <ellipse cx="239" cy="340" rx="12" ry="9" fill="url(#m-gSkin)" transform="rotate(12,239,340)"/>
 
           <!-- WAND -->
@@ -2700,9 +2706,9 @@ footer {
 
           <!-- GLASSES playing -->
           <g class="m-playing-glasses" opacity="0">
-            <ellipse cx="136" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+            <ellipse cx="136" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
             <ellipse cx="130" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
-            <ellipse cx="184" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+            <ellipse cx="184" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
             <ellipse cx="178" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
             <path d="M154 158C156 155 164 155 166 158" stroke="url(#m-gGold)" stroke-width="1.5" fill="none"/>
             <path d="M118 158C112 158 108 161 106 166" stroke="url(#m-gGold)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
@@ -2713,7 +2719,7 @@ footer {
 
           <!-- NOTES playing -->
           <g class="m-playing-notes" opacity="0">
-            <text x="252" y="148" font-size="20" fill="#E8B560" font-family="serif" opacity="0.85">♪</text>
+            <text x="252" y="148" font-size="20" fill="#EDA040" font-family="serif" opacity="0.85">♪</text>
             <text x="48" y="134" font-size="16" fill="#9b7fd4" font-family="serif" opacity="0.75">♫</text>
           </g>
 
@@ -2723,17 +2729,17 @@ footer {
           <path d="M212 148C214 140 216 132 215 122" fill="url(#m-gHair)"/>
 
           <!-- HAT brim -->
-          <ellipse cx="160" cy="106" rx="72" ry="13" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1.8"/>
+          <ellipse cx="160" cy="106" rx="72" ry="13" fill="#050308" stroke="url(#m-gGold)" stroke-width="1.8"/>
           <ellipse cx="160" cy="108" rx="65" ry="8" fill="none" stroke="url(#m-gTeal)" stroke-width="0.8" opacity="0.4"/>
           <!-- HAT crown -->
-          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1"/>
+          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#050308" stroke="url(#m-gGold)" stroke-width="1"/>
           <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="url(#m-gRobe)" opacity="0.45"/>
           <path d="M104 100L216 100" stroke="url(#m-gGold)" stroke-width="4" stroke-linecap="round"/>
           <!-- Peace symbol -->
-          <circle cx="160" cy="95" r="7" stroke="#E8B560" stroke-width="1.4" fill="none" opacity="0.9"/>
-          <line x1="160" y1="88" x2="160" y2="102" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
-          <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
-          <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
+          <circle cx="160" cy="95" r="7" stroke="#EDA040" stroke-width="1.4" fill="none" opacity="0.9"/>
+          <line x1="160" y1="88" x2="160" y2="102" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
+          <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
+          <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
           <!-- Stars on crown -->
           <polygon points="126,60 127.4,55.7 131.9,55.7 128.5,53.1 129.8,48.9 126,51.4 122.2,48.9 123.5,53.1 120.1,55.7 124.6,55.7" fill="url(#m-gGoldH)" opacity="0.4"/>
           <polygon points="160,18 161.4,13.7 165.9,13.7 162.5,11.1 163.8,6.9 160,9.4 156.2,6.9 157.5,11.1 154.1,13.7 158.6,13.7" fill="url(#m-gGoldH)" opacity="0.38"/>
@@ -2773,7 +2779,7 @@ footer {
         <div class="faq-body">
           <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64), so every band, every gain change, every output adjustment stays mathematically clean end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
           <p>In practice, almost every commercial DSD release is a delivery container layered on top of a PCM master. Recording and mastering happens in PCM (often DXD at very high sample rates). A 24/96 or 24/192 FLAC of the same master sounds effectively identical and weighs roughly a quarter as much on disk.</p>
-          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and it's exactly how Meringo hands DSD to an external DAC that can decode it natively (DSD64 via DoP today, with a curated catalog of known DACs — Chord, iFi, AudioQuest and more). It doesn't bypass the precision constraint, though: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. What Meringo won't do is force DSD onto hardware that can't take it — the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so on-device DSD would mean a silent conversion behind your back. So the on-device path stays PCM-and-FLAC, and the DoP carriage opens only when a capable DAC is attached.</p>
+          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and it's exactly how Meringo hands DSD to an external DAC that can decode it natively (DSD64, DSD128 and DSD256 via DoP, with a curated catalog of known DACs — Chord, iFi, AudioQuest and more). It doesn't bypass the precision constraint, though: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. What Meringo won't do is force DSD onto hardware that can't take it — the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so on-device DSD would mean a silent conversion behind your back. So the on-device path stays PCM-and-FLAC, and the DoP carriage opens only when a capable DAC is attached.</p>
           <p>For practical purposes: if you have <code>.dsf</code> or <code>.dff</code> files in your library, Meringo's scanner indexes them and labels them lossless on the format strip — you'll see them sitting next to your FLACs. Tap a DSD track on the M21 (or another Snapdragon 680-class device) and the route surfaces a <code>[FormatUnsupported]</code> error rather than play. Plug in an external USB DAC that decodes DSD natively — a Chord Mojo 2, iFi Hip-Dac, or similar — and the path opens up; Meringo hands the stream to the DAC and lets its onboard decoder do the work.</p>
         </div>
       </details>
@@ -2875,7 +2881,7 @@ footer {
         </summary>
         <div class="faq-body">
           <p>By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — that's the bit-perfect path the engine is built around.</p>
-          <p><strong>Settings &rarr; Force Output Sample Rate</strong> is the opt-in alternative — it pins the AudioTrack to a single rate (96, 176.4, 192, or 384&nbsp;kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> replaces <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> because resampling is mathematical interpolation, not bit-identity.</p>
+          <p><strong>Settings &rarr; Force Output Sample Rate</strong> is the opt-in alternative — it pins the AudioTrack to a single rate (88.2, 96, 176.4, 192, 352.8, or 384&nbsp;kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">INTERNAL SRC</code> replaces <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">BIT-PERFECT</code> because resampling is mathematical interpolation, not bit-identity.</p>
           <p>Audiophiles who prefer a single stable DAC clock across an entire session over per-track HAL renegotiation choose it. Everyone else leaves it off and the bit-perfect path is unchanged. On the <strong>USB Direct</strong> path, if an external DAC is locked to a rate it won't switch to your file's native rate, Meringo refuses the track — a banner names the DAC and the rate it's stuck at — rather than silently resampling it behind your back; USB Direct never resamples. Over <strong>Bluetooth</strong> the stream is always re-encoded by the OS, so that path can never be bit-perfect and the route badge simply reads <code style="font-family:var(--font-mono);font-size:0.9em">Bluetooth</code>.</p>
         </div>
       </details>
@@ -2976,7 +2982,7 @@ footer {
       <div class="cta-state-live">
         <p class="section-label">Available now · Google Play</p>
         <h2 class="get-app-title">Your music. <em>Exactly as recorded.</em></h2>
-        <div class="get-app-pricing" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);padding:var(--space-4) var(--space-5);border:1px solid rgba(232,181,96,0.35);border-radius:var(--radius-md);background:rgba(232,181,96,0.08);">
+        <div class="get-app-pricing" style="display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);padding:var(--space-4) var(--space-5);border:1px solid rgba(237,160,64,0.35);border-radius:var(--radius-md);background:rgba(237,160,64,0.08);">
           <span style="font-family:var(--font-display);font-size:clamp(28px,3.2vw,38px);font-weight:300;color:var(--color-gold);letter-spacing:-0.01em;">$9.99 once</span>
           <span style="font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.05em;color:var(--color-text-2);">7-day free trial · No subscription · Lifetime updates</span>
         </div>
@@ -3113,6 +3119,7 @@ footer {
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">MODIFY_AUDIO_SETTINGS</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">BLUETOOTH_CONNECT</span> — audio output routing and Bluetooth audio device management</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">WAKE_LOCK</span> — prevent the CPU from sleeping mid-track during background playback</li>
             <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">VIBRATE</span> — haptic feedback on seek and UI interactions</li>
+            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">com.android.vending.BILLING</span> — the one-time in-app purchase. A normal-level permission auto-granted at install; Google Play's billing client will not initialise without it. It grants no access to your device, your library, or your payment details — the transaction itself is handled entirely by Google Play, and Meringo never sees a card number</li>
           </ul>
         </div>
 
@@ -3367,11 +3374,11 @@ footer {
         <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="ftr-gld" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#F4D080"/>
-              <stop offset="100%" stop-color="#C89040"/>
+              <stop offset="0%" stop-color="#F6C273"/>
+              <stop offset="100%" stop-color="#C77E2A"/>
             </linearGradient>
           </defs>
-          <circle cx="40" cy="40" r="37" stroke="#E8B560" stroke-width="0.75" opacity="0.4"/>
+          <circle cx="40" cy="40" r="37" stroke="#EDA040" stroke-width="0.75" opacity="0.4"/>
           <g fill="url(#ftr-gld)">
             <rect x="18" y="37" width="3" height="6"  rx="1.5"/>
             <rect x="23" y="34" width="3" height="12" rx="1.5"/>
@@ -3421,13 +3428,13 @@ footer {
           <g transform="translate(116,388)">
             <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
             <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <rect x="6" y="0" width="11" height="8" rx="2" fill="#0E0820" stroke="#3D2D5A" stroke-width="0.4"/>
+            <rect x="6" y="0" width="11" height="8" rx="2" fill="#050308" stroke="#3D2D5A" stroke-width="0.4"/>
             <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
           </g>
           <g transform="translate(204,388) scale(-1,1)">
             <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
             <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <rect x="6" y="0" width="11" height="8" rx="2" fill="#0E0820" stroke="#3D2D5A" stroke-width="0.4"/>
+            <rect x="6" y="0" width="11" height="8" rx="2" fill="#050308" stroke="#3D2D5A" stroke-width="0.4"/>
             <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
           </g>
 
@@ -3435,23 +3442,23 @@ footer {
           <path d="M108 248C103 272 93 320 88 390L232 390C227 320 217 272 212 248Z" fill="url(#m-gRobe)" stroke="#4E3878" stroke-width="0.8"/>
           <path d="M148 252L160 248L172 252L170 390L150 390Z" fill="url(#m-gRobePanel)" opacity="0.65"/>
           <path d="M160 252L160 388" stroke="url(#m-gGold)" stroke-width="1.2" opacity="0.55"/>
-          <circle cx="160" cy="268" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="268" r="1.2" fill="#1A0E2E"/>
-          <circle cx="160" cy="284" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="284" r="1.2" fill="#1A0E2E"/>
-          <circle cx="160" cy="300" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="300" r="1.2" fill="#1A0E2E"/>
-          <circle cx="160" cy="316" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="316" r="1.2" fill="#1A0E2E"/>
+          <circle cx="160" cy="268" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="268" r="1.2" fill="#07040E"/>
+          <circle cx="160" cy="284" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="284" r="1.2" fill="#07040E"/>
+          <circle cx="160" cy="300" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="300" r="1.2" fill="#07040E"/>
+          <circle cx="160" cy="316" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="316" r="1.2" fill="#07040E"/>
           <path d="M88 390L232 390" stroke="url(#m-gGold)" stroke-width="2.2"/>
 
           <!-- COLLAR -->
           <path d="M130 246C130 236 140 230 160 230C180 230 190 236 190 246L186 254C180 248 171 246 160 246C149 246 140 248 134 254Z" fill="#F0E4CC"/>
           <ellipse cx="160" cy="246" rx="8" ry="5" fill="url(#m-gGoldH)" stroke="#9E7A3E" stroke-width="0.5"/>
-          <circle cx="160" cy="246" r="2" fill="#1A0E2E"/>
+          <circle cx="160" cy="246" r="2" fill="#07040E"/>
 
           <!-- ARMS -->
-          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#3E2860" stroke-width="20" stroke-linecap="round" fill="none"/>
-          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#261840" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#392458" stroke-width="20" stroke-linecap="round" fill="none"/>
+          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#1A1128" stroke-width="16" stroke-linecap="round" fill="none"/>
           <ellipse cx="82" cy="346" rx="12" ry="9" fill="url(#m-gSkin)"/>
-          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#3E2860" stroke-width="20" stroke-linecap="round" fill="none"/>
-          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#261840" stroke-width="16" stroke-linecap="round" fill="none"/>
+          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#392458" stroke-width="20" stroke-linecap="round" fill="none"/>
+          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#1A1128" stroke-width="16" stroke-linecap="round" fill="none"/>
           <ellipse cx="239" cy="340" rx="12" ry="9" fill="url(#m-gSkin)" transform="rotate(12,239,340)"/>
 
           <!-- WAND -->
@@ -3502,27 +3509,27 @@ footer {
 
           <!-- GLASSES (playing) -->
           <g class="m-playing-glasses" opacity="0">
-            <ellipse cx="136" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
-            <ellipse cx="184" cy="160" rx="18" ry="14" fill="#140A20" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+            <ellipse cx="136" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
+            <ellipse cx="184" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
             <path d="M154 158C156 155 164 155 166 158" stroke="url(#m-gGold)" stroke-width="1.5" fill="none"/>
           </g>
 
           <!-- NOTES (playing) -->
           <g class="m-playing-notes" opacity="0">
-            <text x="252" y="148" font-size="20" fill="#E8B560" font-family="serif" opacity="0.85">♪</text>
+            <text x="252" y="148" font-size="20" fill="#EDA040" font-family="serif" opacity="0.85">♪</text>
             <text x="48" y="134" font-size="16" fill="#9b7fd4" font-family="serif" opacity="0.75">♫</text>
           </g>
 
           <!-- HAIR + HAT -->
           <path d="M108 148C107 136 110 120 116 108C122 96 132 88 142 84C150 80 156 80 160 80C164 80 170 80 178 84C188 88 198 96 204 108C210 120 213 136 212 148" fill="url(#m-gHair)"/>
-          <ellipse cx="160" cy="106" rx="72" ry="13" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1.8"/>
-          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#0E0820" stroke="url(#m-gGold)" stroke-width="1"/>
+          <ellipse cx="160" cy="106" rx="72" ry="13" fill="#050308" stroke="url(#m-gGold)" stroke-width="1.8"/>
+          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#050308" stroke="url(#m-gGold)" stroke-width="1"/>
           <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="url(#m-gRobe)" opacity="0.45"/>
           <path d="M104 100L216 100" stroke="url(#m-gGold)" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="160" cy="95" r="7" stroke="#E8B560" stroke-width="1.4" fill="none" opacity="0.9"/>
-          <line x1="160" y1="88" x2="160" y2="102" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
-          <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
-          <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#E8B560" stroke-width="1.4" opacity="0.9"/>
+          <circle cx="160" cy="95" r="7" stroke="#EDA040" stroke-width="1.4" fill="none" opacity="0.9"/>
+          <line x1="160" y1="88" x2="160" y2="102" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
+          <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
+          <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
           <circle cx="160" cy="-12" r="16" fill="url(#m-gGlowGold)" opacity="0.45"/>
           <polygon points="160,-4 162.3,-10.5 169.2,-10.5 163.7,-14.5 165.8,-21 160,-17 154.2,-21 156.3,-14.5 150.8,-10.5 157.7,-10.5" fill="url(#m-gGoldShine)" opacity="0.95"/>
         </g>
