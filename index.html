@@ -2035,7 +2035,7 @@ footer {
       <div class="hero-device" aria-label="Meringo Now Playing screen">
         <picture><source srcset="assets/screens/now_playing.webp" type="image/webp"><img src="assets/screens/now_playing.png"
              width="750" height="1334" decoding="async" fetchpriority="high"
-             alt="Meringo Now Playing — 'Hard to See' by Men I Trust, 24-bit / 96 kHz from the Vault. ULTRA dynamic-range chip + EQ engaged on the album-art card, ♪ LYRICS pill below the route line, full transport controls below the scrub bar"></picture>
+             alt="Meringo Now Playing — 'Hard to See' by Men I Trust, a 24-bit / 96 kHz FLAC from the Vault. Gold ULTRA chip on the album-art card, teal → BIT-PERFECT route chip reading 24-BIT · 96 KHZ · DEVICE, ♪ LYRICS pill and star rating below it, full transport controls under the scrub bar"></picture>
       </div>
 
       <!-- Mascot — narrator (head + collar only) -->
@@ -2162,7 +2162,7 @@ footer {
         Meringo gives you a dual-lens library: a <strong>Vault</strong> of local FLAC and ALAC files, and a <strong>Cloud</strong> lens that spans Jellyfin and the Subsonic / OpenSubsonic family — Navidrome, Airsonic, and friends.
       </p>
       <p class="chapter-body">
-        Each lens stands on its own — toggle, search, and sort within the world you're in. But when the same recording lives on more than one source, Meringo collapses the duplicate intelligently: <em>Vault wins over Jellyfin wins over Subsonic</em>, matched by MusicBrainz Recording ID, ISRC, a metadata tuple, or an acoustic-fingerprint twin link when the tags disagree. A <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">+ Vault</code> or <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-gold)">+ Cloud</code> chip on every Album page tells you which copies of a track live where. Quality chips on every album — <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">ULTRA</span>, <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">FLAC</span>, <span style="color:var(--color-text-2);font-family:var(--font-mono);font-size:0.9em">MP3</span> — round out the rack at a glance.
+        Each lens stands on its own — toggle, search, and sort within the world you're in. But when the same recording lives on more than one source, Meringo collapses the duplicate intelligently: <em>Vault wins over Jellyfin wins over Subsonic</em>, matched by MusicBrainz Recording ID, ISRC, a metadata tuple, or an acoustic-fingerprint twin link when the tags disagree. An <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal-bright)">&#8853; Also on the server</code> banner on the Album page tells you when the other lens holds a copy too — and offers a one-tap switch to it. Quality chips on every album — <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">ULTRA</span> for 24-bit at 88.2 kHz and up, <span style="color:var(--color-gold);font-family:var(--font-mono);font-size:0.9em">HD</span> for the rest of hi-res, <span style="color:var(--color-text-2);font-family:var(--font-mono);font-size:0.9em">LOSSLESS</span> for CD-spec — round out the rack at a glance.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">Vault · Cloud</span>
@@ -2179,13 +2179,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/library_albums.webp" type="image/webp"><img src="assets/screens/library_albums.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo artist page — Blur, 5 albums and 98 tracks, with Play All and Shuffle above the album shelf"></picture>
-        <!-- TODO(device): this file is an ARTIST page, not the album grid. Its alt
-             text claimed "Vault lens, 331 albums, ULTRA and FLAC quality chips"
-             for a shot showing none of those — corrected 2026-07-25 to describe
-             what is actually on screen. Ch. 01 is about the dual-lens library and
-             the quality chips, so it still wants a real Vault album-grid capture;
-             that needs the M21. -->
+             alt="Meringo Library — Vault lens (‘On device’) selected against ‘Server’, 406 albums in a 2-column grid sorted by artist. Pearl Jam’s ‘Yield’ carries a LOSSLESS chip, Phoebe Bridgers’ ‘Punisher’ an ULTRA chip, each above a teal Acoustic DNA bar reading 100%"></picture>
       </div>
     </div>
 
@@ -2498,7 +2492,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/mood_smart.webp" type="image/webp"><img src="assets/screens/mood_smart.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo home — Mood and Smart Playlists generated from AcoustID fingerprinting and MusicBrainz metadata"></picture>
+             alt="Meringo home — Mood and Smart Playlists generated on-device from each track's chromagram and measured audio features"></picture>
       </div>
     </div>
 
@@ -2546,7 +2540,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/now_playing.webp" type="image/webp"><img src="assets/screens/now_playing.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo Now Playing — the ≋ Sonic Match icon lives in the top-right of the screen and seeds a Sonic Radio queue when tapped"></picture>
+             alt="Meringo Now Playing — SONIC sits in the icon row across the top of the screen, between EQ and QUEUE, and seeds a Sonic Radio queue when tapped"></picture>
       </div>
     </div>
 
@@ -2590,7 +2584,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/atmospheres.webp" type="image/webp"><img src="assets/screens/atmospheres.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo Library — Vault lens, Atmospheres view-type selected. The mood tiles show counts derived locally from each track&rsquo;s audio fingerprint, shown here for a sample library: Lite Roast (1316 tracks, 172 albums), Fruity (637 tracks, 214 albums), Dark &amp; Bold (rock / metal / hip-hop / funk) partially visible below"></picture>
+             alt="Meringo Library — Vault lens, Atmospheres view-type selected. The mood tiles show counts derived locally from each track&rsquo;s chromagram and measured audio features, shown here for a sample library: Lite Roast (1316 tracks, 172 albums), Fruity (637 tracks, 214 albums), Dark &amp; Bold (rock / metal / hip-hop / funk) partially visible below"></picture>
       </div>
     </div>
 
