@@ -2100,7 +2100,7 @@ footer {
       <div class="receipt-device">
         <picture><source srcset="assets/screens/diagnostics.webp" type="image/webp"><img src="assets/screens/diagnostics.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No. Build: Manufacturer Qualcomm, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a"></picture>
+             alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No, AGSL shaders No, Live blur No. Build: Manufacturer QUALCOMM, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a"></picture>
       </div>
     </div>
   </div>
@@ -2389,7 +2389,7 @@ footer {
         Undo, redo, reset, gain trim, file load, library browse. Nothing buried in a menu. Nothing assumed about what your ears want. Every adjustment runs through the same 64-bit double-precision DSP path as the rest of the engine.
       </p>
       <p class="chapter-body">
-        Below the graph: <strong>Pink Noise</strong> and <strong>Sine Sweep</strong> test signals routed through the active EQ bands. Adjust a slider, hear the test tone reshape in real time — the same headphone-calibration workflow Pro Tools and iZotope expose in studio plugins, one tap deep. <strong>Phase Mode</strong> toggles between minimum-phase (zero latency) and 1025-tap linear-phase FIR (constant group delay across frequency) without rebuilding your tuning.
+        Below the graph: <strong>Pink Noise</strong> and <strong>Sine Sweep</strong> test signals routed through the active EQ bands. Drag a band&rsquo;s dot on the graph, step it one increment at a time, or type an exact value &mdash; and hear the test tone reshape in real time — the same headphone-calibration workflow Pro Tools and iZotope expose in studio plugins, one tap deep. <strong>Phase Mode</strong> toggles between minimum-phase (zero latency) and 1025-tap linear-phase FIR (constant group delay across frequency) without rebuilding your tuning.
       </p>
       <div class="chapter-specs">
         <span class="chapter-spec-tag gold">10 bands</span>
@@ -2408,12 +2408,12 @@ footer {
         <div class="chapter-device">
           <picture><source srcset="assets/screens/workbench.webp" type="image/webp"><img src="assets/screens/workbench.png"
                loading="lazy" decoding="async" width="750" height="1334"
-               alt="Meringo Workbench — 10-band parametric EQ with an active curve (gentle bass shape, 4 kHz cut, gentle top-end roll-off), Slot A engaged, engine on"></picture>
+               alt="Meringo Workbench — 10-band parametric EQ showing an active V-shaped curve (bass lift, midrange scoop, treble lift) drawn across a &plusmn;24 dB graph from 20 Hz to 20 kHz, with the ten band handles on the curve and the band buttons below. Slot A engaged, engine toggle on"></picture>
         </div>
         <div class="chapter-device" style="width:240px;">
           <picture><source srcset="assets/screens/workbench_soundtools.webp" type="image/webp"><img src="assets/screens/workbench_soundtools.png"
                loading="lazy" decoding="async" width="750" height="1334"
-               alt="Meringo Workbench scrolled to the Sound Tool selector — Pink Noise is the active tool, routed through the EQ bands. Helper line reads &lsquo;Pink noise through active EQ bands. Tune until perceived response is flat.&rsquo; Phase Mode toggle below shows Min Phase selected"></picture>
+               alt="Meringo Workbench scrolled to the Sound Tool selector — Off / Pink Noise / Sine Sweep / Group Delay, with Pink Noise active and routed through the EQ bands. Helper line reads &lsquo;Pink noise through active EQ bands. Tune until perceived response is flat.&rsquo; A Meter section below carries an RMS / Peak digital-domain post-EQ readout, and the Phase Mode toggle shows Min Phase selected"></picture>
         </div>
       </div>
     </div>
@@ -2457,7 +2457,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/tuning_vault_factory.webp" type="image/webp"><img src="assets/screens/tuning_vault_factory.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo Tuning Vault — Baseline section at top showing None (Pure Meringo): &lsquo;Flat response · All bands zeroed · No signature applied.&rsquo; Factory Profiles section below: V-Shape Boost, Mid-Forward Vocal, Warm Analog (partial), each with its own Apply CTA"></picture>
+             alt="Meringo Tuning Vault — a Your Rack card at the top (&lsquo;Group signatures by the headphone you tuned them for. One-tap A/B between two tunings of the same gear.&rsquo;), then the Baseline section showing None (Pure Meringo): &lsquo;Flat response · All bands zeroed · No signature applied.&rsquo; Factory Profiles below: V-Shape Boost with its Apply CTA, Mid-Forward Vocal partially visible"></picture>
       </div>
     </div>
 
@@ -2492,7 +2492,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/mood_smart.webp" type="image/webp"><img src="assets/screens/mood_smart.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo home — Mood and Smart Playlists generated on-device from each track's chromagram and measured audio features"></picture>
+             alt="Meringo home — an Atmospheres row of daily-brewed mood playlists (Lite Roast &lsquo;bright · crisp&rsquo;, Fruity &lsquo;warm · harmonic&rsquo;, Dark &amp; Bold &lsquo;bass-heavy · punchy&rsquo;, 30 tracks each) above a Smart Playlists row (Studio Vault 1,716 tracks, Deep Cuts 75, Long Players 145). Both are generated on-device from each track's chromagram and measured audio features"></picture>
       </div>
     </div>
 
@@ -2584,7 +2584,7 @@ footer {
       <div class="chapter-device">
         <picture><source srcset="assets/screens/atmospheres.webp" type="image/webp"><img src="assets/screens/atmospheres.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo Library — Vault lens, Atmospheres view-type selected. The mood tiles show counts derived locally from each track&rsquo;s chromagram and measured audio features, shown here for a sample library: Lite Roast (1316 tracks, 172 albums), Fruity (637 tracks, 214 albums), Dark &amp; Bold (rock / metal / hip-hop / funk) partially visible below"></picture>
+             alt="Meringo Library subtitled &lsquo;Ambient Intelligence&rsquo; — On device lens selected against Server, Atmospheres view-type active. Each mood is a card with its own colour and waveform glyph, a plain-language definition, and counts derived locally from each track&rsquo;s chromagram and measured audio features: Lite Roast &lsquo;Bright, dynamic, acoustic clarity · natural transients, unsquashed masters&rsquo; (1,110 tracks · 275 albums), Fruity &lsquo;Rich chords, syncopation, warm voicings&rsquo; (157 tracks · 102 albums), Dark &amp; Bold partially visible below"></picture>
       </div>
     </div>
 
@@ -3050,13 +3050,13 @@ footer {
         <p class="privacy-hero-eyebrow">First run · disclosed before you tap</p>
         <h3 class="privacy-hero-title">Our Commitment, on screen <em>one.</em></h3>
         <p class="privacy-hero-body">
-          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>The Acoustic DNA Scan</em> (AcoustID fingerprinting, off by default). <em>External Services</em> (every server the app can reach, named, with what has to be true before it does). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings on the screen to the right correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
+          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>The Acoustic DNA Scan</em> (AcoustID fingerprinting, off by default). <em>External Services</em> (every server the app can reach, named, with what has to be true before it does). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings of that screen &mdash; the first three are in frame to the right &mdash; correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
         </p>
       </div>
       <div class="privacy-hero-device">
         <picture><source srcset="assets/screens/onboarding.webp" type="image/webp"><img src="assets/screens/onboarding.png"
              loading="lazy" decoding="async" width="750" height="1334"
-             alt="Meringo first-run terms screen — &lsquo;Our Commitment&rsquo; with five numbered sections: 1. Your Data Stays Yours, 2. The Acoustic DNA Scan, 3. External Services (MusicBrainz + Cover Art Archive), 4. Crash Reporting (Sentry, opt-in toggle, off by default), 5. Software As-Is. Shown to every user before any Connect or Play CTA loads"></picture>
+             alt="Meringo first-run terms screen — the &lsquo;Our Commitment&rsquo; heading above five numbered sections, of which the first three are in frame: 1. Your Data Stays Yours (local-first; no collection of library, credentials, or listening habits), 2. The &lsquo;Acoustic DNA&rsquo; Scan (Optional, Off by Default) (AcoustID fingerprinting, explained and opt-in), 3. External Services, which opens the itemised list of every host the app can reach. Sections 4. Crash Reporting and 5. Software As-Is follow below. Shown to every user before any Connect or Play CTA loads"></picture>
       </div>
     </div>
 
