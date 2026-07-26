@@ -87,6 +87,12 @@
    Source: core/design/.../theme/MeringoColors.kt in the app repo.
    Re-verified 2026-07-25 against app 1.30.1 (vc129).
 
+   ── DON'T HAND-VERIFY THIS. RUN THE CHECK. ──
+       python tools/check-brand-sync.py --app-repo ../meringo
+   It diffs every token below against the app and exits non-zero on drift.
+   The comment claiming "verified against codebase" is what rotted last time;
+   a comment cannot verify itself, so the script is the actual guarantee.
+
    The site had drifted: it carried the pre-1.20 palette
    (bg #1A0E2E, gold #E8B560) while the app moved to a
    near-black canvas and a deeper ~1900 K amber. Since the
