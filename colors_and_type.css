@@ -116,7 +116,7 @@
 
   /* ── Borders ── */
   --color-border-dim:     #3D2D5A;   /* VelvetBorder */
-  --color-border-default: #7A6A52;   /* outline = ParchmentFaint */
+  --color-border-default: #907D61;   /* outline = ParchmentFaint */
   --color-border-bright:  #9E7A3E;   /* CandlelightDim */
   --color-border-gold:    rgba(237, 160, 64, 0.4);
 
@@ -143,7 +143,7 @@
   /* ── Parchment text scale ── */
   --color-text-0:       #F4E8D0;   /* Parchment — primary */
   --color-text-1:       #B8A88A;   /* ParchmentDim — secondary */
-  --color-text-2:       #7A6A52;   /* ParchmentFaint — muted */
+  --color-text-2:       #907D61;   /* ParchmentFaint — muted */
   --color-text-3:       #3D2D5A;   /* outlineVariant — disabled */
 
   /* ── Glassmorphism ── */
