@@ -90,6 +90,7 @@ p, li {
   font-size: var(--text-base);
   line-height: var(--leading-loose);
 }
+.page p { margin: 0 0 var(--space-4); }
 p strong, li strong { color: var(--color-text-0); font-weight: var(--weight-medium); }
 a { color: var(--color-gold); }
 a:hover { color: var(--color-gold-bright); }
@@ -327,6 +328,11 @@ ffmpeg -i track.flac -f s16le - | md5sum</code></pre>
     </p>
   </div>
   <p>
+    Receipts produced this way are collected in the
+    <a href="/receipts/">receipt registry</a> &mdash; the maintainer's published cross-DAC set,
+    open for your chain too.
+  </p>
+  <p>
     If you find a receipt this method can't reproduce, that's a bug in the proof and we want it:
     <a href="mailto:support@meringo.app">support@meringo.app</a>.
   </p>
@@ -334,6 +340,7 @@ ffmpeg -i track.flac -f s16le - | md5sum</code></pre>
 
 <footer class="footer">
   <a href="/">meringo.app</a>
+  <a href="/receipts/">the registry</a>
   <a href="/#verify">the receipt</a>
   <a href="/#privacy">privacy</a>
   <a href="mailto:support@meringo.app">support</a>
