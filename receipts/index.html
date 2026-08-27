@@ -257,6 +257,13 @@ ol.spec li { margin-bottom: var(--space-3); }
 
   <h2>The registry</h2>
 
+  <!-- ── DON'T HAND-VERIFY THE REGISTRY. RUN THE CHECK. ──
+       python tools/check-receipts.py
+       It checks every card's hash (64 lowercase hex), build, date and verdict,
+       the shared-hash pair markers, that every truncated hash here and on the
+       homepage resolves, and that the homepage's "N DACs and M receipts" count
+       still matches. Add a card and it fails until index.html's count is bumped.
+       It does NOT check whether a hash is real — that is what /verify/ is for. -->
   <div class="registry">
 
     <article class="rcard pair">
