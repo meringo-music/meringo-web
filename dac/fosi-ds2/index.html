@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Does the Fosi DS2 run bit-perfect on Android?</title>
+<meta name="description" content="Yes — captured bit-identical twice, at 24-bit/96 kHz and at CD-rate 16-bit/44.1 kHz, with both SHA-256 hashes published and recomputable with ffmpeg.">
+<meta property="og:title" content="Does the Fosi DS2 run bit-perfect on Android?">
+<meta property="og:description" content="Yes — captured bit-identical twice, at 24-bit/96 kHz and at CD-rate 16-bit/44.1 kHz, with both SHA-256 hashes published and recomputable with ffmpeg.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://meringo.app/dac/fosi-ds2/">
+<meta property="og:image" content="https://meringo.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#07040E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20108%20108%22%3E%3Cdefs%3E%3ClinearGradient%20id=%22bg%22%20x1=%220%22%20y1=%220%22%20x2=%220%22%20y2=%221%22%3E%3Cstop%20offset=%220%22%20stop-color=%22%232B1C44%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22%231A0E2E%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%22108%22%20height=%22108%22%20rx=%2224%22%20fill=%22url%28%23bg%29%22/%3E%3Cg%20transform=%22translate%2854,52.59%29%20scale%280.94%29%20translate%28-54,-54%29%22%3E%3Cpath%20d=%22M38.37%2079.65%2038.87%2055.9%2040.32%2056%2039.77%2079.65Q39.72%2082.3%2040.85%2083.85Q41.97%2085.4%2044.02%2085.4Q44.17%2085.4%2044.17%2085.7Q44.17%2086%2044.02%2086Q42.92%2086%2041.77%2085.95Q40.62%2085.9%2039.17%2085.9Q37.57%2085.9%2036.27%2085.95Q34.97%2086%2033.87%2086Q33.72%2086%2033.72%2085.7Q33.72%2085.4%2033.87%2085.4Q35.92%2085.4%2037.12%2083.85Q38.32%2082.3%2038.37%2079.65ZM74.17%2085.4Q74.27%2085.4%2074.27%2085.7Q74.27%2086%2074.17%2086Q72.88%2086%2071.22%2085.95Q69.57%2085.9%2067.77%2085.9Q65.92%2085.9%2064.32%2085.95Q62.72%2086%2061.42%2086Q61.27%2086%2061.27%2085.7Q61.27%2085.4%2061.42%2085.4Q63.77%2085.4%2064.45%2084.75Q65.12%2084.1%2064.97%2081.95L63.82%2059.75L66.38%2055.75L53.62%2085.65Q53.57%2085.85%2053.25%2085.85Q52.92%2085.85%2052.82%2085.65L38.77%2058.9Q36.87%2055.35%2034.22%2055.35Q34.07%2055.35%2034.07%2055.05Q34.07%2054.75%2034.22%2054.75Q35.27%2054.75%2036.42%2054.8Q37.57%2054.85%2038.37%2054.85Q39.67%2054.85%2040.65%2054.8Q41.62%2054.75%2042.17%2054.75Q42.87%2054.75%2043.25%2055.25Q43.62%2055.75%2044.47%2057.35L55.67%2078.35L53.17%2082.85L64.88%2056Q65.17%2055.3%2065.5%2055.02Q65.82%2054.75%2066.38%2054.75Q66.88%2054.75%2067.42%2054.8Q67.97%2054.85%2068.72%2054.85Q70.32%2054.85%2071.45%2054.8Q72.57%2054.75%2073.67%2054.75Q73.82%2054.75%2073.82%2055.05Q73.82%2055.35%2073.67%2055.35Q71.38%2055.35%2070.3%2056.3Q69.22%2057.25%2069.32%2059.25L70.52%2081.95Q70.62%2083.4%2070.9%2084.15Q71.17%2084.9%2071.92%2085.15Q72.67%2085.4%2074.17%2085.4Z%22%20fill=%22%23F4E8D0%22/%3E%3Cg%20transform=%22translate%28-2,0%29%20rotate%28-8,54,55%29%22%3E%3Cpath%20d=%22M30.6,55%20A23.4,4.68%200%201%200%2077.4,55%20A23.4,4.68%200%201%200%2030.6,55%20Z%22%20fill=%22%230E0820%22%20stroke=%22%23E8B560%22%20stroke-width=%221.6%22%20stroke-linejoin=%22round%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22%230E0820%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22%233E2860%22%20fill-opacity=%220.5%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22none%22%20stroke=%22%23E8B560%22%20stroke-width=%221.4%22%20stroke-linejoin=%22round%22/%3E%3Cpath%20d=%22M37.25,52.12%20L70.75,52.12%22%20fill=%22none%22%20stroke=%22%23E8B560%22%20stroke-width=%222.8%22%20stroke-linejoin=%22round%22%20stroke-linecap=%22round%22/%3E%3Cpath%20d=%22M66,23.2%20a3.2,3.2%200%201%200%203.2,3.6%20a2.1,2.1%200%201%201%20-3.2,-3.6%20Z%22%20fill=%22%23E8B560%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+<link rel="canonical" href="https://meringo.app/dac/fosi-ds2/">
+<link rel="preload" href="../../assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../colors_and_type.css">
+
+<style>
+html { scroll-behavior: smooth; color-scheme: dark; }
+body {
+  background: var(--color-bg-base);
+  color: var(--color-text-0);
+  font-family: var(--font-ui);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px var(--space-6);
+  background: var(--color-glass-scrim);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border-dim);
+}
+.nav a { text-decoration: none; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-0);
+  letter-spacing: var(--tracking-wide);
+}
+.nav-logo em { color: var(--color-gold); font-style: normal; }
+.nav-back {
+  font-size: var(--text-sm);
+  color: var(--color-text-1);
+  transition: color var(--duration-fast) var(--ease-velvet);
+}
+.nav-back:hover { color: var(--color-gold); }
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6) var(--space-24);
+}
+.page-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0 0 var(--space-3);
+}
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 6vw, var(--text-4xl));
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 var(--space-6);
+}
+h1 em, h2 em { color: var(--color-gold); font-style: italic; }
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  margin: var(--space-20) 0 var(--space-4);
+}
+p, li {
+  color: var(--color-text-1);
+  font-size: var(--text-base);
+  line-height: var(--leading-loose);
+}
+.page p { margin: 0 0 var(--space-4); }
+p strong, li strong { color: var(--color-text-0); font-weight: var(--weight-medium); }
+a { color: var(--color-gold); }
+a:hover { color: var(--color-gold-bright); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-gold);
+  background: var(--color-gold-subtle);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+}
+
+/* Registry entry cards */
+.registry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.rcard {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.rcard-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+.rcard-dac {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-0);
+}
+.rcard-verdict {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-success);
+  white-space: nowrap;
+}
+.rcard-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.8;
+  color: var(--color-text-2);
+  margin: 0;
+}
+.rcard-hash {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  word-break: break-all;
+  color: var(--color-text-1);
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border-dim);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin: 0;
+}
+.rcard-hash .hash-label {
+  display: block;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-gold);
+  word-break: normal;
+  margin-bottom: 2px;
+}
+.rcard-note {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-text-2);
+  margin: 0;
+  line-height: var(--leading-normal);
+}
+.page .rcard p { margin: 0; }
+
+.honesty {
+  border-left: 2px solid var(--color-gold);
+  padding-left: var(--space-5);
+  margin: var(--space-6) 0;
+}
+.footer {
+  border-top: 1px solid var(--color-border-dim);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+}
+.footer a { color: var(--color-text-1); text-decoration: none; margin: 0 var(--space-3); }
+.footer a:hover { color: var(--color-gold); }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav-logo" href="/">Meringo<em>.</em></a>
+  <a class="nav-back" href="/receipts/">&larr; the receipt registry</a>
+</nav>
+
+<main class="page">
+  <p class="page-label">Verified hardware</p>
+  <h1>Does the Fosi DS2 run <em>bit-perfect</em> on Android?</h1>
+
+  <p>
+    <strong>Yes.</strong> Meringo has captured bit-identical output from the Fosi DS2 twice:
+    once at 24-bit / 96&nbsp;kHz and once at CD-rate 16-bit / 44.1&nbsp;kHz. Both SHA-256
+    hashes are published in full, and both are recomputable with ffmpeg, which is a tool we do
+    not control.
+  </p>
+
+  <h2>The receipts</h2>
+  <p>Two captures, one month apart, on two different builds. Both bit-identical.</p>
+
+  <div class="registry">
+
+    <article class="rcard">
+      <div class="rcard-head">
+        <span class="rcard-dac">Fosi DS2</span>
+        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
+      </div>
+      <p class="rcard-meta">
+        UAC2 high-speed async &middot; 24-bit (alt 2) lane<br>
+        96 kHz &middot; 24-bit on the wire &middot; FLAC<br>
+        Meringo 1.30.0 (128) &middot; 2026-07-19
+      </p>
+      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>d7eb00c6837375ca1f74c95efc2cea78e02331f66e7111a36b383c3861912538</p>
+    </article>
+
+    <article class="rcard">
+      <div class="rcard-head">
+        <span class="rcard-dac">Fosi DS2</span>
+        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
+      </div>
+      <p class="rcard-meta">
+        UAC2 high-speed async<br>
+        44.1 kHz &middot; 16-bit on the wire<br>
+        Meringo 1.28.5 (124) &middot; 2026-06-19
+      </p>
+      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>a8c143422d8b644569cc4a36ab54822b0dfd1a370327fa95d844d8f92195642d</p>
+    </article>
+
+  </div>
+
+  <h2>The CD-rate capture is <em>the one that matters</em></h2>
+  <p>
+    Capture 2 is the only entry in our whole registry taken at 44.1&nbsp;kHz, and that makes it
+    the most useful one we hold. A CD-rate file is exactly where Android's 48&nbsp;kHz default
+    does its quietest damage: 44.1 to 48 is a ratio of 147 to 160, so no sample survives the
+    conversion untouched, and nothing on screen tells you it occurred.
+  </p>
+  <p>
+    The DS2 receipt says that arithmetic did not happen. The bytes on the wire were the bytes
+    in the file, and the hash is there for anyone who wants to check the claim rather than
+    believe it.
+  </p>
+
+  <h2>What &ldquo;UAC2 high-speed async&rdquo; means here</h2>
+  <p>
+    The DS2 enumerates as a USB Audio Class 2 device in high-speed asynchronous mode. The
+    24-bit receipt also records which alternate setting Meringo claimed on the audio-streaming
+    interface: alt 2, the 24-bit lane.
+  </p>
+  <p>
+    What decides bit-perfect is simpler than either of those details. It is whether the bytes
+    leaving the phone are the bytes that were in the file, and that is the only thing a receipt
+    claims.
+  </p>
+
+  <h2>What we do not claim about this DAC</h2>
+  <div class="honesty">
+    <p>
+      The DS2's USB descriptor advertises formats beyond what Meringo will engage. Meringo
+      engages up to 24-bit by design, so the published DS2 receipts stop at 24/96 and 16/44.1,
+      and we have not captured this DAC above that.
+    </p>
+    <p>
+      What a spec sheet supports and what we have verified are different claims. Only the
+      second one gets printed here as proof, which is why this page names two rates and not the
+      larger number on the box.
+    </p>
+    <p>
+      A hash also has a hard edge. It covers what Meringo put on the USB wire. Isochronous USB
+      carries no delivery acknowledgement, so no software on any platform can prove what the
+      DAC received &mdash; only what was put on the wire for it.
+    </p>
+  </div>
+
+  <h2>Why any of this needs proving</h2>
+  <p>
+    By default, Android resamples your music to 48&nbsp;kHz. Plugging in a capable DAC does not
+    by itself change that, and the frustrating part is that resampled audio still sounds like
+    music. Nothing announces itself. Meringo takes the DAC off that path and hashes the bytes
+    it actually shipped.
+  </p>
+  <p>
+    Either the captured bytes match the source or they do not. That is the entire test, and it
+    is why we publish hashes instead of adjectives.
+  </p>
+
+  <h2>Check it yourself</h2>
+  <p>
+    Every entry in the registry is recomputable without Meringo running, using ffmpeg and
+    sha256sum. The method and a public-domain checker script are published at
+    <a href="/verify/">meringo.app/verify</a>, and that script shares no code with the app. If
+    your own DS2 capture disagrees with ours, send us the receipt: <code>NOT BIT-IDENTICAL</code>
+    and <code>INCONCLUSIVE</code> are both published verdicts, and every verdict is welcome.
+  </p>
+  <p>&rarr; <a href="/receipts/">The receipt registry</a></p>
+
+  <h2>Where Meringo is the wrong player</h2>
+  <p>
+    We hold receipts for three DACs today. If yours is not one of them, we do not know that it
+    runs bit-perfect and we will not say that it does. There is no compatibility list assembled
+    from spec sheets here, because a spec sheet describes what hardware can do and a receipt
+    records what actually happened.
+  </p>
+  <p>
+    Meringo is also the wrong choice if you mainly stream from Spotify, Tidal or Qobuz. There
+    is no native integration with commercial streaming, by design.
+  </p>
+</main>
+
+<footer class="footer">
+  <a href="/">meringo.app</a>
+  <a href="/verify/">the method</a>
+  <a href="/receipts/">the registry</a>
+  <a href="mailto:support@meringo.app?subject=Receipt%20registry">submit a receipt</a>
+</footer>
+
+</body>
+</html>

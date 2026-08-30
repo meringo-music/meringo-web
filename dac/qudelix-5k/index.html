@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The receipt registry — bit-perfect USB DAC proofs</title>
-<meta name="description" content="A public registry of bit-perfect receipts from Meringo, the music player that proves its USB DAC playback with on-device SHA-256 captures. Recompute any entry with ffmpeg — no Meringo code involved — then post your own.">
-<meta property="og:title" content="The receipt registry — bit-perfect USB DAC proofs">
-<meta property="og:description" content="Real SHA-256 receipts from real DAC chains, published in full. Every entry reproducible with tools Meringo doesn't control. Post yours.">
+<title>Does the Qudelix 5K run bit-perfect on Android?</title>
+<meta name="description" content="Yes — verified at 24-bit/96 kHz with a published SHA-256 you can recompute yourself with ffmpeg. Here is the capture, the build it was made on, and how to check it without trusting us.">
+<meta property="og:title" content="Does the Qudelix 5K run bit-perfect on Android?">
+<meta property="og:description" content="Yes — verified at 24-bit/96 kHz with a published SHA-256 you can recompute yourself with ffmpeg. Here is the capture, the build it was made on, and how to check it without trusting us.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://meringo.app/receipts/">
+<meta property="og:url" content="https://meringo.app/dac/qudelix-5k/">
 <meta property="og:image" content="https://meringo.app/assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#07040E">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20108%20108%22%3E%3Cdefs%3E%3ClinearGradient%20id=%22bg%22%20x1=%220%22%20y1=%220%22%20x2=%220%22%20y2=%221%22%3E%3Cstop%20offset=%220%22%20stop-color=%22%232B1C44%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22%231A0E2E%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%22108%22%20height=%22108%22%20rx=%2224%22%20fill=%22url%28%23bg%29%22/%3E%3Cg%20transform=%22translate%2854,52.59%29%20scale%280.94%29%20translate%28-54,-54%29%22%3E%3Cpath%20d=%22M38.37%2079.65%2038.87%2055.9%2040.32%2056%2039.77%2079.65Q39.72%2082.3%2040.85%2083.85Q41.97%2085.4%2044.02%2085.4Q44.17%2085.4%2044.17%2085.7Q44.17%2086%2044.02%2086Q42.92%2086%2041.77%2085.95Q40.62%2085.9%2039.17%2085.9Q37.57%2085.9%2036.27%2085.95Q34.97%2086%2033.87%2086Q33.72%2086%2033.72%2085.7Q33.72%2085.4%2033.87%2085.4Q35.92%2085.4%2037.12%2083.85Q38.32%2082.3%2038.37%2079.65ZM74.17%2085.4Q74.27%2085.4%2074.27%2085.7Q74.27%2086%2074.17%2086Q72.88%2086%2071.22%2085.95Q69.57%2085.9%2067.77%2085.9Q65.92%2085.9%2064.32%2085.95Q62.72%2086%2061.42%2086Q61.27%2086%2061.27%2085.7Q61.27%2085.4%2061.42%2085.4Q63.77%2085.4%2064.45%2084.75Q65.12%2084.1%2064.97%2081.95L63.82%2059.75L66.38%2055.75L53.62%2085.65Q53.57%2085.85%2053.25%2085.85Q52.92%2085.85%2052.82%2085.65L38.77%2058.9Q36.87%2055.35%2034.22%2055.35Q34.07%2055.35%2034.07%2055.05Q34.07%2054.75%2034.22%2054.75Q35.27%2054.75%2036.42%2054.8Q37.57%2054.85%2038.37%2054.85Q39.67%2054.85%2040.65%2054.8Q41.62%2054.75%2042.17%2054.75Q42.87%2054.75%2043.25%2055.25Q43.62%2055.75%2044.47%2057.35L55.67%2078.35L53.17%2082.85L64.88%2056Q65.17%2055.3%2065.5%2055.02Q65.82%2054.75%2066.38%2054.75Q66.88%2054.75%2067.42%2054.8Q67.97%2054.85%2068.72%2054.85Q70.32%2054.85%2071.45%2054.8Q72.57%2054.75%2073.67%2054.75Q73.82%2054.75%2073.82%2055.05Q73.82%2055.35%2073.67%2055.35Q71.38%2055.35%2070.3%2056.3Q69.22%2057.25%2069.32%2059.25L70.52%2081.95Q70.62%2083.4%2070.9%2084.15Q71.17%2084.9%2071.92%2085.15Q72.67%2085.4%2074.17%2085.4Z%22%20fill=%22%23F4E8D0%22/%3E%3Cg%20transform=%22translate%28-2,0%29%20rotate%28-8,54,55%29%22%3E%3Cpath%20d=%22M30.6,55%20A23.4,4.68%200%201%200%2077.4,55%20A23.4,4.68%200%201%200%2030.6,55%20Z%22%20fill=%22%230E0820%22%20stroke=%22%23E8B560%22%20stroke-width=%221.6%22%20stroke-linejoin=%22round%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22%230E0820%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22%233E2860%22%20fill-opacity=%220.5%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22none%22%20stroke=%22%23E8B560%22%20stroke-width=%221.4%22%20stroke-linejoin=%22round%22/%3E%3Cpath%20d=%22M37.25,52.12%20L70.75,52.12%22%20fill=%22none%22%20stroke=%22%23E8B560%22%20stroke-width=%222.8%22%20stroke-linejoin=%22round%22%20stroke-linecap=%22round%22/%3E%3Cpath%20d=%22M66,23.2%20a3.2,3.2%200%201%200%203.2,3.6%20a2.1,2.1%200%201%201%20-3.2,-3.6%20Z%22%20fill=%22%23E8B560%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
-<link rel="canonical" href="https://meringo.app/receipts/">
-<link rel="preload" href="../assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../colors_and_type.css">
+<link rel="canonical" href="https://meringo.app/dac/qudelix-5k/">
+<link rel="preload" href="../../assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../colors_and_type.css">
 
 <style>
 html { scroll-behavior: smooth; color-scheme: dark; }
@@ -102,26 +102,6 @@ code {
   padding: 1px 5px;
   border-radius: var(--radius-sm);
 }
-ol.spec { padding-left: var(--space-5); }
-ol.spec li { margin-bottom: var(--space-3); }
-
-/* The cross-DAC callout */
-.pair-callout {
-  border: 1px solid var(--color-gold);
-  border-radius: var(--radius-md);
-  background: var(--color-gold-subtle);
-  padding: var(--space-5) var(--space-6);
-  margin: var(--space-8) 0;
-}
-.pair-callout p { margin: 0; }
-.pair-callout .pair-title {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: var(--space-2);
-}
 
 /* Registry entry cards */
 .registry {
@@ -196,7 +176,7 @@ ol.spec li { margin-bottom: var(--space-3); }
   line-height: var(--leading-normal);
 }
 .rcard-note.pair-note { color: var(--color-gold); }
-.page .rcard p, .page .pair-callout p { margin: 0; }
+.page .rcard p { margin: 0; }
 
 .honesty {
   border-left: 2px solid var(--color-gold);
@@ -218,52 +198,23 @@ ol.spec li { margin-bottom: var(--space-3); }
 
 <nav class="nav" aria-label="Main">
   <a class="nav-logo" href="/">Meringo<em>.</em></a>
-  <a class="nav-back" href="/#verify">&larr; back to meringo.app</a>
+  <a class="nav-back" href="/receipts/">&larr; the receipt registry</a>
 </nav>
 
 <main class="page">
-  <p class="page-label">The receipt registry</p>
-  <h1>Every entry here is a receipt, <em>not a review.</em></h1>
+  <p class="page-label">Verified hardware</p>
+  <h1>Does the Qudelix 5K run <em>bit-perfect</em> on Android?</h1>
 
   <p>
-    This is the public ledger behind the claim. Meringo is a music player that
-    <strong>proves</strong> bit-perfect USB DAC playback: on a verified capture, it hashes every
-    PCM byte it ships to the DAC and hashes the same file re-decoded on-device &mdash; matching
-    SHA-256s mean nothing touched the bits. Each entry below names the DAC, the USB class, the
-    wire format, the exact build, and the full hash. Nothing here is a testimonial. Every value
-    is a real device readout, and every one can be recomputed from your own copy of the same
-    file with software we don't control &mdash;
-    <a href="/verify/">the method is published in full</a>.
-  </p>
-  <p>
-    The proof path is <strong>USB-Direct lossless</strong>, and we state its edges before you
-    ask: FLAC receipts can be independently certified against the file's own encoder signature;
-    ALAC lacks an embedded reference, so a healthy ALAC capture reads
-    <code>INCONCLUSIVE</code> rather than borrowing a verdict it can't earn.
-    The first six entries are the maintainer's own, published since June 2026. The registry is
-    open for yours &mdash; <a href="#submit">how to add your chain</a> is below.
+    <strong>Yes.</strong> Meringo has captured bit-identical output from the Qudelix 5K at
+    24-bit / 96&nbsp;kHz, and the SHA-256 of that capture is published in full &mdash; so you do
+    not have to take our word for it. You can recompute the same hash yourself with ffmpeg,
+    which is a tool we do not control.
   </p>
 
-  <div class="pair-callout">
-    <p class="pair-title">&#9733; Two DACs, one hash</p>
-    <p>
-      On 2026-08-01 the same 96&nbsp;kHz / 24-bit FLAC was played through two physically
-      different DACs &mdash; a <strong>Qudelix 5K</strong> and a <strong>Jcally JM6 Pro</strong>,
-      different chipsets, different USB timing. Both captures came out 7,895,040 bytes and hashed
-      to the <strong>same SHA-256</strong>, <code>847af9e4&hellip;32cd4a7</code>. That is what
-      reproducible means: the bytes are the bytes, whatever is plugged in.
-    </p>
-  </div>
+  <h2>The receipts</h2>
+  <p>Two captures, eleven weeks apart, on two different builds. Both bit-identical.</p>
 
-  <h2>The registry</h2>
-
-  <!-- ── DON'T HAND-VERIFY THE REGISTRY. RUN THE CHECK. ──
-       python tools/check-receipts.py
-       It checks every card's hash (64 lowercase hex), build, date and verdict,
-       the shared-hash pair markers, that every truncated hash here and on the
-       homepage resolves, and that the homepage's "N DACs and M receipts" count
-       still matches. Add a card and it fails until index.html's count is bumped.
-       It does NOT check whether a hash is real — that is what /verify/ is for. -->
   <div class="registry">
 
     <article class="rcard pair">
@@ -277,38 +228,7 @@ ol.spec li { margin-bottom: var(--space-3); }
         Meringo 1.31.0 (130) &middot; 2026-08-01
       </p>
       <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>847af9e41aebc5684ce36909f8417ed22d65bb1909b6de05428f160fe32cd4a7</p>
-      <p class="rcard-note pair-note">&#9733; Same file, same hash as the JM6 Pro entry below.</p>
-      <p class="rcard-note"><a href="/dac/qudelix-5k/">The Qudelix 5K page &rarr;</a></p>
-    </article>
-
-    <article class="rcard pair">
-      <div class="rcard-head">
-        <span class="rcard-dac">Jcally JM6 Pro</span>
-        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
-      </div>
-      <p class="rcard-meta">
-        UAC1 high-speed sync &middot; CX31993 + MAX97220<br>
-        96 kHz &middot; 24-bit on the wire &middot; FLAC<br>
-        Meringo 1.31.0 (130) &middot; 2026-08-01
-      </p>
-      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>847af9e41aebc5684ce36909f8417ed22d65bb1909b6de05428f160fe32cd4a7</p>
-      <p class="rcard-note pair-note">&#9733; Same file, same hash as the Qudelix 5K entry above.</p>
-      <p class="rcard-note"><a href="/dac/jcally-jm6-pro/">The JM6 Pro page &rarr;</a></p>
-    </article>
-
-    <article class="rcard">
-      <div class="rcard-head">
-        <span class="rcard-dac">Fosi DS2</span>
-        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
-      </div>
-      <p class="rcard-meta">
-        UAC2 high-speed async &middot; 24-bit (alt 2) lane<br>
-        96 kHz &middot; 24-bit on the wire &middot; FLAC<br>
-        Meringo 1.30.0 (128) &middot; 2026-07-19
-      </p>
-      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>d7eb00c6837375ca1f74c95efc2cea78e02331f66e7111a36b383c3861912538</p>
-      <p class="rcard-note">Full track &mdash; 53.55&nbsp;MB of PCM captured on its way to the DAC.</p>
-      <p class="rcard-note"><a href="/dac/fosi-ds2/">The Fosi DS2 page &rarr;</a></p>
+      <p class="rcard-note pair-note">&#9733; Same file, same hash as a Jcally JM6 Pro capture that day &mdash; <a href="/dac/jcally-jm6-pro/">the paired receipt &rarr;</a></p>
     </article>
 
     <article class="rcard">
@@ -322,83 +242,58 @@ ol.spec li { margin-bottom: var(--space-3); }
         Meringo 1.28.5 (124) &middot; 2026-06-19
       </p>
       <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>cb459147698b75fe2b890229e4c1c66fe5425b31489b2c54efc68d04da295adf</p>
-      <p class="rcard-note">The hi-res run &mdash; 118.23&nbsp;MB hashed on both sides.</p>
-      <p class="rcard-note"><a href="/dac/qudelix-5k/">The Qudelix 5K page &rarr;</a></p>
-    </article>
-
-    <article class="rcard">
-      <div class="rcard-head">
-        <span class="rcard-dac">Jcally JM6 Pro</span>
-        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
-      </div>
-      <p class="rcard-meta">
-        UAC1 high-speed sync &middot; CX31993 + MAX97220<br>
-        96 kHz &middot; 16-bit on the wire<br>
-        Meringo 1.28.5 (124) &middot; 2026-06-19
-      </p>
-      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>b896aa7f8fd97b1084585669214bac23f2392a77a4b1144cecba8f05b71001fe</p>
-      <p class="rcard-note"><a href="/dac/jcally-jm6-pro/">The JM6 Pro page &rarr;</a></p>
-    </article>
-
-    <article class="rcard">
-      <div class="rcard-head">
-        <span class="rcard-dac">Fosi DS2</span>
-        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
-      </div>
-      <p class="rcard-meta">
-        UAC2 high-speed async<br>
-        44.1 kHz &middot; 16-bit on the wire<br>
-        Meringo 1.28.5 (124) &middot; 2026-06-19
-      </p>
-      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>a8c143422d8b644569cc4a36ab54822b0dfd1a370327fa95d844d8f92195642d</p>
-      <p class="rcard-note">Verified twice on the same setup &mdash; the capture path is deterministic across runs.</p>
-      <p class="rcard-note"><a href="/dac/fosi-ds2/">The Fosi DS2 page &rarr;</a></p>
     </article>
 
   </div>
 
-  <h2 id="submit">Add your chain</h2>
   <p>
-    Any Meringo owner with a USB DAC can put an entry here. Three steps, about three minutes:
-  </p>
-  <ol class="spec">
-    <li><strong>Play a FLAC over USB-Direct</strong> &mdash; pick one that carries its encoder
-      signature (<code>metaflac --show-md5sum</code> prints it; all-zeros means absent) if you
-      want a certifiable receipt.</li>
-    <li><strong>Arm Verified Capture</strong> in <code>Settings &rarr; Audio diagnostics</code>
-      and let it run the verify pass.</li>
-    <li><strong>Share the receipt</strong> from the Receipts list and email the text to
-      <a href="mailto:support@meringo.app?subject=Receipt%20registry">support@meringo.app</a>
-      with the subject <em>Receipt registry</em>.</li>
-  </ol>
-  <p>
-    What gets published is the receipt as your device produced it: DAC descriptor, wire format,
-    build, byte counts, hashes, verdict. The only personal thing a receipt carries is the
-    track's file name &mdash; say the word and we'll redact it.
-  </p>
-  <p>
-    <strong>Every verdict is welcome.</strong> A <code>NOT BIT-IDENTICAL</code> or
-    <code>INCONCLUSIVE</code> receipt is not an embarrassment, it's a data point &mdash; the
-    registry doubles as a map of how real DACs behave, and a receipt names its own reason line.
-    New DAC models are the most valuable submissions of all. And if you ever produce a receipt
-    the <a href="/verify/">published method</a> cannot reproduce, that's a bug in the proof and
-    we want it more than any success.
+    The second capture matters more than the first. Anyone can get one clean measurement; the
+    point of publishing a dated series is that a regression would show up here as a hash that
+    stopped matching, in public, with our name on it.
   </p>
 
-  <h2>What a listed entry proves &mdash; and what it doesn't</h2>
+  <h2>What &ldquo;UAC1 full-speed sync&rdquo; means for this dongle</h2>
+  <p>
+    The 5K enumerates as a USB Audio Class 1 device in full-speed synchronous mode. That is the
+    older, simpler transport &mdash; and for bit-perfect purposes it is completely fine. What
+    matters is not which USB class a DAC negotiates but whether the bytes that leave the phone
+    are the bytes that were in the file.
+  </p>
+  <p>
+    That is the only thing the receipt claims, and it is the only thing worth claiming.
+  </p>
+
+  <h2>Why this needs proving at all</h2>
+  <p>
+    On Android, the path from a file to a USB DAC has more than one place where audio can be
+    quietly resampled or mixed before it leaves the phone. The frustrating part is that
+    resampled audio still sounds like music. Nothing announces itself. You can own a capable
+    DAC, play a 24/96 file, and get 48&nbsp;kHz out of the other end without a single thing on
+    screen suggesting it.
+  </p>
+  <p>
+    A hash settles it. Either the captured bytes match the source or they do not.
+  </p>
+
+  <h2>Check it yourself</h2>
+  <p>
+    Every entry in the registry is recomputable without Meringo running, using ffmpeg and
+    sha256sum. The steps are on the registry page, and if your own capture disagrees with ours
+    we want to know &mdash; a receipt that cannot be falsified is not a receipt.
+  </p>
+  <p>&rarr; <a href="/receipts/">The receipt registry</a></p>
+
+  <h2>What Meringo will not tell you</h2>
   <div class="honesty">
     <p>
-      An entry is a published artifact, not a certification of the person who sent it. What
-      makes it worth publishing is that it's <strong>checkable</strong>: anyone with the same
-      pressing of the same file can recompute the hash with ffmpeg and compare, character for
-      character. Two owners of the same DAC and the same album should collide on identical
-      values &mdash; the more entries the registry holds, the harder an invented one is to hide.
+      We hold receipts for three DACs today. If yours is not one of them, we do not know that it
+      runs bit-perfect, and we will not say that it does. There is no compatibility list
+      assembled from spec sheets here, because a spec sheet describes what hardware
+      <em>can</em> do and a receipt records what actually happened.
     </p>
     <p>
-      The deeper boundary is the same one the <a href="/verify/">method page</a> names: the
-      source half of a receipt is honest math you can reproduce; the capture half is a witness
-      statement from the code that shipped the bytes. We publish both, and we'd rather name that
-      line precisely than pretend it isn't there.
+      Meringo is also not the right player if you mainly stream from Spotify, Tidal or Qobuz
+      &mdash; there is no native integration with commercial streaming, by design.
     </p>
   </div>
 </main>
@@ -406,7 +301,7 @@ ol.spec li { margin-bottom: var(--space-3); }
 <footer class="footer">
   <a href="/">meringo.app</a>
   <a href="/verify/">the method</a>
-  <a href="/#verify">the receipt</a>
+  <a href="/receipts/">the registry</a>
   <a href="mailto:support@meringo.app?subject=Receipt%20registry">submit a receipt</a>
 </footer>
 
