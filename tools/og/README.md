@@ -1,38 +1,36 @@
-# OG Image Generator
+# The share card
 
-`assets/og.png` (1200×630) is the social-share image referenced by `<meta property="og:image">` and `<meta name="twitter:image">`. It is rendered from `tools/og/og.html` via headless Edge — there is no Photoshop / Figma source.
+`assets/og.png` (1200 × 630) is the image link previews show for every page (`og:image` and
+`twitter:image`). It is rendered from `tools/og/og.html`; nothing builds it at serve time.
 
-## Regenerate
+The card uses only this site's own files: the house kit (`/colors_and_type.css`, `/house.css`)
+and its self-hosted fonts. Every word on it is already on the home page: the brand line from the
+header, the band's headline and price, and the hero's receipt, hash for hash.
 
-From the repo root, in PowerShell:
+## Rendering it
 
-```powershell
-& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" `
-  --headless=new --disable-gpu --hide-scrollbars `
-  --window-size=1200,630 --force-device-scale-factor=1 `
-  --virtual-time-budget=15000 `
-  --screenshot="C:\Source\meringo-web\assets\og.png" `
-  "file:///C:/Source/meringo-web/tools/og/og.html"
-```
+Serve the repo root over HTTP, so the root-absolute `/colors_and_type.css`, `/house.css` and
+`/assets/fonts/` paths resolve. Any static server bound to 127.0.0.1 will do.
 
-Then verify the PNG opens correctly and commit both files together if you edited the HTML.
+Then, from the repo root in another shell, with a throwaway profile so no extension or setting
+of yours reaches the render:
 
-## What's in the render
+    "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" \
+      --headless=new --disable-gpu --hide-scrollbars --disable-extensions --no-proxy-server \
+      --user-data-dir="$(mktemp -d)" \
+      --window-size=1200,630 --force-device-scale-factor=1 \
+      --screenshot="$PWD/assets/og.png" \
+      http://127.0.0.1:8101/tools/og/og.html
 
-- Background: Deep Velvet (`#1A0E2E`) with velvet-purple radial glow upper-left and gold radial glow lower-right
-- Brand mark: waveform-in-circle (matches the favicon / `assets/logo.svg`)
-- Wordmark: "Meringo" in Cormorant Garamond, 156px
-- Ornament: gold dot between tapered gradient lines (matches site dividers)
-- Tagline: italic Cormorant
-- Tech chips: FLAC · ALAC, 24-BIT / 192 KHZ, BIT-PERFECT, JELLYFIN · SUBSONIC
-- Right column: tilted Now Playing device shell (sources `assets/screens/now_playing.png` via relative path)
-- Film grain SVG overlay at 4% opacity
+- `--disable-extensions` and `--no-proxy-server`: an extension or a filtering proxy can repaint
+  the page before the screenshot is taken.
+- `--force-device-scale-factor=1` keeps the file at exactly 1200 × 630.
 
-## When to regenerate
+Look at the PNG before committing it, and keep it under 200 KB.
 
-- Updated Now Playing screenshot
-- Tagline or chip copy changed
-- Brand assets refreshed
-- After any change to `og.html`
+## When to render it again
 
-The fonts come from Google Fonts CDN; the 15-second `--virtual-time-budget` ensures they load before the screenshot fires.
+- The hero's receipt, the band's headline or the price changes on the home page.
+- The house kit changes its plate, gold or type.
+
+If what the card shows changes, change the `og:image:alt` text on the home page to match.
