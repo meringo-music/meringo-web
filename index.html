@@ -89,6 +89,7 @@
 <link rel="preload" href="assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="house.css">
 
 <style>
 /* ─────────────────────────────────────────────────────────────────────
@@ -97,14 +98,13 @@
                   · faq · get-app · privacy · footer
 ───────────────────────────────────────────────────────────────────── */
 
-html { scroll-behavior: smooth; color-scheme: dark; }
+html { color-scheme: dark; }
 body {
   background: var(--color-bg-base);
   color: var(--color-text-0);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
 /* ── Custom scrollbar — velvet track, gold-dim thumb ── */
@@ -130,18 +130,6 @@ html {
 }
 ::-webkit-scrollbar-corner {
   background: var(--color-bg-base);
-}
-
-/* ── Noise grain overlay ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 999;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  background-size: 200px;
-  opacity: 0.028;
 }
 
 /* ── Animations ── */
@@ -192,125 +180,12 @@ body::before {
 }
 
 /* ─────────────────────────────────
-   NAV
-───────────────────────────────── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--color-border-dim);
-  background: var(--color-glass-scrim);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-.nav-inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  text-decoration: none;
-}
-.nav-logo svg { height: 30px; width: auto; }
-.nav-logo-text {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--color-text-0);
-}
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  list-style: none;
-}
-.nav-links a {
-  font-family: var(--font-ui);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  color: var(--color-text-1);
-  text-decoration: none;
-  letter-spacing: var(--tracking-wide);
-  white-space: nowrap;
-  transition: color var(--duration-fast) var(--ease-velvet);
-}
-.nav-links a:hover { color: var(--color-text-0); }
-.nav-cta {
-  font-family: var(--font-ui);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--color-bg-base) !important;
-  background: var(--color-gold);
-  padding: 8px 20px;
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  letter-spacing: var(--tracking-wide);
-  white-space: nowrap;
-  transition: background var(--duration-fast) var(--ease-velvet), transform 0.1s ease;
-}
-.nav-cta:hover { background: var(--color-gold-bright) !important; transform: scale(0.98); }
-
-/* Mobile nav */
-.nav-hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  padding: 4px;
-  background: none;
-  border: none;
-}
-.nav-hamburger span {
-  display: block;
-  width: 22px;
-  height: 1.5px;
-  background: var(--color-text-1);
-  border-radius: 2px;
-  transition: all var(--duration-normal) var(--ease-velvet);
-}
-.mobile-menu {
-  display: none;
-  position: fixed;
-  top: 64px; left: 0; right: 0;
-  background: var(--color-glass-scrim);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid var(--color-border-dim);
-  padding: var(--space-6);
-  flex-direction: column;
-  gap: var(--space-5);
-  z-index: 99;
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-  font-family: var(--font-ui);
-  font-size: var(--text-md);
-  font-weight: var(--weight-medium);
-  color: var(--color-text-1);
-  text-decoration: none;
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--color-border-dim);
-}
-.mobile-menu a:last-child { border-bottom: none; }
-
-/* ─────────────────────────────────
    HERO — split layout
 ───────────────────────────────── */
 .hero {
   position: relative;
   min-height: 100vh;
-  padding: 120px var(--space-6) 60px;
+  padding: 56px var(--space-6) 60px;   /* 120px less the 64px fixed nav it once sat under */
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1630,66 +1505,8 @@ nav {
 .support-link:hover { color: var(--color-gold-bright); }
 
 /* ─────────────────────────────────
-   FOOTER
+   MASCOT (Built anyway)
 ───────────────────────────────── */
-footer {
-  border-top: 1px solid var(--color-border-dim);
-  padding: var(--space-12) var(--space-6) var(--space-8);
-  background: rgba(7,4,14,0.4);
-}
-.footer-inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-10);
-  flex-wrap: wrap;
-}
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  max-width: 320px;
-}
-.footer-brand-line {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-style: italic;
-  color: var(--color-text-2);
-}
-.footer-copy {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--color-text-3);
-  margin-top: var(--space-3);
-}
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.footer-links a {
-  font-family: var(--font-ui);
-  font-size: var(--text-sm);
-  color: var(--color-text-1);
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-velvet);
-}
-.footer-links a:hover { color: var(--color-gold); }
-
-.footer-mascot {
-  display: flex;
-  align-items: flex-end;
-  opacity: 0.65;
-  transition: opacity 0.4s ease;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-.footer-mascot:hover { opacity: 1; }
-.footer-mascot.playing { opacity: 1; }
-
 @keyframes mascotFloat {
   0%,100% { transform: translateY(0px); }
   50%      { transform: translateY(-5px); }
@@ -1713,8 +1530,7 @@ footer {
   animation: mascotFloat 5s ease-in-out infinite;
   transform-origin: 160px 425px;
 }
-.philosophy-mascot.playing .mascot-svg .mascot-float,
-.footer-mascot.playing .mascot-float {
+.philosophy-mascot.playing .mascot-svg .mascot-float {
   animation: mascotBounce 0.9s ease-in-out infinite;
 }
 /* State transitions */
@@ -1722,21 +1538,15 @@ footer {
 .m-playing-smile, .m-playing-glasses, .m-playing-notes {
   transition: opacity 0.35s ease;
 }
-.philosophy-mascot.playing .m-idle-mouth,
-.footer-mascot.playing .m-idle-mouth { opacity: 0; }
-.philosophy-mascot.playing .m-playing-smile,
-.footer-mascot.playing .m-playing-smile { opacity: 1; }
-.philosophy-mascot.playing .m-playing-glasses,
-.footer-mascot.playing .m-playing-glasses { opacity: 1; }
-.philosophy-mascot.playing .m-playing-notes,
-.footer-mascot.playing .m-playing-notes  { opacity: 1; }
-.philosophy-mascot.playing .m-playing-notes text:first-child,
-.footer-mascot.playing .m-playing-notes text:first-child {
+.philosophy-mascot.playing .m-idle-mouth { opacity: 0; }
+.philosophy-mascot.playing .m-playing-smile { opacity: 1; }
+.philosophy-mascot.playing .m-playing-glasses { opacity: 1; }
+.philosophy-mascot.playing .m-playing-notes { opacity: 1; }
+.philosophy-mascot.playing .m-playing-notes text:first-child {
   animation: noteFloat1 2.2s ease-out infinite;
   transform-origin: 262px 148px;
 }
-.philosophy-mascot.playing .m-playing-notes text:last-child,
-.footer-mascot.playing .m-playing-notes text:last-child {
+.philosophy-mascot.playing .m-playing-notes text:last-child {
   animation: noteFloat2 2.8s ease-out 0.6s infinite;
   transform-origin: 58px 134px;
 }
@@ -1744,11 +1554,8 @@ footer {
 /* ─────────────────────────────────
    RESPONSIVE
 ───────────────────────────────── */
-/* Anchor targets land below the fixed nav instead of tucking under it. */
-[id] { scroll-margin-top: 90px; }
-
 @media (max-width: 980px) {
-  .hero { min-height: auto; padding: 100px var(--space-5) 60px; }
+  .hero { min-height: auto; padding: 36px var(--space-5) 60px; }
   .hero-grid { grid-template-columns: 1fr; gap: var(--space-10); }
   .hero-stage { min-height: 480px; order: -1; }
   .hero-stage-glow { inset: -10%; }
@@ -1781,8 +1588,6 @@ footer {
   .faq-layout { grid-template-columns: 1fr; gap: var(--space-8); }
   .faq-header { position: static; }
 
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
 }
 
 @media (max-width: 640px) {
@@ -1793,8 +1598,6 @@ footer {
   .hero-mascot.floating { display: none; } /* iOS overlay scrollbar already shows position */
   .hero-spec-float { display: none; }
   .spec-row { grid-template-columns: repeat(2, 1fr); }
-  .footer-mascot { display: none; }
-  .footer-inner { flex-direction: column; gap: var(--space-6); }
 }
 </style>
 
@@ -1807,6 +1610,25 @@ footer {
 
 </head>
 <body>
+
+<a class="h-skip" href="#content">Skip to content</a>
+<div class="h-thread"></div>
+<header class="h-header">
+  <div class="h-wrap h-header-in">
+    <a class="h-brand" href="/">
+      <img src="/assets/img/meringo-mark.svg" width="28" height="28" alt="">
+      <span class="h-brand-text"><span class="h-wordmark">Meringo</span><span class="h-desc">a music player for Android</span></span>
+    </a>
+    <nav class="h-nav" aria-label="Site">
+      <ul>
+        <li><a href="/verify/">Verify</a></li>
+        <li><a href="/receipts/">Receipts</a></li>
+        <li><a href="/#faq">Questions</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dsite_nav" target="_blank" rel="noopener">Get it</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
 <!-- ─── SHARED SVG DEFS (mascot gradients + reusable head) ─── -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -1905,40 +1727,7 @@ footer {
   </defs>
 </svg>
 
-<!-- ─── NAV ─── -->
-<nav>
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo" aria-label="Meringo home">
-      <svg viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="nav-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B1C44"/><stop offset="1" stop-color="#1A0E2E"/></linearGradient></defs><rect width="108" height="108" rx="24" fill="url(#nav-bg)"/><rect x="1" y="1" width="106" height="106" rx="23" fill="none" stroke="#E8B560" stroke-opacity="0.55" stroke-width="1.5"/><g transform="translate(54,52.59) scale(0.94) translate(-54,-54)"><path d="M38.37 79.65 38.87 55.9 40.32 56 39.77 79.65Q39.72 82.3 40.85 83.85Q41.97 85.4 44.02 85.4Q44.17 85.4 44.17 85.7Q44.17 86 44.02 86Q42.92 86 41.77 85.95Q40.62 85.9 39.17 85.9Q37.57 85.9 36.27 85.95Q34.97 86 33.87 86Q33.72 86 33.72 85.7Q33.72 85.4 33.87 85.4Q35.92 85.4 37.12 83.85Q38.32 82.3 38.37 79.65ZM74.17 85.4Q74.27 85.4 74.27 85.7Q74.27 86 74.17 86Q72.88 86 71.22 85.95Q69.57 85.9 67.77 85.9Q65.92 85.9 64.32 85.95Q62.72 86 61.42 86Q61.27 86 61.27 85.7Q61.27 85.4 61.42 85.4Q63.77 85.4 64.45 84.75Q65.12 84.1 64.97 81.95L63.82 59.75L66.38 55.75L53.62 85.65Q53.57 85.85 53.25 85.85Q52.92 85.85 52.82 85.65L38.77 58.9Q36.87 55.35 34.22 55.35Q34.07 55.35 34.07 55.05Q34.07 54.75 34.22 54.75Q35.27 54.75 36.42 54.8Q37.57 54.85 38.37 54.85Q39.67 54.85 40.65 54.8Q41.62 54.75 42.17 54.75Q42.87 54.75 43.25 55.25Q43.62 55.75 44.47 57.35L55.67 78.35L53.17 82.85L64.88 56Q65.17 55.3 65.5 55.02Q65.82 54.75 66.38 54.75Q66.88 54.75 67.42 54.8Q67.97 54.85 68.72 54.85Q70.32 54.85 71.45 54.8Q72.57 54.75 73.67 54.75Q73.82 54.75 73.82 55.05Q73.82 55.35 73.67 55.35Q71.38 55.35 70.3 56.3Q69.22 57.25 69.32 59.25L70.52 81.95Q70.62 83.4 70.9 84.15Q71.17 84.9 71.92 85.15Q72.67 85.4 74.17 85.4Z" fill="#F4E8D0"/><g transform="translate(-2,0) rotate(-8,54,55)"><path d="M30.6,55 A23.4,4.68 0 1 0 77.4,55 A23.4,4.68 0 1 0 30.6,55 Z" fill="#0E0820" stroke="#E8B560" stroke-width="1.6" stroke-linejoin="round"/><path d="M35.75,55 C37.75,44.06 43.75,34.26 54,28.5 C56,24.2 60,22.2 66,23.2 C60,28.2 58,32.2 57.5,34.26 C58.5,40.6 70.25,47.8 72.25,55 Z" fill="#0E0820"/><path d="M35.75,55 C37.75,44.06 43.75,34.26 54,28.5 C56,24.2 60,22.2 66,23.2 C60,28.2 58,32.2 57.5,34.26 C58.5,40.6 70.25,47.8 72.25,55 Z" fill="#3E2860" fill-opacity="0.5"/><path d="M35.75,55 C37.75,44.06 43.75,34.26 54,28.5 C56,24.2 60,22.2 66,23.2 C60,28.2 58,32.2 57.5,34.26 C58.5,40.6 70.25,47.8 72.25,55 Z" fill="none" stroke="#E8B560" stroke-width="1.4" stroke-linejoin="round"/><path d="M37.25,52.12 L70.75,52.12" fill="none" stroke="#E8B560" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M66,23.2 a3.2,3.2 0 1 0 3.2,3.6 a2.1,2.1 0 1 1 -3.2,-3.6 Z" fill="#E8B560"/></g></g></svg>
-      <span class="nav-logo-text">Meringo</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#chapter-1">The Library</a></li>
-      <li><a href="#chapter-2">The Engine</a></li>
-      <li><a href="#verify">Verify</a></li>
-      <li><a href="#chapter-3">Workbench</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dhome_nav" class="nav-cta" target="_blank" rel="noopener">Get Meringo</a></li>
-    </ul>
-    <button class="nav-hamburger" id="menuBtn" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#chapter-1">The Library</a>
-  <a href="#chapter-2">The Engine</a>
-  <a href="#verify">Verify it yourself</a>
-  <a href="#chapter-3">The Workbench</a>
-  <a href="#chapter-4">The Tuning Vault</a>
-  <a href="#chapter-5">Acoustic DNA</a>
-  <a href="#chapter-6">Sonic Match</a>
-  <a href="#chapter-7">Atmospheres</a>
-  <a href="#faq">FAQ</a>
-  <a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dhome_menu" target="_blank" rel="noopener">Get Meringo</a>
-  <a href="#privacy">Privacy</a>
-</div>
+<main id="content">
 
 <!-- ─── HERO ─── -->
 <section class="hero" id="hero">
@@ -3359,193 +3148,38 @@ Meringo matches your library against <strong>MusicBrainz</strong> — album titl
   </div>
 </section>
 
+</main>
 
 
-<!-- ═════════════════════════════════════════════════════════════
-     FOOTER
-═════════════════════════════════════════════════════════════ -->
-<footer>
-  <div class="footer-inner">
 
-    <div class="footer-brand">
-      <a href="#hero" class="nav-logo" aria-label="Meringo home" style="margin-bottom:var(--space-2);">
-        <svg viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="ftr-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B1C44"/><stop offset="1" stop-color="#1A0E2E"/></linearGradient></defs><rect width="108" height="108" rx="24" fill="url(#ftr-bg)"/><rect x="1" y="1" width="106" height="106" rx="23" fill="none" stroke="#E8B560" stroke-opacity="0.55" stroke-width="1.5"/><g transform="translate(54,52.59) scale(0.94) translate(-54,-54)"><path d="M38.37 79.65 38.87 55.9 40.32 56 39.77 79.65Q39.72 82.3 40.85 83.85Q41.97 85.4 44.02 85.4Q44.17 85.4 44.17 85.7Q44.17 86 44.02 86Q42.92 86 41.77 85.95Q40.62 85.9 39.17 85.9Q37.57 85.9 36.27 85.95Q34.97 86 33.87 86Q33.72 86 33.72 85.7Q33.72 85.4 33.87 85.4Q35.92 85.4 37.12 83.85Q38.32 82.3 38.37 79.65ZM74.17 85.4Q74.27 85.4 74.27 85.7Q74.27 86 74.17 86Q72.88 86 71.22 85.95Q69.57 85.9 67.77 85.9Q65.92 85.9 64.32 85.95Q62.72 86 61.42 86Q61.27 86 61.27 85.7Q61.27 85.4 61.42 85.4Q63.77 85.4 64.45 84.75Q65.12 84.1 64.97 81.95L63.82 59.75L66.38 55.75L53.62 85.65Q53.57 85.85 53.25 85.85Q52.92 85.85 52.82 85.65L38.77 58.9Q36.87 55.35 34.22 55.35Q34.07 55.35 34.07 55.05Q34.07 54.75 34.22 54.75Q35.27 54.75 36.42 54.8Q37.57 54.85 38.37 54.85Q39.67 54.85 40.65 54.8Q41.62 54.75 42.17 54.75Q42.87 54.75 43.25 55.25Q43.62 55.75 44.47 57.35L55.67 78.35L53.17 82.85L64.88 56Q65.17 55.3 65.5 55.02Q65.82 54.75 66.38 54.75Q66.88 54.75 67.42 54.8Q67.97 54.85 68.72 54.85Q70.32 54.85 71.45 54.8Q72.57 54.75 73.67 54.75Q73.82 54.75 73.82 55.05Q73.82 55.35 73.67 55.35Q71.38 55.35 70.3 56.3Q69.22 57.25 69.32 59.25L70.52 81.95Q70.62 83.4 70.9 84.15Q71.17 84.9 71.92 85.15Q72.67 85.4 74.17 85.4Z" fill="#F4E8D0"/><g transform="translate(-2,0) rotate(-8,54,55)"><path d="M30.6,55 A23.4,4.68 0 1 0 77.4,55 A23.4,4.68 0 1 0 30.6,55 Z" fill="#0E0820" stroke="#E8B560" stroke-width="1.6" stroke-linejoin="round"/><path d="M35.75,55 C37.75,44.06 43.75,34.26 54,28.5 C56,24.2 60,22.2 66,23.2 C60,28.2 58,32.2 57.5,34.26 C58.5,40.6 70.25,47.8 72.25,55 Z" fill="#0E0820"/><path d="M35.75,55 C37.75,44.06 43.75,34.26 54,28.5 C56,24.2 60,22.2 66,23.2 C60,28.2 58,32.2 57.5,34.26 C58.5,40.6 70.25,47.8 72.25,55 Z" fill="#3E2860" fill-opacity="0.5"/><path d="M35.75,55 C37.75,44.06 43.75,34.26 54,28.5 C56,24.2 60,22.2 66,23.2 C60,28.2 58,32.2 57.5,34.26 C58.5,40.6 70.25,47.8 72.25,55 Z" fill="none" stroke="#E8B560" stroke-width="1.4" stroke-linejoin="round"/><path d="M37.25,52.12 L70.75,52.12" fill="none" stroke="#E8B560" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><path d="M66,23.2 a3.2,3.2 0 1 0 3.2,3.6 a2.1,2.1 0 1 1 -3.2,-3.6 Z" fill="#E8B560"/></g></g></svg>
-        <span class="nav-logo-text">Meringo</span>
-      </a>
-      <p class="footer-brand-line">Respecting the archive. <em style="color:var(--color-gold-dim);">Perfecting the play.</em></p>
-      <p class="footer-copy">Meringo（メリンゴ）</p>
-      <p class="footer-copy">© 2026 Meringo Labs LLC · Erie County, NY</p>
-    </div>
-
-    <div class="footer-links">
-      <a href="#chapter-1">The Library</a>
-      <a href="#chapter-2">The Engine</a>
-      <a href="#chapter-3">The Workbench</a>
-      <a href="#chapter-4">The Tuning Vault</a>
-      <a href="#chapter-5">Acoustic DNA</a>
-      <a href="#chapter-6">Sonic Match</a>
-      <a href="#chapter-7">Atmospheres</a>
-    </div>
-
-    <div class="footer-links">
-      <a href="#faq">FAQ</a>
-      <a href="#get-app">Get Meringo</a>
-      <a href="#privacy">Privacy Policy</a>
-      <a href="#terms">Terms of Service</a>
-      <a href="#imprint">Legal Notice</a>
-      <a href="/iphone/">Why no iPhone version</a>
-      <a href="https://mastodon.social/@meringo" target="_blank" rel="me noopener">Mastodon ↗</a>
-      <a href="https://meringolisten.app/" target="_blank" rel="noopener">Meringo Listen ↗</a>
-      <a href="https://meringominutes.app/" target="_blank" rel="noopener">Meringo Minutes ↗</a>
-      <a href="https://adamsiemaszko.com/" target="_blank" rel="noopener">Made by Adam Siemaszko ↗</a>
-      <a href="mailto:support@meringo.app">support@meringo.app</a>
-    </div>
-
-    <!-- Small clickable mascot — sunglasses on by default, click to toggle -->
-    <div class="footer-mascot playing" aria-label="Meringo mascot — click to toggle playing state" role="button" tabindex="0">
-      <svg class="mascot-svg" viewBox="0 0 320 440" width="120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="160" cy="425" rx="80" ry="14" fill="url(#m-gFloor)" opacity="0.55"/>
-
-        <g class="mascot-float">
-          <!-- BOOTS -->
-          <g transform="translate(116,388)">
-            <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <rect x="6" y="0" width="11" height="8" rx="2" fill="#050308" stroke="#3D2D5A" stroke-width="0.4"/>
-            <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
-          </g>
-          <g transform="translate(204,388) scale(-1,1)">
-            <path d="M-16 0L-16-26Q-16-32-9-32L9-32Q16-32 16-26L16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <path d="M-16 0Q-20 4-24 7Q-17 9-8 7Q2 5 16 0Z" fill="url(#m-gBoot)" stroke="#3D2D5A" stroke-width="0.7"/>
-            <rect x="6" y="0" width="11" height="8" rx="2" fill="#050308" stroke="#3D2D5A" stroke-width="0.4"/>
-            <rect x="-2.5" y="-16" width="5" height="3" rx="1" fill="url(#m-gGold)" opacity="0.9"/>
-          </g>
-
-          <!-- ROBE -->
-          <path d="M108 248C103 272 93 320 88 390L232 390C227 320 217 272 212 248Z" fill="url(#m-gRobe)" stroke="#4E3878" stroke-width="0.8"/>
-          <path d="M148 252L160 248L172 252L170 390L150 390Z" fill="url(#m-gRobePanel)" opacity="0.65"/>
-          <path d="M160 252L160 388" stroke="url(#m-gGold)" stroke-width="1.2" opacity="0.55"/>
-          <circle cx="160" cy="268" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="268" r="1.2" fill="#07040E"/>
-          <circle cx="160" cy="284" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="284" r="1.2" fill="#07040E"/>
-          <circle cx="160" cy="300" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="300" r="1.2" fill="#07040E"/>
-          <circle cx="160" cy="316" r="3.5" fill="url(#m-gGoldShine)" stroke="#9E7A3E" stroke-width="0.4"/><circle cx="160" cy="316" r="1.2" fill="#07040E"/>
-          <path d="M88 390L232 390" stroke="url(#m-gGold)" stroke-width="2.2"/>
-
-          <!-- COLLAR -->
-          <path d="M130 246C130 236 140 230 160 230C180 230 190 236 190 246L186 254C180 248 171 246 160 246C149 246 140 248 134 254Z" fill="#F0E4CC"/>
-          <ellipse cx="160" cy="246" rx="8" ry="5" fill="url(#m-gGoldH)" stroke="#9E7A3E" stroke-width="0.5"/>
-          <circle cx="160" cy="246" r="2" fill="#07040E"/>
-
-          <!-- ARMS -->
-          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#392458" stroke-width="20" stroke-linecap="round" fill="none"/>
-          <path d="M108 258C94 270 82 288 78 312C75 324 77 336 81 344" stroke="#1A1128" stroke-width="16" stroke-linecap="round" fill="none"/>
-          <ellipse cx="82" cy="346" rx="12" ry="9" fill="url(#m-gSkin)"/>
-          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#392458" stroke-width="20" stroke-linecap="round" fill="none"/>
-          <path d="M212 258C226 270 238 282 242 300C246 314 244 328 240 338" stroke="#1A1128" stroke-width="16" stroke-linecap="round" fill="none"/>
-          <ellipse cx="239" cy="340" rx="12" ry="9" fill="url(#m-gSkin)" transform="rotate(12,239,340)"/>
-
-          <!-- WAND -->
-          <g class="mascot-wand">
-            <g transform="translate(244,326) rotate(-36)">
-              <path d="M-1.8 4L-1.4-70Q-0.8-82 0-86Q0.8-82 1.4-70L1.8 4Z" fill="#C4A882" stroke="#9E7A3E" stroke-width="0.4"/>
-              <ellipse cx="0" cy="-88" rx="5.5" ry="5.5" fill="url(#m-gGoldH)"/>
-              <polygon points="0,-97 2.3,-90.5 9.2,-90.5 3.7,-86.5 5.8,-80 0,-84 -5.8,-80 -3.7,-86.5 -9.2,-90.5 -2.3,-90.5" fill="url(#m-gGoldShine)"/>
-            </g>
-          </g>
-
-          <!-- NECK + HEAD -->
-          <rect x="153" y="218" width="14" height="16" rx="5" fill="url(#m-gSkin)"/>
-          <ellipse cx="160" cy="168" rx="54" ry="52" fill="url(#m-gSkin)"/>
-          <ellipse cx="160" cy="205" rx="40" ry="12" fill="#C09060" opacity="0.18"/>
-          <ellipse cx="108" cy="168" rx="10" ry="13" fill="url(#m-gSkin)" stroke="#B89060" stroke-width="0.4"/>
-          <ellipse cx="212" cy="168" rx="10" ry="13" fill="url(#m-gSkin)" stroke="#B89060" stroke-width="0.4"/>
-          <path d="M110 150C108 160 107 172 108 184" stroke="url(#m-gHair)" stroke-width="8" stroke-linecap="round" fill="none"/>
-          <path d="M210 150C212 160 213 172 212 184" stroke="url(#m-gHair)" stroke-width="8" stroke-linecap="round" fill="none"/>
-
-          <!-- EYES -->
-          <ellipse cx="136" cy="160" rx="14" ry="11" fill="white" opacity="0.92"/>
-          <ellipse cx="136" cy="160" rx="9" ry="9" fill="url(#m-gIris)"/>
-          <ellipse cx="136" cy="160" rx="5" ry="5" fill="#1A0808"/>
-          <circle cx="139" cy="157.5" r="2" fill="white" opacity="0.9"/>
-          <path d="M122 158 Q136 147 150 158 Q146 163 136 162 Q126 163 122 158Z" fill="url(#m-gSkin)" opacity="0.88"/>
-          <path d="M122 159 Q136 149 150 159" stroke="#2A1020" stroke-width="2" fill="none"/>
-          <ellipse cx="184" cy="160" rx="14" ry="11" fill="white" opacity="0.92"/>
-          <ellipse cx="184" cy="160" rx="9" ry="9" fill="url(#m-gIris)"/>
-          <ellipse cx="184" cy="160" rx="5" ry="5" fill="#1A0808"/>
-          <circle cx="187" cy="157.5" r="2" fill="white" opacity="0.9"/>
-          <path d="M170 158 Q184 147 198 158 Q194 163 184 162 Q174 163 170 158Z" fill="url(#m-gSkin)" opacity="0.88"/>
-          <path d="M170 159 Q184 149 198 159" stroke="#2A1020" stroke-width="2" fill="none"/>
-
-          <!-- BROWS, NOSE, MOUSTACHE -->
-          <path d="M120 146 Q136 140 150 143" stroke="#2A1010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <path d="M170 143 Q184 140 200 146" stroke="#2A1010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <ellipse cx="155" cy="183" rx="6" ry="4" fill="#E8C888" opacity="0.85"/>
-          <ellipse cx="165" cy="183" rx="6" ry="4" fill="#E8C888" opacity="0.85"/>
-          <path d="M144 197 C146 192 151 190 156 191 C158 191 159 192 160 192 C161 192 162 191 164 191 C169 190 174 192 176 197 C173 200 168 201 164 200 C162 200 161 199 160 199 C159 199 158 200 156 200 C152 201 147 200 144 197Z" fill="#3A1E38" opacity="0.92"/>
-          <path d="M144 197 C142 200 142 204 144 205 C146 206 147 204 147 201Z" fill="#3A1E38" opacity="0.92"/>
-          <path d="M176 197 C178 200 178 204 176 205 C174 206 173 204 173 201Z" fill="#3A1E38" opacity="0.92"/>
-
-          <path class="m-idle-mouth" d="M153 212 Q160 211 167 212" stroke="#7A5030" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <g class="m-playing-smile" opacity="0">
-            <path d="M152 210 Q160 218 168 210" stroke="#7A4830" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-          </g>
-
-          <!-- GLASSES (playing) -->
-          <g class="m-playing-glasses" opacity="0">
-            <ellipse cx="136" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
-            <ellipse cx="184" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
-            <path d="M154 158C156 155 164 155 166 158" stroke="url(#m-gGold)" stroke-width="1.5" fill="none"/>
-          </g>
-
-          <!-- NOTES (playing) -->
-          <g class="m-playing-notes" opacity="0">
-            <text x="252" y="148" font-size="20" fill="#EDA040" font-family="serif" opacity="0.85">♪</text>
-            <text x="48" y="134" font-size="16" fill="#9b7fd4" font-family="serif" opacity="0.75">♫</text>
-          </g>
-
-          <!-- HAIR + HAT -->
-          <path d="M108 148C107 136 110 120 116 108C122 96 132 88 142 84C150 80 156 80 160 80C164 80 170 80 178 84C188 88 198 96 204 108C210 120 213 136 212 148" fill="url(#m-gHair)"/>
-          <ellipse cx="160" cy="106" rx="72" ry="13" fill="#050308" stroke="url(#m-gGold)" stroke-width="1.8"/>
-          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#050308" stroke="url(#m-gGold)" stroke-width="1"/>
-          <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="url(#m-gRobe)" opacity="0.45"/>
-          <path d="M104 100L216 100" stroke="url(#m-gGold)" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="160" cy="95" r="7" stroke="#EDA040" stroke-width="1.4" fill="none" opacity="0.9"/>
-          <line x1="160" y1="88" x2="160" y2="102" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
-          <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
-          <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
-          <circle cx="160" cy="-12" r="16" fill="url(#m-gGlowGold)" opacity="0.45"/>
-          <polygon points="160,-4 162.3,-10.5 169.2,-10.5 163.7,-14.5 165.8,-21 160,-17 154.2,-21 156.3,-14.5 150.8,-10.5 157.7,-10.5" fill="url(#m-gGoldShine)" opacity="0.95"/>
-        </g>
-      </svg>
-    </div>
-
+<footer class="h-footer">
+  <div class="h-wrap">
+    <p class="h-tagline">Respecting the archive. Perfecting the play.</p>
+    <nav aria-label="Meringo Labs">
+      <ul class="h-family">
+        <li class="h-labs"><img src="/assets/img/meringo-mark.svg" width="24" height="24" alt="">Meringo Labs</li>
+        <li><span class="h-here">Meringo</span></li>
+        <li><a href="https://meringolisten.app/">Meringo Listen</a></li>
+        <li><a href="https://meringominutes.app/">Meringo Minutes</a></li>
+        <li><a href="https://adamsiemaszko.com/">Adam Siemaszko</a></li>
+      </ul>
+    </nav>
+    <ul class="h-legal">
+      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href="/terms/">Terms</a></li>
+      <li><a href="/legal/">Impressum</a></li>
+      <li><a href="mailto:support@meringo.app">support@meringo.app</a></li>
+    </ul>
+    <p class="h-copy">Meringo（メリンゴ）</p>
+    <p class="h-copy">© 2026 Meringo Labs LLC, Erie County, New York. Made by Adam Siemaszko.</p>
   </div>
 </footer>
 
 
 <!-- ─── SCRIPTS ─── -->
 <script>
-// Mobile nav toggle
-const menuBtn  = document.getElementById('menuBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-let mobOpen = false;
-if (menuBtn) {
-  menuBtn.addEventListener('click', () => {
-    mobOpen = !mobOpen;
-    mobileMenu.classList.toggle('open', mobOpen);
-  });
-  // Tapping a destination closes the menu — otherwise the page scrolls
-  // behind a still-open overlay.
-  mobileMenu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      mobOpen = false;
-      mobileMenu.classList.remove('open');
-    });
-  });
-}
-
 // Mascot click-to-toggle (works on all instances)
-document.querySelectorAll('.footer-mascot, .philosophy-mascot').forEach(m => {
+document.querySelectorAll('.philosophy-mascot').forEach(m => {
   const toggle = () => m.classList.toggle('playing');
   m.addEventListener('click', toggle);
   m.setAttribute('tabindex', '0');
@@ -3561,7 +3195,7 @@ const animPauseObserver = new IntersectionObserver((entries) => {
     entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
   });
 }, { threshold: 0 });
-document.querySelectorAll('.btn-primary, .hero-stage-glow, .footer-mascot, .philosophy-mascot').forEach(el => {
+document.querySelectorAll('.btn-primary, .hero-stage-glow, .philosophy-mascot').forEach(el => {
   animPauseObserver.observe(el);
 });
 
@@ -3582,7 +3216,7 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
 // Hero mascot as scroll-position indicator.
 // Stays in the hero while the hero is on-screen; once the hero scrolls off
 // it becomes fixed to the right edge, with vertical position mapped to
-// page scroll progress. Fades out as the footer mascot comes into view.
+// page scroll progress. Fades out as the footer comes into view.
 //
 // Note: .hero-stage has a fade-in animation that ends with transform:
 // translateY(0). A non-none transform on an ancestor creates a new
@@ -3592,7 +3226,7 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
 (() => {
   const mascot = document.querySelector('.hero-mascot');
   const hero   = document.querySelector('.hero');
-  const footerMascot = document.querySelector('.footer-mascot');
+  const footer = document.querySelector('.h-footer');
   if (!mascot || !hero) return;
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -3639,14 +3273,14 @@ document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el =>
   window.addEventListener('resize', onScroll, { passive: true });
   update();
 
-  // Fade out when the footer mascot is approaching, so we never show two at once
-  if (footerMascot) {
+  // Fade out as the footer approaches, so it never sits over the footer
+  if (footer) {
     const dockObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         mascot.classList.toggle('docked-out', entry.isIntersecting);
       });
     }, { rootMargin: '200px 0px 0px 0px' });
-    dockObserver.observe(footerMascot);
+    dockObserver.observe(footer);
   }
 })();
 </script>
