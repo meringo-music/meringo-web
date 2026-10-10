@@ -1,0 +1,131 @@
+/* meringo.app · page.css
+   The inner pages' shared rules, linked after /colors_and_type.css and
+   /house.css (house-kit 1.3, vendored from HQ design/; never edit those two
+   here). A page's own <style> holds only what is unique to it.
+
+   tools/render_page.py in the desk builds the answer pages from
+   iphone/index.html and dac/qudelix-5k/index.html, so these rules style them
+   too: <main class="page"> and its .page-label, h1, h2, p.lede, lists, quotes,
+   code and render_page's markdown tables. */
+
+/* ── The column ────────────────────────────────────────────────────────── */
+.page { max-width: var(--page); margin-inline: auto; padding: var(--space-12) var(--gutter) 0; overflow-wrap: break-word; }   /* a long URL in prose wraps instead of widening a phone's page */
+.page > * { max-width: var(--measure); }
+.page > :is(.registry, .table-scroll, pre, dl.fields, .pair-callout, .privacy-hero) { max-width: 900px; }
+
+/* ── Type ──────────────────────────────────────────────────────────────── */
+/* The label was a gold mono eyebrow; it is a plain line now (N8). */
+.page-label { margin: 0 0 var(--space-3); font: 500 var(--t-small)/1.3 var(--font-ui); color: var(--color-text-1); }
+.page h1, .page h2 {
+  font-family: var(--font-display); font-weight: var(--w-display);
+  letter-spacing: -0.01em; text-wrap: balance; color: var(--color-text-0);
+}
+.page h1 { max-width: 21em; margin: 0 0 var(--space-6); font-size: var(--t-h1); line-height: var(--lh-h1); }
+.page h2 { margin: var(--space-16) 0 var(--space-4); font-size: var(--t-h2); line-height: var(--lh-h2); }
+/* Italic means someone said it; a heading never takes it, and gold never marks a word in one. */
+.page h1 em, .page h2 em { font-style: normal; color: inherit; }
+.page h3 { margin: var(--space-8) 0 var(--space-3); font: 600 var(--t-h3)/var(--lh-h3) var(--font-ui); }
+.page p, .page li { text-wrap: pretty; }
+.page p { margin: 0 0 var(--space-4); }
+.page p.lede { font: 400 var(--t-lead)/var(--lh-lead) var(--font-ui); color: var(--color-text-1); }
+.page ul, .page ol { margin: 0 0 var(--space-4); padding-left: 1.25em; }
+.page li { margin-bottom: var(--space-2); }
+.page li::marker { color: var(--color-text-2); }
+.page strong { font-weight: 600; color: var(--color-text-0); }
+
+/* Go: ivory words, gold underline */
+.page a {
+  color: var(--color-text-0); text-decoration: underline;
+  text-decoration-color: var(--color-gold); text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+  transition: color var(--duration-fast);
+}
+.page a:hover { color: var(--color-gold); }
+
+/* Evidence is mono; nothing else is. */
+.page code { font-family: var(--font-mono); font-size: 0.92em; color: var(--color-text-0); overflow-wrap: anywhere; }
+.page pre {
+  margin: var(--space-6) 0; padding: var(--space-4) 0; overflow-x: auto;
+  border-block: 1px solid var(--color-rule);
+  font: 400 var(--t-data)/1.7 var(--font-mono); color: var(--color-text-0);
+}
+.page pre code { font-size: inherit; overflow-wrap: normal; }
+.page pre .cm { color: var(--color-text-2); }
+.page pre .ok { color: var(--color-gold); }                                  /* Prove */
+
+/* A line someone actually said (Prove: the 2 px rule) */
+.page blockquote {
+  margin: var(--space-6) 0 var(--space-3); padding-left: 14px; border-left: 2px solid var(--color-gold);
+  font: italic 500 var(--t-quote)/var(--lh-quote) var(--font-display); color: var(--color-text-0);
+}
+.page blockquote p { margin: 0; text-wrap: balance; }
+.page blockquote p + p { margin-top: var(--space-3); }
+.page p.source { margin: 0 0 var(--space-6); font: 400 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-2); }
+
+/* What a page does not claim: a quiet rule, not gold */
+.page .honesty { margin: var(--space-6) 0; padding-left: var(--space-5); border-left: 2px solid var(--color-text-2); }
+
+/* ── Fields: hairline rows, not a box ──────────────────────────────────── */
+.page dl.fields { margin: var(--space-6) 0; }
+.page dl.fields > div {
+  display: grid; grid-template-columns: 11em minmax(0, 1fr); gap: var(--space-4);
+  padding: var(--space-3) 0; border-top: 1px solid var(--color-rule);
+}
+.page dl.fields > div:last-child { border-bottom: 1px solid var(--color-rule); }
+.page dl.fields dt { margin: 0; padding-top: 2px; font: 500 var(--t-meta)/1.5 var(--font-ui); color: var(--color-text-1); }
+.page dl.fields dd { margin: 0; font: 400 var(--t-small)/var(--lh-small) var(--font-ui); color: var(--color-text-0); }
+@media (max-width: 560px) {
+  .page dl.fields > div { grid-template-columns: 1fr; gap: var(--space-1); }
+}
+
+/* ── Numbered steps ────────────────────────────────────────────────────── */
+.page ol.spec { padding-left: var(--space-5); }
+.page ol.spec li { margin-bottom: var(--space-3); }
+
+/* ── The receipt registry (receipts/ and dac/*) ────────────────────────── */
+/* tools/check-receipts.py reads this markup; only its look lives here. */
+.registry {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 0 var(--space-8); margin: var(--space-6) 0;
+}
+.rcard {
+  display: flex; flex-direction: column; gap: var(--space-3); min-width: 0;
+  padding: var(--space-4) 0 var(--space-6); border-top: 1px solid var(--color-rule);
+}
+.rcard.pair { border-top-color: var(--color-text-2); }
+.rcard-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-1) var(--space-3); }
+.rcard-dac { font: var(--w-display) 22px/1.2 var(--font-display); color: var(--color-text-0); }
+.rcard-verdict { font: 400 var(--t-data)/1.3 var(--font-mono); color: var(--color-gold); white-space: nowrap; }   /* Prove */
+.page .rcard p { margin: 0; }
+.rcard-meta { font: 400 var(--t-meta)/1.7 var(--font-ui); color: var(--color-text-1); font-variant-numeric: lining-nums tabular-nums; }
+.rcard-hash { font: 400 13px/1.6 var(--font-mono); color: var(--color-text-0); word-break: break-all; }
+.rcard-hash .hash-label { display: block; margin-bottom: 2px; font: 500 var(--t-meta)/1.4 var(--font-ui); color: var(--color-text-1); word-break: normal; }
+.rcard-note { font: 400 var(--t-small)/var(--lh-small) var(--font-ui); color: var(--color-text-2); }
+.rcard-note.pair-note { color: var(--color-text-1); }
+
+/* The cross-DAC callout: hairlines, not a gold box */
+.pair-callout { margin: var(--space-8) 0; padding: var(--space-4) 0; border-block: 1px solid var(--color-rule); }
+.page .pair-callout p { margin: 0; }
+.pair-callout .pair-title { margin-bottom: var(--space-2); font: 600 var(--t-small)/1.4 var(--font-ui); color: var(--color-text-0); }
+
+/* ── The one action on a page (Act) ────────────────────────────────────── */
+.page a.download {
+  display: inline-flex; align-items: center; min-height: 48px; margin: var(--space-2) 0 var(--space-4); padding: 0 20px;
+  border-radius: var(--radius-btn); background: var(--color-gold); color: var(--color-on-gold);
+  font: 600 16px/1 var(--font-ui); text-decoration: none; transition: background-color var(--duration-fast);
+}
+.page a.download:hover { background: var(--color-gold-bright); color: var(--color-on-gold); }
+
+/* ── The legal pages ───────────────────────────────────────────────────── */
+.page .privacy-effective { font: 500 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-1); }
+.page .privacy-hero { display: grid; gap: var(--space-6); margin: var(--space-8) 0; }
+.page .privacy-hero-eyebrow { margin: 0 0 var(--space-2); font: 500 var(--t-small)/1.3 var(--font-ui); color: var(--color-text-1); }
+.page .privacy-hero-title { margin-top: 0; }
+.page .privacy-hero-title em { font-style: normal; }
+.page .privacy-hero-device img { display: block; width: 280px; max-width: 100%; height: auto; }
+@media (min-width: 760px) {
+  .page .privacy-hero { grid-template-columns: minmax(0, 1fr) 280px; align-items: start; }
+}
+.page .privacy-summary { font: 400 var(--t-lead)/var(--lh-lead) var(--font-ui); color: var(--color-text-1); }
+.page .privacy-block { margin-top: var(--space-10); }
+.page .privacy-block > h2 { margin-top: 0; }
+.page .ui-path { font: 400 0.88em/1 var(--font-mono); color: var(--color-text-0); }

@@ -1,0 +1,177 @@
+/* house-kit 1.3 · house.css · 2026-10-09
+   1.1: the family row marks the current site with .h-here, not aria-current.
+   1.2: 1.1's note closed this comment early and the .h-wrap rule was dropped.
+   1.3: the footer tagline is balanced (it left "listen." alone at 390 px).
+
+   The house components. Linked after colors_and_type.css (and a room file)
+   on meringo.app, meringolisten.app and adamsiemaszko.com. Minutes ports
+   the same decisions into its own stylesheet (design/minutes-port.md).
+
+   Every class is prefixed h- so a site's own inline .nav, .footer or .btn
+   rules can never win the cascade against it. Element rules are wrapped in
+   :where() and carry no specificity. Gold does five jobs only: the one
+   primary fill per screen (Act), links (Go), the focus ring (Focus), a
+   verdict or the rule beside a line someone said (Prove), and the 3 px
+   thread on a product site (Sign). */
+
+/* ── Frame ─────────────────────────────────────────────────────────────── */
+.h-wrap    { max-width: var(--page); margin-inline: auto; padding-inline: var(--gutter); }
+.h-measure { max-width: var(--measure); }
+.h-skip {
+  position: absolute; left: var(--gutter); top: -200px; z-index: 10;
+  padding: 12px 16px; background: var(--color-gold); color: var(--color-on-gold);
+  font: 600 var(--t-small)/1 var(--font-ui); text-decoration: none;
+}
+.h-skip:focus { top: 8px; }
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-gold); outline-offset: 2px;
+}
+
+/* ── Type ──────────────────────────────────────────────────────────────── */
+.h-h1, .h-h1-short, .h-h2 {
+  font-family: var(--font-display); font-weight: var(--w-display);
+  letter-spacing: -0.01em; margin: 0; text-wrap: balance; color: var(--color-text-0);
+}
+.h-h1       { font-size: var(--t-h1);       line-height: var(--lh-h1); }
+.h-h1-short { font-size: var(--t-h1-short); line-height: var(--lh-h1); }
+.h-h2       { font-size: var(--t-h2);       line-height: var(--lh-h2); }
+.h-h3   { font: 600 var(--t-h3)/var(--lh-h3) var(--font-ui); margin: 0; }
+.h-lead { font: 400 var(--t-lead)/var(--lh-lead) var(--font-ui); color: var(--color-text-1); max-width: 36ch; margin: 0; text-wrap: pretty; }
+.h-meta { font: 500 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-2); }
+.h-data { font: 400 var(--t-data)/var(--lh-data) var(--font-mono); }
+.h-num  { font-variant-numeric: lining-nums tabular-nums; }
+.h-prose { max-width: var(--measure); }
+.h-prose p, .h-prose li { text-wrap: pretty; }
+.h-prose p { margin: 0 0 1em; }
+/* Italic means someone said it; a heading or tagline never takes it. */
+.h-h1 em, .h-h1-short em, .h-h2 em, .h-tagline em { font-style: normal; color: inherit; }
+
+/* ── Links (Go) ────────────────────────────────────────────────────────── */
+.h-link, .h-prose a, .h-footer a {
+  color: var(--color-text-0); text-decoration: underline;
+  text-decoration-color: var(--color-gold); text-decoration-thickness: 1px; text-underline-offset: 0.2em;
+  transition: color var(--duration-fast);
+}
+.h-link:hover, .h-prose a:hover, .h-footer a:hover { color: var(--color-gold); }
+
+/* ── The thread and the header ─────────────────────────────────────────── */
+.h-thread { height: 3px; background: var(--color-gold); }               /* Sign: product sites only */
+.h-header { border-bottom: 1px solid var(--color-rule); background: var(--color-bg-base); }
+.h-header-in {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  column-gap: var(--space-8); padding-block: var(--space-2);
+}
+.h-brand { display: flex; align-items: center; gap: 12px; min-height: 48px; color: var(--color-text-0); text-decoration: none; }
+.h-brand img { width: 28px; height: 28px; flex: none; }
+.h-brand-text { display: flex; flex-direction: column; gap: 2px; }
+.h-wordmark { font: var(--w-display) 22px/1.05 var(--font-display); }
+.h-desc { font: 400 var(--t-meta)/1.3 var(--font-ui); color: var(--color-text-1); }
+.h-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: var(--space-5); }
+.h-nav a {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font: 400 var(--t-small)/1 var(--font-ui); color: var(--color-text-1); text-decoration: none;
+  text-underline-offset: 0.35em; transition: color var(--duration-fast);
+}
+.h-nav a:hover, .h-nav a[aria-current="page"] {
+  color: var(--color-text-0); text-decoration: underline; text-decoration-color: var(--color-gold); text-decoration-thickness: 1px;
+}
+/* No hamburger for four links or fewer: on a phone they take their own row. */
+@media (max-width: 640px) { .h-nav { flex-basis: 100%; } }
+
+/* ── The action (Act) ──────────────────────────────────────────────────── */
+.h-btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px;
+  border: 0; border-radius: var(--radius-btn); background: var(--color-gold); color: var(--color-on-gold);
+  font: 600 16px/1 var(--font-ui); text-decoration: none; cursor: pointer;
+  transition: background-color var(--duration-fast);
+}
+.h-btn:hover { background: var(--color-gold-bright); }
+/* One gold fill per screen. A second action is a link, never an outlined twin. */
+
+/* ── Fields: the velvet plate and the band ─────────────────────────────── */
+/* The plate is a flat colour with hard edges (N1). On it, only ivory,
+   ivory-2 and gold: ivory-3 fails there at 3.87:1. */
+.h-plate { background: var(--color-plate); color: var(--color-text-0); }
+.h-plate .h-meta, .h-plate .h-stamp, .h-plate .h-desc { color: var(--color-text-1); }
+.h-band  { background: var(--color-bg-surface); }                      /* two per page at most */
+
+/* ── Exhibits ──────────────────────────────────────────────────────────── */
+.h-exhibit { margin: 0; }
+.h-exhibit img, .h-exhibit video { display: block; max-width: 100%; height: auto; border-radius: 0; }
+/* A stamp is a sentence: "Captured from a Qudelix 5K at 24-bit/96 kHz on Meringo 1.28.5." */
+.h-stamp { margin: var(--space-2) 0 0; font: 400 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-2); font-variant-numeric: lining-nums tabular-nums; }
+
+/* A line the app or a person actually said (Prove: the 2 px rule). */
+.h-quote {
+  margin: 0; padding-left: 14px; border-left: 2px solid var(--color-gold);
+  font: italic 500 var(--t-quote)/var(--lh-quote) var(--font-display); color: var(--color-text-0);
+}
+.h-quote p { margin: 0; text-wrap: balance; }
+.h-hang { margin-left: -0.42em; }                                         /* a hung opening quote mark */
+.h-quote cite { display: block; margin-top: var(--space-2); font: normal 400 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-1); }
+
+/* ── The ledger (Music's room device) ──────────────────────────────────── */
+.h-ledger { width: 100%; border-collapse: collapse; font: 400 var(--t-data)/var(--lh-data) var(--font-mono); font-variant-numeric: tabular-nums; }
+.h-ledger caption { caption-side: bottom; text-align: left; }
+.h-ledger th, .h-ledger td { text-align: left; vertical-align: baseline; padding: 10px var(--space-4) 10px 0; border-top: 1px solid var(--color-rule); }
+.h-ledger tr:last-child > * { border-bottom: 1px solid var(--color-rule); }
+.h-ledger th { font: 500 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-1); white-space: nowrap; }
+.h-ledger td { overflow-wrap: anywhere; }
+.h-verdict { color: var(--color-gold); }                                  /* Prove */
+
+/* ── The contents page (Listen's room device) ──────────────────────────── */
+/* Set like the app's chapter list: number, title, running time. No leaders. */
+.h-contents { list-style: none; margin: 0; padding: 0; }
+.h-contents li { border-top: 1px solid var(--color-rule); }
+.h-contents li:last-child { border-bottom: 1px solid var(--color-rule); }
+.h-contents a { display: flex; align-items: baseline; gap: var(--space-4); min-height: 48px; padding: 12px 0; color: var(--color-text-0); text-decoration: none; }
+.h-contents .h-ch    { flex: none; min-width: 3.5em; font: 500 var(--t-meta)/1 var(--font-ui); color: var(--color-text-1); font-variant-numeric: tabular-nums; }
+.h-contents .h-title { flex: 1; font: var(--w-display) var(--t-h3)/1.25 var(--font-display); }
+.h-contents .h-time  { flex: none; font: 400 var(--t-meta)/1 var(--font-ui); color: var(--color-text-1); font-variant-numeric: tabular-nums; }
+.h-contents a:hover .h-title { text-decoration: underline; text-decoration-color: var(--color-gold); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+
+/* ── The dated entry (the personal site's room device) ─────────────────── */
+.h-entries { list-style: none; margin: 0; padding: 0; }
+.h-entry { display: grid; gap: 2px; padding: var(--space-4) 0; border-top: 1px solid var(--color-rule); }
+.h-entry time { font: 500 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-2); font-variant-numeric: lining-nums tabular-nums; }
+.h-entry-title { margin: 0; font: var(--w-display) 27px/1.2 var(--font-display); }
+.h-entry-title a { color: var(--color-text-0); text-decoration: none; }
+.h-entry-title a:hover { text-decoration: underline; text-decoration-color: var(--color-gold); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+.h-entry p { margin: 0; }
+/* Dates hang in the margin once there is a margin to hang them in. */
+@media (min-width: 760px) {
+  .h-entry { grid-template-columns: 8rem minmax(0, var(--measure)); column-gap: var(--space-6); }
+  .h-entry time { grid-row: 1 / span 3; padding-top: 0.55em; }
+}
+
+/* ── Chapters and questions ────────────────────────────────────────────── */
+.h-chapter { padding-block: var(--chapter-gap); border-top: 1px solid var(--color-rule); }
+.h-chapter-label { margin: 0 0 var(--space-3); font: 500 var(--t-small)/1.3 var(--font-ui); color: var(--color-text-1); }  /* "Ch. 01 — The Library" */
+.h-details { border-top: 1px solid var(--color-rule); }
+.h-details:last-of-type { border-bottom: 1px solid var(--color-rule); }
+.h-details > summary {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4);
+  min-height: 48px; padding: 14px 0; list-style: none; cursor: pointer;
+  font: 600 var(--t-h3)/var(--lh-h3) var(--font-ui);
+}
+.h-details > summary::-webkit-details-marker { display: none; }
+.h-details > summary::after { content: "+"; flex: none; font-weight: 400; color: var(--color-text-2); }
+.h-details[open] > summary::after { content: "\2212"; }
+.h-details > :not(summary) { padding-bottom: var(--space-5); }
+
+/* ── The footer ────────────────────────────────────────────────────────── */
+.h-footer {
+  margin-top: var(--chapter-gap); padding-block: var(--space-12) var(--space-16);
+  border-top: 1px solid var(--color-rule);
+  font: 400 var(--t-small)/var(--lh-small) var(--font-ui); color: var(--color-text-1);
+}
+.h-tagline { margin: 0 0 var(--space-8); font: 500 22px/1.3 var(--font-display); color: var(--color-text-1); text-wrap: balance; }
+.h-family { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-5); }
+.h-family li { display: inline-flex; align-items: center; min-height: 44px; }
+.h-labs { gap: 10px; font: 500 18px/1 var(--font-display); color: var(--color-text-0); }
+.h-labs img { width: 24px; height: 24px; }
+.h-family .h-here { color: var(--color-text-0); }
+.h-legal { list-style: none; margin: 0 0 var(--space-6); padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--space-5); }
+.h-legal li { display: inline-flex; align-items: center; min-height: 44px; }
+.h-copy { margin: 0; font-size: var(--t-meta); color: var(--color-text-2); }
+.h-sign { display: block; width: 150px; max-width: 45%; height: auto; margin: 0 0 var(--space-4); }   /* Adam's hand (N10) */

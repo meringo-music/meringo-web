@@ -2,6 +2,8 @@
 
 `assets/fonts/` contains woff2 files for the three site fonts, fetched from Google Fonts and served directly from this origin. The `@font-face` declarations live at the top of `colors_and_type.css`.
 
+**Since 2026-10-09 the fonts and `colors_and_type.css` are vendored from the Meringo Labs house kit** (HQ `design/`, house-kit 1.3), byte for byte, with the kit's `OFL.txt` beside them. Don't edit them here: change the kit, then copy and check each file against the kit's `MANIFEST.txt`. The kit replaced the italic: it is now the variable 300-700 face. Until then the site shipped a static Light 300 italic declared as 300-700, so every 500 italic rendered at 300.
+
 **The three families are the app's three.** Cormorant Garamond (display), Inter (UI), Share Tech Mono (technical readouts) are exactly what ships in `core/design/src/main/res/font/` in the app repo. The site ran on Outfit + JetBrains Mono until 2026-07-25; that was never the app's type voice, and because this page embeds real app screenshots the mismatch was visible on the page itself. If the app's font stack changes, this one follows.
 
 ## Why self-host
@@ -16,13 +18,13 @@
 |---|---|---|---|
 | Cormorant Garamond | normal (300-700) | `cormorant-normal-latin.woff2` | 37 KB |
 | Cormorant Garamond | normal (300-700) | `cormorant-normal-latin-ext.woff2` | 33 KB |
-| Cormorant Garamond | italic (300-700) | `cormorant-italic-latin.woff2` | 22 KB |
-| Cormorant Garamond | italic (300-700) | `cormorant-italic-latin-ext.woff2` | 19 KB |
+| Cormorant Garamond | italic (300-700) | `cormorant-italic-latin.woff2` | 39 KB |
+| Cormorant Garamond | italic (300-700) | `cormorant-italic-latin-ext.woff2` | 34 KB |
 | Inter | normal (100-900) | `inter-latin.woff2` | 47 KB |
 | Inter | normal (100-900) | `inter-latin-ext.woff2` | 83 KB |
 | Share Tech Mono | normal (400) | `sharetechmono-latin.woff2` | 13 KB |
 
-Total: ~254 KB across 7 files. Inter is a variable font — a single file covers its entire weight range via the `font-weight: 100 900` range declaration. Cormorant Garamond's normal style is also variable here; italic ships as a separate font file.
+Total: ~286 KB across 7 files. Inter is a variable font — a single file covers its entire weight range via the `font-weight: 100 900` range declaration. Cormorant Garamond's normal and italic styles are variable too; the italic ships as a separate font file.
 
 **Share Tech Mono is the one exception to the variable-font rule.** Google publishes a single 400 face and no `latin-ext` subset — the same single `share_tech_mono_regular.ttf` the app bundles. `colors_and_type.css` declares it as `font-weight: 100 800` anyway, deliberately: that maps every weight the stylesheet asks for onto the one real face instead of letting the browser synthesise a faux-bold. Extended-latin glyphs in mono contexts fall through to the `ui-monospace` stack.
 
