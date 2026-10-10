@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meringo — Respecting the archive. Perfecting the play.</title>
-<meta name="description" content="Android resamples your music to 48 kHz by default. Meringo drives your USB DAC or dongle directly — every track at its native rate, with a SHA-256 receipt you can check yourself. 7-day free trial, $9.99 lifetime — no subscription.">
-<meta property="og:title" content="Meringo — Respecting the archive. Perfecting the play.">
-<meta property="og:description" content="Android resamples your music to 48 kHz by default — and gives you no way to turn it off. Meringo takes your USB DAC or dongle off that path: every track at its native rate, bit-perfect, with a SHA-256 receipt you can check yourself. Any Android 13+ phone or DAP. 7-day free trial, $9.99 lifetime — no subscription.">
+<title>Meringo, a music player for Android that proves it’s bit-perfect</title>
+<meta name="description" content="Meringo is a music player for Android. It drives your USB DAC or dongle at each track’s native rate, then hands you a SHA-256 receipt you can check yourself. $9.99, once.">
+<meta property="og:title" content="Meringo, a music player for Android that proves it’s bit-perfect">
+<meta property="og:description" content="Meringo is a music player for Android. It drives your USB DAC or dongle at each track’s native rate, then hands you a SHA-256 receipt you can check yourself. $9.99, once.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://meringo.app/">
 <meta property="og:image" content="https://meringo.app/assets/og.png">
@@ -15,8 +15,8 @@
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:alt" content="Meringo — bit-perfect music for Android phones and DAPs, with a receipt you can check">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Meringo — Respecting the archive. Perfecting the play.">
-<meta name="twitter:description" content="Android resamples your music to 48 kHz by default — and gives you no way to turn it off. Meringo takes your USB DAC or dongle off that path: every track at its native rate, bit-perfect, with a SHA-256 receipt you can check yourself. Any Android 13+ phone or DAP. 7-day free trial, $9.99 lifetime — no subscription.">
+<meta name="twitter:title" content="Meringo, a music player for Android that proves it’s bit-perfect">
+<meta name="twitter:description" content="Meringo is a music player for Android. It drives your USB DAC or dongle at each track’s native rate, then hands you a SHA-256 receipt you can check yourself. $9.99, once.">
 <meta name="twitter:image" content="https://meringo.app/assets/og.png">
 <meta name="twitter:image:alt" content="Meringo — bit-perfect music for Android phones and DAPs, with a receipt you can check">
 
@@ -137,37 +137,17 @@ html {
   0%,100% { box-shadow: 0 0 14px rgba(237,160,64,0.25), 0 0 4px rgba(237,160,64,0.4); }
   50%     { box-shadow: 0 0 36px rgba(237,160,64,0.5),  0 0 10px rgba(237,160,64,0.65); }
 }
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
-}
 @keyframes waveFloat {
   0%,100% { transform:translateY(0); }
   50%     { transform:translateY(-6px); }
-}
-@keyframes deviceGlow {
-  0%,100% { opacity: 0.4; }
-  50%     { opacity: 0.65; }
 }
 @keyframes signalPulse {
   0%   { stroke-dashoffset: 0; }
   100% { stroke-dashoffset: -24; }
 }
 
-.fade-in { animation: fadeUp 0.7s var(--ease-out) both; }
-.fade-in-1 { animation-delay: 0.1s; }
-.fade-in-2 { animation-delay: 0.25s; }
-.fade-in-3 { animation-delay: 0.4s; }
-.fade-in-4 { animation-delay: 0.55s; }
-.fade-in-5 { animation-delay: 0.7s; }
-
 @media (prefers-reduced-motion: reduce) {
-  .fade-in, .fade-in-1, .fade-in-2, .fade-in-3, .fade-in-4, .fade-in-5 {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .hero-device, .btn-primary, .signal-flow-line, .mascot-svg .mascot-float {
+  .btn-primary, .signal-flow-line, .mascot-svg .mascot-float {
     animation: none !important;
   }
 }
@@ -180,117 +160,44 @@ html {
 }
 
 /* ─────────────────────────────────
-   HERO — split layout
+   HERO — the ledger, on the velvet plate (house-kit: .h-plate, .h-ledger)
+   One column: the H1 at full measure, the receipt as ruled rows with the
+   hashes right-aligned like amounts, the verdict where a total goes, and
+   the action and the price in the last row.
 ───────────────────────────────── */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  padding: 56px var(--space-6) 60px;   /* 120px less the 64px fixed nav it once sat under */
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+.m-hero { padding-block: 28px 40px; }
+.m-h1 { max-width: 21em; }
+.m-lead { margin-top: 16px; }
+.m-receipt { margin-top: 26px; }
+.m-receipt .h-stamp { margin: 0 0 8px; color: var(--color-text-1); }
+.m-ledger td:last-child { text-align: right; }
+.m-ledger td.m-where { color: var(--color-text-1); }
+.m-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 14px 0 0; }
+.m-price { margin: 0; max-width: 34ch; font: 400 var(--t-small)/1.45 var(--font-ui); color: var(--color-text-1); }
+.m-price b { font-weight: 600; color: var(--color-text-0); }
+@media (min-width: 960px) {
+  .m-hero { padding-block: 36px 40px; }
+  .m-lead { max-width: 46ch; }
+  .m-ledger th { width: 11em; }
 }
-.hero-grid {
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-  display: grid;
-  /* 6/6, not 5/7. The copy column was 465px at any viewport ≥ 1180px, because
-     the grid is max-width capped — so the hero title's vw-scaled type kept
-     growing while the box holding it did not. */
-  grid-template-columns: 6fr 6fr;
-  align-items: center;
-  gap: var(--space-16);
+@media (max-width: 600px) {
+  /* Tighter on phones, so the button lands in the first screen at 360 x 800 */
+  .m-hero { padding-block: 20px 32px; }
+  .m-receipt { margin-top: 18px; }
+  .m-ledger tr { display: grid; grid-template-columns: 1fr auto; column-gap: 12px; padding: 8px 0; border-top: 1px solid var(--color-rule); }
+  .m-ledger tr:last-child { border-bottom: 1px solid var(--color-rule); }
+  .m-ledger th, .m-ledger td { padding: 0; border: 0 !important; }
+  .m-ledger th { grid-column: 1 / -1; }
 }
 
-/* Hero ambient glows */
-.hero-glow-a {
-  position: absolute;
-  bottom: -22%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 960px; height: 540px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(237,160,64,0.13) 0%, transparent 68%);
-  pointer-events: none;
-}
-.hero-glow-b { display: none; }   /* single directional candlelight wash from beneath — the twin corner blobs read as AI-default glow */
+/* What it plays, what it runs on, what it needs */
+.m-label { padding-block: 28px; }
+.m-label dl { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 10px 16px; max-width: 760px; margin: 0; }
+.m-label dt { padding-top: 2px; font: 500 var(--t-meta)/1.5 var(--font-ui); color: var(--color-text-1); }
+.m-label dd { margin: 0; font: 400 var(--t-small)/1.5 var(--font-ui); }
 
-/* Hero proof chip — surfaces the receipt above the fold, links to #verify */
-.hero-proof-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-top: var(--space-6);
-  padding: 8px 16px;
-  border: 1px solid rgba(237,160,64,0.40);
-  border-radius: var(--radius-pill);
-  background: rgba(237,160,64,0.06);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wide);
-  text-decoration: none;
-  color: var(--color-text-1);
-  transition: border-color var(--duration-fast) var(--ease-velvet), background var(--duration-fast) var(--ease-velvet);
-}
-.hero-proof-chip:hover { border-color: var(--color-gold); background: rgba(237,160,64,0.12); }
-.hero-proof-chip .hpc-ok { color: var(--color-gold); font-weight: 600; }
-.hero-proof-chip .hpc-link { color: var(--color-text-2); }
-
-/* Hero left */
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-gold-dim);
-  margin-bottom: var(--space-6);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 28px;
-  height: 1px;
-  background: linear-gradient(to right, var(--color-gold-dim), transparent);
-}
-.hero-title {
-  font-family: var(--font-display);
-  /* Sized for the COLUMN, not the viewport. The old clamp topped out at 84px,
-     which on a 1745px-wide screen set a 14-word headline in a 465px box —
-     ten lines, 857px tall, spilling into the device stage and colliding with
-     the floating spec card. The column stops growing at 1180px; so must this. */
-  font-size: clamp(40px, 4.2vw, 60px);
-  font-weight: 300;
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  color: var(--color-text-0);
-  margin-bottom: var(--space-5);
-}
-.hero-title em {
-  font-style: italic;
-  color: var(--color-gold);
-}
-.hero-tagline {
-  font-family: var(--font-display);
-  font-size: clamp(17px, 1.6vw, 21px);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--color-text-1);
-  letter-spacing: 0.005em;
-  max-width: 480px;
-  line-height: var(--leading-snug);
-  margin-bottom: var(--space-8);
-}
-.hero-cta-group {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
-}
+/* Kept from the old hero: the get-app section uses these buttons, and the
+   philosophy mascot uses the head variants. */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -329,163 +236,6 @@ html {
 }
 .btn-secondary:hover { color: var(--color-text-0); border-color: var(--color-border-bright); }
 
-/* Hero micro-spec row (under CTAs) */
-.hero-micropills {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-.tech-badge {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  padding: 5px 11px;
-  border-radius: var(--radius-sm);
-  border: 1px solid;
-}
-.badge-gold  { background: rgba(237,160,64,0.1); border-color: rgba(237,160,64,0.3); color: var(--color-gold); }
-.badge-teal  { background: rgba(61,139,139,0.1); border-color: rgba(61,139,139,0.3); color: var(--color-teal); }
-.badge-dim   { background: rgba(61,45,90,0.4);   border-color: var(--color-border-dim); color: var(--color-text-2); }
-
-/* Hero right — device stage */
-.hero-stage {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 580px;
-}
-.hero-stage-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(237,160,64,0.18) 0%, transparent 70%);
-  animation: deviceGlow 6s ease-in-out infinite;
-  pointer-events: none;
-}
-/* ── Phone device frame ──
-   The OUTER element is the bezel (chunky black frame).
-   The IMG sits inside, inset by the bezel thickness, with its own
-   rounded screen corners. A pseudo-element draws the side button
-   for a touch of realism.
-*/
-/* ── Device photograph stage ──
-   The image is a composited photo of the M21 with the screenshot already
-   on its screen. No CSS frame — the photo IS the device. CSS handles
-   drop shadow, ambient glow, and entrance.
-*/
-.hero-device {
-  position: relative;
-  width: 340px;
-  max-width: 100%;
-  z-index: 2;
-  /* Ambient glow behind the device */
-  filter:
-    drop-shadow(0 24px 60px rgba(0,0,0,0.55))
-    drop-shadow(0 60px 120px rgba(107,60,160,0.25));
-}
-.hero-device img {
-  width: 100%;
-  height: auto;
-  display: block;
-  position: relative;
-  z-index: 1;
-}
-/* Strip previous bezel elements */
-.hero-device::before,
-.hero-device::after { display: none; }
-
-/* Secondary device — Home screen pokes out from behind primary, rotated and faded
-   so the eye reads it as "another view available," not as competing content.
-   Hidden on tablets/mobile where the hero collapses to a single column. */
-.hero-device-secondary {
-  position: absolute;
-  top: 6%;
-  left: 4%;
-  width: 210px;
-  z-index: 1;
-  opacity: 0.78;
-  transform: rotate(-6deg);
-  filter:
-    drop-shadow(0 18px 44px rgba(0,0,0,0.5))
-    drop-shadow(0 36px 80px rgba(107,60,160,0.18));
-  pointer-events: none;
-}
-.hero-device-secondary img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Mascot — narrator perched at hero */
-.hero-mascot {
-  position: absolute;
-  right: -8%;
-  bottom: 8%;
-  width: 130px;
-  z-index: 3;
-  pointer-events: none;
-  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
-}
-.hero-mascot svg { width: 100%; height: auto; display: block; }
-
-/* Floating mode — once the hero scrolls off, mascot detaches and
-   becomes a scroll-position indicator pinned to the right edge.
-   --mascot-top is updated by JS on scroll. */
-.hero-mascot.floating {
-  position: fixed;
-  top: var(--mascot-top, 80px);
-  right: 14px;
-  bottom: auto;
-  width: 90px;
-  z-index: 90;
-  opacity: 0.92;
-  transition: opacity 0.4s var(--ease-velvet);
-}
-.hero-mascot.floating.docked-out {
-  opacity: 0;
-}
-
-/* Floating spec card on hero device.
-   Sits BESIDE the phone's route line, not on top of it — it annotates
-   "24-BIT · 96 KHZ · VAULT", so covering that line defeated the point.
-   At -9%/28% it clears the primary device and overlaps only the faded
-   secondary screen behind it, which reads as depth rather than collision. */
-.hero-spec-float {
-  position: absolute;
-  left: -9%;
-  bottom: 28%;
-  background: rgba(7, 4, 14, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(237,160,64,0.25);
-  border-radius: var(--radius-md);
-  padding: var(--space-4) var(--space-5);
-  z-index: 3;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-  min-width: 180px;
-}
-.hero-spec-float-key {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-text-2);
-  margin-bottom: 4px;
-}
-.hero-spec-float-val {
-  font-family: var(--font-mono);
-  font-size: var(--text-md);
-  color: var(--color-gold);
-  font-weight: 500;
-}
-.hero-spec-float-sub {
-  font-family: var(--font-ui);
-  font-size: var(--text-xs);
-  color: var(--color-text-2);
-  margin-top: 4px;
-}
-
 /* ─── Mascot head variants ───
    .mascot-head shows the base head. Glasses + smile overlays toggle
    via .playing on the wrapper. .always-playing keeps them visible.
@@ -501,78 +251,6 @@ html {
 .mascot-head.playing svg use[href="#mascot-head-smile"] {
   opacity: 1;
 }
-/* Slow head float for the hero narrator */
-@keyframes mascotHeadFloat {
-  0%,100% { transform: translateY(0) rotate(-1deg); }
-  50%     { transform: translateY(-4px) rotate(1deg); }
-}
-.hero-mascot svg { animation: mascotHeadFloat 6s ease-in-out infinite; transform-origin: center; }
-
-/* ─────────────────────────────────
-   SPEC STRIP — gold rule, no card
-───────────────────────────────── */
-.spec-strip {
-  border-top: 1px solid rgba(237,160,64,0.2);
-  border-bottom: 1px solid rgba(237,160,64,0.2);
-  position: relative;
-  padding: var(--space-6) 0;
-  background: linear-gradient(to bottom, rgba(7,4,14,0), rgba(7,4,14,0.3), rgba(7,4,14,0));
-}
-.spec-strip::before,
-.spec-strip::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-gold), transparent);
-  opacity: 0.4;
-}
-.spec-strip::before { top: 0; }
-.spec-strip::after  { bottom: 0; }
-
-.spec-row {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0;
-}
-.spec-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: var(--space-2) var(--space-4);
-  position: relative;
-  text-align: left;
-}
-.spec-item + .spec-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 36px;
-  background: var(--color-border-dim);
-}
-.spec-key {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-text-2);
-}
-.spec-val {
-  font-family: var(--font-mono);
-  font-size: var(--text-base);
-  font-weight: 500;
-  color: var(--color-text-0);
-  white-space: nowrap;
-}
-.spec-val.gold { color: var(--color-gold); }
-.spec-val.teal { color: var(--color-teal); }
 
 /* ─────────────────────────────────
    CHAPTERS — the tour
@@ -833,7 +511,6 @@ html {
    short so the card never needs horizontal scroll at a 390px phone width.
 ───────────────────────────────── */
 .receipt + .receipt { border-top: none; }   /* collapse the doubled rule between stacked receipts */
-.spec-strip + .receipt { border-top: none; }   /* receipt now follows the spec strip (relocated proof block) */
 .proof-wrap {
   display: flex;
   flex-direction: column;
@@ -1555,16 +1232,6 @@ html {
    RESPONSIVE
 ───────────────────────────────── */
 @media (max-width: 980px) {
-  .hero { min-height: auto; padding: 36px var(--space-5) 60px; }
-  .hero-grid { grid-template-columns: 1fr; gap: var(--space-10); }
-  .hero-stage { min-height: 480px; order: -1; }
-  .hero-stage-glow { inset: -10%; }
-  .hero-mascot { width: 100px; right: -4%; bottom: 4%; }
-  .hero-spec-float { left: -4%; bottom: 14%; }
-  .hero-device-secondary { display: none; }
-
-  .spec-row { grid-template-columns: repeat(3, 1fr); gap: var(--space-3) 0; }
-
   .chapter { padding: 90px var(--space-5); }
   .chapter-grid, .chapter-grid.reverse { grid-template-columns: 1fr; gap: var(--space-10); }
   .chapter-grid.reverse .chapter-copy { order: 1; }
@@ -1591,13 +1258,7 @@ html {
 }
 
 @media (max-width: 640px) {
-  .hero-title { font-size: 42px; }
-  .hero-device { width: 280px; }
   .chapter-device { width: 280px; }
-  .hero-mascot { width: 80px; right: 0; bottom: 0; }
-  .hero-mascot.floating { display: none; } /* iOS overlay scrollbar already shows position */
-  .hero-spec-float { display: none; }
-  .spec-row { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 
@@ -1729,121 +1390,35 @@ html {
 
 <main id="content">
 
-<!-- ─── HERO ─── -->
-<section class="hero" id="hero">
-  <div class="hero-glow-a"></div>
-  <div class="hero-glow-b"></div>
-
-  <div class="hero-grid">
-
-    <!-- LEFT: COPY -->
-    <div class="hero-copy">
-      <p class="hero-eyebrow fade-in fade-in-1">Bit-perfect · Provable · Hardware-first</p>
-      <h1 class="hero-title fade-in fade-in-2">
-        By default, Android resamples your music to 48 kHz.<br><em>Meringo takes your DAC off that path — and hands you the receipt.</em>
-      </h1>
-      <p class="hero-tagline fade-in fade-in-3">
-        Plug in a USB DAC or dongle and Meringo drives it directly — no Android mixer, no silent resample, every track at its native rate. Then it hashes what it shipped, <em>so you can check the math yourself.</em>
-      </p>
-
-      <div class="hero-cta-group fade-in fade-in-4">
-        <a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dhome_hero" class="play-badge" target="_blank" rel="noopener">
-          <svg class="play-badge-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M3 2.5v19c0 .5.3.9.7 1.1.4.2.9.1 1.3-.1l16-9.5c.3-.2.5-.6.5-1s-.2-.8-.5-1l-16-9.5c-.2-.1-.5-.2-.7-.2-.7 0-1.3.6-1.3 1.2z"/>
-          </svg>
-          <span class="play-badge-text">
-            <small>Get it on</small>
-            Google Play
-          </span>
-        </a>
-        <a href="#chapter-1" class="btn-secondary">
-          Take the tour
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </a>
-      </div>
-
-      <p class="hero-price-line fade-in fade-in-5" style="margin:var(--space-4) 0 0;font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.04em;color:var(--color-text-2);">
-        <strong style="font-family:var(--font-display);font-weight:400;font-size:1.15em;color:var(--color-gold);letter-spacing:0;">$9.99 lifetime</strong> &middot; 7-day full trial &middot; no subscription
-      </p>
-
-      <div class="hero-micropills fade-in fade-in-5">
-        <span class="tech-badge badge-gold">FLAC · ALAC</span>
-        <span class="tech-badge badge-teal">24-BIT / 192 KHZ</span>
-        <span class="tech-badge badge-teal">BIT-PERFECT</span>
-        <span class="tech-badge badge-gold">JELLYFIN · SUBSONIC</span>
-      </div>
-
-      <a href="#verify" class="hero-proof-chip fade-in fade-in-5" aria-label="See the bit-perfect verification receipt">
-        <span class="hpc-ok">BIT-IDENTICAL ✓</span>
-        <span class="hpc-link">verify it yourself →</span>
-      </a>
-    </div>
-
-    <!-- RIGHT: DEVICE STAGE -->
-    <div class="hero-stage fade-in fade-in-3">
-      <div class="hero-stage-glow"></div>
-
-      <!-- Secondary device — Home screen as background context.
-           Decorative; the primary device below carries the labelled image. -->
-      <div class="hero-device-secondary" aria-hidden="true">
-        <picture><source srcset="assets/screens/home.webp" type="image/webp"><img src="assets/screens/home.png" alt="" width="750" height="1334" decoding="async"></picture>
-      </div>
-
-      <!-- Floating spec card -->
-      <div class="hero-spec-float">
-        <div class="hero-spec-float-key">Now Playing</div>
-        <div class="hero-spec-float-val">24-bit · 96 kHz</div>
-        <div class="hero-spec-float-sub">Vault · Direct passthrough</div>
-      </div>
-
-      <div class="hero-device" aria-label="Meringo Now Playing screen">
-        <picture><source srcset="assets/screens/now_playing.webp" type="image/webp"><img src="assets/screens/now_playing.png"
-             width="750" height="1334" decoding="async" fetchpriority="high"
-             alt="Meringo Now Playing — 'Hard to See' by Men I Trust, a 24-bit / 96 kHz FLAC from the Vault. Gold ULTRA chip on the album-art card, teal → BIT-PERFECT route chip reading 24-BIT · 96 KHZ · DEVICE, ♪ LYRICS pill and star rating below it, full transport controls under the scrub bar"></picture>
-      </div>
-
-      <!-- Mascot — narrator (head + collar only) -->
-      <div class="hero-mascot mascot-head always-playing" aria-hidden="true">
-        <svg viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <use href="#mascot-head-base"/>
-          <use href="#mascot-head-glasses"/>
-          <use href="#mascot-head-smile"/>
-        </svg>
+<!-- ─── HERO: the ledger ─── -->
+<section class="m-hero h-plate" id="hero">
+  <div class="h-wrap">
+    <h1 class="h-h1 m-h1">By default, Android resamples your music to 48 kHz. Meringo takes your DAC off that path — and hands you the receipt.</h1>
+    <p class="h-lead m-lead">Plug in a USB DAC or dongle and Meringo drives it directly, every track at its native rate. Then it hashes what it shipped, so you can check the math yourself.</p>
+    <div class="m-receipt">
+      <p class="h-stamp">A real receipt from Meringo 1.28.5: a 24-bit/96 kHz FLAC sent to a Qudelix 5K. <a class="h-link" href="/verify/">Check it yourself</a></p>
+      <table class="h-ledger m-ledger">
+        <tr><th scope="row">Sent to your DAC</th><td class="m-where">iso pipe → DAC endpoint</td><td>cb459147…295adf</td></tr>
+        <tr><th scope="row">Re-decoded from the file</th><td class="m-where">same file, re-decoded</td><td>cb459147…295adf</td></tr>
+        <tr><th scope="row">Result</th><td colspan="2" class="h-verdict">BIT-IDENTICAL ✓</td></tr>
+      </table>
+      <div class="m-foot">
+        <a class="h-btn" href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dhome_hero" target="_blank" rel="noopener">Get it on Google Play</a>
+        <p class="m-price">Free to install, with a seven-day full trial. Then <b>$9.99, once.</b> No subscription.</p>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ─── SPEC STRIP ─── -->
-<div class="spec-strip">
-  <div class="spec-row">
-    <div class="spec-item">
-      <span class="spec-key">Platform</span>
-      <span class="spec-val">Android DAP</span>
-    </div>
-    <div class="spec-item">
-      <span class="spec-key">Engine</span>
-      <span class="spec-val gold">Bit-Perfect</span>
-    </div>
-    <div class="spec-item">
-      <span class="spec-key">Max Resolution</span>
-      <span class="spec-val teal">24 / 192</span>
-    </div>
-    <div class="spec-item">
-      <span class="spec-key">Fingerprinting</span>
-      <span class="spec-val">On-device</span>
-    </div>
-    <div class="spec-item">
-      <span class="spec-key">Metadata</span>
-      <span class="spec-val">MusicBrainz</span>
-    </div>
-    <div class="spec-item">
-      <span class="spec-key">Privacy</span>
-      <span class="spec-val gold">Local-First</span>
-    </div>
+<section class="m-label">
+  <div class="h-wrap">
+    <dl>
+      <dt>Plays</dt><dd>Your FLAC and ALAC files, and a Jellyfin or Subsonic library, Navidrome included.</dd>
+      <dt>Runs on</dt><dd>Android 13 or newer, on a phone or a DAP.</dd>
+      <dt>Needs</dt><dd>Nothing extra to play. For the receipt, a USB DAC or dongle.</dd>
+    </dl>
   </div>
-</div>
+</section>
 
 <!-- ═════════════════════════════════════════════════════════════
      RECEIPT — diagnostics excerpt (proof, directly under the fold)
@@ -3195,99 +2770,11 @@ const animPauseObserver = new IntersectionObserver((entries) => {
     entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
   });
 }, { threshold: 0 });
-document.querySelectorAll('.btn-primary, .hero-stage-glow, .philosophy-mascot').forEach(el => {
+document.querySelectorAll('.btn-primary, .philosophy-mascot').forEach(el => {
   animPauseObserver.observe(el);
 });
 
-// Reveal on scroll
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('revealed');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.chapter, .review-card, .get-app-card').forEach(el => {
-  el.classList.add('reveal-init');
-  revealObserver.observe(el);
-});
-
-// Hero mascot as scroll-position indicator.
-// Stays in the hero while the hero is on-screen; once the hero scrolls off
-// it becomes fixed to the right edge, with vertical position mapped to
-// page scroll progress. Fades out as the footer comes into view.
-//
-// Note: .hero-stage has a fade-in animation that ends with transform:
-// translateY(0). A non-none transform on an ancestor creates a new
-// containing block, which would trap position: fixed. So when going
-// floating we teleport the mascot to <body> (no transformed ancestor)
-// and restore it to its original parent when un-floating.
-(() => {
-  const mascot = document.querySelector('.hero-mascot');
-  const hero   = document.querySelector('.hero');
-  const footer = document.querySelector('.h-footer');
-  if (!mascot || !hero) return;
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) return; // honor user preference — mascot stays put
-
-  const originalParent = mascot.parentNode;
-  const originalNext   = mascot.nextSibling;
-
-  let pending = false;
-  let isFloating = false;
-  const MIN_TOP = 80;
-  const BOTTOM_MARGIN = 200;
-
-  const update = () => {
-    pending = false;
-    const heroBottom = hero.getBoundingClientRect().bottom;
-    const shouldFloat = heroBottom < MIN_TOP;
-    if (shouldFloat !== isFloating) {
-      isFloating = shouldFloat;
-      if (isFloating) {
-        document.body.appendChild(mascot);
-        mascot.classList.add('floating');
-      } else {
-        originalParent.insertBefore(mascot, originalNext);
-        mascot.classList.remove('floating');
-      }
-    }
-    if (!isFloating) return;
-
-    const docScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const progress  = docScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / docScroll)) : 0;
-    const maxTop = window.innerHeight - BOTTOM_MARGIN;
-    const top = MIN_TOP + progress * Math.max(0, maxTop - MIN_TOP);
-    mascot.style.setProperty('--mascot-top', `${top}px`);
-  };
-
-  const onScroll = () => {
-    if (!pending) {
-      pending = true;
-      requestAnimationFrame(update);
-    }
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-  update();
-
-  // Fade out as the footer approaches, so it never sits over the footer
-  if (footer) {
-    const dockObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        mascot.classList.toggle('docked-out', entry.isIntersecting);
-      });
-    }, { rootMargin: '200px 0px 0px 0px' });
-    dockObserver.observe(footer);
-  }
-})();
 </script>
-<style>
-.reveal-init { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
-.reveal-init.revealed { opacity: 1; transform: translateY(0); }
-</style>
 
 </body>
 </html>
