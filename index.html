@@ -635,8 +635,8 @@ html {
       <p class="h-chapter-label">Verify it yourself</p>
       <h2 class="h-h2">Don't trust the green light. Prove it.</h2>
       <div class="h-prose">
-        <p>Plenty of players claim bit-perfect output. Meringo is the only one that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte it hands to the isochronous pipe and computes a SHA-256 over the whole stream.</p>
-        <p>Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the pipe. Both hashes run on your own device, and you can re-hash the receipt with tools we don't control (below) &mdash; proof you can check, not a checkmark you take on faith. No other player hands you that.</p>
+        <p>Plenty of players claim bit-perfect output. We looked in October 2026 and found no other player that hands you a cryptographic receipt. Plug in a USB DAC, open <code>Settings &rarr; Audio diagnostics</code>, and arm <strong>Verified Capture</strong> &mdash; Meringo writes every byte it hands to the isochronous pipe and computes a SHA-256 over the whole stream.</p>
+        <p>Then point it back at the same file. Meringo re-decodes it, lays the PCM out in the identical iso-pipe format, and hashes that. Matching hashes mean that nothing &mdash; no resample, no requantise, no EQ, no ReplayGain &mdash; touched a single bit between the file and the pipe. Both hashes run on your own device, and you can re-hash the receipt with tools we don't control (below) &mdash; proof you can check, not a checkmark you take on faith.</p>
         <p>Where the proof stops, precisely: it covers everything Meringo sent. Isochronous USB carries no delivery acknowledgement &mdash; the spec trades that away for constant latency &mdash; so no software on any platform can prove what the DAC <em>received</em>, only what was put on the wire for it. That boundary belongs to USB Audio Class, not to us. What a match settles is the part that was ever in doubt: whether the operating system, the mixer, or the app's own DSP touched your music.</p>
         <p>Not a mockup: verified <strong>bit-identical</strong> across three DACs and six receipts &mdash; <strong>Fosi DS2</strong> at both 16/44.1 and <strong>24/96</strong>, <strong>Qudelix 5K</strong> (24/96, on two releases), and the <strong>Jcally JM6 Pro</strong> (16/96 and 24/96) &mdash; each with its own shareable receipt. In the latest pair, two physically different DACs returned the <strong>same SHA-256</strong> from the same 24/96 file. Every published chain lives in the <a href="receipts/">receipt registry</a> &mdash; yours can join it.</p>
         <p>And "anyone can check it" is literal: the exact byte layout, ffmpeg one-liners, and a public-domain checker script that shares no code with Meringo are published at <a href="verify/">meringo.app/verify</a> &mdash; recompute a receipt's hash from your own copy of the file, with tools we don't control.</p>
@@ -710,6 +710,12 @@ html {
         </table>
         <p>What the hardware's spec sheet supports and what Meringo has verified are different claims, and we only print the second as proof.</p>
         <details class="h-details m-more">
+          <summary>The Apple USB-C headphone adapter</summary>
+          <div>
+            <p>The Apple USB-C → 3.5mm Headphone Jack Adapter is a known awkward fit and falls back to OS routing automatically on phones — the Field Guide explains why on dedicated DAPs the path is different.</p>
+          </div>
+        </details>
+        <details class="h-details">
           <summary>The 64-bit EQ and the linear-phase filter</summary>
           <div>
             <p>The EQ engine runs in <strong>64-bit double precision</strong> (IEEE 754 binary64) — biquad coefficients, accumulators, output trim, all <code>Double</code> — so low-frequency, high-Q bands don't accumulate rounding drift across thousands of samples the way single-precision math would.</p>
@@ -735,7 +741,7 @@ html {
         <p>Import 10-band AutoEQ parametric strings or your own CSV / JSON profile files directly. The <em>None (Pure Meringo)</em> baseline is always one tap away — flat response, all bands zeroed, no signature applied. The honest reference.</p>
         <p><strong>Your Rack</strong> is the organising layer that sits on top of the Vault. List the headphones you actually tune for (brand, model, over- or in-ear); tag each new signature with the pair it was built for; recall every signature for a single headphone in one tap. The per-headphone screen carries an <strong>A/B Compare</strong> picker — pick two signatures, drop straight into the Workbench with both already cued up into Slots A and B. If a headphone you add has a bundled correction, its page offers it in one tap — a measured preset by <strong>oratory1990</strong>, bundled offline via the OPRA project — three taps from <em>new headphone in my collection</em> to <em>calibrated tuning loaded.</em></p>
         <blockquote class="h-quote m-quote"><p>Flat response. All bands zeroed. No signature applied.</p><cite>The app, describing the None (Pure Meringo) baseline</cite></blockquote>
-        <p>And when you want to know whether you can <em>actually hear</em> the difference — not believe it, <em>hear</em> it — <strong>Blind Duel</strong> puts your ears on the record. The app hides the graph, hides which slot is which, and runs a proper blind ABX: each trial secretly assigns a hidden X to slot A or B, you switch freely between all three, and you make the call. Level-matching is forced on for the whole duel (it&rsquo;s modeled from each curve&rsquo;s RMS — a model, not a measurement, and the receipt says so), the running score stays hidden by default because a visible tally quietly biases the next call, and the verdict is an exact one-tailed binomial with a ten-trial floor — a lucky handful is not a verdict. The receipt even discloses its own weaknesses: abandoned runs, whether the tally was revealed mid-duel. No other mobile music player runs a blind, level-matched test on your headphone corrections — and none will tell you when you <em>fail</em> to hear a difference. Meringo prints it. That&rsquo;s the point.</p>
+        <p>And when you want to know whether you can <em>actually hear</em> the difference — not believe it, <em>hear</em> it — <strong>Blind Duel</strong> puts your ears on the record. The app hides the graph, hides which slot is which, and runs a proper blind ABX: each trial secretly assigns a hidden X to slot A or B, you switch freely between all three, and you make the call. Level-matching is forced on for the whole duel (it&rsquo;s modeled from each curve&rsquo;s RMS — a model, not a measurement, and the receipt says so), the running score stays hidden by default because a visible tally quietly biases the next call, and the verdict is an exact one-tailed binomial with a ten-trial floor — a lucky handful is not a verdict. The receipt even discloses its own weaknesses: abandoned runs, whether the tally was revealed mid-duel. We haven&rsquo;t found another mobile player that runs a blind, level-matched test on your headphone corrections. Meringo prints it. That&rsquo;s the point.</p>
       </div>
     </div>
     <figure class="h-exhibit m-exhibit">
@@ -1023,7 +1029,7 @@ html {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC<br>Last updated: October 10, 2026</p>
 
     <div class="privacy-hero">
       <div class="privacy-hero-copy">
