@@ -70,9 +70,8 @@
 
 <style>
 /* ─────────────────────────────────────────────────────────────────────
-   MERINGO — THE TOUR
-   Section order: nav · hero · spec strip · 5 chapters · philosophy
-                  · faq · get-app · privacy · footer
+   MERINGO — the home page's own rules. The house kit's are in
+   /colors_and_type.css and /house.css.
 ───────────────────────────────────────────────────────────────────── */
 
 html { color-scheme: dark; }
@@ -109,32 +108,15 @@ html {
   background: var(--color-bg-base);
 }
 
-/* ── Animations ── */
-@keyframes goldPulse {
-  0%,100% { box-shadow: 0 0 14px rgba(237,160,64,0.25), 0 0 4px rgba(237,160,64,0.4); }
-  50%     { box-shadow: 0 0 36px rgba(237,160,64,0.5),  0 0 10px rgba(237,160,64,0.65); }
-}
-@keyframes waveFloat {
-  0%,100% { transform:translateY(0); }
-  50%     { transform:translateY(-6px); }
-}
-@keyframes signalPulse {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -24; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn-primary, .signal-flow-line, .mascot-svg .mascot-float {
-    animation: none !important;
-  }
-}
-
 /* ── Container ── */
 .container {
   max-width: 1180px;
   margin: 0 auto;
   padding: 0 var(--space-6);
 }
+
+/* The mascot's shared gradients, out of the flow */
+.m-defs { position: absolute; }
 
 /* ─────────────────────────────────
    HERO — the ledger, on the velvet plate (house-kit: .h-plate, .h-ledger)
@@ -172,62 +154,6 @@ html {
 .m-label dl { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 10px 16px; max-width: 760px; margin: 0; }
 .m-label dt { padding-top: 2px; font: 500 var(--t-meta)/1.5 var(--font-ui); color: var(--color-text-1); }
 .m-label dd { margin: 0; font: 400 var(--t-small)/1.5 var(--font-ui); }
-
-/* Kept from the old hero: the get-app section uses these buttons, and the
-   philosophy mascot uses the head variants. */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-ui);
-  font-size: var(--text-base);
-  font-weight: var(--weight-semibold);
-  color: var(--color-bg-base);
-  background: var(--color-gold);
-  padding: 13px 30px;
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(237,160,64,0.28), 0 0 6px rgba(237,160,64,0.40);
-  transition: background var(--duration-fast) var(--ease-velvet), transform 0.1s ease;
-}
-.btn-primary:hover { background: var(--color-gold-bright); transform: scale(0.98); }
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-ui);
-  font-size: var(--text-base);
-  font-weight: var(--weight-medium);
-  color: var(--color-text-1);
-  background: transparent;
-  padding: 13px 28px;
-  border-radius: var(--radius-pill);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--color-border-default);
-  cursor: pointer;
-  transition: color var(--duration-fast) var(--ease-velvet), border-color var(--duration-fast) var(--ease-velvet);
-}
-.btn-secondary:hover { color: var(--color-text-0); border-color: var(--color-border-bright); }
-
-/* ─── Mascot head variants ───
-   .mascot-head shows the base head. Glasses + smile overlays toggle
-   via .playing on the wrapper. .always-playing keeps them visible.
-*/
-.mascot-head svg use[href="#mascot-head-glasses"],
-.mascot-head svg use[href="#mascot-head-smile"] {
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.mascot-head.always-playing svg use[href="#mascot-head-glasses"],
-.mascot-head.always-playing svg use[href="#mascot-head-smile"],
-.mascot-head.playing svg use[href="#mascot-head-glasses"],
-.mascot-head.playing svg use[href="#mascot-head-smile"] {
-  opacity: 1;
-}
 
 /* ─────────────────────────────────
    THE BODY — house chapters (house-kit: .h-chapter, .h-prose, .h-exhibit,
@@ -292,7 +218,6 @@ html {
   margin: 0 0 var(--space-4); font-family: var(--font-display); font-weight: var(--w-display);
   font-size: var(--t-h2); line-height: var(--lh-h2); letter-spacing: -0.01em; color: var(--color-text-0); text-wrap: balance;
 }
-.section-title em { font-style: normal; color: inherit; }
 
 /* ─────────────────────────────────
    PRIVACY — collapsed by default
@@ -440,6 +365,16 @@ html {
 }
 .support-link:hover { color: var(--color-gold-bright); }
 
+/* The legal sections' inline styles, as classes (gone with the sections in 4B1) */
+.legal-title { margin-bottom: var(--space-3); }
+.legal-strong { color: var(--color-text-0); }
+.legal-xref { color: var(--color-gold-dim); }
+.legal-code { font-family: var(--font-mono); font-size: 0.9em; color: var(--color-teal); }
+.ui-path { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-teal); }
+.legal-stack { margin-top: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); }
+.legal-gap { margin-top: var(--space-3); }
+.legal-mail { margin-top: var(--space-2); }
+
 /* ─────────────────────────────────
    MASCOT (Built anyway): one Ringo, and he stays still. A tap swaps his
    pose; nothing floats, bounces or loops (house rule N7).
@@ -448,10 +383,6 @@ html {
 .philosophy-mascot.playing .m-playing-smile,
 .philosophy-mascot.playing .m-playing-glasses,
 .philosophy-mascot.playing .m-playing-notes { opacity: 1; }
-
-/* ─────────────────────────────────
-   RESPONSIVE
-───────────────────────────────── */
 </style>
 
 <!-- ── Privacy-friendly analytics (cookieless, no personal data, no cross-site) ──
@@ -483,8 +414,8 @@ html {
   </div>
 </header>
 
-<!-- ─── SHARED SVG DEFS (mascot gradients + reusable head) ─── -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<!-- ─── SHARED SVG DEFS (the mascot's gradients) ─── -->
+<svg class="m-defs" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="m-gSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F4E4C0"/><stop offset="100%" stop-color="#D4A870"/></linearGradient>
     <linearGradient id="m-gHair" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3A2040"/><stop offset="100%" stop-color="#1E1028"/></linearGradient>
@@ -499,84 +430,6 @@ html {
     <radialGradient id="m-gFloor" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="#EDA040" stop-opacity="0.3"/><stop offset="100%" stop-color="#EDA040" stop-opacity="0"/></radialGradient>
     <radialGradient id="m-gGlowGold" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#EDA040" stop-opacity="0.55"/><stop offset="100%" stop-color="#EDA040" stop-opacity="0"/></radialGradient>
     <radialGradient id="m-gGlowVelvet" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9b7fd4" stop-opacity="0.35"/><stop offset="100%" stop-color="#9b7fd4" stop-opacity="0"/></radialGradient>
-
-    <!-- ─── Reusable mascot head (head + hat + collar, no arms/robe) ─── -->
-    <symbol id="mascot-head-base" viewBox="0 0 320 280">
-      <!-- Collar -->
-      <path d="M130 246C130 236 140 230 160 230C180 230 190 236 190 246L186 254C180 248 171 246 160 246C149 246 140 248 134 254Z" fill="#F0E4CC"/>
-      <ellipse cx="160" cy="246" rx="8" ry="5" fill="url(#m-gGoldH)" stroke="#9E7A3E" stroke-width="0.5"/>
-      <circle cx="160" cy="246" r="2" fill="#07040E"/>
-      <!-- Neck -->
-      <rect x="153" y="218" width="14" height="16" rx="5" fill="url(#m-gSkin)"/>
-      <!-- Head -->
-      <ellipse cx="160" cy="168" rx="54" ry="52" fill="url(#m-gSkin)"/>
-      <ellipse cx="160" cy="205" rx="40" ry="12" fill="#C09060" opacity="0.18"/>
-      <ellipse cx="108" cy="168" rx="10" ry="13" fill="url(#m-gSkin)" stroke="#B89060" stroke-width="0.4"/>
-      <ellipse cx="212" cy="168" rx="10" ry="13" fill="url(#m-gSkin)" stroke="#B89060" stroke-width="0.4"/>
-      <path d="M110 150C108 160 107 172 108 184" stroke="url(#m-gHair)" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <path d="M210 150C212 160 213 172 212 184" stroke="url(#m-gHair)" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <!-- Eyes (idle/deadpan default) -->
-      <ellipse cx="136" cy="160" rx="14" ry="11" fill="white" opacity="0.92"/>
-      <ellipse cx="136" cy="160" rx="9" ry="9" fill="url(#m-gIris)"/>
-      <ellipse cx="136" cy="160" rx="5" ry="5" fill="#1A0808"/>
-      <circle cx="139" cy="157.5" r="2" fill="white" opacity="0.9"/>
-      <path d="M122 158 Q136 147 150 158 Q146 163 136 162 Q126 163 122 158Z" fill="url(#m-gSkin)" opacity="0.88"/>
-      <path d="M122 159 Q136 149 150 159" stroke="#2A1020" stroke-width="2" fill="none"/>
-      <ellipse cx="184" cy="160" rx="14" ry="11" fill="white" opacity="0.92"/>
-      <ellipse cx="184" cy="160" rx="9" ry="9" fill="url(#m-gIris)"/>
-      <ellipse cx="184" cy="160" rx="5" ry="5" fill="#1A0808"/>
-      <circle cx="187" cy="157.5" r="2" fill="white" opacity="0.9"/>
-      <path d="M170 158 Q184 147 198 158 Q194 163 184 162 Q174 163 170 158Z" fill="url(#m-gSkin)" opacity="0.88"/>
-      <path d="M170 159 Q184 149 198 159" stroke="#2A1020" stroke-width="2" fill="none"/>
-      <!-- Brows -->
-      <path d="M120 146 Q136 140 150 143" stroke="#2A1010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-      <path d="M170 143 Q184 140 200 146" stroke="#2A1010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-      <!-- Nose -->
-      <ellipse cx="155" cy="183" rx="6" ry="4" fill="#E8C888" opacity="0.85"/>
-      <ellipse cx="165" cy="183" rx="6" ry="4" fill="#E8C888" opacity="0.85"/>
-      <!-- Moustache -->
-      <path d="M144 197 C146 192 151 190 156 191 C158 191 159 192 160 192 C161 192 162 191 164 191 C169 190 174 192 176 197 C173 200 168 201 164 200 C162 200 161 199 160 199 C159 199 158 200 156 200 C152 201 147 200 144 197Z" fill="#3A1E38" opacity="0.92"/>
-      <path d="M144 197 C142 200 142 204 144 205 C146 206 147 204 147 201Z" fill="#3A1E38" opacity="0.92"/>
-      <path d="M176 197 C178 200 178 204 176 205 C174 206 173 204 173 201Z" fill="#3A1E38" opacity="0.92"/>
-      <!-- Idle mouth -->
-      <path d="M153 212 Q160 211 167 212" stroke="#7A5030" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-      <!-- Hair mop -->
-      <path d="M108 148C107 136 110 120 116 108C122 96 132 88 142 84C150 80 156 80 160 80C164 80 170 80 178 84C188 88 198 96 204 108C210 120 213 136 212 148" fill="url(#m-gHair)"/>
-      <!-- Hat brim + crown + band -->
-      <ellipse cx="160" cy="106" rx="72" ry="13" fill="#050308" stroke="url(#m-gGold)" stroke-width="1.8"/>
-      <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="#050308" stroke="url(#m-gGold)" stroke-width="1" transform="translate(0,20)"/>
-      <path d="M100 104C104 78 112 48 120 28C130 6 144-8 160-12C176-8 190 6 200 28C208 48 216 78 220 104Z" fill="url(#m-gRobe)" opacity="0.45" transform="translate(0,20)"/>
-      <path d="M104 100L216 100" stroke="url(#m-gGold)" stroke-width="4" stroke-linecap="round"/>
-      <!-- Peace symbol on hat band -->
-      <circle cx="160" cy="95" r="7" stroke="#EDA040" stroke-width="1.4" fill="none" opacity="0.9"/>
-      <line x1="160" y1="88" x2="160" y2="102" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
-      <line x1="160" y1="95" x2="153.9" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
-      <line x1="160" y1="95" x2="166.1" y2="98.5" stroke="#EDA040" stroke-width="1.4" opacity="0.9"/>
-      <!-- Stars on crown -->
-      <polygon points="126,80 127.4,75.7 131.9,75.7 128.5,73.1 129.8,68.9 126,71.4 122.2,68.9 123.5,73.1 120.1,75.7 124.6,75.7" fill="url(#m-gGoldH)" opacity="0.4"/>
-      <polygon points="194,74 195.4,69.7 199.9,69.7 196.5,67.1 197.8,62.9 194,65.4 190.2,62.9 191.5,67.1 188.1,69.7 192.6,69.7" fill="url(#m-gGoldH)" opacity="0.4"/>
-    </symbol>
-
-    <!-- ─── Sunglasses overlay (playing state) ─── -->
-    <symbol id="mascot-head-glasses" viewBox="0 0 320 280">
-      <g>
-        <ellipse cx="136" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
-        <ellipse cx="130" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
-        <ellipse cx="184" cy="160" rx="18" ry="14" fill="#07040E" fill-opacity="0.9" stroke="url(#m-gGold)" stroke-width="1.5"/>
-        <ellipse cx="178" cy="155" rx="7" ry="5" fill="#5A2A80" opacity="0.25"/>
-        <path d="M154 158C156 155 164 155 166 158" stroke="url(#m-gGold)" stroke-width="1.5" fill="none"/>
-        <path d="M118 158C112 158 108 161 106 166" stroke="url(#m-gGold)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <path d="M202 158C208 158 212 161 214 166" stroke="url(#m-gGold)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      </g>
-    </symbol>
-
-    <!-- ─── Playing smile (overrides idle mouth) ─── -->
-    <symbol id="mascot-head-smile" viewBox="0 0 320 280">
-      <path d="M152 210 Q160 218 168 210" stroke="#7A4830" stroke-width="2.8" fill="none" stroke-linecap="round"/>
-      <path d="M152 210 Q148 205 150 200" stroke="#C09878" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.5"/>
-      <path d="M168 210 Q172 205 170 200" stroke="#C09878" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.5"/>
-    </symbol>
-
   </defs>
 </svg>
 
@@ -785,12 +638,12 @@ html {
     <h2 class="h-h2">Built anyway.</h2>
     <p class="h-lead m-kicker">One person, one device, and one stubborn idea: that a music player should be able to <em>prove</em> what it did.</p>
     <div class="philosophy-mascot playing" aria-label="Meringo mascot — click to toggle playing state" role="button" tabindex="0">
-      <svg class="mascot-svg" viewBox="0 0 320 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 320 440" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Floor shadow + ambient body glow -->
         <ellipse cx="160" cy="425" rx="80" ry="14" fill="url(#m-gFloor)" opacity="0.55"/>
         <ellipse cx="160" cy="260" rx="100" ry="120" fill="url(#m-gGlowVelvet)" opacity="0.18"/>
 
-        <g class="mascot-float">
+        <g>
 
           <!-- BOOTS -->
           <g transform="translate(116,388)">
@@ -838,7 +691,7 @@ html {
           <ellipse cx="239" cy="340" rx="12" ry="9" fill="url(#m-gSkin)" transform="rotate(12,239,340)"/>
 
           <!-- WAND -->
-          <g class="mascot-wand" transform-origin="244 326">
+          <g transform-origin="244 326">
             <g transform="translate(244,326) rotate(-36)">
               <path d="M-1.8 4L-1.4-70Q-0.8-82 0-86Q0.8-82 1.4-70L1.8 4Z" fill="#C4A882" stroke="#9E7A3E" stroke-width="0.4"/>
               <ellipse cx="0" cy="-88" rx="5.5" ry="5.5" fill="url(#m-gGoldH)"/>
@@ -1028,7 +881,7 @@ html {
 <section id="privacy">
   <div class="container">
     <p class="section-label">Legal</p>
-    <h2 class="section-title" style="margin-bottom:var(--space-3);">Privacy Policy</h2>
+    <h2 class="section-title legal-title">Privacy Policy</h2>
     <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC<br>Last updated: October 9, 2026</p>
 
     <div class="privacy-hero">
@@ -1069,20 +922,20 @@ html {
             <li>Your listening preferences and non-sensitive app settings in the app's private DataStore (no credentials are kept here)</li>
             <li>Cached artwork and editorial metadata fetched from public APIs</li>
           </ul>
-          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (off by default; opt in on the first-run screen), anonymised error reports may be sent to Sentry — see the <a href="#priv-crash" style="color:var(--color-gold-dim);">Crash Reporting</a> section below.</p>
+          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (off by default; opt in on the first-run screen), anonymised error reports may be sent to Sentry — see the <a href="#priv-crash" class="legal-xref">Crash Reporting</a> section below.</p>
         </div>
 
         <div class="privacy-block" id="priv-acoustid">
           <h3>Acoustic Fingerprints Stay on Your Device</h3>
           <p>Meringo fingerprints your music: a compact acoustic signature of each track, computed from the sound itself using a fingerprinting library (libchromaprint) bundled inside the app. It is a mathematical representation of the audio signal — not an audio recording, and not something you can listen back to.</p>
-          <p><strong style="color:var(--color-text-0)">No fingerprint is sent anywhere, and there is no setting that would send one.</strong> The work happens entirely on your device, and its results stay there: finding tracks that resemble the one playing, and spotting duplicate rips of the same recording across your library and your server.</p>
-          <p>Earlier releases offered an optional lookup that submitted a fingerprint to the AcoustID web service to identify badly-tagged files. <strong style="color:var(--color-text-0)">That feature has been removed</strong>, along with its setting. Album identity now comes from MusicBrainz alone, queried by album title and album-artist name — described under <a href="#priv-third" style="color:var(--color-gold-dim);">Third-Party Services</a> below.</p>
+          <p><strong class="legal-strong">No fingerprint is sent anywhere, and there is no setting that would send one.</strong> The work happens entirely on your device, and its results stay there: finding tracks that resemble the one playing, and spotting duplicate rips of the same recording across your library and your server.</p>
+          <p>Earlier releases offered an optional lookup that submitted a fingerprint to the AcoustID web service to identify badly-tagged files. <strong class="legal-strong">That feature has been removed</strong>, along with its setting. Album identity now comes from MusicBrainz alone, queried by album title and album-artist name — described under <a href="#priv-third" class="legal-xref">Third-Party Services</a> below.</p>
         </div>
 
         <div class="privacy-block" id="priv-crash">
           <h3>Crash Reporting</h3>
-          <p>Meringo uses <strong style="color:var(--color-text-0)">Sentry</strong> (sentry.io) for crash and error reporting. This helps me identify and fix stability problems without you having to file a bug report manually.</p>
-          <p>Crash reports are <strong style="color:var(--color-text-0)">opt-in</strong>. New installs see a consent toggle on the first-run screen (off by default); until the user makes a choice and taps a Connect button, Sentry is held in a no-op state and zero crash data leaves the device. The same toggle is available afterwards under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings → Privacy → Crash reporting</span>. Disabling it at any time stops Sentry from running for the remainder of the session; it will not be started on the next launch either.</p>
+          <p>Meringo uses <strong class="legal-strong">Sentry</strong> (sentry.io) for crash and error reporting. This helps me identify and fix stability problems without you having to file a bug report manually.</p>
+          <p>Crash reports are <strong class="legal-strong">opt-in</strong>. New installs see a consent toggle on the first-run screen (off by default); until the user makes a choice and taps a Connect button, Sentry is held in a no-op state and zero crash data leaves the device. The same toggle is available afterwards under <span class="ui-path">Settings → Privacy → Crash reporting</span>. Disabling it at any time stops Sentry from running for the remainder of the session; it will not be started on the next launch either.</p>
           <p>Existing installs from before this consent flow (where the user had already completed onboarding under the previous default-on behavior) are treated as having implicitly consented and keep their existing crash-reporting preference. The toggle remains available to flip off whenever they like.</p>
           <p>A crash report contains:</p>
           <ul>
@@ -1091,25 +944,25 @@ html {
             <li>App version and build environment (debug / production)</li>
             <li>Recent navigation breadcrumbs (screen names only)</li>
           </ul>
-          <p>Crash reports do <strong style="color:var(--color-text-0)">not</strong> contain your music library, file paths, server credentials, listening history, or any content from your device. Known authentication parameters in server URLs — Jellyfin <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">api_key</code>, OpenSubsonic <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">apiKey</code>, and the Subsonic legacy auth quartet (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">t</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">s</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">u</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">p</code>) — are redacted from any URL captured in a crash report before it is transmitted.</p>
-          <p>When crash reporting is enabled, Meringo also reports <strong style="color:var(--color-text-0)">release-health</strong> signals to Sentry — anonymous session start/stop events (used to compute crash-free-session and crash-free-user rates) and ANR (app-not-responding) events. These carry no personal data and follow the same opt-in and redaction rules as the crash reports above.</p>
-          <p>Sentry's own privacy policy is available at <a href="https://sentry.io/privacy/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">sentry.io/privacy</a>.</p>
+          <p>Crash reports do <strong class="legal-strong">not</strong> contain your music library, file paths, server credentials, listening history, or any content from your device. Known authentication parameters in server URLs — Jellyfin <code class="legal-code">api_key</code>, OpenSubsonic <code class="legal-code">apiKey</code>, and the Subsonic legacy auth quartet (<code class="legal-code">t</code>, <code class="legal-code">s</code>, <code class="legal-code">u</code>, <code class="legal-code">p</code>) — are redacted from any URL captured in a crash report before it is transmitted.</p>
+          <p>When crash reporting is enabled, Meringo also reports <strong class="legal-strong">release-health</strong> signals to Sentry — anonymous session start/stop events (used to compute crash-free-session and crash-free-user rates) and ANR (app-not-responding) events. These carry no personal data and follow the same opt-in and redaction rules as the crash reports above.</p>
+          <p>Sentry's own privacy policy is available at <a href="https://sentry.io/privacy/" target="_blank" rel="noopener" class="legal-xref">sentry.io/privacy</a>.</p>
         </div>
 
         <div class="privacy-block" id="priv-third">
           <h3>Third-Party Services</h3>
           <p>Meringo integrates with the following public, read-only APIs to provide editorial content:</p>
           <ul>
-            <li><strong style="color:var(--color-text-0)">Google Play</strong> — first, because it happens first. Meringo is a paid app, and a paid app has to ask Google whether you paid: at every launch, before any consent screen renders, the app connects to Google Play's billing service through the Play Store on your device to check the purchase. Google's billing library also brings along a Google upload component (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">com.google.android.datatransport</code>) — a small database and a scheduled upload job in the app's own data directory that batch Google's delivery telemetry back to Google. It arrives transitively with the Play libraries; it is Google's plumbing, not Meringo tracking your listening — and it is named here because it exists, not because we chose it.</li>
-            <li><strong style="color:var(--color-text-0)">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information. Query payload per album is exactly two strings — <em>album title</em> and <em>album-artist name</em>. Listening habits, play counts, file paths, and device identifiers never enter the request. Unresolved entries re-attempt every 30 days; tentative low-confidence matches every 90.</li>
-            <li><strong style="color:var(--color-text-0)">Cover Art Archive</strong> — High-resolution album artwork; queried by release-group MBID returned from the MusicBrainz lookup above</li>
-            <li><strong style="color:var(--color-text-0)">Wikipedia</strong> (Wikimedia Foundation) — Artist biographies and hero images, fetched on demand for the Now Playing artist info sheet</li>
-            <li><strong style="color:var(--color-text-0)">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
-            <li><strong style="color:var(--color-text-0)">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
-            <li><strong style="color:var(--color-text-0)">LRCLIB</strong> — Opt-in community lyrics database (off by default). When you switch on <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Online lyrics</span> and a track has no embedded or server lyrics, its <em>title</em>, <em>artist</em> and <em>album</em> are sent to <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">lrclib.net</code> to find matching words. Nothing else — no audio, no file path, no play counts. No request is made until you switch it on.</li>
-            <li><strong style="color:var(--color-text-0)">ListenBrainz</strong> — Opt-in scrobble service (off by default). When you connect your token in <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; ListenBrainz</span>, track metadata (artist, title, album, duration, MusicBrainz Recording ID when available) and the listen's start timestamp are submitted to <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">api.listenbrainz.org</code>. No data is sent until you've affirmatively connected. Token is stored encrypted on-device using Android Keystore; pausing or disconnecting in Settings stops submission immediately. Failed submissions persist to a local retry queue and never leave the device until the network allows them.</li>
-            <li><strong style="color:var(--color-text-0)">Sentry</strong> — Anonymised crash and error reporting (opt-in; see above)</li>
-            <li><strong style="color:var(--color-text-0)">AutoEQ archive</strong> (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">raw.githubusercontent.com</code>) — the community archive of headphone corrections. The fetch code ships in the app, but the network tier is switched off in this release: corrections come from a bundled offline pack, and a build test fails the moment anyone flips the switch. Named now so this list is already true on the day a future update turns it on.</li>
+            <li><strong class="legal-strong">Google Play</strong> — first, because it happens first. Meringo is a paid app, and a paid app has to ask Google whether you paid: at every launch, before any consent screen renders, the app connects to Google Play's billing service through the Play Store on your device to check the purchase. Google's billing library also brings along a Google upload component (<code class="legal-code">com.google.android.datatransport</code>) — a small database and a scheduled upload job in the app's own data directory that batch Google's delivery telemetry back to Google. It arrives transitively with the Play libraries; it is Google's plumbing, not Meringo tracking your listening — and it is named here because it exists, not because we chose it.</li>
+            <li><strong class="legal-strong">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information. Query payload per album is exactly two strings — <em>album title</em> and <em>album-artist name</em>. Listening habits, play counts, file paths, and device identifiers never enter the request. Unresolved entries re-attempt every 30 days; tentative low-confidence matches every 90.</li>
+            <li><strong class="legal-strong">Cover Art Archive</strong> — High-resolution album artwork; queried by release-group MBID returned from the MusicBrainz lookup above</li>
+            <li><strong class="legal-strong">Wikipedia</strong> (Wikimedia Foundation) — Artist biographies and hero images, fetched on demand for the Now Playing artist info sheet</li>
+            <li><strong class="legal-strong">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
+            <li><strong class="legal-strong">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
+            <li><strong class="legal-strong">LRCLIB</strong> — Opt-in community lyrics database (off by default). When you switch on <span class="ui-path">Online lyrics</span> and a track has no embedded or server lyrics, its <em>title</em>, <em>artist</em> and <em>album</em> are sent to <code class="legal-code">lrclib.net</code> to find matching words. Nothing else — no audio, no file path, no play counts. No request is made until you switch it on.</li>
+            <li><strong class="legal-strong">ListenBrainz</strong> — Opt-in scrobble service (off by default). When you connect your token in <span class="ui-path">Settings &rarr; ListenBrainz</span>, track metadata (artist, title, album, duration, MusicBrainz Recording ID when available) and the listen's start timestamp are submitted to <code class="legal-code">api.listenbrainz.org</code>. No data is sent until you've affirmatively connected. Token is stored encrypted on-device using Android Keystore; pausing or disconnecting in Settings stops submission immediately. Failed submissions persist to a local retry queue and never leave the device until the network allows them.</li>
+            <li><strong class="legal-strong">Sentry</strong> — Anonymised crash and error reporting (opt-in; see above)</li>
+            <li><strong class="legal-strong">AutoEQ archive</strong> (<code class="legal-code">raw.githubusercontent.com</code>) — the community archive of headphone corrections. The fetch code ships in the app, but the network tier is switched off in this release: corrections come from a bundled offline pack, and a build test fails the moment anyone flips the switch. Named now so this list is already true on the day a future update turns it on.</li>
           </ul>
           <p>Content retrieval requests carry no personal identifiers. Crash reports are governed by the terms described in the Crash Reporting section above. Use of all third-party services is subject to their respective privacy policies.</p>
         </div>
@@ -1118,61 +971,61 @@ html {
           <h3>Local Storage &amp; Security</h3>
           <p>Server credentials are encrypted on-device using the Android Keystore system (EncryptedSharedPreferences). Non-sensitive preferences are kept in the app's private DataStore, accessible only to Meringo. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
           <p>Meringo declares these permissions. Three of them are declared but never requested or used, and each says so below:</p>
-          <ul style="margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-2);">
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">INTERNET</span> — metadata APIs (MusicBrainz, Cover Art Archive) and communication with your Jellyfin or Subsonic server</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">ACCESS_NETWORK_STATE</span> — detect connectivity before making network requests</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">CHANGE_WIFI_MULTICAST_STATE</span> — discover Google Cast / DLNA receivers on your local network (mDNS multicast). A multicast lock is held only while the Now Playing screen is open; no media or personal data is broadcast</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_MEDIA_AUDIO</span> — declared but never requested or used. Meringo reaches the music on your device only through the folders you pick in the system folder picker</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">READ_EXTERNAL_STORAGE</span> — declared but never requested or used. It carries <code>maxSdkVersion=32</code>, below the app's minimum of Android 13, so it can never apply</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE</span> / <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span> — keep the playback service running while the screen is off</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">POST_NOTIFICATIONS</span> — non-foreground-service notifications such as the USB DAC lockout alert (the playback notification itself is exempt under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span>). Prompted for at install on Android 13+; the app remains fully usable if declined</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">MODIFY_AUDIO_SETTINGS</span> — audio output routing</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">BLUETOOTH_CONNECT</span> — declared but never requested or used. Meringo recognises a Bluetooth output without it</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">WAKE_LOCK</span> — prevent the CPU from sleeping mid-track during background playback</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">VIBRATE</span> — haptic feedback on seek and UI interactions</li>
-            <li><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">com.android.vending.BILLING</span> — the one-time in-app purchase. A normal-level permission auto-granted at install; Google Play's billing client will not initialise without it. It grants no access to your device, your library, or your payment details — the transaction itself is handled entirely by Google Play, and Meringo never sees a card number</li>
+          <ul class="legal-stack">
+            <li><span class="ui-path">INTERNET</span> — metadata APIs (MusicBrainz, Cover Art Archive) and communication with your Jellyfin or Subsonic server</li>
+            <li><span class="ui-path">ACCESS_NETWORK_STATE</span> — detect connectivity before making network requests</li>
+            <li><span class="ui-path">CHANGE_WIFI_MULTICAST_STATE</span> — discover Google Cast / DLNA receivers on your local network (mDNS multicast). A multicast lock is held only while the Now Playing screen is open; no media or personal data is broadcast</li>
+            <li><span class="ui-path">READ_MEDIA_AUDIO</span> — declared but never requested or used. Meringo reaches the music on your device only through the folders you pick in the system folder picker</li>
+            <li><span class="ui-path">READ_EXTERNAL_STORAGE</span> — declared but never requested or used. It carries <code>maxSdkVersion=32</code>, below the app's minimum of Android 13, so it can never apply</li>
+            <li><span class="ui-path">FOREGROUND_SERVICE</span> / <span class="ui-path">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span> — keep the playback service running while the screen is off</li>
+            <li><span class="ui-path">POST_NOTIFICATIONS</span> — non-foreground-service notifications such as the USB DAC lockout alert (the playback notification itself is exempt under <span class="ui-path">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span>). Prompted for at install on Android 13+; the app remains fully usable if declined</li>
+            <li><span class="ui-path">MODIFY_AUDIO_SETTINGS</span> — audio output routing</li>
+            <li><span class="ui-path">BLUETOOTH_CONNECT</span> — declared but never requested or used. Meringo recognises a Bluetooth output without it</li>
+            <li><span class="ui-path">WAKE_LOCK</span> — prevent the CPU from sleeping mid-track during background playback</li>
+            <li><span class="ui-path">VIBRATE</span> — haptic feedback on seek and UI interactions</li>
+            <li><span class="ui-path">com.android.vending.BILLING</span> — the one-time in-app purchase. A normal-level permission auto-granted at install; Google Play's billing client will not initialise without it. It grants no access to your device, your library, or your payment details — the transaction itself is handled entirely by Google Play, and Meringo never sees a card number</li>
           </ul>
         </div>
 
         <div class="privacy-block" id="priv-rights">
           <h3>Your Rights</h3>
           <p>Because Meringo does not collect personal data on any server I control, there is no centralized profile for me to provide, correct, or delete on my end. All data the app holds is stored on your device and remains under your direct control.</p>
-          <p><strong style="color:var(--color-text-0)">Right to access</strong> (GDPR Art. 15, CCPA &sect; 1798.110). All data Meringo holds about you is on your device: the local library database, encrypted server credentials, app preferences, and any cached metadata. You can inspect it directly through Android's app-data tools, or open the JSON dump produced by the <em>Export my data</em> feature described below.</p>
-          <p><strong style="color:var(--color-text-0)">Right to erasure</strong> (GDPR Art. 17, &ldquo;right to be forgotten&rdquo;). Uninstalling Meringo, or using <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Android Settings &rarr; Apps &rarr; Meringo &rarr; Storage &rarr; Clear all data</span>, deletes every byte the app has on your device. Because no copy lives on my servers, this completes the erasure.</p>
-          <p><strong style="color:var(--color-text-0)">Right to portability</strong> (GDPR Art. 20). Tap <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; Privacy &rarr; Export my data</span> to write a human-readable JSON file to a location of your choice &mdash; your EQ presets, smart playlists, granted folder URIs, rack headphones, every non-sensitive preference, and (since export schema v2) the full on-device backup: star ratings, play counts and last-played times, bit-perfect receipts, the brew log, integrity verdicts, and imported playlists.</p>
-          <p><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; Privacy &rarr; Import my data</span> reads the file back onto any install, with a preview of the file's contents before anything is applied. It never takes anything away: nothing you already have is deleted or overwritten, an existing rating is never lowered, play counts merge upward, and duplicates are skipped. It can, however, decline what it is given. Ratings, play history and integrity verdicts describe a particular file rather than a path, so if the file sitting at that path is no longer the one the backup was taken from &mdash; a re-rip, a re-tag, a different pressing dropped into the same folder &mdash; the incoming values for it are not applied, and the import tells you how many. A declined verdict costs you nothing permanent, because the file is simply re-checked in the background; a declined play count is gone, because nothing can recompute how often you listened to something. That is why the number is put in front of you rather than written to a log. Data for a track that is not in your library yet waits for it, and is held to the same check when it arrives.</p>
+          <p><strong class="legal-strong">Right to access</strong> (GDPR Art. 15, CCPA &sect; 1798.110). All data Meringo holds about you is on your device: the local library database, encrypted server credentials, app preferences, and any cached metadata. You can inspect it directly through Android's app-data tools, or open the JSON dump produced by the <em>Export my data</em> feature described below.</p>
+          <p><strong class="legal-strong">Right to erasure</strong> (GDPR Art. 17, &ldquo;right to be forgotten&rdquo;). Uninstalling Meringo, or using <span class="ui-path">Android Settings &rarr; Apps &rarr; Meringo &rarr; Storage &rarr; Clear all data</span>, deletes every byte the app has on your device. Because no copy lives on my servers, this completes the erasure.</p>
+          <p><strong class="legal-strong">Right to portability</strong> (GDPR Art. 20). Tap <span class="ui-path">Settings &rarr; Privacy &rarr; Export my data</span> to write a human-readable JSON file to a location of your choice &mdash; your EQ presets, smart playlists, granted folder URIs, rack headphones, every non-sensitive preference, and (since export schema v2) the full on-device backup: star ratings, play counts and last-played times, bit-perfect receipts, the brew log, integrity verdicts, and imported playlists.</p>
+          <p><span class="ui-path">Settings &rarr; Privacy &rarr; Import my data</span> reads the file back onto any install, with a preview of the file's contents before anything is applied. It never takes anything away: nothing you already have is deleted or overwritten, an existing rating is never lowered, play counts merge upward, and duplicates are skipped. It can, however, decline what it is given. Ratings, play history and integrity verdicts describe a particular file rather than a path, so if the file sitting at that path is no longer the one the backup was taken from &mdash; a re-rip, a re-tag, a different pressing dropped into the same folder &mdash; the incoming values for it are not applied, and the import tells you how many. A declined verdict costs you nothing permanent, because the file is simply re-checked in the background; a declined play count is gone, because nothing can recompute how often you listened to something. That is why the number is put in front of you rather than written to a log. Data for a track that is not in your library yet waits for it, and is held to the same check when it arrives.</p>
           <p>Encrypted credentials and the library database itself stay excluded by design and are documented in the export manifest &mdash; your ratings and play history are no longer among the exclusions; they ride in the export's backup_payload section. Your music files themselves remain in the formats you provided &mdash; the app does not lock them in proprietary containers.</p>
-          <p><strong style="color:var(--color-text-0)">Right to object &amp; opt out.</strong> Crash reporting can be disabled at any time under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings &rarr; Privacy &rarr; Crash reporting</span>. Acoustic fingerprinting needs no opt-out, because no fingerprint leaves your device — see <a href="#priv-acoustid" style="color:var(--color-gold-dim);">Acoustic Fingerprints</a> above. ListenBrainz scrobbling requires you to provide a token before any data is sent.</p>
-          <p><strong style="color:var(--color-text-0)">Right to lodge a complaint.</strong> EU/EEA users may lodge a complaint with their national data-protection authority. California residents may contact the California Attorney General. For questions about this policy or to exercise any right above, write to <a href="mailto:support@meringo.app" style="color:var(--color-gold-dim);">support@meringo.app</a>.</p>
+          <p><strong class="legal-strong">Right to object &amp; opt out.</strong> Crash reporting can be disabled at any time under <span class="ui-path">Settings &rarr; Privacy &rarr; Crash reporting</span>. Acoustic fingerprinting needs no opt-out, because no fingerprint leaves your device — see <a href="#priv-acoustid" class="legal-xref">Acoustic Fingerprints</a> above. ListenBrainz scrobbling requires you to provide a token before any data is sent.</p>
+          <p><strong class="legal-strong">Right to lodge a complaint.</strong> EU/EEA users may lodge a complaint with their national data-protection authority. California residents may contact the California Attorney General. For questions about this policy or to exercise any right above, write to <a href="mailto:support@meringo.app" class="legal-xref">support@meringo.app</a>.</p>
           <p>The application is provided as-is. As a solo developer, I work hard to keep Meringo stable and respectful of your privacy, but I cannot guarantee it will be free of defects.</p>
         </div>
 
         <div class="privacy-block" id="priv-trademarks">
           <h3>Trademarks &amp; Attribution</h3>
-          <p>Meringo is an independent project and is <strong style="color:var(--color-text-0)">not affiliated with, endorsed by, or sponsored by</strong> any third-party service, project, or hardware manufacturer referenced on this page or in the application. All product names, logos, and brands are property of their respective owners and are used here for descriptive, interoperability, and identification purposes only (nominative fair use).</p>
+          <p>Meringo is an independent project and is <strong class="legal-strong">not affiliated with, endorsed by, or sponsored by</strong> any third-party service, project, or hardware manufacturer referenced on this page or in the application. All product names, logos, and brands are property of their respective owners and are used here for descriptive, interoperability, and identification purposes only (nominative fair use).</p>
           <ul>
-            <li><strong style="color:var(--color-text-0)">Jellyfin</strong> is a trademark of the Jellyfin Project. Meringo connects to user-configured Jellyfin servers via the project's public HTTP API.</li>
-            <li><strong style="color:var(--color-text-0)">Subsonic</strong> is a trademark of Sindre Mehus. <strong style="color:var(--color-text-0)">OpenSubsonic</strong> is a community specification. <strong style="color:var(--color-text-0)">Navidrome</strong>, <strong style="color:var(--color-text-0)">Airsonic</strong>, and other compatible servers are independent projects of their respective maintainers.</li>
-            <li><strong style="color:var(--color-text-0)">FiiO</strong> and <strong style="color:var(--color-text-0)">M21</strong> are trademarks of Guangzhou FiiO Electronics Technology Co., Ltd.</li>
-            <li><strong style="color:var(--color-text-0)">Snapdragon</strong> is a trademark of Qualcomm Incorporated.</li>
-            <li><strong style="color:var(--color-text-0)">Android</strong> is a trademark of Google LLC.</li>
-            <li><strong style="color:var(--color-text-0)">MusicBrainz</strong>, the <strong style="color:var(--color-text-0)">Cover Art Archive</strong>, and <strong style="color:var(--color-text-0)">AcoustID</strong> are projects of the MetaBrainz Foundation and its contributors. Data and artwork retrieved from MusicBrainz and the Cover Art Archive are used under their respective public terms. Meringo no longer queries the AcoustID service, but it does bundle <strong style="color:var(--color-text-0)">Chromaprint</strong>, the AcoustID project's open-source fingerprinting library (LGPL-2.1+), which runs entirely on your device; visit <a href="https://metabrainz.org/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">metabrainz.org</a> and <a href="https://acoustid.org/" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">acoustid.org</a> for details.</li>
-            <li><strong style="color:var(--color-text-0)">oratory1990</strong>'s headphone EQ measurements are bundled as a curated subset of presets, used under the Creative Commons <strong style="color:var(--color-text-0)">CC&nbsp;BY-SA&nbsp;4.0</strong> license and sourced via <strong style="color:var(--color-text-0)">OPRA</strong> (Open Profiles for Revealing Audio), a Roon-maintained community headphone-measurement database &mdash; see <a href="https://github.com/opra-project/OPRA" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">github.com/opra-project/OPRA</a>. If his work improves your listening, consider supporting him at <a href="https://www.buymeacoffee.com/oratory1990" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">buymeacoffee.com/oratory1990</a>.</li>
-            <li><strong style="color:var(--color-text-0)">Sentry</strong> is a trademark of Functional Software, Inc.</li>
+            <li><strong class="legal-strong">Jellyfin</strong> is a trademark of the Jellyfin Project. Meringo connects to user-configured Jellyfin servers via the project's public HTTP API.</li>
+            <li><strong class="legal-strong">Subsonic</strong> is a trademark of Sindre Mehus. <strong class="legal-strong">OpenSubsonic</strong> is a community specification. <strong class="legal-strong">Navidrome</strong>, <strong class="legal-strong">Airsonic</strong>, and other compatible servers are independent projects of their respective maintainers.</li>
+            <li><strong class="legal-strong">FiiO</strong> and <strong class="legal-strong">M21</strong> are trademarks of Guangzhou FiiO Electronics Technology Co., Ltd.</li>
+            <li><strong class="legal-strong">Snapdragon</strong> is a trademark of Qualcomm Incorporated.</li>
+            <li><strong class="legal-strong">Android</strong> is a trademark of Google LLC.</li>
+            <li><strong class="legal-strong">MusicBrainz</strong>, the <strong class="legal-strong">Cover Art Archive</strong>, and <strong class="legal-strong">AcoustID</strong> are projects of the MetaBrainz Foundation and its contributors. Data and artwork retrieved from MusicBrainz and the Cover Art Archive are used under their respective public terms. Meringo no longer queries the AcoustID service, but it does bundle <strong class="legal-strong">Chromaprint</strong>, the AcoustID project's open-source fingerprinting library (LGPL-2.1+), which runs entirely on your device; visit <a href="https://metabrainz.org/" target="_blank" rel="noopener" class="legal-xref">metabrainz.org</a> and <a href="https://acoustid.org/" target="_blank" rel="noopener" class="legal-xref">acoustid.org</a> for details.</li>
+            <li><strong class="legal-strong">oratory1990</strong>'s headphone EQ measurements are bundled as a curated subset of presets, used under the Creative Commons <strong class="legal-strong">CC&nbsp;BY-SA&nbsp;4.0</strong> license and sourced via <strong class="legal-strong">OPRA</strong> (Open Profiles for Revealing Audio), a Roon-maintained community headphone-measurement database &mdash; see <a href="https://github.com/opra-project/OPRA" target="_blank" rel="noopener" class="legal-xref">github.com/opra-project/OPRA</a>. If his work improves your listening, consider supporting him at <a href="https://www.buymeacoffee.com/oratory1990" target="_blank" rel="noopener" class="legal-xref">buymeacoffee.com/oratory1990</a>.</li>
+            <li><strong class="legal-strong">Sentry</strong> is a trademark of Functional Software, Inc.</li>
           </ul>
           <p>Quoted reviews appearing elsewhere on this page are reproduced as public commentary under fair use, attributed to their original authors, and accompanied by editorial response. They are not endorsements.</p>
         </div>
 
         <div class="privacy-block" id="priv-opensource">
           <h3>Open-Source Software</h3>
-          <p>Meringo bundles a Meringo-built decoder derived from <strong style="color:var(--color-text-0)">FFmpeg</strong> (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">libavcodec</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">libavutil</code>, <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--color-teal)">libswresample</code>) statically linked for ALAC and FLAC playback. It is used under the terms of the <strong style="color:var(--color-text-0)">GNU LGPL v2.1 or later</strong>, with no GPL-licensed components enabled in the build.</p>
-          <p>Full attribution, license texts, build configuration, and the written offer of source availability are bundled into the application under <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-teal)">Settings → Open Source Licenses</span>. The remaining open-source dependencies (Media3, Coil, AndroidX, Hilt, Room, and others) are enumerated in the same screen, generated automatically from the build manifest.</p>
+          <p>Meringo bundles a Meringo-built decoder derived from <strong class="legal-strong">FFmpeg</strong> (<code class="legal-code">libavcodec</code>, <code class="legal-code">libavutil</code>, <code class="legal-code">libswresample</code>) statically linked for ALAC and FLAC playback. It is used under the terms of the <strong class="legal-strong">GNU LGPL v2.1 or later</strong>, with no GPL-licensed components enabled in the build.</p>
+          <p>Full attribution, license texts, build configuration, and the written offer of source availability are bundled into the application under <span class="ui-path">Settings → Open Source Licenses</span>. The remaining open-source dependencies (Media3, Coil, AndroidX, Hilt, Room, and others) are enumerated in the same screen, generated automatically from the build manifest.</p>
         </div>
 
         <div class="privacy-block" id="priv-contact">
           <h3>Contact</h3>
           <p>Questions about this privacy policy or Meringo's data practices? Write to me directly:</p>
-          <a href="mailto:support@meringo.app" class="support-link" style="margin-top:var(--space-2);">support@meringo.app</a>
+          <a href="mailto:support@meringo.app" class="support-link legal-mail">support@meringo.app</a>
         </div>
 
       </div>
@@ -1188,7 +1041,7 @@ html {
 <section id="terms">
   <div class="container">
     <p class="section-label">Legal</p>
-    <h2 class="section-title" style="margin-bottom:var(--space-3);">Terms of Service</h2>
+    <h2 class="section-title legal-title">Terms of Service</h2>
     <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC</p>
 
     <p class="privacy-summary">
@@ -1233,7 +1086,7 @@ html {
 
         <div class="privacy-block" id="tos-third-party">
           <h3>5. Third-Party Services</h3>
-          <p>Meringo integrates with third-party services as enumerated in the <a href="#priv-third" style="color:var(--color-gold-dim);">Privacy Policy</a>: Google Play (purchase verification, and Google's datatransport upload component that rides with it), MusicBrainz, Cover Art Archive, LRCLIB, ListenBrainz, Wikipedia, Sentry, the AutoEQ archive (dormant in this release), and any user-configured media server. Your use of those services is subject to the terms and privacy policies of each provider. I am not responsible for the availability, accuracy, or conduct of any third-party service.</p>
+          <p>Meringo integrates with third-party services as enumerated in the <a href="#priv-third" class="legal-xref">Privacy Policy</a>: Google Play (purchase verification, and Google's datatransport upload component that rides with it), MusicBrainz, Cover Art Archive, LRCLIB, ListenBrainz, Wikipedia, Sentry, the AutoEQ archive (dormant in this release), and any user-configured media server. Your use of those services is subject to the terms and privacy policies of each provider. I am not responsible for the availability, accuracy, or conduct of any third-party service.</p>
         </div>
 
         <div class="privacy-block" id="tos-purchase">
@@ -1245,7 +1098,7 @@ html {
 
         <div class="privacy-block" id="tos-ip">
           <h3>7. Intellectual Property</h3>
-          <p>&ldquo;Meringo,&rdquo; the wordmark, the waveform logo, the Field Guide, the Full Manual, and the visual design of the app and website are the intellectual property of Meringo Labs LLC, protected by copyright and trademark law. Third-party trademarks are used nominatively, as detailed in the Privacy Policy's <a href="#priv-trademarks" style="color:var(--color-gold-dim);">Trademarks &amp; Attribution</a> section.</p>
+          <p>&ldquo;Meringo,&rdquo; the wordmark, the waveform logo, the Field Guide, the Full Manual, and the visual design of the app and website are the intellectual property of Meringo Labs LLC, protected by copyright and trademark law. Third-party trademarks are used nominatively, as detailed in the Privacy Policy's <a href="#priv-trademarks" class="legal-xref">Trademarks &amp; Attribution</a> section.</p>
         </div>
 
         <div class="privacy-block" id="tos-warranty">
@@ -1270,12 +1123,12 @@ html {
         <div class="privacy-block" id="tos-dmca">
           <h3>11. DMCA &amp; Copyright</h3>
           <p>Meringo Labs LLC respects the intellectual property rights of others and complies with the Digital Millennium Copyright Act. If you believe content available through or in connection with Meringo infringes your copyright, send a notice satisfying 17 U.S.C. &sect; 512(c)(3) to:</p>
-          <p style="margin-top:var(--space-3);">
-            <strong style="color:var(--color-text-0)">DMCA Agent &mdash; Meringo Labs LLC</strong><br>
+          <p class="legal-gap">
+            <strong class="legal-strong">DMCA Agent &mdash; Meringo Labs LLC</strong><br>
             69 Stillwell Ave<br>
             Kenmore, NY 14217<br>
             United States of America<br>
-            Email: <a href="mailto:support@meringo.app" style="color:var(--color-gold-dim);">support@meringo.app</a>
+            Email: <a href="mailto:support@meringo.app" class="legal-xref">support@meringo.app</a>
           </p>
         </div>
 
@@ -1291,7 +1144,7 @@ html {
 
         <div class="privacy-block" id="tos-disputes">
           <h3>14. Dispute Resolution</h3>
-          <p>Before filing a claim, you agree to attempt informal resolution by emailing <a href="mailto:support@meringo.app" style="color:var(--color-gold-dim);">support@meringo.app</a> with a description of the dispute. We will attempt to resolve the matter within thirty (30) days.</p>
+          <p>Before filing a claim, you agree to attempt informal resolution by emailing <a href="mailto:support@meringo.app" class="legal-xref">support@meringo.app</a> with a description of the dispute. We will attempt to resolve the matter within thirty (30) days.</p>
           <p>If informal resolution fails, any dispute arising out of or related to these Terms or your use of Meringo shall be resolved exclusively in the state or federal courts located in Erie County, New York, and you consent to personal jurisdiction in those courts. You and Meringo Labs LLC each waive any right to a jury trial.</p>
         </div>
 
@@ -1307,13 +1160,13 @@ html {
 
         <div class="privacy-block" id="tos-entire">
           <h3>17. Entire Agreement</h3>
-          <p>These Terms, together with the <a href="#privacy" style="color:var(--color-gold-dim);">Privacy Policy</a>, constitute the entire agreement between you and Meringo Labs LLC regarding the app and supersede any prior agreements.</p>
+          <p>These Terms, together with the <a href="#privacy" class="legal-xref">Privacy Policy</a>, constitute the entire agreement between you and Meringo Labs LLC regarding the app and supersede any prior agreements.</p>
         </div>
 
         <div class="privacy-block" id="tos-contact">
           <h3>18. Contact</h3>
           <p>Questions about these Terms? Write to me directly:</p>
-          <a href="mailto:support@meringo.app" class="support-link" style="margin-top:var(--space-2);">support@meringo.app</a>
+          <a href="mailto:support@meringo.app" class="support-link legal-mail">support@meringo.app</a>
         </div>
 
       </div>
@@ -1329,7 +1182,7 @@ html {
 <section id="imprint">
   <div class="container">
     <p class="section-label">Legal</p>
-    <h2 class="section-title" style="margin-bottom:var(--space-3);">Impressum &amp; Legal Notice</h2>
+    <h2 class="section-title legal-title">Impressum &amp; Legal Notice</h2>
 
     <p class="privacy-summary">
       In accordance with &sect;5 of the German Telemediengesetz (TMG) and equivalent EU disclosure requirements.
@@ -1353,7 +1206,7 @@ html {
 
       <div class="privacy-block" id="imp-contact">
         <h3>Contact</h3>
-        <p>Email: <a href="mailto:support@meringo.app" style="color:var(--color-gold-dim);">support@meringo.app</a></p>
+        <p>Email: <a href="mailto:support@meringo.app" class="legal-xref">support@meringo.app</a></p>
       </div>
 
       <div class="privacy-block" id="imp-editorial">
@@ -1363,7 +1216,7 @@ html {
 
       <div class="privacy-block" id="imp-odr">
         <h3>EU Online Dispute Resolution</h3>
-        <p>The European Commission provides a platform for online dispute resolution (ODR) at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" style="color:var(--color-gold-dim);">ec.europa.eu/consumers/odr</a>. Meringo Labs LLC is not obligated and not willing to participate in dispute resolution proceedings before a consumer arbitration board.</p>
+        <p>The European Commission provides a platform for online dispute resolution (ODR) at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" class="legal-xref">ec.europa.eu/consumers/odr</a>. Meringo Labs LLC is not obligated and not willing to participate in dispute resolution proceedings before a consumer arbitration board.</p>
       </div>
     </div>
   </div>
@@ -1408,16 +1261,6 @@ document.querySelectorAll('.philosophy-mascot').forEach(m => {
   m.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
   });
-});
-
-// Pause looping animations when offscreen
-const animPauseObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    entry.target.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
-  });
-}, { threshold: 0 });
-document.querySelectorAll('.btn-primary, .philosophy-mascot').forEach(el => {
-  animPauseObserver.observe(el);
 });
 
 </script>
