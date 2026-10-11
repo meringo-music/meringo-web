@@ -89,18 +89,17 @@ you nothing.</p>
   <h2>Three questions worth asking of any player</h2>
   <p><strong>Does it drive the DAC directly?</strong> Meringo parses the DAC's USB Audio Class
 descriptors, claims the audio-streaming interface, and ships PCM frames through
-isochronous transfers straight to the DAC's USB endpoint, with no AudioFlinger
-between the bits and the DAC. Whatever you end up using, the question is
+isochronous transfers without going through Android's AudioFlinger. Whatever you end up using, the question is
 whether it opens the USB device itself or plays through the system output like
 any other app.</p>
   <p><strong>Does it show the rate it got, and say so when the path fails?</strong> Bit-perfect
-here means three things at once: sample-rate parity, bit-depth parity, and
-single-client passthrough. Meringo's format strip goes teal for BIT-IDENTICAL
-when the pipe is live and the negotiated rate matches the file. It lights an
-amber warning the moment AudioFlinger resamples or truncates the signal, and it
-reads INTERNAL SRC when the internal resampler is switched on, because that is
-what is actually happening. ReplayGain, EQ and concurrent system mixing put
-explicit suffixes on the badge rather than quietly leaving it green.</p>
+here is a two-axis claim: sample rate and bit depth. Meringo's bit-perfect chip
+stays teal when the pipe is live and the DAC's negotiated rate matches the
+file. The format strip lights an amber warning the moment AudioFlinger
+resamples or truncates the signal, and the route badge reads INTERNAL SRC
+instead of BIT-PERFECT when you turn on Force Output Sample Rate, because
+resampling is mathematical interpolation, not bit-identity. ReplayGain, crossfade and
+concurrent audio show up as suffixes on the badge, never as a silent lie.</p>
   <p><strong>Can you check the claim without taking the app's word for it?</strong> This is the
 one most players cannot answer, and it is the reason we built the receipt
 mechanism. Arm Verified Capture in Settings, Audio Diagnostics. Meringo writes
