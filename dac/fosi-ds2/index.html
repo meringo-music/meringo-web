@@ -21,28 +21,7 @@
 <link rel="stylesheet" href="/page.css">
 
 <style>
-/* This page's own rules. The shared ones are in /page.css.
-   The desk's render_page.py builds new pages from this shell and appends
-   its table rules to this block, so it stays the page's only <style>. */
-
-/* render_page.py: markdown tables (added only to pages that carry one) */
-.table-scroll { overflow-x: auto; margin: var(--space-6) 0; }
-.page table {
-  border-collapse: collapse;
-  width: 100%;
-  font-size: var(--text-sm);
-  font-variant-numeric: tabular-nums;
-}
-.page th, .page td {
-  text-align: left;
-  vertical-align: top;
-  padding: var(--space-2) var(--space-4) var(--space-2) 0;
-  border-top: 1px solid var(--color-border-dim);
-  color: var(--color-text-1);
-}
-.page tr:last-child > * { border-bottom: 1px solid var(--color-border-dim); }
-.page th { font-family: var(--font-ui); font-weight: 500; color: var(--color-text-0); }
-.page td code { word-break: break-all; }
+/* This page's own rules. The shared ones are in /page.css. */
 </style>
 </head>
 <body>
@@ -68,61 +47,131 @@
 
 <div id="content"></div>
 <main class="page">
-  <h1>Does the Fosi DS2 run bit-perfect on Android?</h1>
-  <p class="lede">Yes. Meringo has captured bit-identical output from the Fosi DS2 twice: once at
-24-bit / 96 kHz and once at CD-rate 16-bit / 44.1 kHz. Both SHA-256 hashes are
-published in full, and both are recomputable with ffmpeg, which is a tool we do
-not control.</p>
+  <p class="page-label">Verified hardware</p>
+  <h1>Does the Fosi DS2 run <em>bit-perfect</em> on Android?</h1>
+
+  <p>
+    <strong>Yes.</strong> Meringo has captured bit-identical output from the Fosi DS2 twice:
+    once at 24-bit / 96&nbsp;kHz and once at CD-rate 16-bit / 44.1&nbsp;kHz. Both SHA-256
+    hashes are published in full, and both are recomputable with ffmpeg, which is a tool we do
+    not control.
+  </p>
+
   <h2>The receipts</h2>
   <p>Two captures, one month apart, on two different builds. Both bit-identical.</p>
-  <div class="table-scroll"><table><thead><tr><th>Capture</th><th>Path</th><th>Build</th><th>Date</th><th>SHA-256</th></tr></thead><tbody><tr><td>1</td><td>UAC2 high-speed async · 24-bit (alt 2) lane · 96 kHz · 24-bit · FLAC</td><td>Meringo 1.30.0 (128)</td><td>2026-07-19</td><td><code>d7eb00c6837375ca1f74c95efc2cea78e02331f66e7111a36b383c3861912538</code></td></tr><tr><td>2</td><td>UAC2 high-speed async · 44.1 kHz · 16-bit</td><td>Meringo 1.28.5 (124)</td><td>2026-06-19</td><td><code>a8c143422d8b644569cc4a36ab54822b0dfd1a370327fa95d844d8f92195642d</code></td></tr></tbody></table></div>
-  <h2>The CD-rate capture is the one that matters</h2>
-  <p>Capture 2 is the only entry in our whole registry taken at 44.1 kHz, and that
-makes it the most useful one we hold. A CD-rate file is exactly where Android's
-48 kHz default does its quietest damage: 44.1 to 48 is a ratio of 147 to 160, so
-no sample survives the conversion untouched, and nothing on screen tells you it
-occurred.</p>
-  <p>The DS2 receipt says that arithmetic did not happen. The bytes on the wire were
-the bytes in the file, and the hash is there for anyone who wants to check the
-claim rather than believe it.</p>
-  <h2>What "UAC2 high-speed async" means here</h2>
-  <p>The DS2 enumerates as a USB Audio Class 2 device in high-speed asynchronous
-mode. The 24-bit receipt also records which alternate setting Meringo claimed on
-the audio-streaming interface: alt 2, the 24-bit lane.</p>
-  <p>What decides bit-perfect is simpler than either of those details. It is whether
-the bytes leaving the phone are the bytes that were in the file, and that is the
-only thing a receipt claims.</p>
+
+  <div class="registry">
+
+    <article class="rcard">
+      <div class="rcard-head">
+        <span class="rcard-dac">Fosi DS2</span>
+        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
+      </div>
+      <p class="rcard-meta">
+        UAC2 high-speed async &middot; 24-bit (alt 2) lane<br>
+        96 kHz &middot; 24-bit on the wire &middot; FLAC<br>
+        Meringo 1.30.0 (128) &middot; 2026-07-19
+      </p>
+      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>d7eb00c6837375ca1f74c95efc2cea78e02331f66e7111a36b383c3861912538</p>
+    </article>
+
+    <article class="rcard">
+      <div class="rcard-head">
+        <span class="rcard-dac">Fosi DS2</span>
+        <span class="rcard-verdict">BIT-IDENTICAL &#10003;</span>
+      </div>
+      <p class="rcard-meta">
+        UAC2 high-speed async<br>
+        44.1 kHz &middot; 16-bit on the wire<br>
+        Meringo 1.28.5 (124) &middot; 2026-06-19
+      </p>
+      <p class="rcard-hash"><span class="hash-label">SHA-256 &middot; capture = source</span>a8c143422d8b644569cc4a36ab54822b0dfd1a370327fa95d844d8f92195642d</p>
+    </article>
+
+  </div>
+
+  <h2>The CD-rate capture is <em>the one that matters</em></h2>
+  <p>
+    Capture 2 is the only entry in our whole registry taken at 44.1&nbsp;kHz, and that makes it
+    the most useful one we hold. A CD-rate file is exactly where Android's 48&nbsp;kHz default
+    does its quietest damage: 44.1 to 48 is a ratio of 147 to 160, so no sample survives the
+    conversion untouched, and nothing on screen tells you it occurred.
+  </p>
+  <p>
+    The DS2 receipt says that arithmetic did not happen. The bytes on the wire were the bytes
+    in the file, and the hash is there for anyone who wants to check the claim rather than
+    believe it.
+  </p>
+
+  <h2>What &ldquo;UAC2 high-speed async&rdquo; means here</h2>
+  <p>
+    The DS2 enumerates as a USB Audio Class 2 device in high-speed asynchronous mode. The
+    24-bit receipt also records which alternate setting Meringo claimed on the audio-streaming
+    interface: alt 2, the 24-bit lane.
+  </p>
+  <p>
+    What decides bit-perfect is simpler than either of those details. It is whether the bytes
+    leaving the phone are the bytes that were in the file, and that is the only thing a receipt
+    claims.
+  </p>
+
   <h2>What we do not claim about this DAC</h2>
-  <p>The published DS2 receipts stop at 24/96 and 16/44.1, and we have not
-captured this DAC above that.</p>
-  <p>What a spec sheet supports and what we have verified are different claims. Only
-the second one gets printed here as proof, which is why this page names two
-rates and no others.</p>
-  <p>A hash also has a hard edge. It covers what Meringo put on the USB wire.
-Isochronous USB carries no delivery acknowledgement, so no software on any
-platform can prove what the DAC received — only what was put on the wire for it.</p>
+  <div class="honesty">
+    <p>
+      The DS2's USB descriptor advertises formats beyond what Meringo will engage. Meringo
+      engages up to 24-bit by design, so the published DS2 receipts stop at 24/96 and 16/44.1,
+      and we have not captured this DAC above that.
+    </p>
+    <p>
+      What a spec sheet supports and what we have verified are different claims. Only the
+      second one gets printed here as proof, which is why this page names two rates and not the
+      larger number on the box.
+    </p>
+    <p>
+      A hash also has a hard edge. It covers what Meringo put on the USB wire. Isochronous USB
+      carries no delivery acknowledgement, so no software on any platform can prove what the
+      DAC received &mdash; only what was put on the wire for it.
+    </p>
+  </div>
+
   <h2>Why any of this needs proving</h2>
-  <p>By default, Android resamples your music to 48 kHz. Plugging in a capable DAC
-does not by itself change that, and the frustrating part is that resampled audio
-still sounds like music. Nothing announces itself. Meringo takes the DAC off
-that path and hashes the bytes it actually shipped.</p>
-  <p>Either the captured bytes match the source or they do not. That is the entire
-test, and it is why we publish hashes instead of adjectives.</p>
+  <p>
+    By default, Android resamples your music to 48&nbsp;kHz. Plugging in a capable DAC does not
+    by itself change that, and the frustrating part is that resampled audio still sounds like
+    music. Nothing announces itself. Meringo takes the DAC off that path and hashes the bytes
+    it actually shipped.
+  </p>
+  <p>
+    Either the captured bytes match the source or they do not. That is the entire test, and it
+    is why we publish hashes instead of adjectives.
+  </p>
+
   <h2>Check it yourself</h2>
-  <p>Every entry in the registry is recomputable without Meringo running, using
-ffmpeg and sha256sum. The method and a public-domain checker script are
-published at <a href="/verify">meringo.app/verify</a>, and that script shares no code with
-the app. If your own DS2 capture disagrees with ours, send us the receipt: NOT
-BIT-IDENTICAL and INCONCLUSIVE are both published verdicts, and every verdict is
-welcome.</p>
-  <p>→ <a href="/receipts/">The receipt registry</a></p>
+  <p>
+    Every entry in the registry is recomputable without Meringo running, using ffmpeg and
+    sha256sum. The method and a public-domain checker script are published at
+    <a href="/verify/">meringo.app/verify</a>, and that script shares no code with the app. If
+    your own DS2 capture disagrees with ours, send us the receipt: <code>NOT BIT-IDENTICAL</code>
+    and <code>INCONCLUSIVE</code> are both published verdicts, and every verdict is welcome.
+  </p>
+  <p>&rarr; <a href="/receipts/">The receipt registry</a></p>
+
   <h2>Where Meringo is the wrong player</h2>
-  <p>We hold receipts for three DACs today. If yours is not one of them, we do not
-know that it runs bit-perfect and we will not say that it does. There is no
-compatibility list assembled from spec sheets here, because a spec sheet
-describes what hardware can do and a receipt records what actually happened.</p>
-  <p>Meringo is also the wrong choice if you mainly stream from Spotify, Tidal or
-Qobuz. There is no native integration with commercial streaming, by design.</p>
+  <p>
+    We hold receipts for three DACs today. If yours is not one of them, we do not know that it
+    runs bit-perfect and we will not say that it does. There is no compatibility list assembled
+    from spec sheets here, because a spec sheet describes what hardware can do and a receipt
+    records what actually happened.
+  </p>
+  <p>
+    Meringo is also the wrong choice if you mainly stream from Spotify, Tidal or Qobuz. There
+    is no native integration with commercial streaming, by design.
+  </p>
+  <p>&rarr; Other DACs with a receipt: <a href="/dac/qudelix-5k/">Qudelix 5K</a> &middot; <a href="/dac/jcally-jm6-pro/">Jcally JM6 Pro</a></p>
+  <p>&rarr; <a href="/usb-dac-android-app/">What Android app should I use with my USB DAC?</a></p>
+  <p>&rarr; <a href="/usb-dacs-that-show-the-rate/">Which USB DACs show the rate they receive?</a></p>
+  <p>&rarr; <a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Ddac_fosi_ds2" target="_blank" rel="noopener">Meringo on Google Play</a></p>
+  <p>&rarr; <a href="mailto:support@meringo.app?subject=Receipt%20registry">Submit a receipt</a></p>
 </main>
 
 <footer class="h-footer">
