@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Why there is no Meringo for iPhone</title>
-<meta name="description" content="Meringo's whole claim is a hash of the bytes it sent to your DAC. Apple does not let an iPhone app talk to a USB device, so there would be nothing to hash. What to do instead.">
+<meta name="description" content="Meringo&#x27;s whole claim is a hash of the bytes it sent to your DAC. Apple does not let an iPhone app talk to a USB device, so there would be nothing to hash. What to do instead.">
 <meta property="og:title" content="Why there is no Meringo for iPhone">
-<meta property="og:description" content="Meringo's whole claim is a hash of the bytes it sent to your DAC. Apple does not let an iPhone app talk to a USB device, so there would be nothing to hash. What to do instead.">
+<meta property="og:description" content="Meringo&#x27;s whole claim is a hash of the bytes it sent to your DAC. Apple does not let an iPhone app talk to a USB device, so there would be nothing to hash. What to do instead.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://meringo.app/iphone/">
 <meta property="og:image" content="https://meringo.app/assets/og.png">
@@ -49,134 +49,82 @@
 
 <div id="content"></div>
 <main class="page">
-  <p class="page-label">iPhone</p>
-  <h1>No Meringo for iPhone. <em>We couldn't hand you the receipt.</em></h1>
-
-  <p class="lede">
-    People ask when the iPhone version is coming. It isn't, and the reason is not effort or taste.
-    Meringo exists to do one thing other players only describe: it hashes the bytes it sent to your
-    DAC and gives you the number, so you can check it with tools we don't control. On an iPhone an
-    app is not allowed to be the thing that sends those bytes. With nothing to hash there is no
-    receipt, and without the receipt it would be a different product wearing this one's name.
-  </p>
-
+  <h1>No Meringo for iPhone. We couldn't hand you the receipt.</h1>
+  <p class="lede">People ask when the iPhone version is coming. It isn't, and the reason is not
+effort or taste. Meringo exists to do one thing other players only describe: it
+hashes the bytes it sent to your DAC and gives you the number, so you can check
+it with tools we don't control. On an iPhone an app is not allowed to be the
+thing that sends those bytes. With nothing to hash there is no receipt, and
+without the receipt it would be a different product wearing this one's name.</p>
   <h2>What the receipt is</h2>
-  <p>
-    On Android, plugging in a USB DAC takes Meringo off the system audio road entirely. It parses
-    the DAC's USB Audio Class descriptors, claims the audio-streaming interface, and ships PCM
-    frames through isochronous transfers straight to the DAC's USB endpoint. Because Meringo is the
-    code doing the shipping, it can write down every byte it hands to that pipe and compute a
-    SHA-256 over the whole stream. Then it re-decodes the same file, lays the PCM out in the
-    identical format, and hashes that. Matching hashes mean nothing touched a single bit between
-    the file and the pipe.
-  </p>
-  <p>
-    The method is published at <a href="/verify/">meringo.app/verify</a>, with a public-domain
-    checker script that shares no code with the app. The captures so far are in
-    <a href="/receipts/">the registry</a>.
-  </p>
-
-  <h2>What Apple <em>allows</em></h2>
-  <p>
-    A developer asked Apple this question directly in September 2025: can we write a USB driver for
-    an iPhone? The reply came from an Apple engineer in Developer Technical Support, and it is short
-    enough to read whole.
-  </p>
-  <blockquote cite="https://developer.apple.com/forums/thread/801333">
-    <p>Correct. DriverKit is not supported on iOS.</p>
-  </blockquote>
-  <blockquote cite="https://developer.apple.com/forums/thread/801333">
-    <p>MFi-licensed accessories can communicate with applications on iOS; however, that
-      communication is through an MFi-licensed protocol (&ldquo;iAP2&rdquo;). General USB
-      communication is not possible, even through the MFi program.</p>
-  </blockquote>
-  <p class="source">
-    Both from <a href="https://developer.apple.com/forums/thread/801333" rel="noopener">&ldquo;iOS
-    alternatives to DriverKit&rdquo;</a>, Apple Developer Forums &middot; read 2026-09-19
-  </p>
-  <p>
-    That settles it for a receipt. A receipt is a hash taken by whatever ships the bytes. An app
-    that cannot open the USB device cannot be what ships them. It hands its audio to the system,
-    and the system does the rest.
-  </p>
-
+  <p>On Android, plug in a USB DAC and Meringo drives it directly. It parses the
+DAC's USB Audio Class descriptors, claims the audio-streaming interface, and
+ships PCM frames through isochronous transfers without going through Android's
+AudioFlinger. Because Meringo is the code doing the
+shipping, it can write down every byte it hands to that pipe and compute a
+SHA-256 over the whole stream. Then it re-decodes the same file, lays the PCM
+out in the identical format, and hashes that. Matching hashes mean nothing
+touched a single bit between the file and the pipe.</p>
+  <p>The method is published at <a href="/verify/">meringo.app/verify</a>, with a public-domain
+checker script that shares no code with the app. The captures so far are in
+<a href="/receipts/">the registry</a>.</p>
+  <h2>What Apple allows</h2>
+  <p>A developer asked Apple this question directly in September 2025: can we write a
+USB driver for an iPhone? The reply came from an Apple engineer in Developer
+Technical Support, and it is short enough to read whole.</p>
+  <blockquote><p>Correct. DriverKit is not supported on iOS.</p></blockquote>
+  <blockquote><p>MFi-licensed accessories can communicate with applications on iOS; however,
+that communication is through an MFi-licensed protocol ("iAP2"). General USB
+communication is not possible, even through the MFi program.</p></blockquote>
+  <p><em>(Both from "iOS alternatives to DriverKit", Apple Developer Forums, thread
+801333, read 2026-09-19.)</em></p>
+  <p>That settles it for a receipt. A receipt is a hash taken by whatever ships the
+bytes. An app that cannot open the USB device cannot be what ships them. It
+hands its audio to the system, and the system does the rest.</p>
   <h2>What an iPhone player can tell you, and what it can't show you</h2>
-  <dl class="fields">
-    <div><dt>It can ask</dt><dd>Apple's audio session API has a call that, in Apple's words,
-      &ldquo;requests a change to the input and output audio sample rate.&rdquo; A request is what
-      it is.</dd></div>
-    <div><dt>It can read back</dt><dd>The same documentation says &ldquo;to see the effect of this
-      change, use the sampleRate property.&rdquo; So a player can print the rate the system
-      reports.</dd></div>
-    <div><dt>It can describe itself</dt><dd>Whether its own EQ is on, whether it applied its own
-      gain, what it decoded.</dd></div>
-    <div><dt>It can't show you the bytes</dt><dd><strong>Nothing above is a record of what crossed
-      the cable.</strong> It is a player telling you what it asked for.</dd></div>
-  </dl>
-  <p class="source">
-    Quoted from <a href="https://developer.apple.com/documentation/avfaudio/avaudiosession/setpreferredsamplerate(_:)" rel="noopener">AVAudioSession.setPreferredSampleRate</a>,
-    Apple Developer Documentation &middot; read 2026-09-19
-  </p>
-  <p>
-    We looked in September 2026 and did not find an iPhone player that publishes a hash of its
-    output for you to check. If one exists, write to us and this paragraph changes.
-  </p>
-
-  <h2>What this page does <em>not</em> say</h2>
-  <div class="honesty">
-    <p>
-      It does not say an iPhone sounds worse. We have no measurement that says so and we would not
-      print one if we did; <strong>a hash is about identity, never about sound.</strong> It says
-      nothing about any other app.
-    </p>
-    <p>
-      And it is about iPhone only. Apple's documentation says &ldquo;DriverKit on iPadOS requires
-      an iPad with an M-series chip&rdquo; and
-      <a href="https://developer.apple.com/documentation/driverkit/creating-drivers-for-ipados" rel="noopener">lists
-      AudioDriverKit among the supported frameworks</a>. We have built nothing there and tested
-      nothing there, so we claim nothing about it. If that ever turns into a way to capture what
-      was sent, this page will say so.
-    </p>
-  </div>
-
-  <h2>What to do <em>instead</em></h2>
-  <p>
-    <strong>The modern iPod is a DAP, not an iPhone.</strong> If what you miss is a device that
-    holds your music and does nothing else, that device exists again, and it runs Android. Meringo
-    was built on one and is tuned for it (the <a href="/">homepage</a> names the device), and it
-    runs on anything with Android 13 or later.
-  </p>
-  <p>
-    <strong>Or an Android phone with a USB DAC or dongle.</strong> That is the chain the receipts in
-    <a href="/receipts/">the registry</a> were captured on: three DACs so far, and that is the whole
-    list. If your DAC is not on it we do not know that it runs bit-perfect and we will not say that
-    it does.
-  </p>
-  <p>
-    <strong>Your files come with you.</strong> Meringo plays local FLAC and ALAC. ALAC is Apple
-    Lossless, so a library ripped that way on a Mac moves across as it is: copy the folders to a
-    card or to the device, point Meringo at them, and the library builds itself. It also plays from
-    Jellyfin and the Subsonic and OpenSubsonic family if your music already lives on a server.
-  </p>
-  <p>
-    <strong>If you are staying on iPhone,</strong> ask of any player what you would ask of us: what
-    did you send, and how can I check? &ldquo;We requested the file's rate&rdquo; is an honest
-    answer. A badge with nothing behind it is not an answer at all.
-  </p>
-
+  <ul><li><strong>It can ask.</strong> Apple's audio session API has a call that, in Apple's words,
+"requests a change to the input and output audio sample rate." A request is
+what it is.</li><li><strong>It can read back.</strong> The same documentation says "to see the effect of this
+change, use the sampleRate property." So a player can print the rate the
+system reports.</li><li><strong>It can describe itself.</strong> Whether its own EQ is on, whether it applied its
+own gain, what it decoded.</li><li><strong>It can't show you the bytes.</strong> Nothing above is a record of what crossed the
+cable. It is a player telling you what it asked for.</li></ul>
+  <p>We looked in September 2026 and did not find an iPhone player that publishes a
+hash of its output for you to check. If one exists, write to us and this
+paragraph changes.</p>
+  <h2>What this page does not say</h2>
+  <p>It does not say an iPhone sounds worse. We have no measurement that says so and
+we would not print one if we did; a hash is about identity, never about sound.
+It says nothing about any other app. And it is about iPhone only: Apple's
+documentation says "DriverKit on iPadOS requires an iPad with an M-series chip"
+and lists AudioDriverKit among the supported frameworks. We have built nothing
+there and tested nothing there, so we claim nothing about it. If that ever turns
+into a way to capture what was sent, this page will say so.</p>
+  <h2>What to do instead</h2>
+  <p><strong>The modern iPod is a DAP, not an iPhone.</strong> If what you miss is a device that
+holds your music and does nothing else, that device exists again, and it runs
+Android. Meringo was built on one and is tuned for it (the <a href="/">homepage</a> names
+the device), and it runs on anything with Android 13 or later.</p>
+  <p><strong>Or an Android phone with a USB DAC or dongle.</strong> That is the chain the receipts
+in the registry were captured on: three DACs so far, and that is the whole list.
+If your DAC is not on it we do not know that it runs bit-perfect and we will not
+say that it does.</p>
+  <p><strong>Your files come with you.</strong> Meringo plays local FLAC and ALAC. ALAC is Apple
+Lossless, so a library ripped that way on a Mac moves across as it is: copy the
+folders to a card or to the device, point Meringo at them, and the library
+builds itself. It also plays from Jellyfin and the Subsonic and OpenSubsonic
+family if your music already lives on a server.</p>
+  <p><strong>If you are staying on iPhone,</strong> ask of any player what you would ask of us:
+what did you send, and how can I check? "We requested the file's rate" is an
+honest answer. A badge with nothing behind it is not an answer at all.</p>
   <h2>When this is the wrong page for you</h2>
-  <p>
-    If you mainly stream from Spotify, Tidal or Qobuz, Meringo isn't your player on any phone. There
-    is no native integration with commercial streaming, by design. It is $9.99 once, with a 7-day
-    full trial and no subscription.
-  </p>
-
+  <p>If you mainly stream from Spotify, Tidal or Qobuz, Meringo isn't your player on
+any phone. There is no native integration with commercial streaming, by design.
+It is $9.99 once, with a 7-day full trial and no subscription.</p>
   <h2>Tell us</h2>
-  <p>
-    If you carry an iPhone and would want to hear that this page has changed, write to
-    <a href="mailto:support@meringo.app?subject=iPhone%20version&amp;body=What%20I%20play%20music%20with%20today%3A%20">support@meringo.app</a>
-    with the subject &ldquo;iPhone version&rdquo;, and tell us what you play music with today.
-  </p>
+  <p>If you carry an iPhone and would want to hear that this page has changed, write
+to <a href="mailto:support@meringo.app?subject=iPhone%20version&amp;body=What%20I%20play%20music%20with%20today%3A%20">support@meringo.app</a>
+with the subject "iPhone version", and tell us what you play music with today.</p>
 </main>
 
 <footer class="h-footer">
