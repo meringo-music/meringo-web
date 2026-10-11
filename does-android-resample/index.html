@@ -130,11 +130,11 @@ checker script that shares no code with the app are at
   <p>Meringo is a $9.99 Android music player that sends audio to a USB DAC itself,
 at each file's own rate, and then hashes what it sent so you can check the
 math. It parses the DAC's USB Audio Class descriptors, claims the
-audio-streaming interface, and ships the samples straight to the DAC's USB
-endpoint, with no AudioFlinger (Android's mixer) between the bits and the DAC.
-The format strip on Now Playing goes teal for BIT-IDENTICAL when the DAC
-accepted the file's own rate, and lights an amber warning the moment Android's
-mixer resamples or truncates the signal.</p>
+audio-streaming interface, and ships the samples through isochronous transfers
+without going through AudioFlinger (Android's mixer). Its bit-perfect chip
+stays teal when the pipe is live and the DAC's negotiated rate matches the
+file, and the format strip on Now Playing lights an amber warning the moment
+Android's mixer resamples or truncates the signal.</p>
   <p>Here is the case this page is about, from the registry. On 2026-06-19 a
 CD-rate stream, 16-bit at 44.1 kHz, went through a <a href="/dac/fosi-ds2/">Fosi DS2</a>
 on Meringo 1.28.5 (124) and came out BIT-IDENTICAL:
