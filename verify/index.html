@@ -133,7 +133,7 @@ Get-FileHash pcm.raw -Algorithm SHA256</code></pre>
   <pre><code>ffmpeg -i track.flac -f s16le - | head -c &lt;source bytes&gt; | sha256sum</code></pre>
   <p>
     The digest must equal the receipt's hashes, character for character. This works for anything
-    lossless that ffmpeg can decode &mdash; FLAC, ALAC, WAV, AIFF.
+    lossless that ffmpeg can decode &mdash; FLAC, ALAC, WAV.
   </p>
 
   <h2>Or run the checker script</h2>

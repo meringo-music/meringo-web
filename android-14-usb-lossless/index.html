@@ -116,13 +116,13 @@ the platform documentation describes for bit-perfect mode. It is a hint, not
 a result, and other things can produce it too.</li><li>Read your DAC's own rate indicator if it has one. <em>(Unverified here: that is
 your DAC's firmware, we hold no receipt for it, and different makers mean
 different things by the same colour.)</em></li><li>Capture and hash, which is the only step that settles anything. Arm Verified
-Capture in Settings, Audio Diagnostics. Meringo writes every byte it hands to
+Capture in Settings, Audio diagnostics. Meringo writes every byte it hands to
 the isochronous pipe and computes a SHA-256 over the whole stream. Point it
 back at the same file and it re-decodes, lays the PCM out in the identical
 pipe format, and hashes that. Matching hashes mean nothing touched a single
 bit between the file and the pipe. The method and a public-domain checker
 script that shares no code with the app are at
-<a href="/verify">meringo.app/verify</a>, so you can recompute ours as well as your own.</li></ol>
+<a href="/verify/">meringo.app/verify</a>, so you can recompute ours as well as your own.</li></ol>
   <h2>A worked example, in full</h2>
   <p>On 2026-08-01 the same 96 kHz, 24-bit FLAC went through two physically different
 dongles and came out with one SHA-256 between them:

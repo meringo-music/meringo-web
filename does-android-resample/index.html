@@ -120,12 +120,12 @@ devices" line names USB. The "Sample rate" line in that same block is the
 rate Android is running that output at. It describes Android's shared mixer
 and nothing else, so it can't tell you what a player that drives the DAC
 itself is sending.</li><li>If you use Meringo, capture and hash. Arm Verified Capture in Settings,
-Audio Diagnostics. Meringo writes every byte it hands to the USB pipe and
+Audio diagnostics. Meringo writes every byte it hands to the USB pipe and
 computes a SHA-256 over the whole stream, then re-decodes the same file and
 hashes that. Matching hashes mean nothing resampled or otherwise touched a
 single bit between the file and the pipe. The method and a public-domain
 checker script that shares no code with the app are at
-<a href="/verify">meringo.app/verify</a>.</li></ol>
+<a href="/verify/">meringo.app/verify</a>.</li></ol>
   <h2>Where Meringo fits</h2>
   <p>Meringo is a $9.99 Android music player that sends audio to a USB DAC itself,
 at each file's own rate, and then hashes what it sent so you can check the

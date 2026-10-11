@@ -98,11 +98,11 @@ stays teal when the pipe is live and the DAC's negotiated rate matches the
 file. The format strip lights an amber warning the moment AudioFlinger
 resamples or truncates the signal, and the route badge reads INTERNAL SRC
 instead of BIT-PERFECT when you turn on Force Output Sample Rate, because
-resampling is mathematical interpolation, not bit-identity. ReplayGain, crossfade and
-concurrent audio show up as suffixes on the badge, never as a silent lie.</p>
+resampling is mathematical interpolation, not bit-identity. When ReplayGain, a crossfade or
+concurrent audio changes the signal, the badge reads Scaled, Fading or Mixing in place of BIT-PERFECT, never a silent lie.</p>
   <p><strong>Can you check the claim without taking the app's word for it?</strong> This is the
 one most players cannot answer, and it is the reason we built the receipt
-mechanism. Arm Verified Capture in Settings, Audio Diagnostics. Meringo writes
+mechanism. Arm Verified Capture in Settings, Audio diagnostics. Meringo writes
 every byte it hands to the isochronous pipe and computes a SHA-256 over the
 whole stream. Point it back at the same file and it re-decodes, lays the PCM
 out in the identical pipe format, and hashes that. Matching hashes mean nothing
@@ -115,7 +115,7 @@ rather than the wire.</li><li>Check your DAC's own rate indicator if it has one.
 LED colour with the negotiated rate. <em>(Unverified here: that behaviour is
 your DAC's firmware, we hold no receipt for it, and it is a hint rather
 than a result.)</em></li><li>Capture and hash, which is the only step that settles it. Our method and a
-public-domain checker script are published at <a href="/verify">meringo.app/verify</a>,
+public-domain checker script are published at <a href="/verify/">meringo.app/verify</a>,
 and the script shares no code with the app.</li></ol>
   <h2>Our worked example</h2>
   <p>Three DACs, six receipts, every hash published in full. These are the captures
