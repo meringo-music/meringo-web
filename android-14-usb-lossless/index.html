@@ -96,13 +96,11 @@ calls them gets the ordinary path whatever your hardware supports. Nothing in
 the documentation describes a settings toggle or a status indicator for any of
 this, which is why the question keeps getting asked and rarely gets answered.</p>
   <h2>What Meringo does instead</h2>
-  <p>Meringo doesn't wait on that flag. Plug in a USB DAC and it takes the DAC off
-the AudioTrack road entirely: it parses the DAC's USB Audio Class descriptors,
-claims the audio-streaming interface, and ships PCM frames through isochronous
-transfers straight to the DAC's USB endpoint, with no AudioFlinger between the
-bits and the DAC. Bit-perfect here means three things at once, and the app says
-which of them it has: sample-rate parity, bit-depth parity, single-client
-passthrough. The minimum is Android 13, which predates all of this.</p>
+  <p>Meringo doesn't wait on that flag. Plug in a USB DAC and it drives the DAC
+directly: it parses the DAC's USB Audio Class descriptors, claims the
+audio-streaming interface, and ships PCM frames through isochronous transfers
+without going through Android's AudioFlinger. Bit-perfect here is a two-axis
+claim: rate and depth. The minimum is Android 13, which predates all of this.</p>
   <p>So the two roads arrive at the same place. The platform's road depends on your
 vendor's choice; ours depends on the DAC answering its descriptors. Neither one
 is worth much to you as a promise, which brings us to the part this site was
