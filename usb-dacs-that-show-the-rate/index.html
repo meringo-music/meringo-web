@@ -122,13 +122,13 @@ album will do.</li><li>Play each one and watch the indicator, or the maker's com
 readout lives there. If the display never moves between the two, either that
 DAC has no rate readout or both tracks are arriving at the same rate.</li><li>If it never moves and you want to know which, take the capture route below.</li></ol>
   <p>For a DAC with no readout at all, the hash is the fallback. Arm Verified
-Capture in Settings, Audio Diagnostics: Meringo writes every byte it hands to
+Capture in Settings, Audio diagnostics: Meringo writes every byte it hands to
 the isochronous pipe and computes a SHA-256 over the whole stream, then
 re-decodes the same file, lays the PCM out in the identical format and hashes
 that. Matching hashes mean nothing resampled, requantised, or otherwise touched
 a bit between the file and the pipe. You can recompute the result with ffmpeg
 and sha256sum; the method and a public-domain checker script that shares no
-code with the app are published at <a href="/verify">meringo.app/verify</a>.</p>
+code with the app are published at <a href="/verify/">meringo.app/verify</a>.</p>
   <p>If your capture disagrees with ours, send it in. NOT BIT-IDENTICAL and
 INCONCLUSIVE are both published verdicts, and every verdict is welcome.</p>
   <p>→ <a href="/receipts/">The receipt registry</a></p>

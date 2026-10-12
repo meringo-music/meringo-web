@@ -385,13 +385,6 @@ html {
 .philosophy-mascot.playing .m-playing-notes { opacity: 1; }
 </style>
 
-<!-- ── Privacy-friendly analytics (cookieless, no personal data, no cross-site) ──
-     INACTIVE until you uncomment. Activate after creating a free Plausible account
-     and adding this domain (https://plausible.io). Cookieless and GDPR-clean.
-     Brand note: this loads a 3rd-party script from plausible.io, visible in devtools.
-     Free self-hostable alternative: GoatCounter (https://www.goatcounter.com). -->
-<!-- <script defer data-domain="meringo.app" src="https://plausible.io/js/script.js"></script> -->
-
 </head>
 <body>
 
@@ -458,7 +451,7 @@ html {
 <section class="m-label">
   <div class="h-wrap">
     <dl>
-      <dt>Plays</dt><dd>Your FLAC and ALAC files, and a Jellyfin or Subsonic library, Navidrome included.</dd>
+      <dt>Plays</dt><dd>Your FLAC and ALAC files, and a library on Jellyfin or on a Subsonic-compatible server.</dd>
       <dt>Runs on</dt><dd>Android 13 or newer, on a phone or a DAP.</dd>
       <dt>Needs</dt><dd>Nothing extra to play. For the receipt, a USB DAC or dongle.</dd>
     </dl>
@@ -472,12 +465,12 @@ html {
       <p class="h-chapter-label">Diagnostics</p>
       <h2 class="h-h2">What the device actually reports.</h2>
       <div class="h-prose">
-        <p>Open <code>Settings &rarr; Audio Diagnostics</code> on any Meringo build and the screen reads back exactly what the engine sees: device tier (LEAN / BALANCED / FLAGSHIP), RAM ceiling, CPU core count, USB-DAC presence, manufacturer, model, Android level, ABI. The buffer profile, the visualizer policy, the thermal-aware worker batch limits — every one of those numbers is derived from these values at cold start.</p>
+        <p>Open <code>Settings &rarr; Audio diagnostics</code> on any Meringo build and the screen reads back exactly what the engine sees: device tier (LEAN / BALANCED / FLAGSHIP), RAM ceiling, CPU core count, USB-DAC presence, manufacturer, model, Android level, ABI. The buffer profile, the visualizer policy, the thermal-aware worker batch limits — every one of those numbers is derived from these values at cold start.</p>
         <p>The screenshot is a real readout from a FiiO M21. Quote it in a support ticket and the values are reproducible cold start to cold start — same hardware, same readout, no telemetry round-trip required to produce them. Being honest about the bits begins with being honest about the silicon they're running on.</p>
       </div>
     </div>
     <figure class="h-exhibit m-exhibit">
-      <picture><source srcset="assets/screens/diagnostics.webp" type="image/webp"><img src="assets/screens/diagnostics.png" loading="lazy" decoding="async" width="750" height="1334" alt="Meringo Audio Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No, AGSL shaders No, Live blur No. Build: Manufacturer QUALCOMM, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a"></picture>
+      <picture><source srcset="assets/screens/diagnostics.webp" type="image/webp"><img src="assets/screens/diagnostics.png" loading="lazy" decoding="async" width="750" height="1334" alt="Meringo Diagnostics — Device Capabilities: Tier LEAN, RAM 3646 MB, 8 CPU cores, Is DAP Yes, Is FiiO Yes, USB DAC No, AGSL shaders No, Live blur No. Build: Manufacturer QUALCOMM, Brand qti, Model FiiO M21, Product / Device bengal_515, Hardware qcom, Android 13 (API 33), ABI arm64-v8a"></picture>
     </figure>
   </div>
 </section>
@@ -522,15 +515,15 @@ html {
       <p class="h-chapter-label">Ch. 01 — The Library</p>
       <h2 class="h-h2">Two lenses. One library.</h2>
       <div class="h-prose">
-        <p>Meringo gives you a dual-lens library: a <strong>Vault</strong> of local FLAC and ALAC files, and a <strong>Cloud</strong> lens that spans Jellyfin and the Subsonic / OpenSubsonic family — Navidrome, Airsonic, and friends.</p>
+        <p>Meringo gives you a dual-lens library: a <strong>Vault</strong> of local FLAC and ALAC files, and a <strong>Cloud</strong> lens that spans Jellyfin and servers that speak the Subsonic or OpenSubsonic API.</p>
         <p>Each lens stands on its own — toggle, search, and sort within the world you're in. But when the same recording lives on more than one source, Meringo collapses the duplicate intelligently: <em>Vault wins over Jellyfin wins over Subsonic</em>, matched by MusicBrainz Recording ID, ISRC, a metadata tuple, or an acoustic-fingerprint twin link when the tags disagree. An <code>&#8853; Also on the server</code> banner on the Album page tells you when the other lens holds a copy too — and offers a one-tap switch to it. Quality chips on every album — <code>ULTRA</code> for 24-bit at 88.2 kHz and up, <code>HD</code> for the rest of hi-res, <code>LOSSLESS</code> for CD-spec — round out the rack at a glance.</p>
-        <h3 class="h-h3 m-sub" id="showcase-servers">Jellyfin. Or any server that speaks Subsonic.</h3>
-        <p>Two paths into the same shared library. Jellyfin gets first-class treatment. The Subsonic family &mdash; <strong>Navidrome, Airsonic, Funkwhale, Gonic, Ampache</strong>, and every other server that implements the OpenSubsonic API &mdash; gets the same fidelity-first connection posture: bit-perfect direct play, no transcoding, <em>password never stored beyond the hash derived from it</em>. URL, username, password, Connect. Set it once.</p>
+        <h3 class="h-h3 m-sub" id="showcase-servers">Jellyfin. Or a server that speaks Subsonic.</h3>
+        <p>Two paths into the same shared library. Jellyfin gets first-class treatment. A server that speaks the Subsonic or OpenSubsonic API gets the same fidelity-first connection posture: bit-perfect direct play, no transcoding, <em>password never stored beyond the hash derived from it</em>. URL, username, password, Connect. Set it once.</p>
         <p>Connect both at the same time if you have both. The library collapses twin recordings to a single entry across all three sources (Vault + Jellyfin + Subsonic) using the MusicBrainz &rarr; ISRC &rarr; metadata tuple &rarr; Chromaprint match chain. Same dedup rules everywhere.</p>
       </div>
     </div>
     <figure class="h-exhibit m-exhibit">
-      <picture><source srcset="assets/screens/library_albums.webp" type="image/webp"><img src="assets/screens/library_albums.png" loading="lazy" decoding="async" width="750" height="1334" alt="Meringo Library — Vault lens (‘On device’) selected against ‘Server’, 406 albums in a 2-column grid sorted by artist. Pearl Jam’s ‘Yield’ carries a LOSSLESS chip, Phoebe Bridgers’ ‘Punisher’ an ULTRA chip, each above a teal Acoustic DNA bar reading 100%"></picture>
+      <picture><source srcset="assets/screens/library_albums.webp" type="image/webp"><img src="assets/screens/library_albums.png" loading="lazy" decoding="async" width="750" height="1334" alt="Meringo Library — Vault lens (‘On device’) selected against ‘Server’, 406 albums in a 2-column grid sorted by artist. Pearl Jam’s ‘Yield’ carries a LOSSLESS chip, Phoebe Bridgers’ ‘Punisher’ an ULTRA chip, each above a teal identity-match bar reading 100%"></picture>
       <figcaption class="h-stamp">The Library on the Vault lens: 406 albums, sorted by artist.</figcaption>
     </figure>
   </div>
@@ -542,7 +535,7 @@ html {
       <p class="h-chapter-label">Ch. 02 — The Engine</p>
       <h2 class="h-h2">Bit-perfect. End to end.</h2>
       <div class="h-prose">
-        <p>By default, every sample reaches your DAC at the recording's native rate and depth.</p>
+        <p>On the USB Direct path, every sample reaches your DAC at the recording's native rate and depth. On a phone, the default Auto mode plays through Android's offload path instead, and Android picks the rate.</p>
         <table class="h-ledger m-table">
           <caption class="h-stamp">What the route badge on Now Playing says</caption>
           <thead><tr><th scope="col">On the badge</th><th scope="col">What it means</th></tr></thead>
@@ -610,7 +603,7 @@ html {
       <p class="h-chapter-label">Ch. 04 — What it hears</p>
       <h2 class="h-h2">The library, understood.</h2>
       <div class="h-prose">
-        <p>Meringo matches your library against <strong>MusicBrainz</strong> — album title and album-artist name, nothing else off your device — surfacing release year, genre classifications, editorial biography, and high-res artwork from the <strong>Cover Art Archive</strong>. Tag-poor files become tag-rich in the background. Cross-source recordings collapse to a single library entry by Recording MBID — JAY-Z and Jay-Z and Shawn Carter all merge to one artist card once MusicBrainz resolves the canonical identity.</p>
+        <p>Meringo matches your library against <strong>MusicBrainz</strong> — by album title and album-artist name, plus any MusicBrainz IDs already in your tags — surfacing release year, genre classifications, editorial biography, and high-res artwork from the <strong>Cover Art Archive</strong>. Tag-poor files become tag-rich in the background. Cross-source recordings collapse to a single library entry by Recording MBID — JAY-Z and Jay-Z and Shawn Carter all merge to one artist card once MusicBrainz resolves the canonical identity.</p>
         <p>The payoff lands on the home screen as <strong>Smart Playlists</strong> generated from the metadata you didn't have to type. Ultra. Deep Cuts. Long Players. Curation, without a curator — and a <a href="#chapter-7">mood-driven library navigation</a> primitive that reads from the separate on-device analysis pass described below.</p>
         <h3 class="h-h3 m-sub" id="chapter-6">Sonic Match</h3>
         <p>Tap the <code>&#8779;</code> icon on Now Playing and Meringo ranks the rest of your library against what's playing — not by tags, and not by fingerprint bits, but by <strong>measured acoustic distance</strong>. Every analysed track carries a feature vector, and four weighted subspaces decide how close two of them are: <em>timbre</em> (spectral centroid, rolloff, flatness, band balance), <em>rhythm</em> (octave-folded tempo, attack density, pulse clarity), <em>harmony</em> (chroma cosine, circle-of-fifths key relation, harmonic richness) and <em>dynamics</em> (crest factor, loudness range).</p>
@@ -815,8 +808,8 @@ html {
         <div class="h-prose">
           <p>Meringo is a PCM-first player by design — built for listeners who want total control over their signal chain. The EQ engine processes audio in 64-bit double precision (IEEE 754 binary64), so every band, every gain change, every output adjustment stays mathematically clean end-to-end. That precision is what DSD fundamentally can't offer: it's a 1-bit sigma-delta delivery format, and the moment you apply DSP to it, it must be converted to PCM anyway — at which point you've lost what made it DSD.</p>
           <p>In practice, almost every commercial DSD release is a delivery container layered on top of a PCM master. Recording and mastering happens in PCM (often DXD at very high sample rates). A 24/96 or 24/192 FLAC of the same master sounds effectively identical and weighs roughly a quarter as much on disk.</p>
-          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and it's exactly how Meringo hands DSD to an external DAC that can decode it natively (DSD64, DSD128 and DSD256 via DoP, with a curated catalog of known DACs — Chord, iFi, AudioQuest and more). It doesn't bypass the precision constraint, though: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. What Meringo won't do is force DSD onto hardware that can't take it — the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so on-device DSD would mean a silent conversion behind your back. So the on-device path stays PCM-and-FLAC, and the DoP carriage opens only when a capable DAC is attached.</p>
-          <p>For practical purposes: if you have <code>.dsf</code> or <code>.dff</code> files in your library, Meringo's scanner indexes them and labels them lossless on the format strip — you'll see them sitting next to your FLACs. Tap a DSD track on the M21 (or another Snapdragon 680-class device) and the route surfaces a <code>[FormatUnsupported]</code> error rather than play. Plug in an external USB DAC that decodes DSD natively — a Chord Mojo 2, iFi Hip-Dac, or similar — and the path opens up; Meringo hands the stream to the DAC and lets its onboard decoder do the work.</p>
+          <p>DSD over PCM (DoP) is a real protocol — DSD bits wrapped inside PCM frames over USB Audio — and it's how Meringo is built to hand DSD to an external DAC that can decode it natively: DSD64, DSD128 and DSD256 via DoP, for DACs on a built-in list of DSD-capable models. It doesn't bypass the precision constraint, though: the moment you apply any DSP to the unwrapped stream, you're back to PCM math. What Meringo won't do is force DSD onto hardware that can't take it — the M21 I tune against routes its onboard ES9219MQ DACs from PCM regardless, so on-device DSD would mean a silent conversion behind your back. So the on-device path stays PCM-and-FLAC, and the DoP carriage opens only when a capable DAC is attached.</p>
+          <p>For practical purposes: if you have <code>.dsf</code> or <code>.dff</code> files in your library, Meringo's scanner indexes them and labels them lossless on the format strip — you'll see them sitting next to your FLACs. Tap a DSD track on the M21 (or another Snapdragon 680-class device) and the route surfaces an unsupported-format error rather than play. Plug in an external USB DAC that decodes DSD natively and is on that list — the iFi hip-dac 2 is one — and the path is built to open; Meringo hands the stream to the DAC and lets its onboard decoder do the work. We have not measured that path on any DAC, so there is no receipt for it yet.</p>
         </div>
       </details>
       <details class="h-details" id="faq-android-auto">
@@ -824,7 +817,7 @@ html {
         <div class="h-prose">
           <p>Yes, including voice. Ask for an artist, an album, or just &ldquo;play some music,&rdquo; and Meringo plays from your own library &mdash; never from a stream, because there is no streaming service here to fall back on. An open-ended request resumes your last queue where it left off; with nothing to resume it plays your recent listening, newest first; a library you have never played starts at the top of the shelf in album order; and before you have added any music at all, the bundled sample plays.</p>
           <p>A request that matches nothing you own <em>still</em> starts your own music rather than leaving the car silent. That is deliberate, and it follows Android&rsquo;s driving guidance: silence after a voice request at speed reads as a breakdown, and the right fallback is your own library &mdash; never arbitrary content.</p>
-          <p>Tapping a track plays its whole list, not that track on its own. Recents, albums, artists and playlists each get a shelf at the browse root, and shuffle and repeat sit on the media notification as custom actions.</p>
+          <p>Tapping a track plays its whole list, not that track on its own. Albums and artists each get a shelf at the browse root, as do playlists and Atmospheres once you have any, and shuffle and repeat sit on the media notification as custom actions.</p>
           <p>One honest caveat: head units cache the browse tree hard. Straight after an update a stale shelf can play a single track instead of its list until the car refreshes its copy &mdash; reconnecting the phone clears it.</p>
         </div>
       </details>
@@ -832,7 +825,7 @@ html {
         <summary>How do I install Meringo? Is it on the Play Store?</summary>
         <div class="h-prose">
           <p>Yes — Meringo is on the Google Play Store. New users get a 7-day free trial of the full app, then $9.99, once. No subscription, no ads, no premium tier locked behind a second purchase.</p>
-          <p>If you switch phones or reinstall later, your purchase restores automatically — Google tracks the entitlement against the Google account you bought with. <strong>Settings &rarr; Subscription &rarr; Restore Purchase</strong> if it doesn't trigger on its own.</p>
+          <p>If you switch phones or reinstall later, your purchase restores automatically — Google tracks the entitlement against the Google account you bought with. <strong>Settings &rarr; Subscription &rarr; Restore purchase</strong> if it doesn't trigger on its own.</p>
           <p>If you'd rather just follow along — or chat about audio gear, bug reports, feature ideas — email Adam directly at <a href="mailto:support@meringo.app">support@meringo.app</a>.</p>
         </div>
       </details>
@@ -889,14 +882,14 @@ html {
   <div class="container">
     <p class="section-label">Legal</p>
     <h2 class="section-title legal-title">Privacy Policy</h2>
-    <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC<br>Last updated: October 9, 2026</p>
+    <p class="privacy-effective">EFFECTIVE DATE: May 26, 2026 &nbsp;·&nbsp; MERINGO LABS LLC<br>Last updated: October 11, 2026</p>
 
     <div class="privacy-hero">
       <div class="privacy-hero-copy">
         <p class="privacy-hero-eyebrow">First run · disclosed before you tap</p>
         <h3 class="privacy-hero-title">Our Commitment, on screen <em>one.</em></h3>
         <p class="privacy-hero-body">
-          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>Acoustic Fingerprints Stay on Your Device</em> (what the fingerprint is, and that nothing can send one). <em>External Services</em> (every server the app can reach, named, with what has to be true before it does). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings of that screen &mdash; the first three are in frame to the right &mdash; correspond one-to-one with the sections of the policy below. Same content, same wording, same posture.
+          Before any CTA loads — before you connect to Jellyfin, Subsonic, or pick a local folder — Meringo lays out exactly what it does with your data. <em>Your Data Stays Yours</em> (local-first storage). <em>Acoustic Fingerprints Stay on Your Device</em> (what the fingerprint is, and that nothing can send one). <em>External Services</em> (every server the app can reach, named, with what has to be true before it does). <em>Crash Reporting</em> (Sentry, opt-in with an explicit toggle, off by default). <em>Software As-Is</em> (a solo developer's honest disclaimer). The five headings of that screen &mdash; the first three are in frame to the right &mdash; are subjects the policy below also covers, at more length.
         </p>
       </div>
       <div class="privacy-hero-device">
@@ -907,7 +900,7 @@ html {
     </div>
 
     <p class="privacy-summary">
-      I do not run servers that collect your personal data. I do not run analytics pipelines. <em>Server credentials are encrypted on-device using Android Keystore; your music library and preferences live in private app storage; crash reporting through Sentry is opt-in (off by default, with the consent toggle on the first-run screen) and redacts known auth parameters before transmission.</em>
+      I do not run servers that collect your personal data. I do not run analytics pipelines. <em>Server sign-in tokens are encrypted on-device using Android Keystore; your music library and preferences live in private app storage; crash reporting through Sentry is opt-in (off by default, with the consent toggle on the first-run screen) and redacts known auth parameters before transmission.</em>
     </p>
 
     <details class="privacy-details">
@@ -925,11 +918,12 @@ html {
           <p>Meringo collects no personal data on my servers. On your device, the app stores:</p>
           <ul>
             <li>Your music library metadata (artist, album, track, file path) in a local Room/SQLite database</li>
-            <li>Your Jellyfin and Subsonic / OpenSubsonic server credentials, encrypted on-device using Android Keystore</li>
-            <li>Your listening preferences and non-sensitive app settings in the app's private DataStore (no credentials are kept here)</li>
+            <li>Your Jellyfin and Subsonic / OpenSubsonic sign-in tokens, encrypted on-device using Android Keystore</li>
+            <li>Each server's address and your username for it, in the app's private DataStore (not encrypted)</li>
+            <li>Your listening preferences and non-sensitive app settings in the app's private DataStore (no passwords or tokens are kept here)</li>
             <li>Cached artwork and editorial metadata fetched from public APIs</li>
           </ul>
-          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (off by default; opt in on the first-run screen), anonymised error reports may be sent to Sentry — see the <a href="#priv-crash" class="legal-xref">Crash Reporting</a> section below.</p>
+          <p>None of this data is transmitted for advertising or tracking purposes. When crash reporting is enabled (off by default; opt in on the first-run screen), error reports may be sent to Sentry, tagged with a random ID created for your install — see the <a href="#priv-crash" class="legal-xref">Crash Reporting</a> section below.</p>
         </div>
 
         <div class="privacy-block" id="priv-acoustid">
@@ -950,9 +944,10 @@ html {
             <li>Device model and Android OS version</li>
             <li>App version and build environment (debug / production)</li>
             <li>Recent navigation breadcrumbs (screen names only)</li>
+            <li>A random ID created for your install (Meringo does not attach your IP address)</li>
           </ul>
           <p>Crash reports do <strong class="legal-strong">not</strong> contain your music library, file paths, server credentials, listening history, or any content from your device. Known authentication parameters in server URLs — Jellyfin <code class="legal-code">api_key</code>, OpenSubsonic <code class="legal-code">apiKey</code>, and the Subsonic legacy auth quartet (<code class="legal-code">t</code>, <code class="legal-code">s</code>, <code class="legal-code">u</code>, <code class="legal-code">p</code>) — are redacted from any URL captured in a crash report before it is transmitted.</p>
-          <p>When crash reporting is enabled, Meringo also reports <strong class="legal-strong">release-health</strong> signals to Sentry — anonymous session start/stop events (used to compute crash-free-session and crash-free-user rates) and ANR (app-not-responding) events. These carry no personal data and follow the same opt-in and redaction rules as the crash reports above.</p>
+          <p>When crash reporting is enabled, Meringo also reports <strong class="legal-strong">release-health</strong> signals to Sentry — session start/stop events (used to compute crash-free-session and crash-free-user rates) and ANR (app-not-responding) events. They carry the same random install ID, and follow the same opt-in and redaction rules as the crash reports above.</p>
           <p>Sentry's own privacy policy is available at <a href="https://sentry.io/privacy/" target="_blank" rel="noopener" class="legal-xref">sentry.io/privacy</a>.</p>
         </div>
 
@@ -960,15 +955,15 @@ html {
           <h3>Third-Party Services</h3>
           <p>Meringo integrates with the following public, read-only APIs to provide editorial content:</p>
           <ul>
-            <li><strong class="legal-strong">Google Play</strong> — first, because it happens first. Meringo is a paid app, and a paid app has to ask Google whether you paid: at every launch, before any consent screen renders, the app connects to Google Play's billing service through the Play Store on your device to check the purchase. Google's billing library also brings along a Google upload component (<code class="legal-code">com.google.android.datatransport</code>) — a small database and a scheduled upload job in the app's own data directory that batch Google's delivery telemetry back to Google. It arrives transitively with the Play libraries; it is Google's plumbing, not Meringo tracking your listening — and it is named here because it exists, not because we chose it.</li>
-            <li><strong class="legal-strong">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information. Query payload per album is exactly two strings — <em>album title</em> and <em>album-artist name</em>. Listening habits, play counts, file paths, and device identifiers never enter the request. Unresolved entries re-attempt every 30 days; tentative low-confidence matches every 90.</li>
-            <li><strong class="legal-strong">Cover Art Archive</strong> — High-resolution album artwork; queried by release-group MBID returned from the MusicBrainz lookup above</li>
-            <li><strong class="legal-strong">Wikipedia</strong> (Wikimedia Foundation) — Artist biographies and hero images, fetched on demand for the Now Playing artist info sheet</li>
+            <li><strong class="legal-strong">Google Play</strong> — first, because it happens first. Meringo is free to install with a one-time unlock, and an app sold that way has to ask Google whether you bought it: at every launch, before any consent screen renders, the app connects to Google Play's billing service through the Play Store on your device to check the purchase. Google's billing library also brings along a Google upload component (<code class="legal-code">com.google.android.datatransport</code>) — a small database and a scheduled upload job in the app's own data directory that batch Google's delivery telemetry back to Google. It arrives transitively with the Play libraries; it is Google's plumbing, not Meringo tracking your listening — and it is named here because it exists, not because we chose it. Meringo also uses Google Play's In-App Review API, which asks Play to show its rating prompt; Google decides whether the prompt appears, and a rating you leave goes to Google Play.</li>
+            <li><strong class="legal-strong">MusicBrainz</strong> — Relational metadata: artist bios, credits, release information. Query payload per album is the <em>album title</em> and <em>album-artist name</em>, plus any MusicBrainz IDs your files' tags already carry (recording, release or artist). Opening the Now Playing artist info sheet also looks that artist up by name. Listening habits, play counts, file paths, and device identifiers never enter the request. Unresolved entries re-attempt every 30 days; tentative low-confidence matches every 90.</li>
+            <li><strong class="legal-strong">Cover Art Archive</strong> — High-resolution album artwork; queried by release-group MBID returned from the MusicBrainz lookup above. The image files are served from <code class="legal-code">archive.org</code> (the Internet Archive), where the Cover Art Archive redirects; artwork downloads are on by default</li>
+            <li><strong class="legal-strong">Wikipedia</strong> (Wikimedia Foundation) — Artist biographies, and artist photos served from <code class="legal-code">upload.wikimedia.org</code>, fetched on demand for the Now Playing artist info sheet</li>
             <li><strong class="legal-strong">Jellyfin</strong> — Your personal Jellyfin server only; URL and credentials configured by you</li>
-            <li><strong class="legal-strong">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server (e.g. Navidrome, Airsonic) only; URL and credentials configured by you</li>
+            <li><strong class="legal-strong">Subsonic / OpenSubsonic</strong> — Your personal Subsonic-compatible server only; URL and credentials configured by you</li>
             <li><strong class="legal-strong">LRCLIB</strong> — Opt-in community lyrics database (off by default). When you switch on <span class="ui-path">Online lyrics</span> and a track has no embedded or server lyrics, its <em>title</em>, <em>artist</em> and <em>album</em> are sent to <code class="legal-code">lrclib.net</code> to find matching words. Nothing else — no audio, no file path, no play counts. No request is made until you switch it on.</li>
             <li><strong class="legal-strong">ListenBrainz</strong> — Opt-in scrobble service (off by default). When you connect your token in <span class="ui-path">Settings &rarr; ListenBrainz</span>, track metadata (artist, title, album, duration, MusicBrainz Recording ID when available) and the listen's start timestamp are submitted to <code class="legal-code">api.listenbrainz.org</code>. No data is sent until you've affirmatively connected. Token is stored encrypted on-device using Android Keystore; pausing or disconnecting in Settings stops submission immediately. Failed submissions persist to a local retry queue and never leave the device until the network allows them.</li>
-            <li><strong class="legal-strong">Sentry</strong> — Anonymised crash and error reporting (opt-in; see above)</li>
+            <li><strong class="legal-strong">Sentry</strong> — Crash and error reporting, tagged with a random install ID (opt-in; see above)</li>
             <li><strong class="legal-strong">AutoEQ archive</strong> (<code class="legal-code">raw.githubusercontent.com</code>) — the community archive of headphone corrections. The fetch code ships in the app, but the network tier is switched off in this release: corrections come from a bundled offline pack, and a build test fails the moment anyone flips the switch. Named now so this list is already true on the day a future update turns it on.</li>
           </ul>
           <p>Content retrieval requests carry no personal identifiers. Crash reports are governed by the terms described in the Crash Reporting section above. Use of all third-party services is subject to their respective privacy policies.</p>
@@ -976,12 +971,12 @@ html {
 
         <div class="privacy-block" id="priv-storage">
           <h3>Local Storage &amp; Security</h3>
-          <p>Server credentials are encrypted on-device using the Android Keystore system (EncryptedSharedPreferences). Non-sensitive preferences are kept in the app's private DataStore, accessible only to Meringo. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
-          <p>Meringo declares these permissions. Three of them are declared but never requested or used, and each says so below:</p>
+          <p>Server sign-in tokens are encrypted on-device using the Android Keystore system (EncryptedSharedPreferences): the Subsonic token and its salt, and the Jellyfin access token. Meringo never stores a Subsonic password. Each server's address, your username and non-sensitive preferences are kept in the app's private DataStore, not encrypted but accessible only to Meringo. The local Room database is stored in the app's private data directory, inaccessible to other apps without root access.</p>
+          <p>Meringo declares these permissions. Four of them are declared but never requested or used, and each says so below:</p>
           <ul class="legal-stack">
             <li><span class="ui-path">INTERNET</span> — metadata APIs (MusicBrainz, Cover Art Archive) and communication with your Jellyfin or Subsonic server</li>
             <li><span class="ui-path">ACCESS_NETWORK_STATE</span> — detect connectivity before making network requests</li>
-            <li><span class="ui-path">CHANGE_WIFI_MULTICAST_STATE</span> — discover Google Cast / DLNA receivers on your local network (mDNS multicast). A multicast lock is held only while the Now Playing screen is open; no media or personal data is broadcast</li>
+            <li><span class="ui-path">CHANGE_WIFI_MULTICAST_STATE</span> — declared but never requested or used. Google Cast is not in this release, there is no DLNA support, and the app never takes a multicast lock</li>
             <li><span class="ui-path">READ_MEDIA_AUDIO</span> — declared but never requested or used. Meringo reaches the music on your device only through the folders you pick in the system folder picker</li>
             <li><span class="ui-path">READ_EXTERNAL_STORAGE</span> — declared but never requested or used. It carries <code>maxSdkVersion=32</code>, below the app's minimum of Android 13, so it can never apply</li>
             <li><span class="ui-path">FOREGROUND_SERVICE</span> / <span class="ui-path">FOREGROUND_SERVICE_MEDIA_PLAYBACK</span> — keep the playback service running while the screen is off</li>
@@ -997,7 +992,7 @@ html {
         <div class="privacy-block" id="priv-rights">
           <h3>Your Rights</h3>
           <p>Because Meringo does not collect personal data on any server I control, there is no centralized profile for me to provide, correct, or delete on my end. All data the app holds is stored on your device and remains under your direct control.</p>
-          <p><strong class="legal-strong">Right to access</strong> (GDPR Art. 15, CCPA &sect; 1798.110). All data Meringo holds about you is on your device: the local library database, encrypted server credentials, app preferences, and any cached metadata. You can inspect it directly through Android's app-data tools, or open the JSON dump produced by the <em>Export my data</em> feature described below.</p>
+          <p><strong class="legal-strong">Right to access</strong> (GDPR Art. 15, CCPA &sect; 1798.110). All data Meringo holds about you is on your device: the local library database, encrypted server sign-in tokens, server addresses and usernames, app preferences, and any cached metadata. You can inspect it directly through Android's app-data tools, or open the JSON dump produced by the <em>Export my data</em> feature described below.</p>
           <p><strong class="legal-strong">Right to erasure</strong> (GDPR Art. 17, &ldquo;right to be forgotten&rdquo;). Uninstalling Meringo, or using <span class="ui-path">Android Settings &rarr; Apps &rarr; Meringo &rarr; Storage &rarr; Clear all data</span>, deletes every byte the app has on your device. Because no copy lives on my servers, this completes the erasure.</p>
           <p><strong class="legal-strong">Right to portability</strong> (GDPR Art. 20). Tap <span class="ui-path">Settings &rarr; Privacy &rarr; Export my data</span> to write a human-readable JSON file to a location of your choice &mdash; your EQ presets, smart playlists, granted folder URIs, rack headphones, every non-sensitive preference, and (since export schema v2) the full on-device backup: star ratings, play counts and last-played times, bit-perfect receipts, the brew log, integrity verdicts, and imported playlists.</p>
           <p><span class="ui-path">Settings &rarr; Privacy &rarr; Import my data</span> reads the file back onto any install, with a preview of the file's contents before anything is applied. It never takes anything away: nothing you already have is deleted or overwritten, an existing rating is never lowered, play counts merge upward, and duplicates are skipped. It can, however, decline what it is given. Ratings, play history and integrity verdicts describe a particular file rather than a path, so if the file sitting at that path is no longer the one the backup was taken from &mdash; a re-rip, a re-tag, a different pressing dropped into the same folder &mdash; the incoming values for it are not applied, and the import tells you how many. A declined verdict costs you nothing permanent, because the file is simply re-checked in the background; a declined play count is gone, because nothing can recompute how often you listened to something. That is why the number is put in front of you rather than written to a log. Data for a track that is not in your library yet waits for it, and is held to the same check when it arrives.</p>
@@ -1012,7 +1007,7 @@ html {
           <p>Meringo is an independent project and is <strong class="legal-strong">not affiliated with, endorsed by, or sponsored by</strong> any third-party service, project, or hardware manufacturer referenced on this page or in the application. All product names, logos, and brands are property of their respective owners and are used here for descriptive, interoperability, and identification purposes only (nominative fair use).</p>
           <ul>
             <li><strong class="legal-strong">Jellyfin</strong> is a trademark of the Jellyfin Project. Meringo connects to user-configured Jellyfin servers via the project's public HTTP API.</li>
-            <li><strong class="legal-strong">Subsonic</strong> is a trademark of Sindre Mehus. <strong class="legal-strong">OpenSubsonic</strong> is a community specification. <strong class="legal-strong">Navidrome</strong>, <strong class="legal-strong">Airsonic</strong>, and other compatible servers are independent projects of their respective maintainers.</li>
+            <li><strong class="legal-strong">Subsonic</strong> is a trademark of Sindre Mehus. <strong class="legal-strong">OpenSubsonic</strong> is a community specification. Servers compatible with either are independent projects of their respective maintainers.</li>
             <li><strong class="legal-strong">FiiO</strong> and <strong class="legal-strong">M21</strong> are trademarks of Guangzhou FiiO Electronics Technology Co., Ltd.</li>
             <li><strong class="legal-strong">Snapdragon</strong> is a trademark of Qualcomm Incorporated.</li>
             <li><strong class="legal-strong">Android</strong> is a trademark of Google LLC.</li>
@@ -1020,7 +1015,6 @@ html {
             <li><strong class="legal-strong">oratory1990</strong>'s headphone EQ measurements are bundled as a curated subset of presets, used under the Creative Commons <strong class="legal-strong">CC&nbsp;BY-SA&nbsp;4.0</strong> license and sourced via <strong class="legal-strong">OPRA</strong> (Open Profiles for Revealing Audio), a Roon-maintained community headphone-measurement database &mdash; see <a href="https://github.com/opra-project/OPRA" target="_blank" rel="noopener" class="legal-xref">github.com/opra-project/OPRA</a>. If his work improves your listening, consider supporting him at <a href="https://www.buymeacoffee.com/oratory1990" target="_blank" rel="noopener" class="legal-xref">buymeacoffee.com/oratory1990</a>.</li>
             <li><strong class="legal-strong">Sentry</strong> is a trademark of Functional Software, Inc.</li>
           </ul>
-          <p>Quoted reviews appearing elsewhere on this page are reproduced as public commentary under fair use, attributed to their original authors, and accompanied by editorial response. They are not endorsements.</p>
         </div>
 
         <div class="privacy-block" id="priv-opensource">
