@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meringo, a music player for Android that proves it’s bit-perfect</title>
-<meta name="description" content="Meringo is a music player for Android. It drives your USB DAC or dongle at each track’s native rate, then hands you a SHA-256 receipt you can check yourself. $9.99, once.">
+<meta name="description" content="Meringo is a music player for Android. It can drive your USB DAC or dongle at each track’s native rate, then hand you a SHA-256 receipt you can check yourself. $9.99, once.">
 <meta property="og:title" content="Meringo, a music player for Android that proves it’s bit-perfect">
-<meta property="og:description" content="Meringo is a music player for Android. It drives your USB DAC or dongle at each track’s native rate, then hands you a SHA-256 receipt you can check yourself. $9.99, once.">
+<meta property="og:description" content="Meringo is a music player for Android. It can drive your USB DAC or dongle at each track’s native rate, then hand you a SHA-256 receipt you can check yourself. $9.99, once.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://meringo.app/">
 <meta property="og:image" content="https://meringo.app/assets/og.png">
@@ -16,7 +16,7 @@
 <meta property="og:image:alt" content="Meringo — bit-perfect music for Android phones and DAPs, with a receipt you can check">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Meringo, a music player for Android that proves it’s bit-perfect">
-<meta name="twitter:description" content="Meringo is a music player for Android. It drives your USB DAC or dongle at each track’s native rate, then hands you a SHA-256 receipt you can check yourself. $9.99, once.">
+<meta name="twitter:description" content="Meringo is a music player for Android. It can drive your USB DAC or dongle at each track’s native rate, then hand you a SHA-256 receipt you can check yourself. $9.99, once.">
 <meta name="twitter:image" content="https://meringo.app/assets/og.png">
 <meta name="twitter:image:alt" content="Meringo — bit-perfect music for Android phones and DAPs, with a receipt you can check">
 
@@ -28,7 +28,7 @@
   "applicationCategory": "MultimediaApplication",
   "applicationSubCategory": "Music Player",
   "operatingSystem": "Android",
-  "description": "Bit-perfect music player for Android phones and DAPs. Drives a USB DAC or dongle directly — off Android's resampling path — and hands you a SHA-256 receipt for what it shipped. Hardware-first audio engineering, on-device acoustic fingerprinting, a parametric EQ workbench, and a dual-lens library spanning local files and Jellyfin / Subsonic servers.",
+  "description": "Bit-perfect music player for Android phones and DAPs. It can drive a USB DAC or dongle directly — off Android's resampling path — and hand you a SHA-256 receipt for what it shipped. Hardware-first audio engineering, on-device acoustic fingerprinting, a parametric EQ workbench, and a dual-lens library spanning local files and Jellyfin / Subsonic servers.",
   "publisher": {
     "@type": "Organization",
     "name": "Meringo Labs LLC",
@@ -432,7 +432,7 @@ html {
 <section class="m-hero h-plate" id="hero">
   <div class="h-wrap">
     <h1 class="h-h1 m-h1">By default, Android resamples your music to 48 kHz. Meringo takes your DAC off that path — and hands you the receipt.</h1>
-    <p class="h-lead m-lead">Plug in a USB DAC or dongle and Meringo drives it directly, every track at its native rate. Then it hashes what it shipped, so you can check the math yourself.</p>
+    <p class="h-lead m-lead">Plug in a USB DAC or dongle and Meringo can drive it directly, setting it to each track's native rate. A rate the DAC can't play is refused, never converted. Then Meringo hashes what it shipped, so you can check the math yourself.</p>
     <div class="m-receipt">
       <p class="h-stamp">A real receipt from Meringo 1.28.5: a 24-bit/96 kHz FLAC sent to a Qudelix 5K. <a class="h-link" href="/verify/">Check it yourself</a></p>
       <table class="h-ledger m-ledger">
@@ -845,9 +845,9 @@ html {
       <details class="h-details" id="faq-resample">
         <summary>Does Meringo ever resample my audio?</summary>
         <div class="h-prose">
-          <p>By default, no. Every sample is sent to AudioTrack at the file's native rate and depth, bit-for-bit — that's the bit-perfect path the engine is built around.</p>
+          <p>Meringo itself never resamples unless you turn on Force Output Sample Rate. It asks for each file's native rate; when the hardware can't take it, the badge says <code>RESAMPLED</code>, and over USB Direct the track is refused rather than converted. Phones default to offload, where Android picks the rate, and Bluetooth always re-encodes.</p>
           <p><strong>Settings &rarr; Force Output Sample Rate</strong> is the opt-in alternative — it pins the AudioTrack to a single rate (88.2, 96, 176.4, 192, 352.8, or 384&nbsp;kHz) and has Meringo's polyphase Kaiser-windowed sinc resampler convert every track to it in 64-bit double precision before output. The trade-off is named directly on the Now Playing route badge: <code>INTERNAL SRC</code> replaces <code>BIT-PERFECT</code> because resampling is mathematical interpolation, not bit-identity.</p>
-          <p>Audiophiles who prefer a single stable DAC clock across an entire session over per-track HAL renegotiation choose it. Everyone else leaves it off and the bit-perfect path is unchanged. On the <strong>USB Direct</strong> path, if an external DAC is locked to a rate it won't switch to your file's native rate, Meringo refuses the track — a banner names the DAC and the rate it's stuck at — rather than silently resampling it behind your back; USB Direct never resamples. Over <strong>Bluetooth</strong> the stream is always re-encoded by the OS, so that path can never be bit-perfect and the route badge simply reads <code>Bluetooth</code>.</p>
+          <p>Audiophiles who prefer a single stable DAC clock across an entire session over per-track HAL renegotiation choose it. Everyone else leaves it off. On the <strong>USB Direct</strong> path, if an external DAC is locked to a rate it won't switch to your file's native rate, Meringo refuses the track — a banner names the DAC and the rate it's stuck at — rather than silently resampling it behind your back; USB Direct never resamples. Over <strong>Bluetooth</strong> the stream is always re-encoded by the OS, so that path can never be bit-perfect and the route badge simply reads <code>Bluetooth</code>.</p>
         </div>
       </details>
     </div>
