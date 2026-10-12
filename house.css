@@ -1,7 +1,9 @@
-/* house-kit 1.3 · house.css · 2026-10-09
+/* house-kit 1.4 · house.css · 2026-10-11
    1.1: the family row marks the current site with .h-here, not aria-current.
    1.2: 1.1's note closed this comment early and the .h-wrap rule was dropped.
    1.3: the footer tagline is balanced (it left "listen." alone at 390 px).
+   1.4: a capture's edge is the hairline. Dark captures on the dark ground had
+        no edge, so an empty state read as a picture that failed to load.
 
    The house components. Linked after colors_and_type.css (and a room file)
    on meringo.app, meringolisten.app and adamsiemaszko.com. Minutes ports
@@ -97,7 +99,7 @@
 
 /* ── Exhibits ──────────────────────────────────────────────────────────── */
 .h-exhibit { margin: 0; }
-.h-exhibit img, .h-exhibit video { display: block; max-width: 100%; height: auto; border-radius: 0; }
+.h-exhibit img, .h-exhibit video { display: block; max-width: 100%; height: auto; border-radius: 0; border: 1px solid var(--color-rule); }   /* an edge, not a frame (N6) */
 /* A stamp is a sentence: "Captured from a Qudelix 5K at 24-bit/96 kHz on Meringo 1.28.5." */
 .h-stamp { margin: var(--space-2) 0 0; font: 400 var(--t-meta)/var(--lh-meta) var(--font-ui); color: var(--color-text-2); font-variant-numeric: lining-nums tabular-nums; }
 
