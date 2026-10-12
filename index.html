@@ -179,6 +179,7 @@ html {
 .m-badge { font: 400 var(--t-data)/1.5 var(--font-mono); color: var(--color-text-0); white-space: nowrap; }
 .m-table th[scope="row"] a { color: var(--color-text-0); text-decoration-color: var(--color-gold); text-underline-offset: 0.2em; }
 .m-more { margin-top: var(--space-6); }
+.h-prose .m-more-link { margin: var(--space-6) 0 0; }   /* the Engine closes on the price; .h-prose p would take its top margin */
 .m-nw { white-space: nowrap; }
 
 .m-quote { margin: var(--space-6) 0; }
@@ -568,6 +569,7 @@ html {
             <p>The parametric EQ ships in two phase modes: <strong>Minimum Phase</strong> (default — zero-latency 10-band biquad cascade) or <strong>Linear Phase</strong> (FIR convolution with constant group delay, preserving transient shape; 35&nbsp;ms latency at 44.1&nbsp;kHz, 8&nbsp;ms at 192). With linear phase engaged, the Audio Path sheet behind the badge notes <code>FIR-LP</code>.</p>
           </div>
         </details>
+        <p class="m-price m-more-link">Free to install, with a seven-day full trial. Then <b>$9.99, once.</b> No subscription. <a class="m-nw" href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dhome_mid" target="_blank" rel="noopener">Get it on Google Play</a></p>
       </div>
     </div>
   </div>
