@@ -93,8 +93,8 @@
   <h2>The CD-rate capture is <em>the one that matters</em></h2>
   <p>
     Capture 2 is the only entry in our whole registry taken at 44.1&nbsp;kHz, and that makes it
-    the most useful one we hold. A CD-rate file is exactly where Android's 48&nbsp;kHz default
-    does its quietest damage: 44.1 to 48 is a ratio of 147 to 160, so no sample survives the
+    the most useful one we hold. A CD-rate file is exactly where resampling to 48&nbsp;kHz does its
+    quietest damage: 44.1 to 48 is a ratio of 147 to 160, so no sample survives the
     conversion untouched, and nothing on screen tells you it occurred.
   </p>
   <p>
@@ -136,7 +136,7 @@
 
   <h2>Why any of this needs proving</h2>
   <p>
-    By default, Android resamples your music to 48&nbsp;kHz. Plugging in a capable DAC does not
+    Android can resample your music before your DAC hears it. Plugging in a capable DAC does not
     by itself change that, and the frustrating part is that resampled audio still sounds like
     music. Nothing announces itself. Meringo takes the DAC off that path and hashes the bytes
     it actually shipped.
