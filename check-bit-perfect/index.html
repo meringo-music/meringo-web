@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How do I check if my player is bit-perfect?</title>
+<meta name="description" content="Only a digital comparison with the file settles it. Listening, an analog recording, a DAC&#x27;s rate light and dumpsys each catch faults. What each proves.">
+<meta property="og:title" content="How do I check if my player is bit-perfect?">
+<meta property="og:description" content="Only a digital comparison with the file settles it. Listening, an analog recording, a DAC&#x27;s rate light and dumpsys each catch faults. What each proves.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://meringo.app/check-bit-perfect/">
+<meta property="og:image" content="https://meringo.app/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#07040E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20108%20108%22%3E%3Cdefs%3E%3ClinearGradient%20id=%22bg%22%20x1=%220%22%20y1=%220%22%20x2=%220%22%20y2=%221%22%3E%3Cstop%20offset=%220%22%20stop-color=%22%232B1C44%22/%3E%3Cstop%20offset=%221%22%20stop-color=%22%231A0E2E%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width=%22108%22%20height=%22108%22%20rx=%2224%22%20fill=%22url%28%23bg%29%22/%3E%3Cg%20transform=%22translate%2854,52.59%29%20scale%280.94%29%20translate%28-54,-54%29%22%3E%3Cpath%20d=%22M38.37%2079.65%2038.87%2055.9%2040.32%2056%2039.77%2079.65Q39.72%2082.3%2040.85%2083.85Q41.97%2085.4%2044.02%2085.4Q44.17%2085.4%2044.17%2085.7Q44.17%2086%2044.02%2086Q42.92%2086%2041.77%2085.95Q40.62%2085.9%2039.17%2085.9Q37.57%2085.9%2036.27%2085.95Q34.97%2086%2033.87%2086Q33.72%2086%2033.72%2085.7Q33.72%2085.4%2033.87%2085.4Q35.92%2085.4%2037.12%2083.85Q38.32%2082.3%2038.37%2079.65ZM74.17%2085.4Q74.27%2085.4%2074.27%2085.7Q74.27%2086%2074.17%2086Q72.88%2086%2071.22%2085.95Q69.57%2085.9%2067.77%2085.9Q65.92%2085.9%2064.32%2085.95Q62.72%2086%2061.42%2086Q61.27%2086%2061.27%2085.7Q61.27%2085.4%2061.42%2085.4Q63.77%2085.4%2064.45%2084.75Q65.12%2084.1%2064.97%2081.95L63.82%2059.75L66.38%2055.75L53.62%2085.65Q53.57%2085.85%2053.25%2085.85Q52.92%2085.85%2052.82%2085.65L38.77%2058.9Q36.87%2055.35%2034.22%2055.35Q34.07%2055.35%2034.07%2055.05Q34.07%2054.75%2034.22%2054.75Q35.27%2054.75%2036.42%2054.8Q37.57%2054.85%2038.37%2054.85Q39.67%2054.85%2040.65%2054.8Q41.62%2054.75%2042.17%2054.75Q42.87%2054.75%2043.25%2055.25Q43.62%2055.75%2044.47%2057.35L55.67%2078.35L53.17%2082.85L64.88%2056Q65.17%2055.3%2065.5%2055.02Q65.82%2054.75%2066.38%2054.75Q66.88%2054.75%2067.42%2054.8Q67.97%2054.85%2068.72%2054.85Q70.32%2054.85%2071.45%2054.8Q72.57%2054.75%2073.67%2054.75Q73.82%2054.75%2073.82%2055.05Q73.82%2055.35%2073.67%2055.35Q71.38%2055.35%2070.3%2056.3Q69.22%2057.25%2069.32%2059.25L70.52%2081.95Q70.62%2083.4%2070.9%2084.15Q71.17%2084.9%2071.92%2085.15Q72.67%2085.4%2074.17%2085.4Z%22%20fill=%22%23F4E8D0%22/%3E%3Cg%20transform=%22translate%28-2,0%29%20rotate%28-8,54,55%29%22%3E%3Cpath%20d=%22M30.6,55%20A23.4,4.68%200%201%200%2077.4,55%20A23.4,4.68%200%201%200%2030.6,55%20Z%22%20fill=%22%230E0820%22%20stroke=%22%23E8B560%22%20stroke-width=%221.6%22%20stroke-linejoin=%22round%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22%230E0820%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22%233E2860%22%20fill-opacity=%220.5%22/%3E%3Cpath%20d=%22M35.75,55%20C37.75,44.06%2043.75,34.26%2054,28.5%20C56,24.2%2060,22.2%2066,23.2%20C60,28.2%2058,32.2%2057.5,34.26%20C58.5,40.6%2070.25,47.8%2072.25,55%20Z%22%20fill=%22none%22%20stroke=%22%23E8B560%22%20stroke-width=%221.4%22%20stroke-linejoin=%22round%22/%3E%3Cpath%20d=%22M37.25,52.12%20L70.75,52.12%22%20fill=%22none%22%20stroke=%22%23E8B560%22%20stroke-width=%222.8%22%20stroke-linejoin=%22round%22%20stroke-linecap=%22round%22/%3E%3Cpath%20d=%22M66,23.2%20a3.2,3.2%200%201%200%203.2,3.6%20a2.1,2.1%200%201%201%20-3.2,-3.6%20Z%22%20fill=%22%23E8B560%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+<link rel="canonical" href="https://meringo.app/check-bit-perfect/">
+<link rel="preload" href="/assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/colors_and_type.css">
+<link rel="stylesheet" href="/house.css">
+<link rel="stylesheet" href="/page.css">
+
+<style>
+/* This page's own rules. The shared ones are in /page.css.
+   The desk's render_page.py builds new pages from this shell and appends
+   its table rules to this block, so it stays the page's only <style>. */
+
+/* render_page.py: markdown tables (added only to pages that carry one) */
+.table-scroll { overflow-x: auto; margin: var(--space-6) 0; }
+.page table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+.page th, .page td {
+  text-align: left;
+  vertical-align: top;
+  padding: var(--space-2) var(--space-4) var(--space-2) 0;
+  border-top: 1px solid var(--color-border-dim);
+  color: var(--color-text-1);
+}
+.page tr:last-child > * { border-bottom: 1px solid var(--color-border-dim); }
+.page th { font-family: var(--font-ui); font-weight: 500; color: var(--color-text-0); }
+.page td code { word-break: break-all; }
+</style>
+</head>
+<body>
+
+<a class="h-skip" href="#content">Skip to content</a>
+<div class="h-thread"></div>
+<header class="h-header">
+  <div class="h-wrap h-header-in">
+    <a class="h-brand" href="/">
+      <img src="/assets/img/meringo-mark.svg" width="28" height="28" alt="">
+      <span class="h-brand-text"><span class="h-wordmark">Meringo</span><span class="h-desc">a music player for Android</span></span>
+    </a>
+    <nav class="h-nav" aria-label="Site">
+      <ul>
+        <li><a href="/verify/">Verify</a></li>
+        <li><a href="/receipts/">Receipts</a></li>
+        <li><a href="/faq/">Questions</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Dsite_nav" target="_blank" rel="noopener">Get it</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div id="content"></div>
+<main class="page">
+  <p class="page-label">Checking bit-perfect</p>
+  <h1>How do I check if my player is bit-perfect?</h1>
+  <p class="lede">Compare what reached the digital side of the chain with the file itself. That
+takes one of two things: a DAC with a built-in bit test, playing its maker's
+test file, or a capture of the digital stream compared with your file, sample
+for sample or by hash. Every other check can catch a player that changes your
+music. None of them can prove that one doesn't.</p>
+  <p>Bit-perfect means the DAC receives exactly the numbers that are in the file.
+Here are the checks people reach for, from weakest to strongest, with what each
+one can prove and what it can't. You don't need our app for any of them.</p>
+  <div class="table-scroll"><table><thead><tr><th>Check</th><th>What it can show</th><th>What it can't show</th></tr></thead><tbody><tr><td>Listening</td><td>That two setups sound different to you</td><td>Why, or whether a single bit changed</td></tr><tr><td>Recording the analog output</td><td>Level, frequency response, noise, heavy EQ</td><td>Whether the digital stream matched the file</td></tr><tr><td>The DAC's rate display</td><td>The sample rate the DAC is receiving</td><td>What the samples contain</td></tr><tr><td>Android's own report</td><td>The rate and kind of Android's own output</td><td>What the player did first, or anything about a player with its own USB driver</td></tr><tr><td>A DAC bit test</td><td>That a test file arrived bit for bit</td><td>What happens to your own music</td></tr><tr><td>A digital capture compared with the file</td><td>Whether every sample of your track arrived unchanged</td><td>Other tracks, rates or settings you didn't capture</td></tr></tbody></table></div>
+  <h2>Listening</h2>
+  <p>Listening tells you that two setups sound different to you. It can't tell you
+why. If two players deliver identical bits to the same DAC, the DAC has nothing
+different to convert, so a difference you hear isn't in the samples.</p>
+  <p>Level is the usual suspect. A bit-perfect path can't turn the volume down in
+software, because scaling a sample changes it, so the volume moves to the
+hardware. Google's documentation for Android's bit-perfect mode says so
+directly: "the hardware controls the volume as the framework doesn't provide
+any software volume control." Two players can send the same samples and leave
+the DAC's own volume in different places. A small level difference is enough
+to make two playbacks sound different, which is why a fair listening test
+matches levels first and hides which one is playing.</p>
+  <h2>Recording the analog output</h2>
+  <p>Recording the headphone or line output with an analog-to-digital converter is a
+real measurement. It shows level, frequency response, noise and distortion, and
+it will catch a player applying EQ or a volume change big enough to measure.</p>
+  <p>It can't prove bit-exactness. The DAC turns numbers into voltage and the
+recorder turns voltage back into numbers, each with its own noise and its own
+clock, so two recordings of the same file through an unchanged chain won't
+match sample for sample either. A small difference between two players'
+recordings doesn't prove their bits differed. A near-perfect match doesn't
+prove they were identical.</p>
+  <h2>The DAC's rate display</h2>
+  <p>Many USB DACs show the sample rate they're receiving, usually as a coloured
+light rather than a number. That's the DAC's own report from the far end of the
+cable, and it catches the commonest failure: a 44.1 kHz album arriving at
+48 kHz because something converted it on the way.</p>
+  <p>It proves the rate and says nothing about the samples. Audio with its volume
+turned down in software arrives at the same rate as audio nobody touched, so
+the light reads the same for both. Which DACs report the rate, and how, is on
+<a href="/usb-dacs-that-show-the-rate/">which USB DACs show the rate they receive</a>.</p>
+  <h2>Android's own report</h2>
+  <p>Android will tell you what its own audio output is doing. With adb connected,
+<code>adb shell dumpsys media.audio_flinger</code> lists each output with its sample rate,
+and the first line of each block names the kind of output. In Android's source
+code, an output running through the shared mixer is labelled MIXER, and on
+Android 14 or later an output opened in the platform's bit-perfect mode is
+labelled BIT_PERFECT. How to connect, and which line to read, is on
+<a href="/does-android-resample/">does Android resample my music?</a></p>
+  <p>That report describes what Android's audio system is doing with the audio
+it was given. It can't see what the player did before handing the audio over, such as
+its own EQ or volume. And it sees nothing at all of a player that drives the
+USB DAC with its own driver, because that audio never goes through Android's
+mixer.</p>
+  <h2>A DAC that runs a bit test</h2>
+  <p>A few DACs check the bits themselves. RME's manual for its ADI-2 DAC describes
+one: play the short test file RME provides, and the display reports a pass
+along with the bit depth it detected. The manual lists what the test pattern
+catches: "Level changes, equalization, dynamic processing, polarity, channel
+swapping, sample offset, hanging or twisted bits, dither, bit reduction." It's
+plain about failure, too. If the path isn't bit-transparent, "the message is
+not shown" and "There is no error notice." So silence is a fail.</p>
+  <p>For checking any player, this is the most independent test on the list,
+because no code from the player has a say in the verdict. Its limit is the file. A pass proves
+the path was transparent for that test file, at that rate, with the volume and
+settings you had while it played.</p>
+  <h2>A digital capture, compared with the file</h2>
+  <p>A bit test settles it for a test file. A capture compared with the file settles
+it for your music.</p>
+  <p>Decode the file to raw samples on a computer, trim the capture so the two start
+on the same sample, and compare them: sample for sample, or by computing a
+SHA-256 hash of each and comparing the hashes. If they match, nothing changed a
+bit. Subtracting one from the other, a null test, leaves digital silence for
+the same reason. A tool such as ffmpeg decodes a FLAC to raw samples in one
+command, and our <a href="/verify/">verification page</a> writes the exact sample layout
+out.</p>
+  <p>The hard part is the capture. On a phone the USB stream is assembled inside the
+phone, and software can only watch it from the inside: our verification page
+calls the moment bytes leave for the DAC "a physical event only the code doing
+the shipping can observe." Outside the phone it takes hardware on the digital
+side of the chain, such as a recorder with a digital input fed from a digital
+output, and then the recorder has to be shown to pass its input through
+untouched as well. We haven't documented a setup like that, so this page
+doesn't give steps for one.</p>
+  <h2>Why the check is worth repeating</h2>
+  <p>A bit-perfect setting names a path. Whether your music stays on it depends on
+what happens while it plays. Google's requirement for Android's bit-perfect
+mode lists what would take it off: the stream "must not have any volume
+scaling, sample rate conversion, or audio processing effects and must not be
+mixed in the DSP." Turn the volume down in software, switch on EQ or
+ReplayGain, or play a file at a rate the DAC can't take, and the player has to
+do something about it even though the setting never changed. The checks worth
+having are the ones you can run again on the track that's playing.</p>
+  <h2>Where Meringo fits</h2>
+  <p>Meringo, the Android music player we build for USB DACs, does the capture from
+the inside. On its USB Direct path, arm Verified Capture in Settings, Audio
+diagnostics. Meringo writes every byte it hands to the isochronous pipe (the
+USB transfer that carries audio) and computes a SHA-256 over the whole stream.
+Point it back at the same file and it re-decodes it, lays the samples out in
+the identical format and hashes that. Matching hashes mean no resample, no
+requantise, no EQ and no ReplayGain touched a single bit between the file and
+the pipe. The <a href="/verify/">verification page</a> has the method and a public-domain
+checker script, a single file that needs Python 3 and your own ffmpeg and
+shares no code with Meringo, so you can recompute the hash from your own copy
+of the file.</p>
+  <p>Two limits, and we print both. The hash covers what Meringo put on the wire.
+Isochronous USB carries no delivery acknowledgement, so no software on any
+platform can prove what the DAC received, only what was put on the wire for
+it. And it checks Meringo only. It
+can tell you nothing about another app. We hold
+<a href="/receipts/">receipts</a> for three DACs, the Fosi DS2, the Qudelix 5K and the
+Jcally JM6 Pro, and the registry takes every verdict, a mismatch included.</p>
+  <p>Meringo costs $9.99 once, with a 7-day full trial and no subscription, and
+needs Android 13 or later. It plays local FLAC and ALAC, plus a library on
+Jellyfin or on a Subsonic-compatible server. If you mainly stream from Spotify,
+Tidal or Qobuz, it isn't your player.</p>
+  <p>→ <a href="https://play.google.com/store/apps/details?id=app.meringo&amp;referrer=utm_source%3Dmeringo.app%26utm_medium%3Dweb%26utm_campaign%3Danswer_check_bit_perfect" rel="noopener">Meringo on Google Play</a></p>
+  <p>→ <a href="/does-android-resample/">Does Android resample my music?</a></p>
+  <p>→ <a href="/usb-dacs-that-show-the-rate/">Which USB DACs show the rate they receive?</a></p>
+</main>
+
+<footer class="h-footer">
+  <div class="h-wrap">
+    <p class="h-tagline">Respecting the archive. Perfecting the play.</p>
+    <nav aria-label="Meringo Labs">
+      <ul class="h-family">
+        <li class="h-labs"><img src="/assets/img/meringo-mark.svg" width="24" height="24" alt="">Meringo Labs</li>
+        <li><span class="h-here">Meringo</span></li>
+        <li><a href="https://meringolisten.app/">Meringo Listen</a></li>
+        <li><a href="https://meringominutes.app/">Meringo Minutes</a></li>
+        <li><a href="https://adamsiemaszko.com/">Adam Siemaszko</a></li>
+      </ul>
+    </nav>
+    <ul class="h-legal">
+      <li><a href="/privacy/">Privacy</a></li>
+      <li><a href="/terms/">Terms</a></li>
+      <li><a href="/legal/">Impressum</a></li>
+      <li><a href="mailto:support@meringo.app">support@meringo.app</a></li>
+    </ul>
+    <p class="h-copy">Meringo（メリンゴ）</p>
+    <p class="h-copy">© 2026 Meringo Labs LLC, Erie County, New York. Made by Adam Siemaszko.</p>
+  </div>
+</footer>
+
+</body>
+</html>
